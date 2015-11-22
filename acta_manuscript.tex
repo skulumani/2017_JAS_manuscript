@@ -1,7 +1,7 @@
 \documentclass[preprint]{elsarticle}
 
-\usepackage{acta_astronautica_packages}
-\input{macros}
+\usepackage{acta_astronautica_packages} % packages and referencing customization
+\input{macros} % defines custom macros
 
 \journal{Acta Astronautica}
 
@@ -36,7 +36,7 @@ A numerical simulation is provided developing a transfer from a \( L_1 \) period
 \end{abstract}
 
 \begin{keyword}
-Keywords
+Low-thrust, Reachability, Optimal Control, Variational Integrator
 \end{keyword}
 
 \end{frontmatter}
@@ -571,8 +571,9 @@ This has the benefit of decreasing the numerical sensitivity of the final states
 % sensitivity of terminal state is used to correct the initial condition (cite a book/paper)
 % plot of multiple shooting ( stages)
 \section{Numerical Example}\label{sec:simulation}
-A numerical simulation is presented to demonstrate the transfer procedure.
-The goal is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
+\subsection{Periodic Orbit transfer}
+We present two numerical simulations to demonstrate the transfer procedure.
+The first objective is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
 The target region is created by choosing an initial condition of \( x_0 = \begin{bmatrix}1.05 & 0 & 0 & 0.35 \end{bmatrix} \) with \( \mu = 0.0125 \).
 The initial state is propagated over a period of \( t = \num{20} \) in non-dimensional units which corresponds to approximately \num{1.5} years.
 \begin{figure}[htbp]
@@ -646,16 +647,52 @@ This results in a complete target state \( \bar{x}_t \) which lies on the reacha
 A final optimal trajectory is generated such that the \( \bar{x}(N) = \bar{x}_t \).
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_trajectory}.
 
+\subsection{Geostationary Transfer}
+This example demonstrates the feasibility of iteratively computing the reachable set. 
+In this manner, it is possible to design arbitrary transfers which require extended transfer durations.
+Initially, it is assumed that the spacecraft lies on a circular geostationary orbit in the non-dimensional three body system. 
+It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
+The initial and final states of are illustrated in~\cref{fig:geo_transfer_target}.
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[width=0.5\textwidth]{initial_final} % requires the graphicx package
+   \caption{Transfer target}
+   \label{fig:geo_transfer_target}
+\end{figure}
+In order to effectively utilize the dynamics of the three-body system the stable manifold of the periodic orbit is targeted.
+This type of low energy transfer is best suited for autonomous spacecraft missions as the long time of flight is undesirable for manned spacecraft. 
+Future proposals for permanent lunar spacecraft and bases will require frequent supply missions to remain viable. 
+Low energy transfers from the Earth to the Lagrange points are necessary for future missions.
 
-%Determine reachable set on \Poincare Section
-%
-%Intersection of the sets on section
-%
-%Minimization to a target state
-%
-%Show transfer to the moon
-%
-%Compare with the Ross work and the invariant manifold ( long time of flight)
+We generate the stable invariant manifold associated with the periodic orbit.
+The stable manifold is propagated to the \Poincare section directed along the positive \( \hat{x} \) axis, or \( \alpha =\ang{0} \).
+The reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section.
+A final state is chosen from the reachable set to initialize subsequent iterations. 
+The state which minimizes the distance on the \Poincare section to the stable manifold, illustrated in green in~\cref{fig:geo_transfer_poincare}, is used as the initial condition for the next reachable set computation.
+With each reachable set we move the final trajectory closer to the stable manifold.
+\Cref{fig:geo_transfer_poincare} shows that after eight iterations the resulting trajectory intersects the stable manifold. 
+Combining these trajectories results in the powered portion of the transfer from the geostationary orbit to the stable manifold. 
+\Cref{fig:geo_transfer_full,fig:geo_transfer_zoom} shows the resulting trajectory found, with the final trajectory shown which ensures the intersection with the stable invariant manifold.
+Once at the stable manifold, no further control input is required and the vehicle will coast towards the target orbit.
+\begin{figure} 
+	\centering 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{geo_transfer_full} 
+		\caption{Transfer} \label{fig:geo_transfer_full} 
+	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{geo_transfer_zoom} 
+		\caption{State Trajectory} \label{fig:geo_transfer_zoom} 
+	\end{subfigure} 
+	
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{poincare} 
+		\caption{\Poincare section} \label{fig:geo_transfer_poincare} 
+	\end{subfigure} 
+	\caption{Geostationary Transfer}
+	\label{fig:geo_transfer} 
+\end{figure}
+
 \section{Conclusions}\label{sec:conclusion}
 In this paper, an optimal transfer process which combines concepts of reachability and \Poincare section is used to generate transfer between planar periodic orbits in the three-body problem.
 The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
