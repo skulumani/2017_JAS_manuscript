@@ -14,11 +14,9 @@
 
 %% Group authors per affiliation:
 \author{Shankar Kulumani\fnref{kulumanifootnote}}
-\ead{skulumani@gwu.edu}
 \address{George Washington University, 800 22nd St NW, Washington, DC 20052}
 
 \author{Taeyoung Lee\fnref{leefootnote}}
-\ead{tylee@gwu.edu}
 \address{George Washington University, 800 22nd St NW, Washington, DC 20052}
 
 \fntext[kulumanifootnote]{Doctoral Student, Mechanical and Aerospace Engineering}
@@ -32,7 +30,7 @@ The reachable set is developed on a lower dimensional \Poincare section and used
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
 This is solved numerically as a discrete optimal control problem using a variational integrator.
 This provides for a geometrically exact and numerically efficient method for the motion in the three-body problem.
-A numerical simulation is provided developing a transfer from a \( L_1 \) periodic orbit in  the Earth-Moon system to a target orbit about the Moon.
+Two numerical simulations are provided developing a transfer from a \( L_1 \) periodic orbit in  the Earth-Moon system to a target orbit about the Moon as well as a transfer from geostationary orbit to a \( L_1 \) periodic orbit.
 \end{abstract}
 
 \begin{keyword}
@@ -112,6 +110,8 @@ A discrete optimal control problem is formulated to determine the reachability s
 Given an initial condition and fixed time horizon, the reachable set is the set of states attainable, subject to the operational constraints of the spacecraft. 
 Generation of this reachability set allows for the extension of the previous control-free missions in the three-body problem.
 In addition, the generation of the reachable set allows for a more systematic method of determining initial conditions and eases the burden on the designer. 
+Rather than relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on a \Poincare section.
+This simple methodology allows for extended transfer trajectories which iteratively approach a target region.
 The addition of low-thrust propulsion affords the ability to enlarge the reachable set as compared to the control-free case.
 Maximization of the reachability set, on an appropriately chosen \Poincare section, allows for a greater space of potential transfer trajectories.
 The use of the \Poincare section allows for design on a lower dimensional space and simplifies the design process.
@@ -598,23 +598,6 @@ The invariant manifolds are globalized using the eigenvectors of the Monodromy m
 The eigenvectors serve as a local approximation of the stable and unstable directions. 
 Perturbations along these directions serve to approximate the invariant manifolds.
 
-The unstable invariant manifold is numerically propagated to the same \Poincare section defined on the \( \hat{x} \) axis.
-The intersection of the invariant manifold and the \Poincare section is denoted by the green markers in~\cref{fig:poincare_compare}.
-Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
-There are no intersections of the invariant manifold with the descending region of the target orbit.
-The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
-A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) for a transfer using low thrust propulsion and the reachable set.
-Finally, it should be noted that an additional maneuver would be required for a transfer using the invariant manifold.
-The intersection on the \Poincare section only shows that the \( x \text{ and } \dot{x} \) components intersect.
-An additional instantaneous \( \Delta V \) would be required to transfer from the invariant manifold to the target.
-
-A periodic orbit is generated about the \( L_1 \) Lagrange point. 
-A \Poincare section is chosen to allow for design on a lower dimensional subspace.
-The section is defined along the \( \hat{x} \) axis, or defined with \( \alpha = \ang{0} \) and intersects both the initial and target orbits.
-From the periodic orbit, a series of optimal trajectories are generated to approximate the reachable set.
-The trajectories are generated from a fixed initial state of \( x_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
-By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
-The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:transfer_orbit}.
 \begin{figure} 
 	\centering 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
@@ -633,11 +616,34 @@ The intersection of the optimal trajectories as well as those of the target Moon
 	\caption{Transfer Trajectory}
 	\label{fig:transfer_orbit} 
 \end{figure}
+
+The unstable invariant manifold is numerically propagated to the same \Poincare section defined on the \( \hat{x} \) axis.
+The intersection of the invariant manifold and the \Poincare section is denoted by the green markers in~\cref{fig:poincare_compare}.
+Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
+There are no intersections of the invariant manifold with the descending region of the target orbit.
+The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
+A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) for a transfer using low thrust propulsion and the reachable set.
+Finally, it should be noted that an additional maneuver would be required for a transfer using the invariant manifold.
+The intersection on the \Poincare section only shows that the \( x \text{ and } \dot{x} \) components intersect.
+An additional instantaneous \( \Delta V \) would be required to transfer from the invariant manifold to the target.
+
+A periodic orbit is generated about the \( L_1 \) Lagrange point. 
+A \Poincare section is chosen to allow for design on a lower dimensional subspace.
+The section is defined along the \( \hat{x} \) axis, or defined with \( \alpha = \ang{0} \) and intersects both the initial and target orbits.
+From the periodic orbit, a series of optimal trajectories are generated to approximate the reachable set.
+The trajectories are generated from a fixed initial state of \( x_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
+By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
+The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:transfer_orbit}.
+
+
+
 The optimal trajectories, under the influence of the control input \( \bar{u} \), are shown in~\cref{fig:reach_trajectory}.
 Initially, the spacecraft is assumed to lie on the periodic orbit.
 As a result, the intersection of this periodic orbit with the \Poincare section are two points corresponding to the two crossing of the orbit.
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \).
+
+
 
 The blue points in~\cref{fig:poincare_compare} are the intersections of the target Moon orbit and the \Poincare section.
 The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and \Poincare section.
@@ -650,26 +656,28 @@ A final optimal trajectory is generated such that the \( \bar{x}(N) = \bar{x}_t 
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_trajectory}.
 
 \subsection{Geostationary Transfer}
-This example demonstrates the feasibility of iteratively computing the reachable set. 
-In this manner, it is possible to design arbitrary transfers which require extended transfer durations.
-Initially, it is assumed that the spacecraft lies on a circular geostationary orbit in the non-dimensional three body system. 
-It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
-The initial and final states of are illustrated in~\cref{fig:geo_transfer_target}.
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{initial_final} % requires the graphicx package
    \caption{Transfer target}
    \label{fig:geo_transfer_target}
 \end{figure}
+
+This example demonstrates the feasibility of iteratively computing the reachable set. 
+In this manner, it is possible to design arbitrary transfers which require extended transfer durations.
+Initially, it is assumed that the spacecraft lies on a circular geostationary orbit in the non-dimensional three body system. 
+It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
+The initial and final states of are illustrated in~\cref{fig:geo_transfer_target}.
+
 In order to effectively utilize the dynamics of the three-body system the stable manifold of the periodic orbit is targeted.
 This type of low energy transfer is best suited for autonomous spacecraft missions as the long time of flight is undesirable for manned spacecraft. 
 Future proposals for permanent lunar spacecraft and bases will require frequent supply missions to remain viable. 
 Low energy transfers from the Earth to the Lagrange points are necessary for future missions.
 
 We generate the stable invariant manifold associated with the periodic orbit.
-The stable manifold is propagated to the \Poincare section directed along the positive \( \hat{x} \) axis, or \( \alpha =\ang{0} \).
-The reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section.
-The reachable set is generated by varying the angle \( \ang{0} \leq \theta < \ang{360} \) defined on the \Poincare section.
+The stable manifold is propagated to the \Poincare section directed along the positive \( \hat{x} \) axis, or \( \alpha =\ang{0} \) denoted by the horizontal black line.
+The first reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section.
+The reachable set is generated by varying the angle \( \ang{0} \leq \theta < \ang{360} \) in~\cref{eqn:constraints} defined on the \Poincare section.
 This allows us to approximate the set of states that are achievable in the \( \hat{x} \text{ vs. } \hat{\dot{x}} \) space.
 A final state is chosen from the reachable set which minimizes the distance on the \Poincare section to the stable manifold, illustrated in green in~\cref{fig:geo_transfer_poincare}, and is used as the initial condition for the next reachable set computation.
 With each reachable set we move the final trajectory closer to the stable manifold.
