@@ -23,14 +23,13 @@
 \fntext[leefootnote]{Associate Professor, Mechanical and Aerospace Engineering}
 
 \begin{abstract}
-A computational approach is developed for the design of continuous low thrust transfers in the planar circular restricted three-body problem.
-The transfer design method of invariant manifolds is extended with the addition of continuous low thrust propulsion.
-A reachable region is generated and it is used to determine transfer opportunities, analogous to the intersection of invariant manifolds.
+We develop a computational approach for the design of continuous low thrust transfers in the planar circular restricted three-body problem.
+The use of low thrust propulsion allows the spacecraft to depart from the natural dynamics and enables a wider range of transfers.
+We generate the reachable set of the spacecraft and use this to determine transfer opportunities, analogous to the intersection of control-free invariant manifolds.
 The reachable set is developed on a lower dimensional \Poincare section and used to design transfer trajectories. 
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
-This is solved numerically as a discrete optimal control problem using a variational integrator.
-This provides for a geometrically exact and numerically efficient method for the motion in the three-body problem.
-Two numerical simulations are provided developing a transfer from a \( L_1 \) periodic orbit in  the Earth-Moon system to a target orbit about the Moon as well as a transfer from geostationary orbit to a \( L_1 \) periodic orbit.
+This is solved numerically as a discrete optimal control problem using a variational integrator, which preserve the geometric structure of the motion in the three-body problem.
+We demonstrate our approach with two numerical simulations of transfers in the Earth-Moon three-body system.
 \end{abstract}
 
 \begin{keyword}
@@ -42,7 +41,7 @@ Low-thrust, Reachability, Optimal Control, Variational Integrator
 \section{Introduction}\label{sec:introduction}
 % MOTIVATION FOR LOW THRUST ORBITAL TRANSFER 
 Designing spacecraft trajectories is a classic and ongoing topic of research.
-With the current fiscal constraints there is an increased focus on technologies with a critical impact on mass.
+%With the current fiscal constraints there is an increased focus on technologies with a critical impact on mass.
 Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
 Electric propulsion systems offer a much greater specific impulse than chemical systems and are able to operate for extended periods of time.
 However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore must operate over longer durations in order to impart the desired momentum change.
@@ -51,10 +50,11 @@ With reduced development intervals and decreased launch costs, small satellites 
 The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
 With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
 In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{koon2000}.
-Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional conic approach~\cite{ross2006,gomez2001}.
+Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional patched-conic approach~\cite{ross2006,gomez2001}.
 Optimally combining the dynamical structure of the three-body problem with low-thrust propulsion systems is vital for future mission success.
 
-% PRIOR WORK AND CHALLENGES
+%------------------ PRIOR WORK AND CHALLENGES -----------------------------------%
+% DIRECT OPTIMAL CONTROL
 There has been extensive research focused on optimal control for spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}.
 Typically, the optimal control problem is solved via direct methods, which approximate the continuous problem as a parameter optimization problem.
 The state and/or control trajectories are parameterized and solved in the form of a nonlinear optimization problem.
@@ -62,19 +62,29 @@ References~\citenum{mingotti2011} and~\citenum{grebow2011} use this direct appro
 Alternatively, indirect methods apply calculus of variations to derive the necessary conditions for optimality. 
 This yields a lower dimensioned problem than the direct approach and algebraic conditions that, when satisfied, guarantee local optimality in contrast to direct methods which result in sub-optimal solutions.
 
+% CHAOTIC SYSTEM AND INITIAL GUESSES FOR OPTIMIZATION
 The application of optimal control methods for orbital trajectory design is nontrivial.
-The three-body system dynamics are nonlinear and exhibit chaotic behaviors. 
-Small changes in initial conditions result in large variations of the resulting system trajectory. 
-Therefore, any optimization routine is highly sensitive to the initial guess.
-In addition, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge which achieve satisfactory results.
-Efficient numerical implementation is dependent on correct initial conditions as well as accurate numerical integration.
+In order to implement any optimization method a sufficiently accurate ``initial guess'' is required.
+Frequently, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge to the optimal solution.
+However, the three-body system dynamics are nonlinear and exhibit chaotic behaviors. 
+Popularly refered to as the ``butterfly effect'' small changes in initial conditions result in large variations of the resulting system trajectory. 
+This makes solving the optimization problem highly dependent on the initial condition.
+In addition, there is no closed form analytical solution for the three-body problem~\cite{szebehely1967}.
+Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem.
+As a result, accurate numerical methods are required to determine optimal solutions.
 
-Additionally, References~\citenum{mingotti2011} and~\citenum{grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
+%For example, analytical design is possible for complicated trajectories using a Keplerian system model via the patched-conic approach. 
+
+
+% NUMERICAL INTEGRATION
+Efficient numerical implementation is dependent on correct initial conditions as well as accurate numerical integration.
+References~\citenum{mingotti2011} and~\citenum{grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
 These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation.
 These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion.
-Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system.
+Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system~\cite{hairer2006}.
 As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured. 
 
+% DYNAMICAL STRUCTURE
 References~\citenum{koon2000} and~\citenum{ross2006} have illustrated the rich structure that exists in the three-body problem.
 Within the three-body problem, a spacecraft's feasible region of motion is constrained by its energy, or Jacobi integral. 
 It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space. 
@@ -83,14 +93,16 @@ However, the results presented are highly case specific and difficult to general
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
 In addition, transfer orbits along an invariant manifold require a longer time of flight which may be undesirable for time critical missions.
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
+%------------------ PRIOR WORK AND CHALLENGES -----------------------------------%
 
-% OBJECTIVE OF THIS WORK
-In order to address these issues, the authors propose an accurate and numerically stable method for long-term optimal orbital transfers.
-This approach will avoid the instability and dissipative effects of conventional integration schemes.
-In addition, the effects of low-thrust propulsion will be directly included in the integration method to ensure that extended duration optimal trajectories are computed correctly.
-This improved method will enable the derivation of a systematic method of generating optimal transfer orbits between arbitrary states.
-Indirect optimal control, based on the calculus of variations, will be implemented in order to generate optimal orbital transfers.
-This will avoid the approximation issues inherent in the previous work, which utilized direct optimal control methods.
+%-------------------- OBJECTIVES OF THIS WORK-----------------------------%
+% SYSTEMATIC DESIGN TO AVOID DIFFICULTIES IN CHOOSING A GOOD INITIAL GUESS
+% CAPTURE LONG TERM EFFECTS OF LOW THRUST ACCURATELY IN NUMERICAL SIMULATION
+In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem.
+Our approach avoids the difficulties in selecting an appropriate initial guess for optimization.
+We utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
+In addition, we accurately capture the effects of low thrust on the system dynamics in the numerical simulation. 
+This approach avoids the instability and dissipative effects of conventional integration schemes.
 With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low-thrust propulsion systems.
 
 % TECHNICAL DESCRIPTION OF APPROACH
@@ -117,7 +129,7 @@ Maximization of the reachability set, on an appropriately chosen \Poincare secti
 The use of the \Poincare section allows for design on a lower dimensional space and simplifies the design process.
 Once an intersection is determined on the \Poincare section a transfer is calculated.
 
-% SUMMARY OF CONTRIBUTIONS
+%---------------------------- EXPLICIT SUMMARY OF CONTRIBUTIONS--------------------------%
 In short, the authors present a systematic method of generating optimal transfer orbits in the three-body problem.
 Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
 This paper provides a discrete optimal control formulation to generate the reachability set on a \Poincare section.
