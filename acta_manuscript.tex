@@ -100,12 +100,14 @@ The addition of low-thrust propulsion offers the potential of reduced transit ti
 % CAPTURE LONG TERM EFFECTS OF LOW THRUST ACCURATELY IN NUMERICAL SIMULATION
 In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem.
 Our approach avoids the difficulties in selecting an appropriate initial guess for optimization.
-We utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
+Rather than We utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
 In addition, we accurately capture the effects of low thrust on the system dynamics in the numerical simulation. 
 This approach avoids the instability and dissipative effects of conventional integration schemes.
 With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low-thrust propulsion systems.
 
-% TECHNICAL DESCRIPTION OF APPROACH
+% HIGH LEVEL TECHNICAL DESCRIPTION OF APPROACH
+% Application of low thrust to invariant manifold transfers. 
+% Use reachability set to determine transfer opportunities.
 To achieve these objectives, computational geometric optimal control techniques are applied. 
 The dynamics of the three-body system are derived from the discrete Lagrangian, which approximates the integral of the continuous time Lagrangian over a fixed discrete step.
 Application of the discrete Euler-Lagrange equations, or the discrete Legendre transform, results in the discrete equations of motion.
