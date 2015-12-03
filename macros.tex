@@ -2,6 +2,11 @@
 % Poincar\'e correct name
 \newcommand{\Poincare}{Poincar\'e }
 
+% Bold face for vectors 
+\renewcommand{\vec}[1]{\mathbf{#1}} % vec command now makes it boldface
+\let\oldhat\hat
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}} % using a hat also makes it boldface
+
 % Macros for discrete states to save some time typing
 \newcommand{\xk}{\ensuremath{x_k}}
 \newcommand{\xkp}{\ensuremath{x_{k+1}}}
