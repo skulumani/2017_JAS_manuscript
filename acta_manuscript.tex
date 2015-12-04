@@ -49,7 +49,7 @@ Recent developments in miniature electric propulsion offer the potential for new
 With reduced development intervals and decreased launch costs, small satellites have gained increased attention as a cost effective means of scientific and technologic development. 
 The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
 With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
-In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{koon2000}.
+In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{koon2011}.
 Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional patched-conic approach~\cite{ross2006,gomez2001}.
 Optimally combining the dynamical structure of the three-body problem with low-thrust propulsion systems is vital for future mission success.
 
@@ -110,7 +110,7 @@ With this proposed method, the previous research on control-free trajectories wi
 % Use reachability set to determine transfer opportunities with low thrust control input
 
 To achieve these objectives, computational geometric optimal control techniques are applied. 
-We generalize the previous work of determining orbital transfers using invariant manifolds~\cite{koon2000}.
+We generalize the previous work of determining orbital transfers using invariant manifolds~\cite{koon2011}.
 We incorporate the effects of continuous low thrust propulsion to enable departure from the system dynamics and enable increased transfer opportunities.
 The dynamics of the three-body system are derived from the discrete Lagrangian, which approximates the integral of the continuous time Lagrangian over a fixed discrete step.
 Application of the discrete Euler-Lagrange equations, or the discrete Legendre transform, results in the discrete equations of motion.
@@ -157,7 +157,7 @@ The \( \hat{e}_1 \) axis is directed along the vector from the Earth to the Moon
 The \( \hat{e}_2 \) axis lies in the orbital plane and is orthogonal to \( \hat{e}_1 \).
 The rotating reference frame is centered at the system barycenter.
 It is assumed that the \(\left( \hat{e}_1, \hat{e}_2\right)\) frame rotates with a constant angular velocity equal to the mean motion of the Moon.
-Following convention, the system is also non-dimensionalized by the characteristic mass, length, and time~\cite{koon2000}.
+Following convention, the system is also non-dimensionalized by the characteristic mass, length, and time~\cite{koon2011}.
 As a result, the system can be characterized by a single mass parameter \( \mu \),
 \begin{equation}
 	\mu = \frac{m_2}{m_1+m_2} \, .
@@ -430,7 +430,7 @@ These invariant manifolds only exist as a result of the dynamic formulation of t
 Invariant manifolds serve as a higher dimensional generalization of the concept of seperatrices from linear systems to the case of nonlinear systems. 
 To compute these manifolds first one must determine an appropriate periodic orbit. 
 The process of differential correction and numerical continuation are used to determine a periodic orbit with a desired energy level. 
-Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vec{x}_0) \) originating from the initial condition \( \vec{x}(t_0) = \vec{x}_0 \) and and a periodic orbit denoted by \( \gamma\).
+Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vec{x}_0) \) originating from \( \vec{x}(t_0) = \vec{x}_0 \) and we define a periodic orbit as \( \gamma\).
 The invariant manifolds: 
 \begin{align*}
 	W^s ( \vec{x}_0 ) &= \braces{ \vec{x} : \phi(t;\vec{x}_0) \to \gamma \text{ as } t \to \infty} \\
@@ -438,12 +438,12 @@ The invariant manifolds:
 \end{align*}
 are the set of trajectories that asymptotically depart or approach a periodic orbit.
 For the nonlinear system~\cref{eqn:cont_dyn} or~\cref{eq:discrete_eoms}, we can determine the state transition matrix \( \Phi \) along the periodic orbit, from \( 0 \to T\), by numerical integration of the variational equations.
-In the neighborhood of the periodic orbit \( \gamma \), the tangent spaces to the stable and unstable manifolds are provided by the generalized eigenspaces \( E^s \) and \( E^u \) of the linearization \( A = \D f(\vec{x}_0) \) where \( \vec{x}_0 \) is on the periodic orbit.
+In the neighborhood of the periodic orbit \( \gamma \), the tangent spaces to the stable and unstable manifolds are provided by the generalized eigenspaces \( E^s \) and \( E^u \) of the linearization \( A = \D f(\vec{x}_0) \), where \( \vec{x}_0 \) is on the periodic orbit.
 The eigenvectors of the monodromy matrix, \( M = \Phi(T) \), serve to locally approximate the directions of the stable and unstable manifolds. 
-A perturbation in the direction of the unstable eigenvector, outside the unit circle, is used to generate an initial condition on the unstable manifold. 
-Similarly, a perturbation in the direction of the stable eigenvector, inside the unit circle, is used to generate an initial condition on the stable manifold. 
-Each periodic orbit has two stable and unstable manifold sets associated with both a postive or negative perturbation along the respective eigenvector.
-This idea is illustrated by~\cref{fig:invariant_manifold}.
+A perturbation in the direction of the unstable eigenvector, with \( \norm{\lambda} > 1 \), is used to generate an initial condition on the unstable manifold. 
+Similarly, a perturbation in the direction of the stable eigenvector, with \( \norm{\lambda} < 1 \), is used to generate an initial condition on the stable manifold. 
+Each periodic orbit has two stable and unstable manifold sets associated with both a positive or negative perturbation along the respective eigenvector.
+This is technique of determining the invariant manifolds is graphically presented in~\cref{fig:invariant_manifold}.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{invariant_manifold}
@@ -452,21 +452,23 @@ This idea is illustrated by~\cref{fig:invariant_manifold}.
 
 
 % introduce \Poincare section theory and math
-Another useful technique in the analysis of the free motion of dynamical systems is that of the \Poincare section.
-The \Poincare section is the intersection of a periodic orbit of a dynamical system with a lower dimensional sub-space transverse to the flow.
-This allows for greater insight into the stability and dynamics of periodic solutions of dynamic system. 
-Points are drawn as the periodic solution intersects the \Poincare section.
-Great insight and structure into the dynamical system is typically available through use of \Poincare section.
-For example, \cref{fig:poincare_sections} shows the intersections of the invariant manifolds of~\cref{fig:invariant_manifolds} with the \Poincare sections defined by the black line segments.
-The \Poincare section and the Jacobi integral reduce the state space from four to two dimensions for the planar three-body problem~\cite{koon2001}.
-This greatly eases the design process and allows for a simple planar visualization of the intersection of the invariant manifolds.
-Intersecting states are easy to determine and allow for transfers between invariant manifolds.
+\Poincare maps are a useful tool in the analysis of the flow near periodic orbits in the three-body problem.
+We let \( \Sigma \) be a hypersurface of section chosen such that all trajectories in the vicinity of a state \( q \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
+A \Poincare map, \( P(q) = \phi(T;q) \), maps the state of a trajectory from one intersection to the next.
+Choosing a section in this manner results in a \Poincare section as shown in~\cref{fig:poincare_map}.
+This allows for greater insight into the stability and dynamics of periodic solutions of dynamic system as a fixed point on the \Poincare section corresponds to a periodic orbit while movement on the section is associate with the stability of neighboring trajectories. 
+For example, \Poincare maps have been used to prove the existence of homoclinic orbits, orbits which are both forward and backward asymptotic to a single unstable periodic orbit, and heteroclinic orbits, which join different periodic orbits~\cite{conley1968,koon2000b}.
+These dynamic features have been shown to play a vital role in the movement of natural bodies as well as critical for spacecraft missions~\cite{lo1997,gomez2001}.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{poincare_map}
 	\caption{\Poincare map\label{fig:poincare_map}}
 \end{figure}
-% intro to how you can determine intersection on a poincare section for transfers
+
+% intersect invariant manifolds on poincare section
+% find intersection between stable and unstable manifolds
+% define the sections used in Koon2011 (placed strategically near heteroclinic points) - rotation of manifolds
+Combining invariant manifolds and an appropriate \Poincare section provides a simple manner to determine trajectories which cross wide regions of the phase space.
 The intersection of the invariant manifolds on a \Poincare section is central to determining the desired control-free trajectory.
 However, the results previously developed are highly case specific and difficult to generalize to arbitrary transfers.
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
@@ -475,7 +477,7 @@ The addition of low-thrust propulsion offers the potential of reduced transit ti
 In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
 The reachable set is computed on an appropriate \Poincare section and is used to design an appropriate transfer trajectory.
 
-% detail on how invariant manifolds can be used for transfers (example of koon work)
+
 In this way, it is possible to design trajectories that intersect the invariant manifolds and connect widely separated regions of the state space. 
 \Cref{fig:invariant_manifolds} shows some of the tubes, projected from the phase space onto the configuration space, associated with \( L_1 \) and \( L_2 \) periodic orbits in the Earth-Moon system. 
 This technique has been heavily investigated in Reference~\citenum{koon2000}, applied to operational missions in Reference~\citenum{koon1999}, and applied to potential multi-moon orbiter missions in Reference~\citenum{tanaka2011}.
