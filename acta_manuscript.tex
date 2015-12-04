@@ -468,37 +468,56 @@ These dynamic features have been shown to play a vital role in the movement of n
 % intersect invariant manifolds on poincare section
 % find intersection between stable and unstable manifolds
 % define the sections used in Koon2011 (placed strategically near heteroclinic points) - rotation of manifolds
-Combining invariant manifolds and an appropriate \Poincare section provides a simple manner to determine trajectories which cross wide regions of the phase space.
-The intersection of the invariant manifolds on a \Poincare section is central to determining the desired control-free trajectory.
-However, the results previously developed are highly case specific and difficult to generalize to arbitrary transfers.
-Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
-In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
-The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
-In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
-The reachable set is computed on an appropriate \Poincare section and is used to design an appropriate transfer trajectory.
+Combining invariant manifolds and an appropriate \Poincare section provides a conceptually simple manner to determine trajectories which connect wide regions of the phase space.
+\Cref{fig:manifold_transfer_example} demonstrates how a \Poincare map may be used to determine a connection between periodic orbits.
+The initial orbit is a planar periodic orbit about \( L_2 \) in the Earth-Moon system while the final orbit is a periodic orbit about \( L_1 \).
+Both periodic orbits have the Jacobi energy constant and as a result it is possible to transfer between the orbits without any energy change.
+\Cref{fig:manifolds} shows the unstable manifold of the initial orbit and the stable manifold of the desired orbit. 
+Both invariant manifolds are globalized and propogated to the first intersection with the \Poincare surface of section located at the position of the Moon, \( 1 - \mu \).
+The \Poincare section in~\cref{fig:manifold_transfer_example} is defined as
+\begin{align*}
+	\Sigma = \braces{ ( y, \dot{y}) \, | \, x = 1- \mu, y > 0} , 
+\end{align*}
+and located to allow an intersection between both invariant manifolds.
+The configuration space of the invariant manifold is \( \vec{x} \in \R^4 \).
+The surface of section, and the resulting intersection of the four-dimensional space with the hyperplane \( \Sigma \), reduces the resulting intersection to a surface in \( \R^3\).
+Since the two orbits share the same Jacobi constant, the intersection phase space is further reduced to \( \R^2\).
+The intersection of the invariant manifolds on the \Poincare section is central to determining transfer connections between the initial and final orbits.
 
-
+% describe this specific poincare section and why it's placed and the axes
+The position, \( y \), and velocity, \( \dot{y} \), at the \Poincare section are plotted in~\cref{fig:poincare}.
+The surface of section is placed at a strategic location in order to allow for a cross section of the flow within the three-dimensional energy surface. 
+In a frame aligned with the rotating frame, \( ( \hat{e}_1, \hat{e}_2 ) \), but centered on the equilibrium point \( L_1 \) or \( L_2\), the unstable manifolds are locally moving in forward time in the second or forth quadrant. 
+Similarly, the stable manifold branches are locally moving in backward time in the first and third quadrants. 
+As a result, the location of the section in~\cref{fig:poincare} is chosen to intersect both the stable manifolds of \( L_1 \) periodic orbits as well as unstable manifolds of \( L_2 \) periodic orbits.
+Additional \Poincare sections are located at other heteroclinic points in the phase space to enable design throughout the phase space~\cite{koon2011}.
 In this way, it is possible to design trajectories that intersect the invariant manifolds and connect widely separated regions of the state space. 
-\Cref{fig:invariant_manifolds} shows some of the tubes, projected from the phase space onto the configuration space, associated with \( L_1 \) and \( L_2 \) periodic orbits in the Earth-Moon system. 
 This technique has been heavily investigated in Reference~\citenum{koon2000}, applied to operational missions in Reference~\citenum{koon1999}, and applied to potential multi-moon orbiter missions in Reference~\citenum{tanaka2011}.
 In addition, much recent work has focused on potential return missions to the Moon~\cite{zanzottera2012,campagnola2012,mingotti2011,ozimek2010a,mingotti2009}.
 \begin{figure}
      \centering
         \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\columnwidth]{U1_Manifolds}
-                \caption{U1 Manifolds}
-                \label{fig:u1_manifolds}
+                \includegraphics[width=\columnwidth]{U2_Manifolds}
+                \caption{Invariant manifolds}
+                \label{fig:manifolds}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\columnwidth]{U1_poincare}
+                \includegraphics[width=\columnwidth]{U2_poincare}
                 \caption{U1 Section}
-                \label{fig:u1_poincare}
+                \label{fig:poincare}
         \end{subfigure}
-        \caption{Invariant manifold}
-	\label{fig:u1}
+        \caption{Illustration of process to identify transfer trajectories}
+	\label{fig:manifold_transfer_example}
 \end{figure}
 
+% drawbacks of this approach on how we seek to improve upon it
+However, the results previously developed are highly case specific and difficult to generalize to arbitrary transfers.
+Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
+In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
+The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
+In this paper, an optimal control problem is formulated to generate a reachable set of the spacecraft.
+The reachable set is computed on an appropriate \Poincare section and is used to design an appropriate transfer trajectory.
 
 \section{Optimal Control Formulation for Reachability Set}\label{sec:optimal_control}
 % introduce method
@@ -506,18 +525,18 @@ In this section, an optimal control formulation is presented to determine and de
 The application of variational integrators to optimal control problems is referred to as computational geometric optimal control.
 This formulation is based on the concept of the reachability set on a \Poincare section.
 This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
-The addition of continuous low thrust propulsion extends the control free design process presented in Reference~\citenum{koon2000} and allows for a greater range of potential transfers with a reduced time of flight.
+The addition of continuous low thrust propulsion extends the control free design process developed previously and allows for a greater range of potential transfers with a reduced time of flight.
 
 % discuss reachability and application to space system
 Reachability theory provides a framework to evaluate control capability and safety.  
 The reachable set contains all possible trajectories that are achievable over a fixed time horizon from a defined initial condition, subject to the operational constraints of the system.
 Reachability theory has been applied to aerospace systems such as collision avoidance, safety planning, and performance characterization.
-The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
+The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004,holzinger2009,komendera2012a}.
 Computation of the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation or satisfying a dynamic programming principle.
 Analytical computation of reachable sets is an ongoing problem and is only possible for certain classes of systems.
 Typically, numerical methods are used to generate approximations of the reachability set, but are generally limited by the dimensionality of the problem.
  
-Reachability theory has recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
+Reachability theory has recently been applied to space systems~\cite{}.
 Computation of reachable sets is critical to space situational awareness, rendezvous and proximity operations, and orbit determination operations.
 Specifically maintaining accurate estimates of a spacecraft state over extended periods is not trivial.
 The challenge is increased for multiple spacecraft operating in close proximity or when there are long periods of time between measurements.
