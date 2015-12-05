@@ -523,7 +523,7 @@ The reachable set is computed on an appropriate \Poincare section and is used to
 % introduce method
 In this section, an optimal control formulation is presented to determine and design transfers within the three-body problem.
 The application of variational integrators to optimal control problems is referred to as computational geometric optimal control.
-This formulation is based on the concept of the reachability set on a \Poincare section.
+Our formulation is based on the concept of the reachability set on a \Poincare section.
 This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
 The addition of continuous low thrust propulsion extends the control free design process developed previously and allows for a greater range of potential transfers with a reduced time of flight.
 
@@ -531,26 +531,36 @@ The addition of continuous low thrust propulsion extends the control free design
 Reachability theory provides a framework to evaluate control capability and safety.  
 The reachable set contains all possible trajectories that are achievable over a fixed time horizon from a defined initial condition, subject to the operational constraints of the system.
 Reachability theory has been applied to aerospace systems such as collision avoidance, safety planning, and performance characterization.
-The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004,holzinger2009,komendera2012a}.
+The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
+Reachability theory has recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
 Computation of the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation or satisfying a dynamic programming principle.
 Analytical computation of reachable sets is an ongoing problem and is only possible for certain classes of systems.
 Typically, numerical methods are used to generate approximations of the reachability set, but are generally limited by the dimensionality of the problem.
  
-Reachability theory has recently been applied to space systems~\cite{}.
 Computation of reachable sets is critical to space situational awareness, rendezvous and proximity operations, and orbit determination operations.
-Specifically maintaining accurate estimates of a spacecraft state over extended periods is not trivial.
+Specifically, maintaining accurate estimates of a spacecraft state over extended periods is not trivial.
 The challenge is increased for multiple spacecraft operating in close proximity or when there are long periods of time between measurements.
 Coupling the ability for continuous low-thrust propulsion between measurements increases the measurement association complexity.
 Computing the reachability set given estimated states and control authorities allows one to better correlate subsequent measurements or determine sensor pointing regions in the event of a lost spacecraft. 
+
+In this paper, we seek to approximate the reachability set on a \Poincare set by solving a related optimal control problem. 
+We choose our \Poincare section in a similar manner to those used previously for the design of transfers via invariant manifolds.
+The \Poincare section is chosen to intersect transversally with trajectories emanating from the initial orbit. 
+In the case of a periodic orbit the trajectories will cross the \Poincare section at two distinct fixed points every half period.
+The addition of low thrust propulsion allows us to enlarge the set of trajectories achievable. 
+\Cref{fig:reachability_set} illustrates how, without any control input, trajectories will intersect with the \Poincare section at \( \vec{x}_n \). 
+However, the addition of low thrust propulsion allows the spacecraft to depart from the natural dynamics and intersect the \Poincare section at a different location.
+We use a cost function to define a distance metric on the \Poincare section from the control-free intersection to an intersection under the influence of the control input.
+Maximization of this distance enables us to generate the largest reachability set under the bounded control input.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{reachability_set}
 	\caption{Reachability set\label{fig:reachability_set}}
 \end{figure}
 
-The cost function is defined as
+We define a  cost function as
 \begin{equation}
-	J = -\frac{1}{2} \left( \bar{x}(N) - \bar{x}_{n}(N)\right)^T 
+	J = -\frac{1}{2} \left( \vec{x}(N) - \vec{x}_{n}(N)\right)^T 
 	\left[
 	\begin{array}{cccc}
 		1 & 0& 0& 0 \\
@@ -559,44 +569,51 @@ The cost function is defined as
 		 0 & 0& 0& 0
 	\end{array}
 	\right]
-	\left( \bar{x}(N) - \bar{x}_{n}(N)\right) \, .
+	\left( \vec{x}(N) - \vec{x}_{n}(N)\right) \, .
 	\label{eq:cost}
 \end{equation}
-The term \( \bar{x}_n(N) \) is the final state of a control-free trajectory while the term \( \bar{x}(N) \) is the final state under the influence of the control input.
-In this fashion, the aim is to maximize the distance of the final state from that of the control-free trajectory. 
-A chosen \Poincare section is defined through the use of appropriate terminal constraints given by
+The term \( \vec{x}_n(N) \) is the final state of a control-free trajectory while the term \( \vec{x}(N)\) is the final state under the influence of the control input.
+Maximization of the distance between \( \vec{x}_n \) and \(\vec{x} \) is equivalent to the minimization of \( J \).
+The \Poincare section is defined through the use of appropriate terminal constraints given by
 \begin{subequations}
 \begin{align}
-    m_1 &= 0 = \frac{y(N) - L_{1y}}{x(N) - L_{1x}} - \tan{\alpha_d} \, , \\ 
-    m_2&= 0 = \frac{\dot{x}(N) - \dot{x_n}(N) }{x(N) -x_n(N) } - \tan{\theta_d} \, , \\
-	 0 &\geq\bar{u}^T \bar{u} - u_{max}^2 \, ,
+    m_1( \vec{x}(N) ) &= 0 = y(N) \, , \\ 
+    m_2 ( \vec{x}(N) )&= 0 = \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} \, , \\
+	 0 &\geq\vec{u}^T \vec{u} - u_{max}^2 \, ,
 \end{align}
     \label{eq:constraints}
 \end{subequations}
-where the angles \( \alpha_d\) and \( \theta_d\) define the \Poincare section and a specific direction upon the section, respectively. 
-The goal is to determine the control input \( \bar{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
+where the angle \( \theta_d\) a direction to maximize the reachability set on the \Poincare section.
+We define the \Poincare section along the horizontal axis and equivalent to the  surface \( y(N) = 0 \).
+This is similar to the previous work in determining homoclinic orbits in the three-body problem~\cite{llibre1985,koon2011}.
+Previous analytical results have shown that homoclinic orbits intersect transversally in the \( (x, \dot{x} ) \) space on the plane \( y = 0 \).
+We seek to compliment these results with the addition of low thrust propulsion.
+The maximum control thrust magnitude is defined by \( u_max \) and is non-dimensionalized by the characteristic length,mass, and time.
+The goal is to determine the control input \( \vec{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
+
 Application of the Euler-Lagrange equations allows us to derive the necessary conditions for optimality~\cite{bryson1975}.
 The discrete variational integrator in~\cref{eq:discrete_eoms} is used rather than the continuous time counterpart. 
 This results in a discrete optimal control problem and the discrete necessary conditions are given as
 \begin{subequations}\label{eq:necc_cond}
 \begin{align}
-	\lambda_{k+1}^T &= \lambda_k^T  \deriv{f_k}{\bar{x}_k}^{-1} \, , \\
-	0 &=  \deriv{H_k}{\bar{u}_k} \, ,\\
-	0 &= \deriv{\phi}{\bar{x}_k}^T + \deriv{m}{\bar{x}_k}^T\beta  - \lambda^T(N) \, ,  
+	\vec{\lambda}_{k+1}^T &= \vec{\lambda}_k^T  \deriv{\vec{f}_k}{\vec{x}_k}^{-1} \, , \\
+	0 &=  \deriv{H_k}{\vec{u}_k} \, , \label{eqn:control_necc_cond}\\
+	0 &= \deriv{\phi}{\vec{x}_k}^T + \deriv{\vec{m}}{\vec{x}_k}^T \vec{\beta}  - \vec{\lambda}^T(N) \, ,  
 \end{align}
 \end{subequations}
 where the Hamiltonian \(H\) is defined as
 \begin{equation}
-	H_k = \lambda_k^T f(\bar{x}_k, \bar{u}_k) \, ,
+	H_k = \vec{\lambda}_k^T \vec{f}(\vec{x}_k, \vec{u}_k) \, ,
 	\label{eq:hamiltonian_opt}
 \end{equation}
-and \(\lambda \in \R^{4 \times 1}\) is the costate and \(\beta \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
+and \( \vec{\lambda} \in \R^{4 \times 1} \) is the costate and \(\vec{\beta} \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
+The state dynamics are represented by \( \vec{f}(\vec{x}_k, \vec{\lambda}_k ) \) after substituting~\cref{eqn:control_necc_cond} into~\cref{eq:distrete_eoms}.
 This indirect optimal control formulation leads to a two point boundary value problem with split boundary conditions. 
 By sweeping the angle \( \theta_d \) one can approximate the reachable set on the \Poincare section subject to the bounded control input. 
 
 The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} and is given by
 \begin{align}\label{eq:costate_eom}
-	\lambda_{k+1}^T = \lambda_k^T
+	\vec{\lambda}_{k+1}^T = \vec{\lambda}_k^T
 	\begin{bmatrix} 
 		f_{1_x} & f_{1_y} & f_{1_{\dot{x}}} & f_{1_{\dot{y}}} \\
 		f_{2_x} & f_{2_y} & f_{2_{\dot{x}}} & f_{2_{\dot{y}}} \\
@@ -607,14 +624,14 @@ The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} 
 The derivation of~\cref{eq:costate_eom} is given in Appendix A.
 In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
 This is a computationally expensive operation that is prone to numerical error and instability.
-A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \lambda_k \to \lambda_{k+1} \).
+A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \vec{\lambda}_k \to \vec{\lambda}_{k+1} \).
 
 The optimal control formulation presented in this section results in a two point boundary value problem (TPBVP). 
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975}.
-In this work, a multiple shooting method is implemented.
-Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
+Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement~\cite{bryson1975}.
 In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs.
+The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
 Additional interior constraints are used to ensure a continuous solution.
 This has the benefit of decreasing the numerical sensitivity of the final states to changes in the initial conditions along each sub-arc.
 % tpbvp is solved using a shooting method (fsolve in matlab)
