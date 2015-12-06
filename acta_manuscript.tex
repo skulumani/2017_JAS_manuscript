@@ -641,60 +641,55 @@ This has the benefit of decreasing the numerical sensitivity of the final states
 % sensitivity of terminal state is used to correct the initial condition (cite a book/paper)
 % plot of multiple shooting ( stages)
 \section{Numerical Example}\label{sec:simulation}
-\subsection{Periodic Orbit transfer}
-We present two numerical simulations to demonstrate the transfer procedure.
+\subsection{Periodic Orbit transfer}\label{sec:periodic_orbit_transfer}
+% define problem setup (initial and target orbits)
+We present two numerical simulations in the Earth-Moon system to demonstrate the transfer procedure.
 The first objective is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
 The target region is created by choosing an initial condition of \( x_0 = \begin{bmatrix}1.05 & 0 & 0 & 0.35 \end{bmatrix} \) with \( \mu = 0.0125 \).
-The initial state is propagated over a period of \( t = \num{20} \) in non-dimensional units which corresponds to approximately \num{1.5} years.
+The target set is propagated over a period of \( t = \num{20} \) in non-dimensional units which corresponds to approximately \num{1.5} years.
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{moon_orbit} % requires the graphicx package
    \caption{Target Orbit Region}
    \label{fig:moon_orbit}
 \end{figure}
-\Cref{fig:moon_orbit} shows that the desired trajectories remain in the vicinity of the Moon in the rotating reference frame. 
+\Cref{fig:moon_orbit} shows that the target set remain in the vicinity of the Moon in the rotating reference frame. 
 This type of orbit would be useful for a variety of mission scenarios.
 For example, a series of communication satellites could be placed in this type of orbit. 
 The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
+The initial set is a planar periodic orbit about \( L_1\).
+We generate the periodic orbit by using a linear approximation to first determine periodic solutions.
+This approximate periodic solution from the linear system is then implemented in the nonlinear dynamics through the method of differential correction, or single shooting~\cite{koon2011}.
+The initial \( \dot{y} \) is varied until the the periodic orbit makes a perpendicular crossing, \( \dot{x} = 0 \), after one half period.
+Due to the symmetry of the three-body problem, we are ensured that the trajectory will return to the initial state after a single period. 
 
-As a baseline, the method introduced in Reference~\citenum{koon2000} is implemented.
-The method is based on the invariant manifolds associated with the periodic orbits of the three body system.
-These invariant manifolds are a set of trajectories that either asymptotically arrive or depart the periodic orbit. 
-Linking the invariant manifolds of several periodic orbits, or coupled three body systems, has been used to generate orbital transfers.
-\Cref{fig:manifold_trajectory} shows the unstable invariant manifold associated with the \( L_1\) periodic orbit. 
-The invariant manifolds are globalized using the eigenvectors of the Monodromy matrix along the periodic orbit.
-The eigenvectors serve as a local approximation of the stable and unstable directions. 
-Perturbations along these directions serve to approximate the invariant manifolds.
-
-\begin{figure} 
-	\centering 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{reach_trajectory} 
-		\caption{Controlled Trajectories} \label{fig:reach_trajectory} 
-	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{manifold_trajectory} 
-		\caption{Invariant Manifold} \label{fig:manifold_trajectory} 
-	\end{subfigure} 
-	
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{poincare_compare} 
-		\caption{Poincar\`e Section} \label{fig:poincare_compare} 
-	\end{subfigure} 
-	\caption{Transfer Trajectory}
-	\label{fig:transfer_orbit} 
-\end{figure}
-
-The unstable invariant manifold is numerically propagated to the same \Poincare section defined on the \( \hat{x} \) axis.
-The intersection of the invariant manifold and the \Poincare section is denoted by the green markers in~\cref{fig:poincare_compare}.
+% invariant manifold transfer
+As a source for comparison, the method of using invariant manifolds, introduced in Reference~\citenum{koon2000}, is implemented.
+As described in~\cref{sec:invariant_manifolds}, these invariant manifolds are the set of trajectories that either asymptotically arrive or depart the periodic orbit. 
+We generate the unstable manifold associated with the initial planar periodic orbit.
+We numerical propagate the unstable manifold forward in time until the trajectories intersect the \Poincare section \( y = 0 \).
+\Cref{fig:manifold_trajectory} shows the unstable invariant manifold generated from the initial \( L_1\) periodic orbit. 
+The blue points in~\cref{fig:manifold_poincare} are the intersections of the target Moon orbit and the \Poincare section.
+The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and \Poincare section.
+The green points in~\cref{fig:manifold_poincare} are intersections of the unstable manifold from~\cref{fig:manifold_trajectory} with the \Poincare section \( y = 0 \).
 Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
 There are no intersections of the invariant manifold with the descending region of the target orbit.
 The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
-A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) for a transfer using low thrust propulsion and the reachable set.
-Finally, it should be noted that an additional maneuver would be required for a transfer using the invariant manifold.
-The intersection on the \Poincare section only shows that the \( x \text{ and } \dot{x} \) components intersect.
-An additional instantaneous \( \Delta V \) would be required to transfer from the invariant manifold to the target.
+\begin{figure} 
+	\centering 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{manifold_trajectory} 
+		\caption{Invariant Manifold} \label{fig:manifold_trajectory} 
+	\end{subfigure}~ %
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{manifold_poincare} 
+		\caption{Poincar\`e Section} \label{fig:manifold_poincare} 
+	\end{subfigure} 
+	\caption{Invariant manifold transfer}
+	\label{fig:invariant_manifold} 
+\end{figure}
 
+% reachable set transfer
 A periodic orbit is generated about the \( L_1 \) Lagrange point. 
 A \Poincare section is chosen to allow for design on a lower dimensional subspace.
 The section is defined along the \( \hat{x} \) axis, or defined with \( \alpha = \ang{0} \) and intersects both the initial and target orbits.
@@ -703,18 +698,26 @@ The trajectories are generated from a fixed initial state of \( x_0 = \begin{bma
 By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
 The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:transfer_orbit}.
 
-
-
 The optimal trajectories, under the influence of the control input \( \bar{u} \), are shown in~\cref{fig:reach_trajectory}.
 Initially, the spacecraft is assumed to lie on the periodic orbit.
 As a result, the intersection of this periodic orbit with the \Poincare section are two points corresponding to the two crossing of the orbit.
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \).
 
+\begin{figure} 
+	\centering 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{reach_trajectory} 
+		\caption{Reachability trajectories} \label{fig:reach_trajectory} 
+	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{poincare_compare} 
+		\caption{Poincar\`e Section} \label{fig:poincare_compare} 
+	\end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+	\caption{Reachability set transfer}
+	\label{fig:reachability_set_transfer} 
+\end{figure}
 
-
-The blue points in~\cref{fig:poincare_compare} are the intersections of the target Moon orbit and the \Poincare section.
-The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and \Poincare section.
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
 This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
@@ -723,7 +726,13 @@ This results in a complete target state \( \bar{x}_t \) which lies on the reacha
 A final optimal trajectory is generated such that the \( \bar{x}(N) = \bar{x}_t \).
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_trajectory}.
 
-\subsection{Geostationary Transfer}
+% compare reachable set transfer with the invariant manifold transfer
+A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) for a transfer using low thrust propulsion and the reachable set.
+Finally, it should be noted that an additional maneuver would be required for a transfer using the invariant manifold.
+The intersection on the \Poincare section only shows that the \( x \text{ and } \dot{x} \) components intersect.
+An additional instantaneous \( \Delta V \) would be required to transfer from the invariant manifold to the target.
+
+\subsection{Geostationary Transfer}\label{sec:geo_transfer}
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{initial_final} % requires the graphicx package
@@ -900,7 +909,7 @@ where the terms \( \alpha_{ij} \) and \( \beta_{i} \) are defined as follows
 	\beta_4 &= \lambda_{\ydotk} + c \lambda_{\xk} + f \parenth{\lambda_{\yk}+a \lambda_{\xk}} + g \parenth{\lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}}} \, .
 \end{align}
 \end{subequations}
-Finally, backsubstituion is used to determine explicit equations for the discrete update map \( \lambda_k \to \lambda_{k+1} \) which is defined as
+Finally, backsubstituion is used to determine explicit equations for the discrete update map \( \vec{\lambda}_k \to \vec{\lambda}_{k+1} \) which is defined as
 \begin{subequations}\label{eq:costate_update}
 \begin{align}
 	\lambda_{\ydotkp} &= \frac{\beta_4}{\alpha_{44}} \, ,\\
