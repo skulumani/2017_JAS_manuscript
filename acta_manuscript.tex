@@ -449,7 +449,6 @@ This is technique of determining the invariant manifolds is graphically presente
 	\caption{Stable and unstable manifold of a periodic orbit\label{fig:invariant_manifold}}
 \end{figure}
 
-
 % introduce \Poincare section theory and math
 \Poincare maps are a useful tool in the analysis of the flow near periodic orbits in the three-body problem.
 We let \( \Sigma \) be a hypersurface of section chosen such that all trajectories in the vicinity of a state \( q \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
@@ -460,8 +459,29 @@ For example, \Poincare maps have been used to prove the existence of homoclinic 
 These dynamic features have been shown to play a vital role in the movement of natural bodies as well as critical for spacecraft missions~\cite{lo1997,gomez2001}.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\textwidth]{poincare_map}
-	\caption{\Poincare map\label{fig:poincare_map}}
+	\begin{scaletikzpicturetowidth}{0.5\textwidth}
+	\begin{tikzpicture}[scale=\tikzscale]
+		\coordinate [label=left:\textcolor{black}{\LARGE \(\vec{q}_0\)}] (x0) at (0,0);
+		\coordinate [label=right:\textcolor{black}{\LARGE  \(\vec{q}_k\)}] (xn) at (-1,-1);
+		\coordinate [label=left:\textcolor{black}{\LARGE  \(\Sigma\)}] (sigma) at (-4,3);
+		\coordinate [label=below:\textcolor{black}{\LARGE  \(P(\vec{q})\)}] (P) at (0,-3.5);
+		% define the path of the flow with coordinates
+		\coordinate [label=right:\textcolor{blue}{}] (f1) at (5,-2);
+		\coordinate [label=below:\textcolor{black}{\LARGE  \(\phi(t,\vec{q})\)}] (f2) at (2,-5);
+		\coordinate [label=right:\textcolor{blue}{}] (f3) at (-4,-4);
+		\coordinate [label=right:\textcolor{blue}{}] (f4) at (-4,-1);
+		
+	%	\draw[help lines] (-10,-10) grid (10,10); %grid
+		\filldraw [black] (x0) circle [radius=3pt];
+		\filldraw [black] (xn) circle [radius=3pt];
+	
+		\draw [ultra thick,black,->-](x0) to[out=20,in=90,distance=2cm] (f1) to[out=-90,in=0,distance=2cm] (f2) to[out=180,in=-45,distance=2cm] (f3) to[out=135,in=-135,distance=2cm] (f4) ;
+		\draw [ultra thick, black,dashed] (f4) to[out=45,in=120,distance=1cm] (xn);
+		
+		\draw [ultra thick] plot [smooth cycle, tension=0.1, rotate=5] coordinates { (-4,-3) (4,-3) (4,3) (-4,3) };
+	\end{tikzpicture}
+	\end{scaletikzpicturetowidth}
+	\caption{Diagram of the \Poincare map\label{fig:poincare_map}}
 \end{figure}
 
 % intersect invariant manifolds on poincare section
@@ -553,8 +573,39 @@ We use a cost function to define a distance metric on the \Poincare section from
 Maximization of this distance enables us to generate the largest reachability set under the bounded control input.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.5\textwidth]{reachability_set}
-	\caption{Reachability set\label{fig:reachability_set}}
+%	\includegraphics[width=0.5\textwidth]{reachability_set_hand}
+	\begin{scaletikzpicturetowidth}{0.5\textwidth}
+	\begin{tikzpicture}[scale=\tikzscale]
+		\coordinate [label=left:\textcolor{black}{\LARGE \(\vec{x}_0\)}] (x0) at (-1,-2);
+		\coordinate [label=below:\textcolor{black}{\LARGE  \(\vec{x}_n\)}] (xn) at (1,1);
+		\coordinate [label=left:\textcolor{black}{\LARGE  \(\Sigma\)}] (sigma) at (-4,3);
+		\coordinate [label=below:\textcolor{black}{\LARGE  \(P(\vec{x})\)}] (P) at (0,-3.5);
+		% define the path of the flow with coordinates
+		\coordinate [label=right:\textcolor{black}{}] (f1) at (5,-2);
+		\coordinate [label=below:\textcolor{black}{\LARGE  \(\phi(t,\vec{x}_0)\)}] (f2) at (2,-5);
+		\coordinate [label=right:\textcolor{black}{}] (f3) at (-4,-4);
+		\coordinate [label=right:\textcolor{black}{}] (f4) at (-4,-1);
+		
+	%	\draw[help lines] (-10,-10) grid (10,10); %grid
+		\filldraw [black] (x0) circle [radius=3pt];
+		\filldraw [black] (xn) circle [radius=3pt];
+	
+		\draw [ultra thick,black,->-](x0) to[out=20,in=90,distance=2cm] (f1) to[out=-90,in=0,distance=2cm] (f2) to[out=180,in=-45,distance=2cm] (f3) to[out=135,in=-135,distance=2cm] (f4) ;
+		\draw [ultra thick, black,dashed,->] (f4) to[out=45,in=180,distance=1cm] ($(xn)-(2,0)$);
+		
+		\draw [ultra thick] plot [smooth cycle, tension=0.1, rotate=5] coordinates { (-4,-3) (4,-3) (4,3) (-4,3) };
+	
+		\draw [thick,dashed] (xn) circle [radius=2cm]; % reachability set
+	
+		\draw [thick,->] (xn) -- ($(xn) + (2.5,0)$);
+		\draw [thick,rotate=45,->] (xn) -- ($(xn) + (2.5,0)$);
+		\draw ($(xn) + (1,0)$) arc [start angle=0,end angle=45, radius=1];
+		\node [draw=none] at (2.2,1.5) {\Large \(\theta\)};
+		\draw [decorate,decoration={brace,amplitude=5pt},rotate=45] (xn) -- ($(xn) + (2,0)$);
+		\node [draw=none] at ($ (xn) + (0,1) $) {\Large \( J \)};
+	\end{tikzpicture}
+	\end{scaletikzpicturetowidth}
+	\caption{Reachability set on a \Poincare section\label{fig:reachability_set}}
 \end{figure}
 
 We define a  cost function as
