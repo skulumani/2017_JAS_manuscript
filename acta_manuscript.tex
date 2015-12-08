@@ -41,6 +41,7 @@ Low-thrust, Reachability, Optimal Control, Variational Integrator
 \section{Introduction}\label{sec:introduction}
 % MOTIVATION FOR LOW THRUST ORBITAL TRANSFER 
 Designing spacecraft trajectories is a classic and ongoing topic of research.
+There has been significant research into the design of orbital transfers for space vehicles.
 %With the current fiscal constraints there is an increased focus on technologies with a critical impact on mass.
 Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
 Electric propulsion systems offer a much greater specific impulse than chemical systems and are able to operate for extended periods of time.
@@ -72,7 +73,7 @@ This makes solving the optimization problem highly dependent on the initial cond
 In addition, there is no closed form analytical solution for the three-body problem~\cite{szebehely1967}.
 Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem.
 As a result, accurate numerical methods are required to determine optimal solutions.
-
+These methods are critically dependent on accurate initial guess in order to allow for convergence to an optimal solution.
 %For example, analytical design is possible for complicated trajectories using a Keplerian system model via the patched-conic approach. 
 
 
@@ -85,7 +86,7 @@ Conventional integration techniques fail to capture the physical laws and geomet
 As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured. 
 
 % DYNAMICAL STRUCTURE
-References~\citenum{koon2000} and~\citenum{ross2006} have illustrated the rich structure that exists in the three-body problem.
+References~\citenum{koon2011} and~\citenum{ross2006} have illustrated the rich structure that exists in the three-body problem.
 Within the three-body problem, a spacecraft's feasible region of motion is constrained by its energy, or Jacobi integral. 
 It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space. 
 Associated with periodic solutions of the three-body dynamics, these invariant manifolds allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
@@ -101,19 +102,19 @@ The addition of low-thrust propulsion offers the potential of reduced transit ti
 In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem.
 Our approach avoids the difficulties in selecting an appropriate initial guess for optimization.
 Instead, we utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
-In addition, through the use geometric integrators we accurately capture the effects of low thrust on the system dynamics in the numerical simulation. 
+In addition, through the use of geometric integrators we accurately capture the effects of low thrust on the system dynamics in the numerical simulation. 
 This approach avoids the instability and dissipative effects of conventional integration schemes.
-With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low-thrust propulsion systems.
+With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
 
 % HIGH LEVEL TECHNICAL DESCRIPTION OF APPROACH
 % Generalization of invariant manifold transfers  
 % Use reachability set to determine transfer opportunities with low thrust control input
 
-To achieve these objectives, computational geometric optimal control techniques are applied. 
+To achieve these objectives, we apply computational geometric optimal control techniques. 
 We generalize the previous work of determining orbital transfers using invariant manifolds~\cite{koon2011}.
 We incorporate the effects of continuous low thrust propulsion to enable departure from the system dynamics and enable increased transfer opportunities.
 The dynamics of the three-body system are derived from the discrete Lagrangian, which approximates the integral of the continuous time Lagrangian over a fixed discrete step.
-Application of the discrete Euler-Lagrange equations, or the discrete Legendre transform, results in the discrete equations of motion.
+Application of the discrete Euler-Lagrange equations, or equivalently the discrete Legendre transform, results in the discrete equations of motion.
 This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long transfer durations with small magnitude control inputs.
 A discrete optimal control problem is formulated from the discrete equations of motion.
 This approach, where explicit discretization occurs prior to optimization,  is in contrast to the typical method, where the equations of motion are implicitly discretized during the optimization procedure.
@@ -128,10 +129,10 @@ Given an initial condition and fixed time horizon, the reachable set is the set 
 Generation of this reachability set allows for the extension of the previous methods based on invariant manifolds in the three-body problem.
 In addition, the generation of the reachable set allows for a more systematic method of determining initial conditions and eases the burden on the designer. 
 The \Poincare section reduces the dimensionality of the system dyanmics to the study of a related discrete update map.  
-This allows for the study of the complex dynamics of the three-body problem to a lower dimensional space.
+This allows for the study of the complex dynamics of the three-body problem on a lower dimensional space.
 Rather than relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on an appropriate \Poincare section.
 This simple methodology allows for extended transfer trajectories which iteratively approach a target region.
-The addition of low-thrust propulsion affords the ability to enlarge the reachable set as compared to the control-free case.
+We utilize the low thrust control input to enlarge the reachability set.
 Maximization of the reachability set, on an appropriately chosen \Poincare section, allows for a greater space of potential transfer trajectories.
 The use of the \Poincare section allows for design on a lower dimensional space and simplifies the design process.
 %Once an intersection is determined on the \Poincare section a transfer is calculated.
@@ -156,8 +157,8 @@ The \( \hat{e}_1 \) axis is directed along the vector from the Earth to the Moon
 The \( \hat{e}_2 \) axis lies in the orbital plane and is orthogonal to \( \hat{e}_1 \).
 The rotating reference frame is centered at the system barycenter.
 It is assumed that the \(\left( \hat{e}_1, \hat{e}_2\right)\) frame rotates with a constant angular velocity equal to the mean motion of the Moon.
-Following convention, the system is also non-dimensionalized by the characteristic mass, length, and time~\cite{koon2011}.
-As a result, the system can be characterized by a single mass parameter \( \mu \),
+Following convention, the system is also non-dimensionalized by the characteristic units of length, mass, and time~\cite{koon2011}.
+As a result, the system can be characterized by a single mass ratio parameter \( \mu \),
 \begin{equation}
 	\mu = \frac{m_2}{m_1+m_2} \, .
 	\label{eq:mass_param}
@@ -185,12 +186,12 @@ where the effective potential \( U\) is defined as
 	U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
 	\label{eq:eff_pot}
 \end{equation}
-and the control inputs are defined as \( u_x \text{ and } u_y \in \R \).
-The state is defined as \( \bar{x} = \begin{bmatrix}\bar{r} &\bar{v} \end{bmatrix}^T\) with \(\bar{r} \in \R^{2\times1}\) and \(\bar{v} \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
+and the control inputs are defined as \( \vec{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
+The state is defined as \( \vec{x} = \begin{bmatrix}\vec{r} &\vec{v} \end{bmatrix}^T\) with \(\vec{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vec{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
 The equations of motion may be rewritten in state space form as
 \begin{equation}\label{eqn:cont_dyn}
-	\left[\begin{array}{c} \dot{\bar{r}} \\ \dot{\bar{v}} \end{array} \right] = 
-	\left[ \begin{array}{c} \bar{v} \\ A \bar{v} + \nabla U + \bar{u}(t) \end{array} \right] = f\left( t,x, u\right) \, ,
+	\left[\begin{array}{c} \dot{\vec{r}} \\ \dot{\vec{v}} \end{array} \right] = 
+	\left[ \begin{array}{c} \vec{v} \\ A \vec{v} + \nabla U + \vec{u} \end{array} \right] = f\left( t,\vec{x}, \vec{u}\right) \, ,
 \end{equation}
 where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U\) are
 \begin{equation}\label{eq:A_mat}
@@ -205,18 +206,18 @@ where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U
 
 \subsection{Jacobi Integral}\label{sec:jacobi}
 There exists a single integral, or constant of motion for the three-body problem~\cite{lanczos1970,szebehely1967}.
-This energy constant is analogous to the total mechanical energy, however is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
+This energy constant is analogous to the total mechanical energy, however it is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
 Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame and given by
 \begin{equation}
-	E\left( \bar{r} , \bar{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
+	E\left( \vec{r} , \vec{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
 	\label{eq:jacobi}
 \end{equation}
-\Cref{eq:jacobi} divides the phase space into distinct regions based on the energy level of the spacecraft.
+\Cref{eq:jacobi} divides the phase space into distinct regions of allowable motion based on the energy level of the spacecraft.
 Fixing the Jacobi integral to a constant defines zero velocity curves, which are the locus of points where the kinetic energy, and hence velocity vanishes.
 As seen in Figure~\ref{fig:energy_contour}, the phase space is divided into distinct realms based on the energy level.
 In the vicinity of \( m_1\) or \(m_2\) there exists a potential well. 
 As the energy level increases there are five critical points of the effective potential~\cref{eq:eff_pot} where the slope is zero.
-Three collinear saddle points on the \(x\) axis and two equilateral points.
+Three collinear saddle points on the \(\hat{e}_1\) axis and two equilateral points.
 These equilibrium, or Lagrange points, are labeled \( L_i, i = 1, \hdots, 5 \) and are shown in Figure~\ref{fig:energy_contour}.
 The Jacobi integral is a valuable invariant property of the three-body system that allows for greater insight into the motion of the spacecraft.
 \begin{figure}[htbp]
@@ -238,8 +239,8 @@ Geometric numerical integration deals with numerical integration methods which p
 Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations~\cite{marsden2001}.
 As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
 In addition, they exhibit improved energy behavior over long integration periods.
-A short background on the variational principle for mechanical systems is presented. 
-A discrete approximation of the action integral is presented and allows for construction of a variational integrator for the PCRTBP.
+Next, we present a short background on the variational principle for mechanical systems. 
+We then develop a discrete approximation of the action integral and construct a variational integrator for the PCRTBP.
 
 \subsection{Variational Principle}
 Consider a continuous mechanical system described by the Lagrangian, \( L( q, \dot{q} ) \), for the generalized position, \( q\), and velocity, \( \dot{q} \).
@@ -267,7 +268,7 @@ Hamilton's equations are derivable through the use of the Legendre transformatio
 \end{align}
 In the continuous time case the Hamiltonian is defined as
 \begin{align}\label{eq:hamiltonian}
-	H &= \sum_{i = 1}^N p_i \dot{q}_i - L \left( q_i,\dot{q}_i, t \right) \, .
+	H &= \sum_{i = 1}^n p_i \dot{q}_i - L \left( q_i,\dot{q}_i, t \right) \, .
 \end{align}
 Applying~\cref{eq:legendre_transform} and taking the variation of~\cref{eq:hamiltonian} allows us to derive the equations of motion in Hamiltonian form
 \begin{subequations}\label{eq:hamilton_eq}
@@ -372,8 +373,8 @@ The distances to each primary are defined as
 \end{align}
 \end{subequations}
 Care must be taken during the implementation of~\cref{eq:discrete_eoms}.
-As~\cref{eq:discrete_potential_grad,eq:discrete_distance} are defined at both step \( k \) and \( k+1 \) they must be evaluated at both time steps.
-\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \bar{x}_k \) and control \( \bar{u}_k \).
+As~\cref{eq:discrete_potential_grad,eq:discrete_distance} are defined at both step \( k \) and \( k+1 \) they must be evaluated at both time instances.
+\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \vec{x}_k \) and control \( \vec{u}_k \).
 The distances and gravitational potential at step \( k \) are evaluated from~\cref{eq:distonek,eq:disttwok,eq:Uxk,eq:Uyk}.
 The discrete update steps in~\cref{eq:xkp,eq:ykp} are evaluated to generate \( \xkp \) and \( \ykp\).
 Next, the distances and gravitational potential at step \( k+1 \) are evaluated from~\cref{eq:distonekp,eq:disttwokp,eq:Uxkp,eq:Uykp}. 
@@ -419,14 +420,14 @@ Over long simulation horizons or with the addition of small control inputs this 
 
 % intro to invariant manifolds
 There exist five equilibrium points in the equations of motion for the three-body problem as introduced in~\cref{sec:jacobi}.
-It has been shown that the local orbit structure near the Lagrange points give rise to families of periodic orbits as well as the stable and unstable manifolds of these periodic orbits.
-This rich structure is globally connected and gives rise to a dynamical chain which allows trajectories to pass through the phase space~\cite{koon2000,conley1968}.
+It has been shown that the local orbit structure near the Lagrange points gives rise to families of periodic orbits as well as the stable and unstable manifolds of these periodic orbits.
+This rich structure is globally connected and gives rise to a dynamical chain which allows trajectories to pass through the phase space~\cite{koon2011,conley1968}.
 The manifold structure associated with periodic orbits about the \( L_1 \) and \( L_2 \) Lagrange points are critical to the understanding of the motion of spacecraft as well as comets/asteroids.
 In addition, the stable and unstable manifolds serve as the boundaries of the phase space region that allow for the transport between realms in a single three-body system or between multiple three-body systems.
 These invariant manifolds only exist as a result of the dynamic formulation of the three-body problem in a rotating reference frame. 
 
 % technical definition of manifold and some equations
-Invariant manifolds serve as a higher dimensional generalization of the concept of seperatrices from linear systems to the case of nonlinear systems. 
+Invariant manifolds serve as a higher dimensional generalization of the concept of seperatrices from linear systems as applied to the case of nonlinear systems. 
 To compute these manifolds first one must determine an appropriate periodic orbit. 
 The process of differential correction and numerical continuation are used to determine a periodic orbit with a desired energy level. 
 Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vec{x}_0) \) originating from \( \vec{x}(t_0) = \vec{x}_0 \) and we define a periodic orbit as \( \gamma\).
@@ -436,7 +437,7 @@ The invariant manifolds:
 	W^u ( \vec{x}_0 ) &= \braces{ \vec{x} : \phi(t;\vec{x}_0) \to \gamma \text{ as } t \to -\infty} 
 \end{align*}
 are the set of trajectories that asymptotically depart or approach a periodic orbit.
-For the nonlinear system~\cref{eqn:cont_dyn} or~\cref{eq:discrete_eoms}, we can determine the state transition matrix \( \Phi \) along the periodic orbit, from \( 0 \to T\), by numerical integration of the variational equations.
+For the nonlinear system, defined by~\cref{eqn:cont_dyn} or~\cref{eq:discrete_eoms}, we can determine the state transition matrix \( \Phi \) along the periodic orbit, from \( 0 \to T\), by numerical integration of the variational equations.
 In the neighborhood of the periodic orbit \( \gamma \), the tangent spaces to the stable and unstable manifolds are provided by the generalized eigenspaces \( E^s \) and \( E^u \) of the linearization \( A = \D f(\vec{x}_0) \), where \( \vec{x}_0 \) is on the periodic orbit.
 The eigenvectors of the monodromy matrix, \( M = \Phi(T) \), serve to locally approximate the directions of the stable and unstable manifolds. 
 A perturbation in the direction of the unstable eigenvector, with \( \norm{\lambda} > 1 \), is used to generate an initial condition on the unstable manifold. 
@@ -451,23 +452,23 @@ This is technique of determining the invariant manifolds is graphically presente
 
 % introduce \Poincare section theory and math
 \Poincare maps are a useful tool in the analysis of the flow near periodic orbits in the three-body problem.
-We let \( \Sigma \) be a hypersurface of section chosen such that all trajectories in the vicinity of a state \( q \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
-A \Poincare map, \( P(q) = \phi(T;q) \), maps the state of a trajectory from one intersection to the next.
+We let \( \Sigma \) define a hypersurface of section chosen such that all trajectories in the vicinity of a state \( \vec{q} \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
+A \Poincare map, \( P(\vec{q}) = \phi(T;\vec{q}) \), maps the state of a trajectory from one intersection to the next.
 Choosing a section in this manner results in a \Poincare section as shown in~\cref{fig:poincare_map}.
 This allows for greater insight into the stability and dynamics of periodic solutions of dynamic system as a fixed point on the \Poincare section corresponds to a periodic orbit while movement on the section is associate with the stability of neighboring trajectories. 
-For example, \Poincare maps have been used to prove the existence of homoclinic orbits, orbits which are both forward and backward asymptotic to a single unstable periodic orbit, and heteroclinic orbits, which join different periodic orbits~\cite{conley1968,koon2000b}.
+For example, \Poincare maps have been used to prove the existence of homoclinic orbits, which are orbits both forward and backward asymptotic to a single unstable periodic orbit, and heteroclinic orbits, which join different periodic orbits~\cite{conley1968,koon2000b}.
 These dynamic features have been shown to play a vital role in the movement of natural bodies as well as critical for spacecraft missions~\cite{lo1997,gomez2001}.
 \begin{figure}
 	\centering
 	\begin{scaletikzpicturetowidth}{0.5\textwidth}
 	\begin{tikzpicture}[scale=\tikzscale]
-		\coordinate [label=left:\textcolor{black}{\LARGE \(\vec{q}_0\)}] (x0) at (0,0);
-		\coordinate [label=right:\textcolor{black}{\LARGE  \(\vec{q}_k\)}] (xn) at (-1,-1);
-		\coordinate [label=left:\textcolor{black}{\LARGE  \(\Sigma\)}] (sigma) at (-4,3);
-		\coordinate [label=below:\textcolor{black}{\LARGE  \(P(\vec{q})\)}] (P) at (0,-3.5);
+		\coordinate [label=above:\textcolor{black}{\Large \(\vec{q}_0\)}] (x0) at (0,0);
+		\coordinate [label=below:\textcolor{black}{\Large  \(\vec{q}_k\)}] (xn) at (-1,-1);
+		\coordinate [label=left:\textcolor{black}{\Large  \(\Sigma\)}] (sigma) at (-4,3);
+		\coordinate [label=below:\textcolor{black}{\Large  \(P(\vec{q})\)}] (P) at (0,-3.5);
 		% define the path of the flow with coordinates
 		\coordinate [label=right:\textcolor{blue}{}] (f1) at (5,-2);
-		\coordinate [label=below:\textcolor{black}{\LARGE  \(\phi(t,\vec{q})\)}] (f2) at (2,-5);
+		\coordinate [label=below:\textcolor{black}{\Large  \(\phi(t,\vec{q})\)}] (f2) at (2,-5);
 		\coordinate [label=right:\textcolor{blue}{}] (f3) at (-4,-4);
 		\coordinate [label=right:\textcolor{blue}{}] (f4) at (-4,-1);
 		
@@ -490,9 +491,9 @@ These dynamic features have been shown to play a vital role in the movement of n
 Combining invariant manifolds and an appropriate \Poincare section provides a conceptually simple manner to determine trajectories which connect wide regions of the phase space.
 \Cref{fig:manifold_transfer_example} demonstrates how a \Poincare map may be used to determine a connection between periodic orbits.
 The initial orbit is a planar periodic orbit about \( L_2 \) in the Earth-Moon system while the final orbit is a periodic orbit about \( L_1 \).
-Both periodic orbits have the Jacobi energy constant and as a result it is possible to transfer between the orbits without any energy change.
+Both periodic orbits have the same Jacobi energy constant and as a result it is possible to transfer between the orbits without any energy change.
 \Cref{fig:manifolds} shows the unstable manifold of the initial orbit and the stable manifold of the desired orbit. 
-Both invariant manifolds are globalized and propogated to the first intersection with the \Poincare surface of section located at the position of the Moon, \( 1 - \mu \).
+Both invariant manifolds are globalized and propogated to the first intersection with the \Poincare surface of section located at the position of the Moon, \( x = 1 - \mu \).
 The \Poincare section in~\cref{fig:manifold_transfer_example} is defined as
 \begin{align*}
 	\Sigma = \braces{ ( y, \dot{y}) \, | \, x = 1- \mu, y > 0} , 
@@ -511,7 +512,7 @@ Similarly, the stable manifold branches are locally moving in backward time in t
 As a result, the location of the section in~\cref{fig:poincare} is chosen to intersect both the stable manifolds of \( L_1 \) periodic orbits as well as unstable manifolds of \( L_2 \) periodic orbits.
 Additional \Poincare sections are located at other heteroclinic points in the phase space to enable design throughout the phase space~\cite{koon2011}.
 In this way, it is possible to design trajectories that intersect the invariant manifolds and connect widely separated regions of the state space. 
-This technique has been heavily investigated in Reference~\citenum{koon2000}, applied to operational missions in Reference~\citenum{koon1999}, and applied to potential multi-moon orbiter missions in Reference~\citenum{tanaka2011}.
+This technique has been heavily investigated in Reference~\citenum{koon2011}, applied to operational missions in Reference~\citenum{koon1999}, and applied to potential multi-moon orbiter missions in Reference~\citenum{tanaka2011}.
 In addition, much recent work has focused on potential return missions to the Moon~\cite{zanzottera2012,campagnola2012,mingotti2011,ozimek2010a,mingotti2009}.
 \begin{figure}
      \centering
@@ -523,7 +524,7 @@ In addition, much recent work has focused on potential return missions to the Mo
         ~
         \begin{subfigure}[b]{0.5\textwidth}
                 \includegraphics[width=\columnwidth]{U2_poincare}
-                \caption{U1 Section}
+                \caption{\(U_2\) Section}
                 \label{fig:poincare}
         \end{subfigure}
         \caption{Illustration of process to identify transfer trajectories}
@@ -535,15 +536,15 @@ However, the results previously developed are highly case specific and difficult
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
 In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
-In this paper, an optimal control problem is formulated to generate a reachable set of the spacecraft.
-The reachable set is computed on an appropriate \Poincare section and is used to design an appropriate transfer trajectory.
+In this paper, we formulate an optimal control problem to generate the reachable set of the spacecraft.
+We compute the reachable set on an appropriate \Poincare section and use this to design a transfer trajectory.
 
 \section{Optimal Control Formulation for Reachability Set}\label{sec:optimal_control}
 % introduce method
 In this section, an optimal control formulation is presented to determine and design transfers within the three-body problem.
 The application of variational integrators to optimal control problems is referred to as computational geometric optimal control.
 Our formulation is based on the concept of the reachability set on a \Poincare section.
-This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
+This method allows one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
 The addition of continuous low thrust propulsion extends the control free design process developed previously and allows for a greater range of potential transfers with a reduced time of flight.
 
 % discuss reachability and application to space system
@@ -551,7 +552,7 @@ Reachability theory provides a framework to evaluate control capability and safe
 The reachable set contains all possible trajectories that are achievable over a fixed time horizon from a defined initial condition, subject to the operational constraints of the system.
 Reachability theory has been applied to aerospace systems such as collision avoidance, safety planning, and performance characterization.
 The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
-Reachability theory has recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
+More recently, reachability theory has recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
 Computation of the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation or satisfying a dynamic programming principle.
 Analytical computation of reachable sets is an ongoing problem and is only possible for certain classes of systems.
 Typically, numerical methods are used to generate approximations of the reachability set, but are generally limited by the dimensionality of the problem.
@@ -576,13 +577,13 @@ Maximization of this distance enables us to generate the largest reachability se
 %	\includegraphics[width=0.5\textwidth]{reachability_set_hand}
 	\begin{scaletikzpicturetowidth}{0.5\textwidth}
 	\begin{tikzpicture}[scale=\tikzscale]
-		\coordinate [label=left:\textcolor{black}{\LARGE \(\vec{x}_0\)}] (x0) at (-1,-2);
-		\coordinate [label=below:\textcolor{black}{\LARGE  \(\vec{x}_n\)}] (xn) at (1,1);
-		\coordinate [label=left:\textcolor{black}{\LARGE  \(\Sigma\)}] (sigma) at (-4,3);
-		\coordinate [label=below:\textcolor{black}{\LARGE  \(P(\vec{x})\)}] (P) at (0,-3.5);
+		\coordinate [label=left:\textcolor{black}{\Large \(\vec{x}_0\)}] (x0) at (-1,-2);
+		\coordinate [label=below:\textcolor{black}{\Large  \(\vec{x}_n\)}] (xn) at (1,1);
+		\coordinate [label=left:\textcolor{black}{\Large  \(\Sigma\)}] (sigma) at (-4,3);
+		\coordinate [label=below:\textcolor{black}{\Large  \(P(\vec{x})\)}] (P) at (0,-3.5);
 		% define the path of the flow with coordinates
 		\coordinate [label=right:\textcolor{black}{}] (f1) at (5,-2);
-		\coordinate [label=below:\textcolor{black}{\LARGE  \(\phi(t,\vec{x}_0)\)}] (f2) at (2,-5);
+		\coordinate [label=below:\textcolor{black}{\Large  \(\phi(t,\vec{x}_0)\)}] (f2) at (2,-5);
 		\coordinate [label=right:\textcolor{black}{}] (f3) at (-4,-4);
 		\coordinate [label=right:\textcolor{black}{}] (f4) at (-4,-1);
 		
@@ -633,12 +634,12 @@ The \Poincare section is defined through the use of appropriate terminal constra
 \end{align}
     \label{eq:constraints}
 \end{subequations}
-where the angle \( \theta_d\) a direction to maximize the reachability set on the \Poincare section.
-We define the \Poincare section along the horizontal axis and equivalent to the  surface \( y(N) = 0 \).
+where the angle \( \theta_d\) defines a direction in which we wish to maximize the reachability set on the \Poincare section.
+We define the \Poincare section along the horizontal axis and which is equivalent to the  surface \( y(N) = 0 \).
 This is similar to the previous work in determining homoclinic orbits in the three-body problem~\cite{llibre1985,koon2011}.
 Previous analytical results have shown that homoclinic orbits intersect transversally in the \( (x, \dot{x} ) \) space on the plane \( y = 0 \).
 We seek to compliment these results with the addition of low thrust propulsion.
-The maximum control thrust magnitude is defined by \( u_max \) and is non-dimensionalized by the characteristic length,mass, and time.
+The maximum control thrust magnitude is defined by \( u_{max} \) and is non-dimensionalized by the characteristic units of length, mass, and time.
 The goal is to determine the control input \( \vec{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
 
 Application of the Euler-Lagrange equations allows us to derive the necessary conditions for optimality~\cite{bryson1975}.
@@ -646,7 +647,7 @@ The discrete variational integrator in~\cref{eq:discrete_eoms} is used rather th
 This results in a discrete optimal control problem and the discrete necessary conditions are given as
 \begin{subequations}\label{eq:necc_cond}
 \begin{align}
-	\vec{\lambda}_{k+1}^T &= \vec{\lambda}_k^T  \deriv{\vec{f}_k}{\vec{x}_k}^{-1} \, , \\
+	\vec{\lambda}_{k+1}^T &= \vec{\lambda}_k^T  \parenth{\deriv{\vec{f}_k}{\vec{x}_k}}^{-1} \, , \\
 	0 &=  \deriv{H_k}{\vec{u}_k} \, , \label{eqn:control_necc_cond}\\
 	0 &= \deriv{\phi}{\vec{x}_k}^T + \deriv{\vec{m}}{\vec{x}_k}^T \vec{\beta}  - \vec{\lambda}^T(N) \, ,  
 \end{align}
@@ -657,7 +658,7 @@ where the Hamiltonian \(H\) is defined as
 	\label{eq:hamiltonian_opt}
 \end{equation}
 and \( \vec{\lambda} \in \R^{4 \times 1} \) is the costate and \(\vec{\beta} \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
-The state dynamics are represented by \( \vec{f}(\vec{x}_k, \vec{\lambda}_k ) \) after substituting~\cref{eqn:control_necc_cond} into~\cref{eq:distrete_eoms}.
+The state dynamics are represented by \( \vec{f}(\vec{x}_k, \vec{\lambda}_k ) \) after substituting~\cref{eqn:control_necc_cond} into~\cref{eq:discrete_eoms}.
 This indirect optimal control formulation leads to a two point boundary value problem with split boundary conditions. 
 By sweeping the angle \( \theta_d \) one can approximate the reachable set on the \Poincare section subject to the bounded control input. 
 
@@ -677,8 +678,8 @@ This is a computationally expensive operation that is prone to numerical error a
 A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \vec{\lambda}_k \to \vec{\lambda}_{k+1} \).
 
 The optimal control formulation presented in this section results in a two point boundary value problem (TPBVP). 
-There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975}.
-Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement~\cite{bryson1975}.
+There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{kirk2012,bryson1975}.
+Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
 In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs.
 The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
@@ -711,13 +712,13 @@ The initial set is a planar periodic orbit about \( L_1\).
 We generate the periodic orbit by using a linear approximation to first determine periodic solutions.
 This approximate periodic solution from the linear system is then implemented in the nonlinear dynamics through the method of differential correction, or single shooting~\cite{koon2011}.
 The initial \( \dot{y} \) is varied until the the periodic orbit makes a perpendicular crossing, \( \dot{x} = 0 \), after one half period.
-Due to the symmetry of the three-body problem, we are ensured that the trajectory will return to the initial state after a single period. 
+Due to the symmetry of the three-body problem, this ensures that the trajectory will return to the initial state after a single period. 
 
 % invariant manifold transfer
-As a source for comparison, the method of using invariant manifolds, introduced in Reference~\citenum{koon2000}, is implemented.
-As described in~\cref{sec:invariant_manifolds}, these invariant manifolds are the set of trajectories that either asymptotically arrive or depart the periodic orbit. 
+As a source for comparison, the method of using invariant manifolds, introduced in Reference~\citenum{koon2011}, is implemented.
+As described in~\cref{sec:invariant_manifold}, these invariant manifolds are the set of trajectories that either asymptotically arrive or depart the periodic orbit. 
 We generate the unstable manifold associated with the initial planar periodic orbit.
-We numerical propagate the unstable manifold forward in time until the trajectories intersect the \Poincare section \( y = 0 \).
+We numerically propagate the unstable manifold forward in time until the trajectories intersect the \Poincare section \( y = 0 \).
 \Cref{fig:manifold_trajectory} shows the unstable invariant manifold generated from the initial \( L_1\) periodic orbit. 
 The blue points in~\cref{fig:manifold_poincare} are the intersections of the target Moon orbit and the \Poincare section.
 The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and \Poincare section.
@@ -736,12 +737,12 @@ The numerical values associated with the green points denote the required time o
 		\caption{Poincar\`e Section} \label{fig:manifold_poincare} 
 	\end{subfigure} 
 	\caption{Invariant manifold transfer}
-	\label{fig:invariant_manifold} 
+	\label{fig:invariant_manifold_transfer} 
 \end{figure}
 
 % reachable set transfer
 Next, we determine the reachability set with the addition of a low thrust control input.
-We define a maximum magnitude of the thrust as \( u_max = 0.5 \) and assume we can point the thrust in any direction on the plane. 
+We define a maximum magnitude of the thrust as \( u_{max} = 0.5 \) and assume we can point the thrust in any direction within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
 The trajectories are generated from a fixed initial state of \( \vec{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
@@ -750,7 +751,7 @@ This initial state lies on the initial periodic orbit and the time of flight is 
 From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
 By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
 We discretely vary the angle over the range \( \ang{0} \leq \theta_d < \ang{360} \) to approximate the reachability set of the spacecraft.
-The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:transfer_orbit}.
+The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:invariant_manifold_transfer}.
 
 % discuss reachability set computation
 The optimal trajectories, under the influence of the control input \( \vec{u} \), are plotted in red in~\cref{fig:reach_trajectory}.
@@ -788,7 +789,7 @@ The unstable invariant manifold traverses a large region of the phase space and 
 In addition, the invariant manifolds asymptotically arrive and depart from the periodic orbit. 
 As a result, it may take an arbitrarily long period of time to depart from the vicinity of the periodic orbit.
 In addition, only a small portion of the invariant manifold intersects with the target Moon orbit.
-In contrast, with the low thrust control input we are able to enlarge the reachability set from a single point to a larger ellipsoidal region in~\cref{fig:poincare_compare}.
+In contrast, the low thrust control input we are able to enlarge the reachability set from a single point to a larger ellipsoidal region in~\cref{fig:poincare_compare}.
 This achieves an intersection with the target orbit with a much lower time of flight as compared to the invariant manifold method.
 In addition, by generating the reachability set we are able to compute the required control input to exactly intersect the target orbit.
 This avoids having to compute and accomplish a secondary impulsive manuever to transition from the invariant manifold to the target orbit.
@@ -827,7 +828,7 @@ This straightforward approach achieves an optimal trajectory and is used to gene
 The invariant manifold method is difficult to apply to general orbital transfers. 
 The manifolds are associated with periodic orbits in the three-body system. 
 In this case, an appropriate periodic orbit must first be determined prior to generating the invariant manifold.
-Furthermore, there is not guarantee that the invariant manifold will pass through a desired region of space. 
+Furthermore, there is no guarantee that the invariant manifold will pass through a desired region of space. 
 For example, in the Earth-Moon system the unstable manifolds of periodic orbits about \( L_1 \) do not pass close to the Earth, but rather are beyond the geostationary orbit altitude. 
 In addition, determining the intersections between various invariant manifolds is not trivial. 
 It requires an appropriate \Poincare section and the generation of several invariant manifolds.
@@ -859,12 +860,12 @@ Once on the manifold, the spacecraft will coast in an uncontrolled fashion and a
 \end{figure}
 We first generate the stable invariant manifold associated with the periodic orbit in order to determine our target set.
 The stable manifold is propagated to the \Poincare section at \( y = 0 \) denoted by the horizontal black line in~\cref{fig:geo_transfer_full}.
-The first reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section and we again assume a upper bound on the thrust magnitude of \( u_max = 0.75 \).
+The first reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section and we again assume a upper bound on the thrust magnitude of \( u_{max} = 0.75 \).
 The reachable set is generated by varying the angle \( \ang{0} \leq \theta < \ang{360} \) in~\cref{eq:constraints} defined on the \Poincare section.
-This allows us to approximate the set of states that are achievable in the \( x \text{ vs. } \dot{x} \) space.
+This allows us to approximate the set of states that are achievable in the \( \parenth{x ,\dot{x}} \) space.
 After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds.
 %A state is chosen from the reachable set which minimizes the distance on the \Poincare section to the stable manifold, illustrated in green in~\cref{fig:geo_transfer_poincare}, and is used as the initial condition for the next reachable set computation.
-For example,~\cref{fig:third_reachability_set} shows the reachable set in red and the minimum distance to the stable manifold in green.
+For example,~\cref{fig:third_reachability_set} shows the reachable set after three iterations in red and the minimum distance to the stable manifold in green.
 
 With each reachable set we move the controlled trajectory closer to the stable manifold.
 \Cref{fig:geo_transfer_poincare} shows that after eight iterations the resulting trajectory intersects the stable manifold. 
