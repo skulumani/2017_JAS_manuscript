@@ -123,7 +123,7 @@ Maximization of the reachability set, on an appropriately chosen \Poincare secti
 The use of the \Poincare section allows for design on a lower dimensional space and simplifies the design process.
 %Once an intersection is determined on the \Poincare section a transfer is calculated.
 
-To address the issues associated with conventional numerical integration, we apply computational geometric optimal control techniques. 
+In order to address the issues associated with conventional numerical integration, we apply computational geometric optimal control techniques. 
 We generalize the previous work of determining orbital transfers using invariant manifolds~\cite{koon2011}.
 We incorporate the effects of continuous low thrust propulsion to enable departure from the system dynamics and enable increased transfer opportunities.
 The dynamics of the three-body system are derived from the discrete Lagrangian, which approximates the integral of the continuous time Lagrangian over a fixed discrete step.
@@ -207,7 +207,7 @@ where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U
 \end{equation}
 
 \subsection{Jacobi Integral}\label{sec:jacobi}
-There exists a single integral, or constant of motion for the three-body problem~\cite{lanczos1970,szebehely1967}.
+There exists a single integral, or constant of motion for the three-body problem~\cite{szebehely1967,lanczos1970}.
 This energy constant is analogous to the total mechanical energy, however it is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
 Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame and given by
 \begin{equation}
@@ -641,12 +641,12 @@ An optimal control problem is defined by a  cost function
 	\label{eq:cost}
 \end{equation}
 The term \( \vec{x}_n(N) \) is the final state of a control-free trajectory while the term \( \vec{x}(N)\) is the final state under the influence of the control input.
-Maximization of the distance between \( \vec{x}_n \) and \(\vec{x} \), in the \Poincare section defined in~\cref{eqn:poincare_section}, is equivalent to the minimization of \( J \).
+Maximization of the distance between \( \vec{x}_n \) and \(\vec{x} \), on the \Poincare section defined in~\cref{eqn:poincare_section}, is equivalent to the minimization of \( J \) defined in~\cref{eq:cost}.
 The \Poincare section is defined through the use of appropriate terminal constraints given by
 \begin{subequations}
 \begin{align}
-    m_1( \vec{x}(N) ) &= 0 = y(N) \, , \\ 
-    m_2 ( \vec{x}(N) )&= 0 = \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} \, , \\
+    m_1( \vec{x}(N) ) &= y(N) = 0 \, , \\ 
+    m_2 ( \vec{x}(N) )&=  \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} = 0\, , \\
 	 0 &\geq\vec{u}^T \vec{u} - u_{max}^2 \, ,
 \end{align}
     \label{eq:constraints}
@@ -694,7 +694,7 @@ The optimal control formulation presented in this section results in a two point
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975,kirk2012}.
 Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
 In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
-Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs.
+Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
 The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
 Additional interior constraints are used to ensure a continuous solution.
 This has the benefit of decreasing the numerical sensitivity of the final states to changes in the initial conditions along each sub-arc.
@@ -706,7 +706,9 @@ This has the benefit of decreasing the numerical sensitivity of the final states
 % plot of multiple shooting ( stages)
 \section{Numerical Example}\label{sec:simulation}
 We present two numerical simulations in the Earth-Moon system to demonstrate the transfer procedure.
-The simulations demonstrate the ability of using the reachable set to generate orbital transfer trajectories.
+These simulations enable the spacecraft to depart from the natural dynamics through the use of low-thrust propulsion.
+The reachability set on the \Poincare section allows for a straightforward method of determining transfer opportunities.
+
 \subsection{Periodic Orbit transfer}\label{sec:periodic_orbit_transfer}
 % define problem setup (initial and target orbits)
 The first objective is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
@@ -782,12 +784,12 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
 	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
 		\includegraphics[width=\textwidth]{poincare_compare} 
-		\caption{Poincar\`e Section} \label{fig:poincare_compare} 
+		\caption{\Poincare section} \label{fig:poincare_compare} 
 	\end{subfigure} %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 		
 	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{poincare_compare} 
-		\caption{Transfer trajectory} \label{fig:reach_transfer} 
+		\includegraphics[width=\textwidth]{reach_transfer} 
+		\caption{Final transfer trajectory} \label{fig:reach_transfer} 
 	\end{subfigure}~ 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
 		\includegraphics[width=\textwidth]{control_input_l1} 
@@ -861,7 +863,8 @@ Determining an intersection between these invariant manifolds generally requires
 As a result, it is difficult to generalize this method to arbitrary transfers in the three-body problem.
 
 % describe initial and target states for this example
-This numerical simulation demonstrates the ability of using multiple iterations of the reachability set to achieve a more complicated transfer.
+This numerical simulation demonstrates the ability of the proposed approach. 
+We use multiple iterations of the reachability set to achieve a more complicated transfer.
 In this manner, it is possible to design arbitrary transfers which are not possible using a single reachability computation.
 Initially, it is assumed that the spacecraft lies on a circular geostationary orbit in the non-dimensional Earth-Moon three-body system. 
 It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
@@ -879,7 +882,7 @@ Once on the manifold, the spacecraft will coast in an uncontrolled fashion and a
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{third_reachability_set} % requires the graphicx package
-   \caption{Third reachability set}
+   \caption{Reachable set after three iterations}
    \label{fig:third_reachability_set}
 \end{figure}
 We first generate the stable invariant manifold associated with the periodic orbit in order to determine our target set.
@@ -900,11 +903,11 @@ Once at the stable manifold, no further control input is required and the vehicl
 	\centering 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
 		\includegraphics[width=\textwidth]{geo_transfer_full} 
-		\caption{Transfer} \label{fig:geo_transfer_full} 
+		\caption{Completed transfer trajectory} \label{fig:geo_transfer_full} 
 	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
 		\includegraphics[width=\textwidth]{geo_transfer_zoom} 
-		\caption{State Trajectory} \label{fig:geo_transfer_zoom} 
+		\caption{Detailed view of transfer} \label{fig:geo_transfer_zoom} 
 	\end{subfigure} 
 	
 	\begin{subfigure}[htbp]{0.5\textwidth} 
@@ -915,7 +918,7 @@ Once at the stable manifold, no further control input is required and the vehicl
 		\includegraphics[width=\textwidth]{control_input_geo} 
 		\caption{Control input} \label{fig:control_input_geo} 
 	\end{subfigure} 
-	\caption{Geostationary Transfer}
+	\caption{Transfer from geostationary orbit to the \( L_1 \) stable manifold using multiple iterations of the reachability set}
 	\label{fig:geo_transfer} 
 \end{figure}
 
