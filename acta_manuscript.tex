@@ -165,13 +165,13 @@ As a result, the system can be characterized by a single mass ratio parameter \(
 	\mu = \frac{m_2}{m_1+m_2} \, .
 	\label{eq:mass_param}
 \end{equation}
-The larger primary, \(m_1\), is located at \( \left(  -\mu , 0 \right)\) and the smaller \( m_2\) is located at \( \left( 1-\mu , 0 \right)\), while the spacecraft is located at \( x \hat{e}_1 + y \hat{e}_2 \).
+The larger primary, \(m_1\), is located at \( \left(  -\mu , 0 \right)\) and the smaller \( m_2\) is located at \( \left( 1-\mu , 0 \right)\), while the spacecraft is located at \( (x ,y) \).
 In the rotating reference frame the Lagrangian is given by
 \begin{equation}
 	L = \frac{1}{2} \left( \left( \dot{x} -y \right)^2 + \left( \dot{y} + x \right)^2 \right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
 	\label{eq:lagrangian}
 \end{equation}
-where the distance \( r_1, r_2 \in \R \) of the spacecraft to each primary is defined in rotating reference frame as
+where the distance \( r_1, r_2 \in \R \) of the spacecraft to each primary is as
 \begin{align}
 	r_1 &= \sqrt{\left( x + \mu\right)^2 + y^2}\, , \\
 	r_2 &= \sqrt{\left( x - 1 + \mu\right)^2 + y^2}\, .
@@ -188,7 +188,7 @@ where the effective potential \( U\) is defined as
 	U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
 	\label{eq:eff_pot}
 \end{equation}
-and the control inputs are defined as \( \vec{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
+and the control inputs is defined as \( \vec{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
 The state is defined as \( \vec{x} = \begin{bmatrix}\vec{r} &\vec{v} \end{bmatrix}^T\) with \(\vec{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vec{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
 The equations of motion may be rewritten in state space form as
 \begin{equation}\label{eqn:cont_dyn}
@@ -258,7 +258,6 @@ Taking the variation of~\cref{eq:action_integral} gives
 		%&= \int_{0}^T \deriv{L}{q} \delta q - \frac{d}{dt} \left( \deriv{L}{\dot{q}}\right) \delta q \, dt - \left. \left[ \deriv{L}{\dot{q}} \delta q\right] \right|_0^T \\
 	&= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}	\right) \, dt \, ,
 \end{align}
-
 where we have used integration by parts and the conditions \( \delta q(0) = 0 \) and \( \delta q(T) = 0\).
 For Hamilton's principle to be valid for all admissible variations \( \delta q \), the integrand of~\cref{eq:var_principle} must be zero for all \( t\), giving the continuous Euler-Lagrange Equations~\cite{lanczos1970}.
 \begin{align}\label{eq:euler-lagrange}
@@ -387,7 +386,7 @@ This results in the complete discrete update map \( \vec{x}_k \to \vec{x}_{k+1} 
 	\centering 
 	\begin{subfigure}[h]{0.5\textwidth} 
 		\includegraphics[width=\textwidth]{trajectory} 
-		\caption{Trajectory} \label{fig:compare_trajectory} 
+		\caption{Trajectory comparison} \label{fig:compare_trajectory} 
 	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 %	\begin{subfigure}[htbp]{0.3\textwidth} 
 %		\includegraphics[width=\textwidth]{components} 
@@ -395,7 +394,7 @@ This results in the complete discrete update map \( \vec{x}_k \to \vec{x}_{k+1} 
 %	\end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
 		\includegraphics[width=\textwidth]{energy} 
-		\caption{Jacobi Integral} \label{fig:compare_energy} 
+		\caption{Jacobi Integral comparison} \label{fig:compare_energy} 
 	\end{subfigure} 
 	\caption{Integrator Comparison}
 	\label{fig:integrator_compare} 
@@ -448,7 +447,7 @@ The eigenvectors of the monodromy matrix, \( M = \Phi(T) \), serve to locally ap
 A perturbation in the direction of the unstable eigenvector, with \( \norm{\lambda} > 1 \), is used to generate an initial condition on the unstable manifold. 
 Similarly, a perturbation in the direction of the stable eigenvector, with \( \norm{\lambda} < 1 \), is used to generate an initial condition on the stable manifold. 
 Each periodic orbit has two stable and unstable manifold sets associated with both a positive or negative perturbation along the respective eigenvector.
-This is technique of determining the invariant manifolds is graphically presented in~\cref{fig:invariant_manifold}.
+This technique of determining the invariant manifolds is graphically presented in~\cref{fig:invariant_manifold}.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{invariant_manifold}
@@ -462,7 +461,7 @@ A \Poincare map, \( P(\vec{q}) = \phi(T;\vec{q}) \), maps the state of a traject
 Choosing a section in this manner results in a \Poincare section as shown in~\cref{fig:poincare_map}.
 This allows for greater insight into the stability and dynamics of periodic solutions of a dynamic system as a fixed point on the \Poincare section corresponds to a periodic orbit while movement on the section is associate with the stability of neighboring trajectories. 
 For example, \Poincare maps have been used to prove the existence of homoclinic orbits, which are orbits both forward and backward asymptotic to a single unstable periodic orbit, and heteroclinic orbits, which join different periodic orbits~\cite{conley1968,koon2000b}.
-These dynamic features have been shown to play a vital role in the movement of natural bodies as well as critical for spacecraft missions~\cite{lo1997,gomez2001}.
+These dynamic features have been shown to play a vital role in the movement of natural bodies as well as critical for spacecraft missions~\cite{gomez2001,lo1997}.
 \begin{figure}
 	\centering
 	\begin{scaletikzpicturetowidth}{0.5\textwidth}
@@ -513,7 +512,7 @@ The intersection of the invariant manifolds on the \Poincare section is central 
 % describe this specific poincare section and why it's placed and the axes
 The position, \( y \), and velocity, \( \dot{y} \), at the \Poincare section are plotted in~\cref{fig:poincare}.
 The surface of section is placed at a strategic location in order to allow for a cross section of the flow within the three-dimensional energy surface. 
-In a frame aligned with the rotating frame, \( ( \hat{e}_1, \hat{e}_2 ) \), but centered on the equilibrium point \( L_1 \) or \( L_2\), the unstable manifolds are locally moving in forward time in the second or forth quadrant. 
+In a frame aligned with the rotating frame, \( ( \hat{e}_1, \hat{e}_2 ) \), but centered on the equilibrium point \( L_1 \) or \( L_2\), the unstable manifolds are locally moving in forward time in the second and forth quadrant. 
 Similarly, the stable manifold branches are locally moving in backward time in the first and third quadrants as illustrated in~\cref{fig:invariant_manifold}. 
 As a result, the location of the section in~\cref{fig:poincare} is chosen to intersect both the stable manifolds of \( L_1 \) periodic orbits as well as unstable manifolds of \( L_2 \) periodic orbits.
 Additional \Poincare sections are located at other heteroclinic points in the phase space to enable design throughout the phase space~\cite{koon2011}.
@@ -759,10 +758,10 @@ The required travel time for a transfer using the unstable invariant manifold is
 
 % reachable set transfer
 Next, we determine the reachability set with the addition of a low thrust control input.
-We define a maximum magnitude of the thrust as \( u_{max} = 0.5 \) and assume we can point the thrust in any direction within the plane. 
+We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
-The trajectories are generated from a fixed initial state of \( \vec{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
+The trajectories are generated from a fixed initial state of \( \vec{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
 From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
@@ -774,6 +773,7 @@ The intersection of the optimal trajectories as well as those of the target Moon
 The optimal trajectories, under the influence of the control input \( \vec{u} \), are plotted in red in~\cref{fig:reach_trajectory}.
 Initially, the spacecraft is assumed to lie on the periodic orbit.
 As a result, the intersection of this periodic orbit with the \Poincare section are two points corresponding to the two crossing of the orbit.
+We show the control-free intersection, \( \vec{x}_n \), of the periodic orbit on the \Poincare section in~\cref{fig:manifold_poincare,fig:poincare_compare}
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \) as compared to a fixed point without any control input.
 \begin{figure} 
@@ -806,7 +806,9 @@ This intersection generates a partial target state of \( x_t \text{ and } \dot{x
 Using~\cref{eq:jacobi} and the intersection state the final component \( \dot{y} \) is calculated. 
 This results in a complete target state \( \vec{x}_t \) which lies on the reachable set and on the target orbit. 
 A final optimal trajectory is generated such that the \( \vec{x}(N) = \vec{x}_t \).
-This transfer trajectory is denoted by the green path in~\cref{fig:reach_trajectory}.
+This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
+The optimal control input is shown in~\cref{fig:control_l1}. 
+The spacecraft achieves the desired target while satisfying the bounded control input.
 
 % compare the invariant manifold method and reachability set
 A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) for a transfer using low thrust propulsion and the reachable set.
@@ -899,6 +901,8 @@ With each reachable set we move the controlled trajectory closer to the stable m
 Combining these trajectories results in the powered portion of the transfer from the geostationary orbit to the stable manifold. 
 \Cref{fig:geo_transfer_full,fig:geo_transfer_zoom} shows the resulting trajectory, with the final trajectory shown in red which ensures the intersection with the stable invariant manifold.
 Once at the stable manifold, no further control input is required and the vehicle will coast towards the target periodic orbit.
+\Cref{fig:control_input_geo} shows the control input during the powered portion of the transfer. 
+The spacecraft maintains a bounded control magnitude during the transfer to the stable manifold.
 \begin{figure} 
 	\centering 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
