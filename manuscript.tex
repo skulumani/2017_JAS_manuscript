@@ -1,31 +1,17 @@
-\documentclass[preprint]{elsarticle}
+\documentclass[letterpaper, submit]{AAS}
 
-\usepackage{acta_astronautica_packages} % packages and referencing customization
+\usepackage{jas_packages} % packages and referencing customization
 \input{macros} % defines custom macros
-
-\journal{Acta Astronautica}
 
 \begin{document}
 
-\begin{frontmatter}
-
 \title{Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem}
 
+\author{Shankar Kulumani\thanks{Doctoral Student, Mechanical \& Aerospace Engineering, George Washington University, 800 22nd St NW, Washington, DC 20052.},  
+Taeyoung Lee\thanks{Associate Professor, Mechanical \& Aerospace Engineering, George Washington University, 800 22nd St NW, Washington, DC 20052.}
+}
 
-%% Group authors per affiliation:
-\author[gwu_address]{Shankar Kulumani\fnref{kulumanifootnote}\corref{mycorrespondingauthor}}
-\cortext[mycorrespondingauthor]{Corresponding author}
-\ead{skulumani@gwu.edu}
-
-\author[gwu_address]{Taeyoung Lee\fnref{leefootnote}}
-\ead{tylee@gwu.edu}
-
-
-\fntext[kulumanifootnote]{Doctoral Student, Mechanical and Aerospace Engineering} 
-\fntext[leefootnote]{Associate Professor, Mechanical and Aerospace Engineering} 
-
-\address[gwu_address]{George Washington University, 800 22nd St NW, Washington, DC 20052\\ Tel: 202-994-6749}
-
+\maketitle{}        
 
 \begin{abstract}
 We develop a computational approach for the design of continuous low thrust transfers in the planar circular restricted three-body problem.
@@ -36,12 +22,6 @@ The reachable set is developed on a lower dimensional \Poincare section and used
 This is solved numerically as a discrete optimal control problem using a variational integrator, which preserve the geometric structure of the motion in the three-body problem.
 We demonstrate our approach with two numerical simulations of transfers in the Earth-Moon three-body system.
 \end{abstract}
-
-\begin{keyword}
-Low-thrust, Reachability, Optimal Control, Variational Integrator
-\end{keyword}
-
-\end{frontmatter}
 
 \section{Introduction}\label{sec:introduction}
 % MOTIVATION FOR LOW THRUST ORBITAL TRANSFER 
@@ -1079,5 +1059,5 @@ Finally, backsubstituion is used to determine explicit equations for the discret
 \section*{References}
 
 \bibliography{library}
-\bibliographystyle{elsarticle-num}
+\bibliographystyle{AAS_publication}
 \end{document}
