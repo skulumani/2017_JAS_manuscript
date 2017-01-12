@@ -1,0 +1,34 @@
+\ProvidesPackage{tikz_packages}
+
+% TIKZ
+\usepackage{tikz}
+\usepackage{environ}
+\usetikzlibrary{decorations.markings,decorations.pathreplacing,calc}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usepackage{tikz-3dplot}
+
+\tikzset{help lines/.style={very thin,color=gray!50}} % modify the help lines style
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position .5 with {\arrow{>}}},postaction={decorate}}}
+  
+\tikzset{decorate sep/.style 2 args=
+{decorate,decoration={shape backgrounds,shape=circle,shape size=#1,shape sep=#2}}}
+
+\tikzset{>={Latex[width=3mm,length=3mm]}}
+
+\makeatletter
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{scaletikzpicturetowidth}[1]{%
+  \def\tikz@width{#1}%
+  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzscale{\pgfmathresult}%
+  \BODY
+}
+\makeatother
