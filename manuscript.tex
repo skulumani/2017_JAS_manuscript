@@ -66,7 +66,7 @@ Optimally combining the dynamical structure of the three-body problem with low-t
 There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}.
 Typically, the optimal control problem is solved via direct methods, which approximate the continuous problem as a parameter optimization problem.
 The state and/or control trajectories are parameterized and solved in the form of a nonlinear optimization problem.
-References~\citenum{mingotti2011} and~\citenum{grebow2011} use this direct approach in designing low-thrust transfers in the three-body problem.
+The work in~\cite{mingotti2011,grebow2011} use this direct approach in designing low-thrust transfers in the three-body problem.
 Alternatively, indirect methods apply calculus of variations to derive the necessary conditions for optimality. 
 This yields a lower dimensioned problem than the direct approach and algebraic conditions that, when satisfied, guarantee local optimality in contrast to direct methods which result in sub-optimal solutions.
 
@@ -86,14 +86,14 @@ These methods are critically dependent on accurate initial guess in order to all
 
 % NUMERICAL INTEGRATION
 Efficient numerical implementation is dependent on correct initial conditions as well as accurate numerical integration.
-References~\citenum{mingotti2011} and~\citenum{grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
+\cite{mingotti2011,grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
 These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation.
 These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion.
 Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system~\cite{hairer2006}.
 As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured. 
 
 % DYNAMICAL STRUCTURE
-References~\citenum{koon2011} and~\citenum{ross2006} have illustrated the rich structure that exists in the three-body problem.
+\cite{koon2011,ross2006} have illustrated the rich structure that exists in the three-body problem.
 Within the three-body problem, a spacecraft's feasible region of motion is constrained by its energy, or Jacobi integral. 
 It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space. 
 Associated with periodic solutions of the three-body dynamics, these invariant manifolds allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
@@ -338,7 +338,7 @@ The discrete fiber derivative is given as
 \end{align}
 \end{subequations}
 This yields a discrete Hamiltonian map \( (q_k, p_k) \to (q_{k+1}, p_{k+1}) \).
-A more extensive development of variational integrators can be found in Reference~\citenum{marsden2001}.
+A more extensive development of variational integrators can be found in~\cite{marsden2001}.
 
 \subsection{Discrete Equations of Motion}
 The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the Lagrangian in~\cref{eq:lagrangian}. 
@@ -535,7 +535,7 @@ Similarly, the stable manifold branches are locally moving in backward time in t
 As a result, the location of the section in~\cref{fig:poincare} is chosen to intersect both the stable manifolds of \( L_1 \) periodic orbits as well as unstable manifolds of \( L_2 \) periodic orbits.
 Additional \Poincare sections are located at other heteroclinic points in the phase space to enable design throughout the phase space~\cite{koon2011}.
 In this way, it is possible to design trajectories that intersect the invariant manifolds and connect widely separated regions of the state space. 
-This technique has been heavily investigated in Reference~\citenum{koon2011}, applied to operational missions in Reference~\citenum{koon1999}, and applied to potential multi-moon orbiter missions in Reference~\citenum{tanaka2011}.
+This technique has been heavily investigated in~\cite{koon2011}, applied to operational missions in~\cite{koon1999}, and applied to potential multi-moon orbiter missions in~\cite{tanaka2011}.
 In addition, much recent work has focused on potential return missions to the Moon~\cite{zanzottera2012,campagnola2012,mingotti2011,ozimek2010a,mingotti2009}.
 \begin{figure}
      \centering
@@ -763,7 +763,7 @@ The initial \( \dot{y} \) is varied until the the periodic orbit makes a perpend
 Due to the symmetry of the three-body problem, this ensures that the trajectory will return to the initial state after a single period. 
 
 % invariant manifold transfer
-As a source for comparison, the method of using invariant manifolds, introduced in Reference~\citenum{koon2011}, is implemented.
+As a source for comparison, the method of using invariant manifolds, introduced in~\cite{koon2011}, is implemented.
 As described in~\cref{sec:invariant_manifold}, these invariant manifolds are the set of trajectories that either asymptotically arrive or depart the periodic orbit. 
 We generate the unstable manifold associated with the initial planar periodic orbit.
 We numerically propagate the unstable manifold forward in time until the trajectories intersect the \Poincare section \( y = 0 \).
