@@ -1,9 +1,13 @@
 \makeatletter
 \def\cl@chapter{}
 \makeatother
+
+\RequirePackage{fix-cm}
+
 \documentclass[smallcondensed]{svjour3}
 
 \usepackage{jas_packages} % packages and referencing customization
+\usepackage{mathptmx}
 \usepackage{jas_tikz_packages}
 \tdplotsetmaincoords{60}{125} % view angle in spherical coordinates
 \input{macros} % defines custom macros
@@ -11,14 +15,23 @@
 \begin{document}
 
 
-\title{Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem}
-
-\author{Shankar Kulumani\thanks{Doctoral Student, Mechanical \& Aerospace Engineering, George Washington University, 800 22nd St NW, Washington, DC 20052.},  
-Taeyoung Lee\thanks{Associate Professor, Mechanical \& Aerospace Engineering, George Washington University, 800 22nd St NW, Washington, DC 20052.}
+\title{Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem
+\thanks{This research has been supported in part by NSF under the grants CMMI-1243000 (transferred from 1029551), CMMI-1335008, and CNS-1337722.}
 }
 
-\maketitle{}        
+\author{Shankar Kulumani \and Taeyoung Lee}  
 
+\institute{S. Kulumani \and T. Lee \at
+		Department of Mechanical \& Aerospace Engineering,\\
+		George Washington University,\\
+		800 22nd St NW, Washington, DC 20052.\\
+		\email{skulumani@gwu.edu}\\
+		\email{tylee@gwu.edu}
+		}
+
+\date{Received: date / Accepted: date}
+
+\maketitle{}        
 \begin{abstract}
 We develop a computational approach for the design of continuous low thrust transfers in the planar circular restricted three-body problem.
 The use of low thrust propulsion allows the spacecraft to depart from the natural dynamics and enables a wider range of transfers.
@@ -27,6 +40,9 @@ The reachable set is developed on a lower dimensional \Poincare section and used
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
 This is solved numerically as a discrete optimal control problem using a variational integrator, which preserve the geometric structure of the motion in the three-body problem.
 We demonstrate our approach with two numerical simulations of transfers in the Earth-Moon three-body system.
+\keywords{First keyword \and Second keyword \and More}
+% \PACS{PACS code1 \and PACS code2 \and more}
+% \subclass{MSC code1 \and MSC code2 \and more}
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
@@ -1088,8 +1104,12 @@ Finally, backsubstituion is used to determine explicit equations for the discret
 \end{subequations}
 %Once again, these equations exhibit a cascade type relationship. 
 %As as result any errors will compound and tend to accumulate most prevalently in \( \lambda_{\xkp} \).
-\section*{References}
+
+%\begin{acknowledgements}
+%If you'd like to thank anyone, place your comments here
+%and remove the percent signs.
+%\end{acknowledgements}
 
 \bibliography{library}
-\bibliographystyle{AAS_publication}
+\bibliographystyle{spmpsci}
 \end{document}
