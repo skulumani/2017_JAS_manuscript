@@ -647,9 +647,9 @@ Maximization of this distance along varying directions enables us to generate th
 	\caption{Reachability set on a \Poincare section\label{fig:reachability_set}}
 \end{figure}
 
-We define the \Poincare section along the horizontal axis, which is equivalent to the surface \( y(N) = 0 \), and given by
+We define the \Poincare section along the horizontal axis, which is equivalent to the surface \( y = 0 \), and given by
 \begin{align}
-	\Sigma = \braces{ ( x, \dot{x}) \, | \, y(N) = 0} . 
+	\Sigma = \braces{ ( x, \dot{x}) \, | \, y = 0} . 
 	\label{eqn:poincare_section}
 \end{align}
 This is similar to the previous work in determining homoclinic orbits in the three-body problem~\cite{llibre1985,koon2011}.
@@ -667,16 +667,16 @@ An optimal control problem is defined by a  cost function
 		 0 & 0& 0& 0
 	\end{array}
 	\right]
-	\left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right) \, .
+	\left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right) = \phi(\vecbf{x}(N),\vecbf{x}_n(N)) \, .
 	\label{eq:cost}
 \end{equation}
 The term \( \vecbf{x}_n(N) \) is the final state of a control-free trajectory while the term \( \vecbf{x}(N)\) is the final state under the influence of the control input.
-Maximization of the distance between \( \vecbf{x}_n \) and \(\vecbf{x} \), on the \Poincare section defined in~\cref{eqn:poincare_section}, is equivalent to the minimization of \( J \) defined in~\cref{eq:cost}.
+Maximization of the distance between \( \vecbf{x}_n \) and \(\vecbf{x} \), on the \Poincare section defined in~\cref{eqn:poincare_section} at the terminal time \( t_f = N \), is equivalent to the minimization of \( J \) defined in~\cref{eq:cost}.
 The \Poincare section is defined through the use of appropriate terminal constraints given by
 \begin{subequations}
 \begin{align}
-    m_1( \vecbf{x}(N) ) &= y(N) = 0 \, , \\ 
-    m_2 ( \vecbf{x}(N) )&=  \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} = 0\, , \\
+    v_1( \vecbf{x}(N) ) &= y(N) = 0 \, , \\ 
+    v_2 ( \vecbf{x}(N) )&=  \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} = 0\, , \\
 	 0 &\geq\vecbf{u}^T \vecbf{u} - u_{max}^2 \, ,
 \end{align}
     \label{eq:constraints}
@@ -692,7 +692,7 @@ This results in a discrete optimal control problem and the discrete necessary co
 \begin{align}
 	\vecbf{\lambda}_{k+1}^T &= \vecbf{\lambda}_k^T  \parenth{\deriv{\vecbf{f}_k}{\vecbf{x}_k}}^{-1} \, , \\
 	0 &=  \deriv{H_k}{\vecbf{u}_k} \, , \label{eqn:control_necc_cond}\\
-	0 &= \deriv{\phi}{\vecbf{x}_k}^T + \deriv{\vecbf{m}}{\vecbf{x}_k}^T \vecbf{\beta}  - \vecbf{\lambda}^T(N) \, ,  
+	0 &= \deriv{\phi}{\vecbf{x}_k}^T + \deriv{\vecbf{v}}{\vecbf{x}_k}^T \vecbf{\beta}  - \vecbf{\lambda}^T(N) \, ,  
 \end{align}
 \end{subequations}
 where the Hamiltonian \(H\) is defined as
@@ -834,7 +834,7 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
 This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
-Using~\cref{eq:jacobi} and the intersection state the final component \( \dot{y} \) is calculated. 
+Using the energy level of the target region, defined by~\cref{eq:jacobi}, and the intersection state we can calculate the final component \( \dot{y} \) is calculated. 
 This results in a complete target state \( \vecbf{x}_t \) which lies on the reachable set and on the target orbit. 
 A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x}_t \).
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
