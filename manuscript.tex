@@ -195,12 +195,12 @@ where the effective potential \( U\) is defined as
 	U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
 	\label{eq:eff_pot}
 \end{equation}
-and the control inputs is defined as \( \vec{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
-The state is defined as \( \vec{x} = \begin{bmatrix}\vec{r} &\vec{v} \end{bmatrix}^T\) with \(\vec{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vec{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
+and the control inputs is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
+The state is defined as \( \vecbf{x} = \begin{bmatrix}\vecbf{r} &\vecbf{v} \end{bmatrix}^T\) with \(\vecbf{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vecbf{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
 The equations of motion may be rewritten in state space form as
 \begin{equation}\label{eqn:cont_dyn}
-	\left[\begin{array}{c} \dot{\vec{r}} \\ \dot{\vec{v}} \end{array} \right] = 
-	\left[ \begin{array}{c} \vec{v} \\ A \vec{v} + \nabla U + \vec{u} \end{array} \right] = f\left( t,\vec{x}, \vec{u}\right) \, ,
+	\left[\begin{array}{c} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{array} \right] = 
+	\left[ \begin{array}{c} \vecbf{v} \\ A \vecbf{v} + \nabla U + \vecbf{u} \end{array} \right] = f\left( t,\vecbf{x}, \vecbf{u}\right) \, ,
 \end{equation}
 where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U\) are
 \begin{equation}\label{eq:A_mat}
@@ -218,7 +218,7 @@ There exists a single integral, or constant of motion for the three-body problem
 This energy constant is analogous to the total mechanical energy, however it is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
 Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame and given by
 \begin{equation}
-	E\left( \vec{r} , \vec{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
+	E\left( \vecbf{r} , \vecbf{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
 	\label{eq:jacobi}
 \end{equation}
 \Cref{eq:jacobi} divides the phase space into distinct regions of allowable motion based on the energy level of the spacecraft.
@@ -293,11 +293,11 @@ A discrete analogue of Hamilton's principle and the action integral is formed.
 Rather than taking a position, \( q \), and velocity, \( \dot{q} \), consider two positions \( q_0 \) and \( q_1 \) and a fixed time step \( h \in \R \).
 The two positions are points on the curve \( q(t) \) such that \( q_0 \approx q(0) \) and \( q_1 \approx q(h) \).
 A discrete time Lagrangian \( L_d( q_0, q_1) \) is formed which approximates the action integral between \( q_0 \) and \( q_1 \) as 
-\begin{align}\label{eq:discrete_lagrangian}
+\begin{align}\label{eq:discrete_lagrangian_gen}
 	L_d\left( q_0 , q_1 \right) \approx \int_{0}^{h} L \left( q , \dot{q} \right) \, dt \, .
 \end{align}
-Since~\cref{eq:discrete_lagrangian} is calculated as a numerical integral, an appropriate quadrature rule is required.
-There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian}.
+Since~\cref{eq:discrete_lagrangian_gen} is calculated as a numerical integral, an appropriate quadrature rule is required.
+There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian_gen}.
 An appropriate approximation rule is determined based on the ease of implementation and accuracy desired.
 \begin{table}[htbp]
 \caption{Selected Quadrature Rules\label{tab:quadrature}}
@@ -360,8 +360,8 @@ Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation, 
 \end{align}
 \end{subequations}
 The discrete equations of motion are given in the Lagrangian form after applying the discrete fiber derivative from~\cref{eq:discrete_legendre} as \( p_{\xk} = \dot{x}_k - \yk \) and \( p_{\yk} = \dot{y}_k + \xk \).
-The state is defined as \( \vec{x}_k = \begin{bmatrix} \xk & \yk & \dot{x}_k & \dot{y}_k \end{bmatrix}^T\) and the control input is \( \vec{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \).
-This results in a discrete update map \( f_k: \vec{x}_k \to \vec{x}_{k+1} \) which preserves the same properties of the continuous-time dynamics in~\cref{eqn:cont_dyn} such as invariants, symplecticity, and the configuration manifold.
+The state is defined as \( \vecbf{x}_k = \begin{bmatrix} \xk & \yk & \dot{x}_k & \dot{y}_k \end{bmatrix}^T\) and the control input is \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \).
+This results in a discrete update map \( f_k: \vecbf{x}_k \to \vecbf{x}_{k+1} \) which preserves the same properties of the continuous-time dynamics in~\cref{eqn:cont_dyn} such as invariants, symplecticity, and the configuration manifold.
 The discrete potential gradients are given by
 \begin{subequations}\label{eq:discrete_potential_grad}
 \begin{align}
@@ -382,12 +382,12 @@ The distances to each primary are defined as
 \end{subequations}
 Care must be taken during the implementation of~\cref{eq:discrete_eoms}.
 As~\cref{eq:discrete_potential_grad,eq:discrete_distance} are defined at both step \( k \) and \( k+1 \) they must be evaluated at both time instances.
-\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \vec{x}_k \) and control \( \vec{u}_k \).
+\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \vecbf{x}_k \) and control \( \vecbf{u}_k \).
 The distances and gravitational potential at step \( k \) are evaluated from~\cref{eq:distonek,eq:disttwok,eq:Uxk,eq:Uyk}.
 The discrete update steps in~\cref{eq:xkp,eq:ykp} are evaluated to generate \( \xkp \) and \( \ykp\).
 Next, the distances and gravitational potential at step \( k+1 \) are evaluated from~\cref{eq:distonekp,eq:disttwokp,eq:Uxkp,eq:Uykp}. 
 Finally, the update steps in~\cref{eq:xdotkp,eq:ydotkp} are evaluated.
-This results in the complete discrete update map \( \vec{x}_k \to \vec{x}_{k+1} \) given \( \vec{u}_k \).
+This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k+1} \) given \( \vecbf{u}_k \).
 \subsection{Numerical Example}\label{sec:variational_example}
 \begin{figure} 
 	\centering 
@@ -407,7 +407,7 @@ This results in the complete discrete update map \( \vec{x}_k \to \vec{x}_{k+1} 
 	\label{fig:integrator_compare} 
 \end{figure}
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
-A particle is simulated from an initial condition of \( \vec{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
+A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
 The variational integrator uses a step size of \SI{47.22}{\second} while the Runge-Kutta method uses a variable step size implemented via ODE45 in Matlab.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference frame for both integration schemes.
 Both integration schemes result in trajectories that are initially nearly identical.
@@ -440,16 +440,16 @@ These invariant manifolds only exist as a result of the dynamic formulation of t
 Invariant manifolds serve as a higher dimensional generalization of the concept of seperatrices from linear systems as applied to the case of nonlinear systems. 
 To compute these manifolds first one must determine an appropriate periodic orbit. 
 The process of differential correction and numerical continuation are used to determine a periodic orbit with a desired energy level. 
-Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vec{x}_0) \) originating from \( \vec{x}(t_0) = \vec{x}_0 \) and we define a periodic orbit as \( \gamma\).
+Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vecbf{x}_0) \) originating from \( \vecbf{x}(t_0) = \vecbf{x}_0 \) and we define a periodic orbit as \( \gamma\).
 The invariant manifolds are defined as : 
 \begin{align*}
-	W^s ( \vec{x}_0 ) &= \braces{ \vec{x} : \phi(t;\vec{x}_0) \to \gamma \text{ as } t \to \infty} , \\
-	W^u ( \vec{x}_0 ) &= \braces{ \vec{x} : \phi(t;\vec{x}_0) \to \gamma \text{ as } t \to -\infty} .
+	W^s ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to \infty} , \\
+	W^u ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to -\infty} .
 \end{align*}
-The stable manifold, \( W^s(\vec{x}_0) \), is the set of trajectories which asymptotically approach the periodic orbit.
-Similarly, the unstable manifold, \( W^u(\vec{x}_0) \), is the set of trajectories which asymptotically depart the periodic orbit.
+The stable manifold, \( W^s(\vecbf{x}_0) \), is the set of trajectories which asymptotically approach the periodic orbit.
+Similarly, the unstable manifold, \( W^u(\vecbf{x}_0) \), is the set of trajectories which asymptotically depart the periodic orbit.
 For the nonlinear system, defined by~\cref{eqn:cont_dyn} or~\cref{eq:discrete_eoms}, we can determine the state transition matrix \( \Phi \) along the periodic orbit, from \( 0 \to T\), by numerical integration of the variational equations.
-In the neighborhood of the periodic orbit \( \gamma \), the tangent spaces to the stable and unstable manifolds are provided by the generalized eigenspaces \( E^s \) and \( E^u \) of the linearization \( A = \D f(\vec{x}_0) \), where \( \vec{x}_0 \) is on the periodic orbit.
+In the neighborhood of the periodic orbit \( \gamma \), the tangent spaces to the stable and unstable manifolds are provided by the generalized eigenspaces \( E^s \) and \( E^u \) of the linearization \( A = \D f(\vecbf{x}_0) \), where \( \vecbf{x}_0 \) is on the periodic orbit.
 The eigenvectors of the monodromy matrix, \( M = \Phi(T) \), serve to locally approximate the directions of the stable and unstable manifolds. 
 A perturbation in the direction of the unstable eigenvector, with \( \norm{\lambda} > 1 \), is used to generate an initial condition on the unstable manifold. 
 Similarly, a perturbation in the direction of the stable eigenvector, with \( \norm{\lambda} < 1 \), is used to generate an initial condition on the stable manifold. 
@@ -463,8 +463,8 @@ This technique of determining the invariant manifolds is graphically presented i
 
 % introduce \Poincare section theory and math
 \Poincare maps are a useful tool in the analysis of the flow near periodic orbits in the three-body problem.
-We let \( \Sigma \) define a hypersurface of section chosen such that all trajectories in the vicinity of a state \( \vec{q} \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
-A \Poincare map, \( P(\vec{q}) = \phi(T;\vec{q}) \), maps the state of a trajectory from one intersection to the next.
+We let \( \Sigma \) define a hypersurface of section chosen such that all trajectories in the vicinity of a state \( \vecbf{q} \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
+A \Poincare map, \( P(\vecbf{q}) = \phi(T;\vecbf{q}) \), maps the state of a trajectory from one intersection to the next.
 Choosing a section in this manner results in a \Poincare section as shown in~\cref{fig:poincare_map}.
 This allows for greater insight into the stability and dynamics of periodic solutions of a dynamic system as a fixed point on the \Poincare section corresponds to a periodic orbit while movement on the section is associate with the stability of neighboring trajectories. 
 For example, \Poincare maps have been used to prove the existence of homoclinic orbits, which are orbits both forward and backward asymptotic to a single unstable periodic orbit, and heteroclinic orbits, which join different periodic orbits~\cite{conley1968,koon2000b}.
@@ -522,7 +522,7 @@ The \Poincare section in~\cref{fig:manifold_transfer_example} is defined as
 	\Sigma = \braces{ ( y, \dot{y}) \, | \, x = 1- \mu, y > 0} , 
 \end{align*}
 and located to allow an intersection between both invariant manifolds.
-The configuration space of the invariant manifold is \( \vec{x} \in \R^4 \).
+The configuration space of the invariant manifold is \( \vecbf{x} \in \R^4 \).
 The surface of section, and the resulting intersection of the four-dimensional space with the hyperplane \( \Sigma \), reduces the resulting intersection to a surface in \( \R^3\).
 Since the two orbits share the same Jacobi constant, the intersection phase space is further reduced to \( \R^2\).
 The intersection of the invariant manifolds on the \Poincare section is central to determining transfer connections between the initial and final orbits.
@@ -593,7 +593,7 @@ We choose our \Poincare section in a similar manner to those used previously for
 The \Poincare section is chosen to intersect transversally with trajectories emanating from the initial orbit. 
 In the case of a periodic orbit the trajectories will cross the \Poincare section at two distinct fixed points every half period.
 The main idea is that the addition of low thrust propulsion allows us to enlarge the set of trajectories achievable in the \Poincare section. 
-\Cref{fig:reachability_set} illustrates how, without any control input, trajectories will intersect with the \Poincare section at \( \vec{x}_n \). 
+\Cref{fig:reachability_set} illustrates how, without any control input, trajectories will intersect with the \Poincare section at \( \vecbf{x}_n \). 
 However, the addition of low thrust propulsion allows the spacecraft to depart from the natural dynamics and intersect the \Poincare section at a different location.
 We use a cost function to define a distance metric on the \Poincare section from the control-free intersection to an intersection under the influence of the control input.
 Maximization of this distance along varying directions enables us to generate the largest reachability set under the bounded control input.
@@ -660,7 +660,7 @@ We seek to compliment these results with the addition of low thrust propulsion t
 Placing our section at \( y = 0\) ensures that all trajectories will intersect our section.
 An optimal control problem is defined by a  cost function
 \begin{equation}
-	J = -\frac{1}{2} \left( \vec{x}(N) - \vec{x}_{n}(N)\right)^T 
+	J = -\frac{1}{2} \left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right)^T 
 	\left[
 	\begin{array}{cccc}
 		1 & 0& 0& 0 \\
@@ -669,47 +669,47 @@ An optimal control problem is defined by a  cost function
 		 0 & 0& 0& 0
 	\end{array}
 	\right]
-	\left( \vec{x}(N) - \vec{x}_{n}(N)\right) \, .
+	\left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right) \, .
 	\label{eq:cost}
 \end{equation}
-The term \( \vec{x}_n(N) \) is the final state of a control-free trajectory while the term \( \vec{x}(N)\) is the final state under the influence of the control input.
-Maximization of the distance between \( \vec{x}_n \) and \(\vec{x} \), on the \Poincare section defined in~\cref{eqn:poincare_section}, is equivalent to the minimization of \( J \) defined in~\cref{eq:cost}.
+The term \( \vecbf{x}_n(N) \) is the final state of a control-free trajectory while the term \( \vecbf{x}(N)\) is the final state under the influence of the control input.
+Maximization of the distance between \( \vecbf{x}_n \) and \(\vecbf{x} \), on the \Poincare section defined in~\cref{eqn:poincare_section}, is equivalent to the minimization of \( J \) defined in~\cref{eq:cost}.
 The \Poincare section is defined through the use of appropriate terminal constraints given by
 \begin{subequations}
 \begin{align}
-    m_1( \vec{x}(N) ) &= y(N) = 0 \, , \\ 
-    m_2 ( \vec{x}(N) )&=  \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} = 0\, , \\
-	 0 &\geq\vec{u}^T \vec{u} - u_{max}^2 \, ,
+    m_1( \vecbf{x}(N) ) &= y(N) = 0 \, , \\ 
+    m_2 ( \vecbf{x}(N) )&=  \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} = 0\, , \\
+	 0 &\geq\vecbf{u}^T \vecbf{u} - u_{max}^2 \, ,
 \end{align}
     \label{eq:constraints}
 \end{subequations}
 where the angle \( \theta_d\) defines a direction in which we wish to maximize the reachability set on the \Poincare section.
 The maximum control thrust magnitude is defined by \( u_{max} \) and is non-dimensionalized by the characteristic units of length, mass, and time.
-The goal is to determine the control input \( \vec{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
+The goal is to determine the control input \( \vecbf{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
 
 Application of the Euler-Lagrange equations allows us to derive the necessary conditions for optimality~\cite{bryson1975}.
 The discrete variational integrator in~\cref{eq:discrete_eoms} is used rather than the continuous time counterpart. 
 This results in a discrete optimal control problem and the discrete necessary conditions are given as
 \begin{subequations}\label{eq:necc_cond}
 \begin{align}
-	\vec{\lambda}_{k+1}^T &= \vec{\lambda}_k^T  \parenth{\deriv{\vec{f}_k}{\vec{x}_k}}^{-1} \, , \\
-	0 &=  \deriv{H_k}{\vec{u}_k} \, , \label{eqn:control_necc_cond}\\
-	0 &= \deriv{\phi}{\vec{x}_k}^T + \deriv{\vec{m}}{\vec{x}_k}^T \vec{\beta}  - \vec{\lambda}^T(N) \, ,  
+	\vecbf{\lambda}_{k+1}^T &= \vecbf{\lambda}_k^T  \parenth{\deriv{\vecbf{f}_k}{\vecbf{x}_k}}^{-1} \, , \\
+	0 &=  \deriv{H_k}{\vecbf{u}_k} \, , \label{eqn:control_necc_cond}\\
+	0 &= \deriv{\phi}{\vecbf{x}_k}^T + \deriv{\vecbf{m}}{\vecbf{x}_k}^T \vecbf{\beta}  - \vecbf{\lambda}^T(N) \, ,  
 \end{align}
 \end{subequations}
 where the Hamiltonian \(H\) is defined as
 \begin{equation}
-	H_k = \vec{\lambda}_k^T \vec{f}(\vec{x}_k, \vec{u}_k) \, ,
+	H_k = \vecbf{\lambda}_k^T \vecbf{f}(\vecbf{x}_k, \vecbf{u}_k) \, ,
 	\label{eq:hamiltonian_opt}
 \end{equation}
-and \( \vec{\lambda} \in \R^{4 \times 1} \) is the costate and \(\vec{\beta} \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
-The state dynamics are represented by \( \vec{f}(\vec{x}_k, \vec{\lambda}_k ) \) after substituting~\cref{eqn:control_necc_cond} into~\cref{eq:discrete_eoms}.
+and \( \vecbf{\lambda} \in \R^{4 \times 1} \) is the costate and \(\vecbf{\beta} \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
+The state dynamics are represented by \( \vecbf{f}(\vecbf{x}_k, \vecbf{\lambda}_k ) \) after substituting~\cref{eqn:control_necc_cond} into~\cref{eq:discrete_eoms}.
 This indirect optimal control formulation leads to a two point boundary value problem with split boundary conditions. 
 By sweeping the angle \( \theta_d \) one can approximate the reachable set on the \Poincare section subject to the bounded control input. 
 
 The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} and is given by
 \begin{align}\label{eq:costate_eom}
-	\vec{\lambda}_{k+1}^T = \vec{\lambda}_k^T
+	\vecbf{\lambda}_{k+1}^T = \vecbf{\lambda}_k^T
 	\begin{bmatrix} 
 		f_{1_x} & f_{1_y} & f_{1_{\dot{x}}} & f_{1_{\dot{y}}} \\
 		f_{2_x} & f_{2_y} & f_{2_{\dot{x}}} & f_{2_{\dot{y}}} \\
@@ -720,7 +720,7 @@ The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} 
 The derivation of~\cref{eq:costate_eom} is given in Appendix A.
 In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
 This is a computationally expensive operation that is prone to numerical error and instability.
-A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \vec{\lambda}_k \to \vec{\lambda}_{k+1} \).
+A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \).
 
 The optimal control formulation presented in this section results in a two point boundary value problem (TPBVP). 
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975,kirk2012}.
@@ -794,7 +794,7 @@ Next, we determine the reachability set with the addition of a low thrust contro
 We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
-The trajectories are generated from a fixed initial state of \( \vec{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
+The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
 From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
@@ -803,10 +803,10 @@ We discretely vary the angle over the range \( \ang{0} \leq \theta_d < \ang{360}
 The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:invariant_manifold_transfer}.
 
 % discuss reachability set computation
-The optimal trajectories, under the influence of the control input \( \vec{u} \), are plotted in red in~\cref{fig:reach_trajectory}.
+The optimal trajectories, under the influence of the control input \( \vecbf{u} \), are plotted in red in~\cref{fig:reach_trajectory}.
 Initially, the spacecraft is assumed to lie on the periodic orbit.
 As a result, the intersection of this periodic orbit with the \Poincare section are two points corresponding to the two crossing of the orbit.
-We show the control-free intersection, \( \vec{x}_n \), of the periodic orbit on the \Poincare section in~\cref{fig:manifold_poincare,fig:poincare_compare}
+We show the control-free intersection, \( \vecbf{x}_n \), of the periodic orbit on the \Poincare section in~\cref{fig:manifold_poincare,fig:poincare_compare}
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \) as compared to a fixed point without any control input.
 \begin{figure} 
@@ -837,8 +837,8 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
 This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
 Using~\cref{eq:jacobi} and the intersection state the final component \( \dot{y} \) is calculated. 
-This results in a complete target state \( \vec{x}_t \) which lies on the reachable set and on the target orbit. 
-A final optimal trajectory is generated such that the \( \vec{x}(N) = \vec{x}_t \).
+This results in a complete target state \( \vecbf{x}_t \) which lies on the reachable set and on the target orbit. 
+A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x}_t \).
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
 The optimal control input is shown in~\cref{fig:control_l1}. 
 The spacecraft achieves the desired target while satisfying the bounded control input.
@@ -1093,7 +1093,7 @@ where the terms \( \alpha_{ij} \) and \( \beta_{i} \) are defined as follows
 	\beta_4 &= \lambda_{\ydotk} + c \lambda_{\xk} + f \parenth{\lambda_{\yk}+a \lambda_{\xk}} + g \parenth{\lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}}} \, .
 \end{align}
 \end{subequations}
-Finally, backsubstituion is used to determine explicit equations for the discrete update map \( \vec{\lambda}_k \to \vec{\lambda}_{k+1} \) which is defined as
+Finally, backsubstituion is used to determine explicit equations for the discrete update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \) which is defined as
 \begin{subequations}\label{eq:costate_update}
 \begin{align}
 	\lambda_{\ydotkp} &= \frac{\beta_4}{\alpha_{44}} \, ,\\
