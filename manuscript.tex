@@ -724,10 +724,98 @@ The optimal control formulation presented in this section results in a two point
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975,kirk2012}.
 Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
 In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
+Consider the vector of initial conditions, \( \vecbf{\chi} = \braces{\vecbf{x}_0, \vecbf{\lambda}_0}\), which is varied to satisfy some terminal constraints of the form \( \vecbf{G}(\vecbf{\chi}) = \braces{\vecbf{x}_t - \vecbf{x}_n} = 0 \).
+The free variables at the terminal time are computed by propogation of \( \vecbf{\chi} \) over the selected time horizon. 
+At the terminal time, the constraint vector is calculated and if not satisfied \( \vecbf{\chi}\) is varied.
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
 The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
-Additional interior constraints are used to ensure a continuous solution.
-This has the benefit of decreasing the numerical sensitivity of the final states to changes in the initial conditions along each sub-arc.
+
+\begin{figure}
+	\centering
+	\begin{scaletikzpicturetowidth}{1\textwidth}
+		\begin{tikzpicture}[scale=\tikzscale]
+		    % \draw[help lines] (0,0) grid (20,5) ; %grid
+
+		    \node[label=west:\(\vecbf{x}\)] (x0m) at (0,5) {};
+		    \node[] (x1m) at (5,5) {};
+		    \node[] (x2m) at (10,5) {};
+		    \node[] (x3m) at (15,5) {};
+		    \node[] (xnm) at (20,5) {};
+
+		    \node[label=below:\(k_0\)] (t0) at (0,0) {};
+		    \node[label=below:\(k_1\)] (t1) at (5,0) {};
+		    \node[label=below:\(k_2\)] (t2) at (10,0) {};
+		    \node[label=below:\(k_{n-1}\)] (t3) at (15,0) {};
+		    \node[label=below:\(k_n\)] (tn) at (20,0) {};
+
+		    % nodes for each subsegment
+		    \node[label=left:\(\vecbf{x}_0\)] (x0) at (0,1) {\pgfuseplotmark{*}};
+		    \node[label=below left:\(\vecbf{\lambda}_0\)] at (x0) {};
+
+		    \node[label=right:\(\vecbf{x}_1^{-}\)] (x1minus) at (5,2) {\pgfuseplotmark{*}};
+		    \node[label=below right:\(\vecbf{\lambda}_1^{-}\)] at (x1minus) {};
+
+		    \node[label=above left:\(\vecbf{x}_1^{+}\)] (x1plus) at (5,3) {\pgfuseplotmark{o}};
+		    \node[label=left:\(\vecbf{\lambda}_1^{+}\)] at (x1plus) {};
+
+		    \node[label=right:\(\vecbf{x}_2^{-}\)] (x2minus) at (10,2) {\pgfuseplotmark{*}};
+		    \node[label=below right:\(\vecbf{\lambda}_2^{-}\)] at (x2minus) {};
+
+		    \node[label=above left:\(\vecbf{x}_2^{+}\)] (x2plus) at (10,3) {\pgfuseplotmark{o}};
+		    \node[label=left:\(\vecbf{\lambda}_2^{+}\)] at (x2plus) {};
+
+		    \node[label=right:\(\vecbf{x}_{n-1}^{-}\)] (x3minus) at (15,2) {\pgfuseplotmark{*}};
+		    \node[label=below right:\(\vecbf{\lambda}_{n-1}^{-}\)] at (x3minus) {};
+
+		    \node[label=above left:\(\vecbf{x}_{n-1}^{+}\)] (x3plus) at (15,3) {\pgfuseplotmark{o}};
+		    \node[label=left:\(\vecbf{\lambda}_{n-1}^{+}\)] at (x3plus) {};
+
+		    \node[label=right:\(\vecbf{x}_n\)] (xnminus) at (20,3) {\pgfuseplotmark{*}};
+		    \node[label=below right:\(\vecbf{\lambda}_n\)] at (xnminus) {};
+		    % draw axes
+		    \draw [<->,thick] (tn.center) -- (t0.center) -- (x0m.center);
+
+		    % draw segement dividers
+		    \draw [dashed,thick] (t1.center) -- (x1m.center);
+		    \draw [dashed,thick] (t2.center) -- (x2m.center);
+		    \draw [dashed,thick] (t3.center) -- (x3m.center);
+		    \draw [dashed,thick] (tn.center) -- (xnm.center);
+
+		    % draw markers at each subsegment
+
+		    % draw the subsegments
+		    \draw [->] (x0.center) to [bend left=30] (x1minus.center);
+		    \draw [->] (x1plus.center) to [bend left=30] (x2minus.center);
+		    % dotted lines here
+		    \draw[decorate sep={1mm}{5mm},fill] (x2plus.east) to [bend left=10] (x3minus.west);
+
+		    \draw [->] (x3plus.center) to [bend left=30] (xnminus.center);
+		\end{tikzpicture}
+	\end{scaletikzpicturetowidth}
+	\caption{Multiple Shooting method\label{fig:multiple shooting}}
+\end{figure}
+
+In~\cref{fig:multiple shooting}, we show a schematic representation of the multiple shooting procedure.
+We split the optimal control horizon into equal length subsegments such that the length of each segment is \( \frac{k}{n} \), where \( k, n \) are the total number of steps and number of stages, respectively.
+Similarly, we divide the state and costate trajectories into \( n \) equal segments. 
+To ensure continuity, additional interior constraints are incorporated as
+\begin{subequations}
+\begin{align}\label{eq:interior_constraints}
+	\vecbf{x}_1^{-} - \vecbf{x}_1^{+} &= 0 , \\ 
+	\vecbf{\lambda}_1^{-} - \vecbf{\lambda}_1^{+} &= 0 , \\
+	\vecbf{x}_2^{-} - \vecbf{x}_2^{+} &= 0 , \\ 
+	\vecbf{\lambda}_2^{-} - \vecbf{\lambda}_2^{+} &= 0 , \\
+	&\vdots \\
+	\vecbf{x}_{n-1}^{-} - \vecbf{x}_{n-1}^{+} &= 0 , \\ 
+	\vecbf{\lambda}_{n-1}^{-} - \vecbf{\lambda}_{n-1}^{+} &= 0.
+\end{align}
+\end{subequations}
+Using the multiple shooting method reduces the sensitivity of the terminal states, \( \vecbf{x}_i^{+}, \vecbf{\lambda}_i^{+}\), to variations of the initial states, \(\vecbf{x}_{i-1}^{-}, \vecbf{\lambda}_{i-1}^{-}\).
+As a result, the design vector \( \vecbf{\chi} \) is augmented with the additional interior initial conditions, \( \vecbf{x}_i^{-}, \vecbf{\lambda}^{-}\).
+Similarly, the constraint vector is augmented with the additional interior constraints defined in~\cref{eq:interior_constraints}.
+The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
+In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
+
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
 % define a constraint vector G(X) that we need to satisfy
@@ -796,8 +884,16 @@ The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \b
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
 From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
+The multiple shooting approach is implemented to sovle the optimal control problem. 
+We divide the time horizon into two equal length segments. 
+The state trajectory is intialized using the free trajectory of the periodic orbit. 
+Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propogated using the discrete equations of motion in~\cref{eq:costate_update}.
+This results in the initial guess of the design vector \( \vecbf{\chi} = \begin{bmatrix} \vecbf{\lambda}_0 & \vecbf{x}_1^{-} & \vecbf{\lambda}_1^{-} & \vecbf{\beta} \end{bmatrix}^T\).
+This design vector is then varied to ensure that the necessary conditions of optimality and the interior point constraints are satisfied. 
+
 By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
 We discretely vary the angle over the range \( \ang{0} \leq \theta_d < \ang{360} \) to approximate the reachability set of the spacecraft.
+Choosing a new angle \( \theta_d \) corresponds to a different direction as well as a new optimal control problem which is again solved using the multiple shooting approach laid out previously.
 The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:invariant_manifold_transfer}.
 
 % discuss reachability set computation
@@ -920,14 +1016,25 @@ Once on the manifold, the spacecraft will coast in an uncontrolled fashion and a
 \end{figure}
 We first generate the stable invariant manifold associated with the periodic orbit in order to determine our target set.
 The stable manifold is propagated to the \Poincare section at \( y = 0 \), which is denoted by the horizontal black line in~\cref{fig:geo_transfer_full}.
+Next, we compute the reachable sets originating on the geo-stationary orbit and subject to the maximum control constraint. 
+The multiple shooting approach is used to solve the optimal control problem with two segments.
+The initial geo-stationary orbit is used to initialize the interior point \( \vecbf{x}_i^{-} \).
+We use the same initial guess of \( \vecbf{\lambda}_0\) as in~\cref{sec:periodic_orbit_transfer} and propogate over the fixed time horizon of the period of the geostationary orbit to initialize \( \vecbf{\lambda}_i^{-}\).
+
 The first reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section and we again assume a upper bound on the thrust magnitude of \( u_{max} = 0.75 \).
 The reachable set is generated by varying the angle \( \ang{0} \leq \theta < \ang{360} \) in~\cref{eq:constraints} defined on the \Poincare section.
 This allows us to approximate the set of states that are achievable in the \( \parenth{x ,\dot{x}} \) space.
-After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds.
+After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds and is given as
+\begin{align*}
+	d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
+\end{align*}
+From the reachable set, the trajectory which minimizes \( d \) is used to intialize the next reachability computation, or it will intersect the stable manifold region on the \Poincare section.
 %A state is chosen from the reachable set which minimizes the distance on the \Poincare section to the stable manifold, illustrated in green in~\cref{fig:geo_transfer_poincare}, and is used as the initial condition for the next reachable set computation.
 For example,~\cref{fig:third_reachability_set} shows the reachable set after three iterations in red and the minimum distance to the stable manifold in green.
+The state and costate trajectories associated with this point on the rechable set is used to initialize the following iteration. 
+In this manner, the multiple shooting algorithm solves the optimal control problem and generates reachable sets which move away from the intial orbit and towards the desired target.
 
-With each reachable set we move the controlled trajectory closer to the stable manifold.
+With each reachable set we move the controlled trajectory closer to the target stable manifold.
 \Cref{fig:geo_transfer_poincare} shows that after eight iterations the resulting trajectory intersects the stable manifold. 
 Combining these trajectories results in the powered portion of the transfer from the geostationary orbit to the stable manifold. 
 \Cref{fig:geo_transfer_full,fig:geo_transfer_zoom} shows the resulting trajectory, with the final trajectory shown in red which ensures the intersection with the stable invariant manifold.
