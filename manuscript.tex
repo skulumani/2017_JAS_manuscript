@@ -724,6 +724,9 @@ The optimal control formulation presented in this section results in a two point
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975,kirk2012}.
 Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
 In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
+Consider the vector of initial conditions, \( \vecbf{\chi} = \braces{\vecbf{x}_0, \vecbf{\lambda}_0}\), which is varied to satisfy some terminal constraints of the form \( \vecbf{G}(\vecbf{\chi}) = \braces{\vecbf{x}_t - \vecbf{x}_n} = 0 \).
+The free variables at the terminal time are computed by propogation of \( \vecbf{\chi} \) over the selected time horizon. 
+At the terminal time, the constraint vector is calculated and if not satisfied \( \vecbf{\chi}\) is varied.
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
 The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
 
@@ -792,7 +795,7 @@ The multiple shooting method is implemented in this paper which alleviates many 
 	\caption{Multiple Shooting method\label{fig:multiple shooting}}
 \end{figure}
 
-In~\cref{fig:multiple shooting} we show a schematic representation of the multiple shooting procedure.
+In~\cref{fig:multiple shooting}, we show a schematic representation of the multiple shooting procedure.
 We split the optimal control horizon into equal length subsegments such that the length of each segment is \( \frac{k}{n} \), where \( k, n \) are the total number of steps and number of stages, respectively.
 Similarly, we divide the state and costate trajectories into \( n \) equal segments. 
 To ensure continuity, additional interior constraints are incorporated as
@@ -808,7 +811,10 @@ To ensure continuity, additional interior constraints are incorporated as
 \end{align}
 \end{subequations}
 Using the multiple shooting method reduces the sensitivity of the terminal states, \( \vecbf{x}_i^{+}, \vecbf{\lambda}_i^{+}\), to variations of the initial states, \(\vecbf{x}_{i-1}^{-}, \vecbf{\lambda}_{i-1}^{-}\).
-The constraints to be satisfied are defined by~\cref{eq:interior_constraints,eq:necc_cond} through selection of \( \vecbf{\lambda}_0, \vecbf{\beta}, \vecbf{x}_i^{+}, \text{ and } \vecbf{\lambda}_i^{+} \).
+As a result, the design vector \( \vecbf{\chi} \) is augmented with the additional interior initial conditions, \( \vecbf{x}_i^{-}, \vecbf{\lambda}^{-}\).
+Similarly, the constraint vector is augmented with the additional interior constraints defined in~\cref{eq:interior_constraints}.
+The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
+In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
 
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
