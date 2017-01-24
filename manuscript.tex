@@ -488,10 +488,10 @@ These dynamic features have been shown to play a vital role in the movement of n
     
     % draw a periodic orbit
     \coordinate (center) at (0,0,2);
-    \node[below right] (x0) at (0,2,2) {\(\vecbf{x}_0\)};
+    \node[below right] (x0) at (0,2,2) {\(\vecbf{q}_0\)};
     \filldraw (0,2,2) circle (3pt);
 
-    \node[below right] (x1) at (0,3,2) {\(\vecbf{x}_1\)};
+    \node[below right] (x1) at (0,3,2) {\(\vecbf{q}_1\)};
     \filldraw (0,3,2) circle (3pt);
 
     \tdplotdrawarc[orbit hidden]{(center)}{2}{90}{190}{}{};
@@ -618,7 +618,7 @@ Maximization of this distance along varying directions enables us to generate th
         
         % draw a periodic orbit
         \coordinate (center) at (0,0,2);
-        \node[label=below:\(\vecbf{x}_0\)] (x0) at (0,3,2) {};
+        \node[label=below:\(\vecbf{x}_n\)] (x0) at (0,3,2) {};
         % \node[label=below:\(\vecbf{x}_n\)] at (x0) {};
         \filldraw (x0) circle (3pt);
 
