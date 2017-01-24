@@ -724,6 +724,9 @@ The optimal control formulation presented in this section results in a two point
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975,kirk2012}.
 Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
 In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
+Consider the vector of initial conditions, \( \vecbf{\chi} = \braces{\vecbf{x}_0, \vecbf{\lambda}_0}\), which is varied to satisfy some terminal constraints of the form \( \vecbf{G}(\vecbf{\chi}) = \braces{\vecbf{x}_t - \vecbf{x}_n} = 0 \).
+The free variables at the terminal time are computed by propogation of \( \vecbf{\chi} \) over the selected time horizon. 
+At the terminal time, the constraint vector is calculated and if not satisfied \( \vecbf{\chi}\) is varied.
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
 The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
 
@@ -792,7 +795,7 @@ The multiple shooting method is implemented in this paper which alleviates many 
 	\caption{Multiple Shooting method\label{fig:multiple shooting}}
 \end{figure}
 
-In~\cref{fig:multiple shooting} we show a schematic representation of the multiple shooting procedure.
+In~\cref{fig:multiple shooting}, we show a schematic representation of the multiple shooting procedure.
 We split the optimal control horizon into equal length subsegments such that the length of each segment is \( \frac{k}{n} \), where \( k, n \) are the total number of steps and number of stages, respectively.
 Similarly, we divide the state and costate trajectories into \( n \) equal segments. 
 To ensure continuity, additional interior constraints are incorporated as
@@ -808,7 +811,10 @@ To ensure continuity, additional interior constraints are incorporated as
 \end{align}
 \end{subequations}
 Using the multiple shooting method reduces the sensitivity of the terminal states, \( \vecbf{x}_i^{+}, \vecbf{\lambda}_i^{+}\), to variations of the initial states, \(\vecbf{x}_{i-1}^{-}, \vecbf{\lambda}_{i-1}^{-}\).
-The constraints to be satisfied are defined by~\cref{eq:interior_constraints,eq:necc_cond} through selection of \( \vecbf{\lambda}_0, \vecbf{\beta}, \vecbf{x}_i^{+}, \text{ and } \vecbf{\lambda}_i^{+} \).
+As a result, the design vector \( \vecbf{\chi} \) is augmented with the additional interior initial conditions, \( \vecbf{x}_i^{-}, \vecbf{\lambda}^{-}\).
+Similarly, the constraint vector is augmented with the additional interior constraints defined in~\cref{eq:interior_constraints}.
+The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
+In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
 
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
@@ -878,8 +884,16 @@ The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \b
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
 From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
+The multiple shooting approach is implemented to sovle the optimal control problem. 
+We divide the time horizon into two equal length segments. 
+The state trajectory is intialized using the free trajectory of the periodic orbit. 
+Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propogated using the discrete equations of motion in~\cref{eq:costate_update}.
+This results in the initial guess of the design vector \( \vecbf{\chi} = \begin{bmatrix} \vecbf{\lambda}_0 & \vecbf{x}_1^{-} & \vecbf{\lambda}_1^{-} & \vecbf{\beta} \end{bmatrix}^T\).
+This design vector is then varied to ensure that the necessary conditions of optimality and the interior point constraints are satisfied. 
+
 By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
 We discretely vary the angle over the range \( \ang{0} \leq \theta_d < \ang{360} \) to approximate the reachability set of the spacecraft.
+Choosing a new angle \( \theta_d \) corresponds to a different direction as well as a new optimal control problem which is again solved using the multiple shooting approach laid out previously.
 The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:invariant_manifold_transfer}.
 
 % discuss reachability set computation
@@ -982,7 +996,10 @@ This numerical simulation demonstrates the ability of the proposed approach.
 We use multiple iterations of the reachability set to achieve a more complicated transfer.
 In this manner, it is possible to design arbitrary transfers which are not possible using a single reachability computation.
 Initially, it is assumed that the spacecraft lies on a circular geostationary orbit in the non-dimensional Earth-Moon three-body system. 
+The geostationary orbit about the Earth is transformed into the rotating reference frame of the Earth-Moon three body problem.
+In addition, we nondimensionalize the initial state to find \( \vecbf{x}_0 = \begin{bmatrix} 0.0972 & 0 & 0 & 3.0010\end{bmatrix}^T\) as the initial condition of the spacecraft on the geostationary orbit.
 It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
+The periodic orbit is defined by the initial condition \(\begin{bmatrix} 0.8057 & 0 & 0 & 0.2982 \end{bmatrix} \).
 The initial and target orbits are illustrated in~\cref{fig:geo_transfer_target}.
 \begin{figure}[htbp]
    \centering
@@ -1000,16 +1017,28 @@ Once on the manifold, the spacecraft will coast in an uncontrolled fashion and a
    \caption{Reachable set after three iterations}
    \label{fig:third_reachability_set}
 \end{figure}
-We first generate the stable invariant manifold associated with the periodic orbit in order to determine our target set.
+Next, we generate the stable invariant manifold associated with the periodic orbit in order to determine our target set.
 The stable manifold is propagated to the \Poincare section at \( y = 0 \), which is denoted by the horizontal black line in~\cref{fig:geo_transfer_full}.
+Next, we compute the reachable sets originating on the geo-stationary orbit and subject to the maximum control constraint. 
+The multiple shooting approach is used to solve the optimal control problem with two segments.
+For the first reachability set computation, the initial geostationary orbit is used to initialize the multiple shooting algorithm.
+We use the same initial guess of \( \vecbf{\lambda}_0\) as in~\cref{sec:periodic_orbit_transfer} and propogate over the fixed time horizon of the period of the geostationary orbit to initialize \( \vecbf{\lambda}_i^{-}\).
+
 The first reachable set is computed beginning on the geostationary orbit at it's intersection with the \Poincare section and we again assume a upper bound on the thrust magnitude of \( u_{max} = 0.75 \).
 The reachable set is generated by varying the angle \( \ang{0} \leq \theta < \ang{360} \) in~\cref{eq:constraints} defined on the \Poincare section.
 This allows us to approximate the set of states that are achievable in the \( \parenth{x ,\dot{x}} \) space.
-After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds.
+After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds as the function \( d \)
+\begin{align*}
+	d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
+\end{align*}
+From the reachable set, the trajectory which minimizes \( d \) is used to intialize the next iteration.
+Once the reachability set intersects the stable manifold, we can achieve a complete transfer from the initial geostationary orbit to the stable manifold of \( L_1 \).
 %A state is chosen from the reachable set which minimizes the distance on the \Poincare section to the stable manifold, illustrated in green in~\cref{fig:geo_transfer_poincare}, and is used as the initial condition for the next reachable set computation.
 For example,~\cref{fig:third_reachability_set} shows the reachable set after three iterations in red and the minimum distance to the stable manifold in green.
+The state and costate trajectories associated with this point on the rechable set is used to initialize the following iteration. 
+In this manner, the multiple shooting algorithm solves the optimal control problem and generates reachable sets which move away from the intial orbit and towards the desired target.
 
-With each reachable set we move the controlled trajectory closer to the stable manifold.
+With each reachable set we move the controlled trajectory closer to the target stable manifold.
 \Cref{fig:geo_transfer_poincare} shows that after eight iterations the resulting trajectory intersects the stable manifold. 
 Combining these trajectories results in the powered portion of the transfer from the geostationary orbit to the stable manifold. 
 \Cref{fig:geo_transfer_full,fig:geo_transfer_zoom} shows the resulting trajectory, with the final trajectory shown in red which ensures the intersection with the stable invariant manifold.
