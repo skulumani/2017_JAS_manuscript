@@ -1,0 +1,228 @@
+View Letter
+
+Close
+Date:	15 Jun 2017
+To:	"Shankar Kulumani" shanks.k@gmail.com,skulumani@gwu.edu
+From:	"The Jrnl of the Astronautical Sciences" mark.balbas@springer.com
+Subject:	Major Revisions requested JASS-D-17-00005
+Dear Mr. Kulumani,
+
+We have received the reports from our advisors on your manuscript, "Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem", which you submitted to The Journal of the Astronautical Sciences.
+
+Based on the advice received, I have decided that your manuscript could be reconsidered for publication should you be prepared to incorporate major revisions. When preparing your revised manuscript, you are asked to carefully consider the reviewer comments which can be found below, and submit a list of responses to the comments. In particular, the reviewers have suggested that the background material be made more succinct, and they have made a number of suggestions for improving the paper to make it more suitable for publication.  You are kindly requested to also check the website for possible reviewer attachment(s).
+
+In order to submit your revised manuscript, please access the following web site:
+
+   http://jass.edmgr.com/
+
+Your username is:  ********
+Your password is:  ********
+
+Please make sure to submit your editable source files (i. e. Word, TeX). We look forward to receiving your revised manuscript before 15 Jul 2017.
+
+With kind regards,
+Rodney Anderson, Ph.D.
+Associate Editor
+
+
+COMMENTS FOR THE AUTHOR:
+
+Reviewer #1: I have some issues with this paper that, in my opinion necessitate a major revision.
+
+These issues are:
+
+-It extensively re-covers issues that have been covered in many papers, making it difficult to disseminate what the original contributions are.  For example, I don't think the addition of the thrust term into the dynamics necessitates re-doing every piece of analysis that has been done with various resources in the literature about variational integrators (including comparisons with RK methods).  Things that can be found in other research should be cited, and summary comments can be used to point the readers to fill in this knowledge.  The content of this paper easily be reduced considerably to maintain focus on the original contributions.
+
+-It does not give a complete picture of the pros and cons of the proposed methodology.  This method is full of both advantages and disadvantages.  I don't think the authors need to be concerned with "selling" the work to the community, but rather showing the full and honest picture given the current state of the research.  In the conclusions, the potential cons to this research can be mitigated by setting a path forward for future research to further improve the methodology.
+
+These pros/cons include:
+
+-The formulation of the problem with acceleration magnitude is a major technical challenge for mission design practitioners.  The state of the art to design trajectories that depend on low-thrust engine hardware is either:
+-To produce constant thrust magnitude or no thrust magnitude (typical of nuclear electric propulsion, or very simple electric propulsion systems.)
+-To produce variable thrust magnitude associated with various throttle points at different power accessibility levels (solar electric propulsion).
+That is not to say that useful solutions cannot be extracted from the problem, as the authors have shown.  However, a great many solutions in this approach will be unusable due to the fact that acceleration and thrust magnitude are different, i.e. a=T/m
+Thus - a MAJOR focus of future work should be the introduction of a seventh state (mass).  This gives rise to a more challenging optimal control problem requiring the switching function, but it is the form that is generally needed in computing optimal open-loop trajectories that can actually be flown.
+
+The pros and cons of the PCRTBP
+-The PCRTB gives rise to exploiting Poincare sections in a systematic manner.  2D solutions might be close enough for qualitative understanding of the solution space for many problems (as long as large plane changes aren't needed).
+-The PCRTB is limiting for many pragmatic departure orbits (e.g. LEO and GTO, the most common departure orbits for low-thrust transfers).
+
+
+The pros and cons of variational integrators should really be acknowledged rather than completely dismissing the RK methods which are still the current state of the art in mission design (using higher-orders and suitable tolerances)
+-Pros = boundedness in the energy behavior.  Very long term integration will not deviate from the known dynamical structure.
+-Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
+
+From here on out comments specific to various sections of the paper follow:
+
+In the statement "In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential
+missions at a reduced energy cost [15]" - you may want to reference, for example, the Lunar Ice Cube mission paper which absolutely requires low-thrust propulsion and non-keplerian dynamics to satisfy its mission objectives.
+
+Folta, D., Dichmann, D., Clark, P., Haapala, A., and Howell, K., "LunarCube Transfer Trajectory Options," AAS/AIAA Space Flight Mechanics Meeting, Williamsburg, Virginia, January 11-15, 2015.
+
+"Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem."  This isn't completely true as there are also approximations to the (uncontrolled) three-body motion, such such as the Richardson-Cary approximation.  Saying numerical methods are required may be a bit strong.  May want to say "often required".
+
+"These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
+
+"Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system [8]. As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured."  Again, I think situationally I would disagree.  Transfers on the order of 100's of days can maintain accuracies of 1e-10 (nondimensional units) in the Hamiltonian, which is generally considered a "small" amount of energy drift.
+
+- "[15,25] have illustrated the rich structure that exists in the three-body problem." 
+- "[23,6] implement the solutions using conventional Runge-Kutta integration techniques."
+I don't think you can grammatically begin a sentence with reference numbers.  Please fix all instances of this.
+
+- "It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space."  The "tube" statement is really only true for some libration point orbits at certain Jacobi Constants.  For some orbits these structures are more chaotic and don't resemble tubes.  May want to soften this language or change "tubes" to "structures".
+
+-"In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem." Why planar?  For simplicity?  Almost all parking orbits departing the Earth are likely going to have some inclination with respect to the rotating reference plane, and will likely require some three-dimensional thrusting to target the manifold.  You may want to indicate that this is a first step in the research to exploit the Poincare sections more easily, which is why I'm assuming it was done.  It doesn't hurt to be straightforward about this, as it is a first-step towards characterizing the design space.
+
+-"In addition, through the use of geometric integrators we accurately capture the effects of low thrust on the system dynamics in the numerical simulation."  A variational integrator will accurately capture the qualitative effects of the transfer (e.g. propellant use), however it will not necessarily accurately capture accuracy in the final state vector - it is guaranteed to be on an energy surface, but it is not guaranteed to be at exactly the right location on the energy surface.  I would soften this claim or reword.
+
+-"The Poincare section reduces the dimensionality of the system dyanmics to the study of a related discrete update map." It does, but at the expense if a large up-front computational run that must be run well in advance to capture the problem characteristics.  Also, it is more challenging to execute in 3D, which should be noted.
+
+-"This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long transfer durations with small magnitude control inputs."  Yes, but the order of the variational integrator still matters.  The drift in the state vector accuracy is still important to a mission designer, even if it is guaranteed to lie on an energy surface.  I think you should indicate that this is more for preliminary analysis to characterize the transfers, when this drift in state vector accuracy is tolerable.  I.E., it's useful for the introductory phases of mission design when trying to globally characterize the design space.  Characterizing the scope of the analysis in this way would be helpful to the audience.
+
+"Optimal solutions are generally sensitive to small variations in the initial multipliers. As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance."  I don't agree that this implies that variational integrators are better for gradient-based methods.  The primary issue is that gradient-based methods that are solving optimal control problems are using first-order approximations to iterate on the problem.  The first-order approximation is what is poor, not necessarily the gradients.  Even if these gradients are of exact accuracy (and I agree that they should always be as accurate as possible), the first-order methods in the chaotic problem are what give the difficulties.  One could use a variational or standard integrator in a first-order gradient based method and nothing will change the fact that the method will be highly sensitive, save for partitioning the sensitivities as you did with your multiple shooting approach.  At best, you can change the statement to indicate that the accuracy in the gradients may improve, which is always helpful to gradient-based methods, but it's no guarantee that it eliminates major problem sensitivity.
+
+Authors may also want to point out the loss of accuracy in variable step integrators that can also degrade first-order gradient based methods.  I didn't see this anywhere and it's something that should be acknowledged.  Basically, variable step integrators will introduce artificial "noise" into the gradients:
+
+Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition Matrices, Paper AAS-15-785, AAS/AIAA Astrodynamics Specialist Conference, Vail, CO, Aug 2015
+
+"This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods." I disagree that suboptimality is typical of direct methods.  A direct method will typically solve the KKT conditions, which can be directly transcribed into the costates in the optimal control problem.  A direct method fully satisfying the KKT conditions can map to the indirect problem. If you want to strengthen this argument, then you should argue that it applies to direct methods which rely on coarse or suboptimal representations of the control.  For example, a hybrid direct method could use continuous optimal control theory control law, but directly minimize the cost function instead of solving the full TPBVP.  
+
+"Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame"  Add a reference after this statement for those who want to see the derivation.  One of the given references probably does already does this, so just pick one
+
+It appears from equation 5 and your control input definition that you control is unbounded?  Later on in reading the paper I found that you do add bounds on the control.  You may want to indicate earlier on in the paper (closer to eq. 5) that bounds will be added to the control.
+
+Figure 1 should probably have "axis equal" applied to it.  For that matter, please check all trajectory plots (those which plot the position state), and ensure that all plots are using "axis equal".  If not, please regenerate those plots. 
+
+Section 3.1 has been discussed in many references, the reader may want to direct them to this material.
+(Choose one of Marsden or West's papers for example.)
+
+The second-order trapezoidal rule will give significantly poorer state vector accuracy with respect to a high-precision RK integrator, even if the state is guaranteed to lie on an energy surface.  Why didn't the authors consider going to a higher-order variational integrator, or even a Taylor Integrator?  It is very likely that the integration accuracy will introduce some errors in the accuracy of the partial derivatives and in the states.
+
+Section 3.2 - please cite a reference as to where the selected quadrature rules presented in Table 1 have been derived.
+
+Figure 2 - x-axis has no label but I think it's nondimensional time, please indicate.  Label all axes even if they are nondimensional units.
+
+I recommend removing appendix B.  Giving the equations and stating that the Matrix inversion is from Gauss-Jordan elimination is probably sufficient, unless there is some compelling algebraic manipulation that is very unique to the problem.
+
+In line 14 (page 12), you define the state transition matrix over one orbital period, and then on line 18 you start referring to it as the monodromy matrix.  I understand what you're doing, but you may want to make the definition more explicit.  Some of this section can be substantially reduced and other source material could be referenced anyway.
+
+Comparison like that of Figure 3.4 are very common in the well-known literature concerning variational integrators.  Moreover, the proper way to present such a comparison is with different delta-T's in the integration step, showing when the Runge-Kutta methods actually break down in terms of maintaining an accurate portrayal of the Energy/Hamiltonian conservation.
+
+For example -
+
+Figure 2.4
+Lew, A., Marsden, J., Ortiz, M., West, M., "An Overview of Variational Integrators," FINITE ELEMENT METHODS: 1970's AND BEYOND L.P. Franca (Ed.) c CIMNE, Barcelona, Spain 2003.
+
+Online copy:
+http://lagrange.mechse.illinois.edu/pubs/LeMaOrWe2004/LeMaOrWe2004.pdf
+
+It may also be generally worth acknowledging the benefits of Taylor's method within the context of variational integrators:
+Schmitt, J., Shingel, T., Leok, M., "LAGRANGIAN AND HAMILTONIAN TAYLOR VARIATIONAL INTEGRATORS," eprint arXiv:1703.06599, 2017
+
+Online copy: https://arxiv.org/pdf/1703.06599.pdf 
+
+"Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques".  I think you need to add "in which energy conservation is mandatory for characterizing the solution space."
+
+Section 5 - This method, while very useful in its given context is highly dependent on the use of the PCRTB in the framework of the current analysis.  This needs to somehow be conveyed.  3D transfers are significantly more challenging when it comes to exploiting Poincare sections.  It can be done, but more subplots, dimensions, and data storing are necessary to view the subspace - save to say, it is a more challenging endeavor that must be acknowledged for general purpose low-thrust mission design.
+
+Figures 10D and 13D - the authors need to present these plots in dimensional coordinates so that they may be reconciled with what existing technology can produce.  I recommend Newtons or milliNewtons.  For example, the NEXT (NASA evolutionary xenon thruster) can produce 0.25 Newtons of thrust at maximum power (~7 kW).  The XR5 Hall thruster can produce comparable thrust at 4.5 kW of power.  These are currently the highest-power single engines other than the ARM Hall thruster which is not flight ready yet.  For these examples to be reconciled against the capability of existing technology, we need to see the required forces that are being demanded from the optimal control problem.  It may be that the results are beyond the scope of current technology - that's fine - just say that they are examples and that it's ongoing work to formulate example problems that capture existing technology better.
+
+"The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches."  Did the authors attempt single shooting for their example problems before coming to this conclusion?  With proper scaling, and problem formulation, there are examples in the literature of single shooting yielding robust results.  
+
+Example: 
+Ranieri, C. and Ocampo,C..  "Indirect Optimization of Spiral Trajectories", Journal of Guidance, Control, and Dynamics, Vol. 29, No. 6 (2006), pp. 1360-1366.
+
+So, justification for its selection may be warranted.  You could always find a reference in which this trade space was really explored thoroughly to show why you made the choice.
+
+"In this work, we use the Matlab nonlinear solver fsolve to solve the system of nonlinear equations defined by the multiple shooting algorithm."  Can authors give some additional details?  Which fsolve algorithm? trust region dogleg,  trust region, or Levenberg-Marquardt?  Which additional options?  E.g. various tolerances.  For users of this method it's also useful to see the iteration history (more comments on this later).
+
+Did the authors experiment with the number of multiple shooting stages in their example problems?  There must be some sort of "sweet spot" in number of stages for the example problems attempted.  If I missed it, I apologize, but I didn't see it.
+
+Section 6.1 - I don't think you need to explain how you created the three-body orbits.  This can be found in many references - You can just cite a reference and give the orbit specifications.  (Starting with line 49, page 18, up to line 21 page 19.)
+
+"We define a maximum magnitude of the thrust as umax = 0.75 and assume we can point the thrust in any direction within the plane." And  "we again assume a upper bound on the thrust magnitude of umax = 0.75."  What was the reason behind this? Isn't this a pretty large value of dimensional acceleration for your problem of interest?  Even if it's chosen for demonstrative purposes, there should be some sort of explanation as to why.  In the context of what electric propulsion systems can deliver, it could be arguable that this value isn't really "low-thrust" but "finite-thrust".
+
+Is this method exceptionally difficult to adapt to create a numerical example from LEO or GTO?  These would be the most pragmatically interesting departure orbits to the mission design community.  Section 6.2 presents an example from GEO, but it is unlikely that GEO represents a "typical" parking orbit, since there is no reason to insert a spacecraft into GEO before it transfers to the destination orbit.  This should be called out in the conclusions or future work.
+
+The authors should discuss some statistics of the convergence of their multiple shooting TPBVP - number of iterations, compute time, etc.
+
+Can any intuition be gained from reporting the optimal converged cost function values in section 6.1 and 6.2?  One could at least compare them to compare the reachability in the two different examples.
+
+"Low energy transfers from the Earth to the Lagrange points are necessary for future missions."  One must be careful not to confuse these with traditional "low-energy transfers" to the moon, which use Sun third-body perturbations to transfer into lunar orbit.  These are what many mission designers define as "low-energy" lunar transfers.  This is actually a four-body problem (Sun, Earth, moon, spacecraft), and represents additional delta-V savings (as was done with NASA's GRAIL mission.)
+
+Example:
+
+
+Parker, J. and Anderson, R., "Low-Energy Lunar Trajectory Design," DEEP SPACE COMMUNICATIONS AND NAVIGATION SERIES, Jet Propulsion Laboratory Pasadena, California, July 2013.
+
+Online Copy: https://descanso.jpl.nasa.gov/monograph/series12/LunarTraj--Overall.pdf
+
+For what it's worth, exploiting sun perturbations with low-thrust in the Earth-moon RTBP would be highly beneficial and represent a worthy avenue of future research (more on this below.)
+
+The conclusions of the paper should acknowledge other potentially limiting factors of the presented analysis
+-Omits advantage of exploiting fourth body perturbation (Sun in Earth/moon RTBP)
+-Transfers are 2D only, method is more challenging to adapt to 3D
+-Presented control magnitudes are dimensionally large, and more work is needed to determine feasibility of approach for lower accelerations
+-Thrust and mass are completely decoupled from the analysis, which is limiting in terms of finding suitable hardware that can deliver the controls needed, as currently presented.
+
+
+
+Reviewer #2: PAPER SUMMARY:
+The contribution of the authors is the synthesis of reachability theory with traditional low-energy mission design approaches to ease the study of the low-thrust mission design space in the CR3BP.  A crucial point is that reachability analysis in non-integrable systems is typically limited by the dimensionality of the control parameterization, which can be extremely large for continuous-thrust problems, depending on the time discretization used.  The authors numerically probe the boundaries of the reachable space by optimizing a distance metric on the Poincare section, avoiding the extreme cost of unmotivated exploration.  Numerical experiments show how the method could be applied in two CR3BP orbit transfer scenarios.  For a multi-rev solution, the method is applied once per rev and the reachable end state with minimal distance to the target manifold is used as the basis for the next rev.
+
+
+ASSESSMENT:
+The central premise of the paper - using optimization of Poincare distance as a guiding motivation to make low-thrust reachability analysis more tractable - is interesting, useful, and to my knowledge reasonably novel.  Furthermore, the quality of the writing is good (at local scales) and there is an appropriate degree of literature review.  However, there are two major problems with this paper.
+
+First, in terms of composition, large portions of the paper are spent on lengthy development of foundational work that is well-known within the astrodynamics community and available in textbooks. Secondly, the contributions and findings of the authors feel highly preliminary and do not seem to evaluate their method at significant depth.
+
+While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples.
+
+I can sympathize that there was quite a long road to get to the point of understanding this topic and generating results in it. I hope that the authors will not find this verdict too discouraging, as I believe that stronger results are well within their reach.
+
+
+SPECIFIC FEEDBACK:
+
+*** Bloat
+In the introduction, the exposition of the problem could be considerably condensed, given the venue of publication. Additionally, the somewhat sprawling discussion jumps back and forth, and many key points seem to be repeated more than necessary.  It needs to be organized into titled subsections with specific scope.
+
+The development of the CR3BP, invariant manifolds and Poincare maps, all go on a bit too long. These should be refreshers to the audience that expose the specific equations and concepts that you'll be leveraging, not full-on introductions to well-established areas.  Spending several pages on variational principles is way too much.
+
+Section 4 ends on page 14 with essentially a thesis statement ("In this paper, we...").  Strive to push the boundary between background and new developments to a much earlier point in the paper; it shouldn't happen so late that you need to remind the audience what the paper is for.
+
+A missing relevant reference: "On target for Venus — set oriented computation of energy efficient low thrust trajectories" (Dellnitz, Junge, Post, and Thiere, 2006)
+
+*** Variational Integrators
+Many of the specific claims regarding the use of a variational integrator are unsubstantiated and, I believe, incorrect. Why is energy drift "even more detrimental" with regards to "the long term effects of low-thrust"?  I would need to be convinced that a non-geometric integrator's energy drift relative to a constant energy baseline is significantly different from its drift relative to a gradually shifting baseline corresponding to low thrust. The specific claims about the numerical stability of derivatives also don't seem related to energy preservation.  
+
+Apart from these claims, I question the need for a variational integrator in the first place. The example in section 3.4 is not convincing because there is no apples-to-apples basis for the comparison; a variable-step integrator with unspecified tolerance is compared to a fixed-step integrator with an arbitrary step size.  Integrator comparisons should consider error in proportion to compute cost, which can be tuned by step size or tolerance.  Also, fixed step seems inappropriate for a path through diverse dynamic regimes, and it's not clear that the problem scope calls specifically for energy preservation (especially since the idea is to use low thrust to mitigate some time cost of exploiting the problem structure).  
+
+*** Figures
+Altogether, the figures need more descriptive captions.  
+
+Figure 4 does not show what I think you intend it to show; it looks like two periodic circular orbits.
+
+Figure 6 is also very unclear.  Is phi supposed to be theta_d?  Is the bounding curve specifically circular, or should it be a more general shape?
+
+Consider plotting the intersections of manifolds with the Poincare section as continuous curves.  
+
+Also consider zooming/scaling as necessary to show the details you discuss.
+
+*** Method/Examples
+I urge a revisiting of the claims with regards to optimality.  The optimization method is being initialized with *something*, and stationary points are *local* extrema.  More precise claims and assurances about solution quality (and therefore the validity of the computed reachable set boundary) are needed.  
+
+How damaging is the assumption of a fixed travel time?  And how about the specification of a specific departure point on the initial orbit?
+
+In Fig 10b, it is hard to see, but appears that the low-thrust-reachable set is actually *centered* on part of the target set.  Is this related to the existence of the uncontrolled transfer opportunity?  There must be some more clear way to show how the low thrust set expands upon the zero thrust set.  Perhaps beginning with the time horizon of the zero-thrust opportunity, and successively lowering it, would help.  
+
+Perhaps there is also a better way to show what the control is doing, e.g., in some alternative parametrization?  This could help provide assurances that the solution is doing something meaningful and is not just stuck in a weird local minimum.  
+
+In the second example, what do you lose by chaining together multiple reachability-based steps?  Aren't you imposing that the trajectory routinely returns to the energy level of the Poincare section? How feasible would it be to conduct a single reachability analysis covering multiple revolutions? And can you use knowledge about directionality of movement on the Poincare section to limit the scope of your reachability search?
+
+In general, please devote more depth to probing the strengths, weaknesses, and fundamental properties of the method.  Considering extreme cases can help with this.
+
+
+
+
+********
+Close
