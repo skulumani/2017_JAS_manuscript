@@ -112,11 +112,41 @@ The pros and cons of variational integrators should really be acknowledged rathe
 
 From here on out comments specific to various sections of the paper follow:
 
-In the statement "In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential
-missions at a reduced energy cost [15]" - you may want to reference, for example, the Lunar Ice Cube mission paper which absolutely requires low-thrust propulsion and non-keplerian dynamics to satisfy its mission objectives.
+\begin{enumerate}
+    \item
+        \begin{itshape}
+            In the statement "In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential
+            missions at a reduced energy cost [15]" - you may want to reference, for example, the Lunar Ice Cube mission paper which absolutely requires low-thrust propulsion and non-keplerian dynamics to satisfy its mission objectives.
 
-Folta, D., Dichmann, D., Clark, P., Haapala, A., and Howell, K., "LunarCube Transfer Trajectory Options," AAS/AIAA Space Flight Mechanics Meeting, Williamsburg, Virginia, January 11-15, 2015.
+            Folta, D., Dichmann, D., Clark, P., Haapala, A., and Howell, K., "LunarCube Transfer Trajectory Options," AAS/AIAA Space Flight Mechanics Meeting, Williamsburg, Virginia, January 11-15, 2015.
+        \end{itshape}
 
+        The introductory paragraphs have been reworded and reorganized for clarity. 
+        Specifically, the first paragraph has been divided, which motivates the use of electric propulsion and the advantages of small satellites which use electric propulsion.
+        In addition, the suggested reference has been included in the paper.
+        The modified paragraphs are duplicated below.
+
+        \begin{correction}
+            Designing spacecraft trajectories is a classic and ongoing topic of research.
+            There has been significant research into the design of orbital transfers for space vehicles.
+            Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
+            Electric propulsion systems offer a much greater specific impulse than chemical systems.
+            As a result, the greatly increased effeciency allows for greater payload mass or extended duration missions.
+            However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore orbital manuevers have a much longer time of flight.
+            In spite of this drawback, a wide variety of missions, such as communication and deep space probes, have utilized the unique benefits of low thrust electric propulsion to great effect~\cite{choueiri2009}.
+
+            With reduced development intervals and decreased launch costs, small satellites have gained increased attention as a cost effective means of scientific and technologic development. 
+            Furthermore, these cubesats are easily launched as secondary payloads rather than requiring a dedicated launch.
+            The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
+            Recent developments in miniature electric propulsion offer the potential for new research opportunities for small spacecraft~\cite{haque2013}.
+            The advancements in minature electric propulsion allows for greater flexibility in the deployment of cubesats as secondary payloads.
+            Without the explicit requirement of a dedicated launch trajectory, cubesats are able to exploit a much wider range of possible mission designs~\cite{folta2015}.
+            With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
+            In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{folta2015,koon2011}.
+            Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional patched-conic approach~\cite{ross2006,gomez2001}.
+            Optimally combining the structure of the dynamic environment with low-thrust propulsion systems is vital for future mission success.
+        \end{correction}
+\end{enumerate}
 "Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem."  This isn't completely true as there are also approximations to the (uncontrolled) three-body motion, such such as the Richardson-Cary approximation.  Saying numerical methods are required may be a bit strong.  May want to say "often required".
 
 "These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
