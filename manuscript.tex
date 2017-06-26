@@ -20,12 +20,12 @@
 \author{Shankar Kulumani \and Taeyoung Lee}  
 
 \institute{S. Kulumani \and T. Lee \at
-		Department of Mechanical \& Aerospace Engineering,\\
-		George Washington University,\\
-		800 22nd St NW, Washington, DC 20052.\\
-		\email{skulumani@gwu.edu}\\
-		\email{tylee@gwu.edu}
-		}
+                Department of Mechanical \& Aerospace Engineering,\\
+                George Washington University,\\
+                800 22nd St NW, Washington, DC 20052.\\
+                \email{skulumani@gwu.edu}\\
+                \email{tylee@gwu.edu}
+                }
 
 \date{Received: date / Accepted: date}
 
@@ -167,48 +167,48 @@ It is assumed that the \(\left( \hat{e}_1, \hat{e}_2\right)\) frame rotates with
 Following convention, the system is also non-dimensionalized by the characteristic units of length, mass, and time~\cite{koon2011}.
 As a result, the system can be characterized by a single mass ratio parameter \( \mu \),
 \begin{equation}
-	\mu = \frac{m_2}{m_1+m_2} \, .
-	\label{eq:mass_param}
+        \mu = \frac{m_2}{m_1+m_2} \, .
+        \label{eq:mass_param}
 \end{equation}
 The larger primary, \(m_1\), is located at \( \left(  -\mu , 0 \right)\) and the smaller \( m_2\) is located at \( \left( 1-\mu , 0 \right)\), while the spacecraft is located at \( (x ,y) \).
 In the rotating reference frame the Lagrangian is given by
 \begin{equation}
-	L = \frac{1}{2} \left( \left( \dot{x} -y \right)^2 + \left( \dot{y} + x \right)^2 \right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
-	\label{eq:lagrangian}
+        L = \frac{1}{2} \left( \left( \dot{x} -y \right)^2 + \left( \dot{y} + x \right)^2 \right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
+        \label{eq:lagrangian}
 \end{equation}
 where the distance \( r_1, r_2 \in \R \) of the spacecraft to each primary is as
 \begin{align}
-	r_1 &= \sqrt{\left( x + \mu\right)^2 + y^2}\, , \\
-	r_2 &= \sqrt{\left( x - 1 + \mu\right)^2 + y^2}\, .
-	\label{eq:distances}
+        r_1 &= \sqrt{\left( x + \mu\right)^2 + y^2}\, , \\
+        r_2 &= \sqrt{\left( x - 1 + \mu\right)^2 + y^2}\, .
+        \label{eq:distances}
 \end{align}
 Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame
 \begin{align}
-	\ddot{x} - 2 \dot{y} + \deriv{U}{x} &= u_x \, ,\nonumber \\
-	\ddot{y} + 2 \dot{y} + \deriv{U}{y} &= u_y \, ,
-	\label{eq:cont_eom}
+        \ddot{x} - 2 \dot{y} + \deriv{U}{x} &= u_x \, ,\nonumber \\
+        \ddot{y} + 2 \dot{y} + \deriv{U}{y} &= u_y \, ,
+        \label{eq:cont_eom}
 \end{align}
 where the effective potential \( U\) is defined as
 \begin{equation}
-	U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
-	\label{eq:eff_pot}
+        U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
+        \label{eq:eff_pot}
 \end{equation}
 and the control inputs is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
 The state is defined as \( \vecbf{x} = \begin{bmatrix}\vecbf{r} &\vecbf{v} \end{bmatrix}^T\) with \(\vecbf{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vecbf{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
 The equations of motion may be rewritten in state space form as
 \begin{equation}\label{eqn:cont_dyn}
-	\left[\begin{array}{c} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{array} \right] = 
-	\left[ \begin{array}{c} \vecbf{v} \\ A \vecbf{v} + \nabla U + \vecbf{u} \end{array} \right] = f\left( t,\vecbf{x}, \vecbf{u}\right) \, ,
+        \left[\begin{array}{c} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{array} \right] = 
+        \left[ \begin{array}{c} \vecbf{v} \\ A \vecbf{v} + \nabla U + \vecbf{u} \end{array} \right] = f\left( t,\vecbf{x}, \vecbf{u}\right) \, ,
 \end{equation}
 where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U\) are
 \begin{equation}\label{eq:A_mat}
-	A = \left[ \begin{array}{ccc} 0 & 2 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right] \, ,
+        A = \left[ \begin{array}{ccc} 0 & 2 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right] \, ,
 \end{equation}
 \begin{equation} \label{eq:grav_pot}
-	\nabla U = \left[ \begin{array}{c} x - \frac{ \left(1 - \mu\right) \left(x + \mu\right)}{r_1^3} - \frac{\mu \left( x - 1 + \mu \right)}{r_2^3} \\
-											y - \frac{ \left(1 - \mu\right) y}{r_1^3} - \frac{\mu y}{r_2^3} \\
-											- \frac{ \left(1 - \mu\right) z}{r_1^3} - \frac{\mu z}{r_2^3}\end{array}\right]
-					= \left[\begin{array}{c} U_x \\ U_y \\ U_z\end{array} \right] \, .
+        \nabla U = \left[ \begin{array}{c} x - \frac{ \left(1 - \mu\right) \left(x + \mu\right)}{r_1^3} - \frac{\mu \left( x - 1 + \mu \right)}{r_2^3} \\
+                                                                                        y - \frac{ \left(1 - \mu\right) y}{r_1^3} - \frac{\mu y}{r_2^3} \\
+                                                                                        - \frac{ \left(1 - \mu\right) z}{r_1^3} - \frac{\mu z}{r_2^3}\end{array}\right]
+                                        = \left[\begin{array}{c} U_x \\ U_y \\ U_z\end{array} \right] \, .
 \end{equation}
 
 \subsection{Jacobi Integral}\label{sec:jacobi}
@@ -216,8 +216,8 @@ There exists a single integral, or constant of motion for the three-body problem
 This energy constant is analogous to the total mechanical energy, however it is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
 Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame and given by
 \begin{equation}
-	E\left( \vecbf{r} , \vecbf{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
-	\label{eq:jacobi}
+        E\left( \vecbf{r} , \vecbf{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
+        \label{eq:jacobi}
 \end{equation}
 \Cref{eq:jacobi} divides the phase space into distinct regions of allowable motion based on the energy level of the spacecraft.
 Fixing the Jacobi integral to a constant defines zero velocity curves, which are the locus of points where the kinetic energy, and hence velocity vanishes.
@@ -228,10 +228,10 @@ Three collinear saddle points on the \(\hat{e}_1\) axis and two equilateral poin
 These equilibrium, or Lagrange points, are labeled \( L_i, i = 1, \hdots, 5 \) and are shown in Figure~\ref{fig:energy_contour}.
 The Jacobi integral is a valuable invariant property of the three-body system that allows for greater insight into the motion of the spacecraft.
 \begin{figure}[htbp]
-	\centering
-	\includegraphics[width=0.5\textwidth]{energy_contours}
-	\caption{Contour plot of Jacobi integral}
-	\label{fig:energy_contour}
+        \centering
+        \includegraphics[width=0.5\textwidth]{energy_contours}
+        \caption{Contour plot of Jacobi integral}
+        \label{fig:energy_contour}
 \end{figure} 
 %\subsection{Periodic Orbits and Invariant Manifolds}
 %Used to generate a Periodic orbit about a lagrange point
@@ -254,34 +254,34 @@ Consider a continuous mechanical system described by the Lagrangian, \( L( q, \d
 In the standard approach of variational mechanics the action integral is formed by integrating the continuous Lagrangian along a path \( q(t) \) that the system follows from time \( t = 0 \) to \( t = T \)~\cite{greenwood1988}.
 In the continuous time the action integral is defined as
 \begin{align}\label{eq:action_integral}
-	S = \int_{0}^T L\left( q, \dot{q}\right) \, dt \, .
+        S = \int_{0}^T L\left( q, \dot{q}\right) \, dt \, .
 \end{align}
 Hamilton's principle states that the actual path followed by a holonomic system results in a stationary action integral with respect to path variations for fixed endpoints.
 Taking the variation of~\cref{eq:action_integral} gives
 \begin{align}\label{eq:var_principle}
-	\delta S %&= \int_{0}^T \deriv{L}{q} \delta q + \deriv{L}{\dot{q}} \delta \dot{q} \, dt \\
-		%&= \int_{0}^T \deriv{L}{q} \delta q - \frac{d}{dt} \left( \deriv{L}{\dot{q}}\right) \delta q \, dt - \left. \left[ \deriv{L}{\dot{q}} \delta q\right] \right|_0^T \\
-	&= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}	\right) \, dt \, ,
+        \delta S %&= \int_{0}^T \deriv{L}{q} \delta q + \deriv{L}{\dot{q}} \delta \dot{q} \, dt \\
+                %&= \int_{0}^T \deriv{L}{q} \delta q - \frac{d}{dt} \left( \deriv{L}{\dot{q}}\right) \delta q \, dt - \left. \left[ \deriv{L}{\dot{q}} \delta q\right] \right|_0^T \\
+        &= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}     \right) \, dt \, ,
 \end{align}
 where we have used integration by parts and the conditions \( \delta q(0) = 0 \) and \( \delta q(T) = 0\).
 For Hamilton's principle to be valid for all admissible variations \( \delta q \), the integrand of~\cref{eq:var_principle} must be zero for all \( t\), giving the continuous Euler-Lagrange Equations~\cite{lanczos1970}.
 \begin{align}\label{eq:euler-lagrange}
-	0 = \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}} \right) \, .
+        0 = \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}} \right) \, .
 \end{align}
 Hamilton's equations are derivable through the use of the Legendre transformation which is a mapping \( \left( q, \dot{q},t\right) \rightarrow \left(q, p, t \right) \) where \( p_i\) is the generalized momenta.
 \begin{align}\label{eq:legendre_transform}
-	p_i = \deriv{L}{\dot{q}_i} \, .
+        p_i = \deriv{L}{\dot{q}_i} \, .
 \end{align}
 In the continuous time case the Hamiltonian is defined as
 \begin{align}\label{eq:hamiltonian}
-	H &= \sum_{i = 1}^n p_i \dot{q}_i - L \left( q,\dot{q}, t \right) \, .
+        H &= \sum_{i = 1}^n p_i \dot{q}_i - L \left( q,\dot{q}, t \right) \, .
 \end{align}
 Applying~\cref{eq:legendre_transform} and taking the variation of~\cref{eq:hamiltonian} allows us to derive the equations of motion in Hamiltonian form
 \begin{subequations}\label{eq:hamilton_eq}
 \begin{align}
-	\dot{q}_i &= \deriv{H}{p_i} \, ,\\
-	\dot{p}_i &= - \deriv{H}{q_i} \, , \\
-	\deriv{L}{t} &= -\deriv{H}{t} \, .
+        \dot{q}_i &= \deriv{H}{p_i} \, ,\\
+        \dot{p}_i &= - \deriv{H}{q_i} \, , \\
+        \deriv{L}{t} &= -\deriv{H}{t} \, .
 \end{align}
 \end{subequations}
 Both~\cref{eq:euler-lagrange,eq:hamilton_eq} result in equations of motion for the mechanical system and are equivalent via the Legendre transform.
@@ -292,7 +292,7 @@ Rather than taking a position, \( q \), and velocity, \( \dot{q} \), consider tw
 The two positions are points on the curve \( q(t) \) such that \( q_0 \approx q(0) \) and \( q_1 \approx q(h) \).
 A discrete time Lagrangian \( L_d( q_0, q_1) \) is formed which approximates the action integral between \( q_0 \) and \( q_1 \) as 
 \begin{align}\label{eq:discrete_lagrangian_gen}
-	L_d\left( q_0 , q_1 \right) \approx \int_{0}^{h} L \left( q , \dot{q} \right) \, dt \, .
+        L_d\left( q_0 , q_1 \right) \approx \int_{0}^{h} L \left( q , \dot{q} \right) \, dt \, .
 \end{align}
 Since~\cref{eq:discrete_lagrangian_gen} is calculated as a numerical integral, an appropriate quadrature rule is required.
 There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian_gen}.
@@ -314,25 +314,25 @@ However, the midpoint rule results in an implicit form which adds further comple
 
 Once an appropriate discrete Lagrangian is formed a discrete action sum is formed as the discrete analogue of~\cref{eq:action_integral}
 \begin{align}\label{eq:action_sum}
-	S_d = \sum_{k=0}^{N-1} L_d(q_k, q_{k+1}) \, .
+        S_d = \sum_{k=0}^{N-1} L_d(q_k, q_{k+1}) \, .
 \end{align}
 Once again a discrete version of Hamilton's principle is applied to~\cref{eq:action_sum}.
 This yields a discrete time counterpart to~\cref{eq:var_principle} as
 \begin{align}\label{eq:dis_var_principle}
-	\delta S_d %&= \sum_{k=0}^{N-1} \deriv{L_d(q_k, q_{k+1})}{q_k} \delta q_k + \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \delta q_{k+1} \\
-	&= \sum_{k=1}^{N-1} \bracket{ \deriv{L_d(q_k, q_{k+1})}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}}} \delta q_k \, .
+        \delta S_d %&= \sum_{k=0}^{N-1} \deriv{L_d(q_k, q_{k+1})}{q_k} \delta q_k + \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \delta q_{k+1} \\
+        &= \sum_{k=1}^{N-1} \bracket{ \deriv{L_d(q_k, q_{k+1})}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}}} \delta q_k \, .
 \end{align}
 
 For the discrete action sum to be stationary with respect to all admissible path variations, with fixed endpoints, the discrete Euler-Lagrange equations must be satisfied for \( k = 1, \cdots, N-1 \) resulting in
 \begin{align}\label{eq:discrete_euler-lagrange}
-	0 = \deriv{L_d(q_k, q_{k+1})}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}} \, .
+        0 = \deriv{L_d(q_k, q_{k+1})}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}} \, .
 \end{align}
 A discrete version of the Legendre transformation, referred to as a discrete fiber derivative, results in the equivalent Hamiltonian form expression.
 The discrete fiber derivative is given as 
 \begin{subequations}\label{eq:discrete_legendre}
 \begin{align}
-	p_k &= \deriv{L_d(q_{k-1},q_k)}{q_{k+1}} = - \deriv{L_d(q_k, q_{k+1})}{q_k} \, ,\\
-	p_{k+1} &= \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \, .
+        p_k &= \deriv{L_d(q_{k-1},q_k)}{q_{k+1}} = - \deriv{L_d(q_k, q_{k+1})}{q_k} \, ,\\
+        p_{k+1} &= \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \, .
 \end{align}
 \end{subequations}
 This yields a discrete Hamiltonian map \( (q_k, p_k) \to (q_{k+1}, p_{k+1}) \).
@@ -344,17 +344,17 @@ In this work, the trapezoidal approximation is applied.
 The trapezoid rule allows for an explicit second order accurate approximation.
 The discrete Lagrangian is given by
 \begin{align}\label{eq:discrete_lagrangian}
-	L_d = &\frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
-		& + \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right) \, .
+        L_d = &\frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
+                & + \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right) \, .
 \end{align}
 Applying a discrete version of the Lagrange-d'Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
 Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation, the equations of motion are given by
 \begin{subequations}\label{eq:discrete_eoms}
 \begin{align}
-	\xkp &= \frac{1}{1+ h^2} \bracket{h \dot{x}_k + h^2 \dot{y}_k  + \xk \parenth{1+ \frac{3h^2}{2}} + \frac{h^3}{2} \yk - \frac{h^3}{2} U_{y_k} - \frac{h^2}{2} U_{x_k} } \label{eq:xkp} \, ,\\
-	\ykp &= h \dot{y}_k + h \xk - h \xkp + \yk + \frac{h^2 \yk}{2} - \frac{h^2 }{2} U_{y_k} \label{eq:ykp} \, ,\\
-	\dot{x}_{k+1} &= \dot{x}_k - 2 \yk + 2 \ykp + \frac{h}{2} \parenth{\xkp + \xk} - \frac{h}{2} U_{\xkp} - \frac{h}{2} U_{\xk} + h u_x \label{eq:xdotkp}\, ,\\
-	\dot{y}_{k+1} &= \dot{y}_{k} + 2 \xk - 2 \xkp + \frac{h}{2} \parenth{\ykp + \yk} - \frac{h}{2} U_{\ykp} - \frac{h}{2} U_{\yk} + h u_y \label{eq:ydotkp} \, .
+        \xkp &= \frac{1}{1+ h^2} \bracket{h \dot{x}_k + h^2 \dot{y}_k  + \xk \parenth{1+ \frac{3h^2}{2}} + \frac{h^3}{2} \yk - \frac{h^3}{2} U_{y_k} - \frac{h^2}{2} U_{x_k} } \label{eq:xkp} \, ,\\
+        \ykp &= h \dot{y}_k + h \xk - h \xkp + \yk + \frac{h^2 \yk}{2} - \frac{h^2 }{2} U_{y_k} \label{eq:ykp} \, ,\\
+        \dot{x}_{k+1} &= \dot{x}_k - 2 \yk + 2 \ykp + \frac{h}{2} \parenth{\xkp + \xk} - \frac{h}{2} U_{\xkp} - \frac{h}{2} U_{\xk} + h u_x \label{eq:xdotkp}\, ,\\
+        \dot{y}_{k+1} &= \dot{y}_{k} + 2 \xk - 2 \xkp + \frac{h}{2} \parenth{\ykp + \yk} - \frac{h}{2} U_{\ykp} - \frac{h}{2} U_{\yk} + h u_y \label{eq:ydotkp} \, .
 \end{align}
 \end{subequations}
 The discrete equations of motion are given in the Lagrangian form after applying the discrete fiber derivative from~\cref{eq:discrete_legendre} as \( p_{\xk} = \dot{x}_k - \yk \) and \( p_{\yk} = \dot{y}_k + \xk \).
@@ -363,19 +363,19 @@ This results in a discrete update map \( f_k: \vecbf{x}_k \to \vecbf{x}_{k+1} \)
 The discrete potential gradients are given by
 \begin{subequations}\label{eq:discrete_potential_grad}
 \begin{align}
-	U_{\xk} &= \frac{\parenth{1 -\mu} \parenth{\xk + \mu}}{\distonek^3} + \frac{ \mu \parenth{\xk -1 + \mu}}{\disttwok^3} \label{eq:Uxk} \, ,\\
-	U_{\yk} &= \frac{\parenth{1 -\mu} \yk}{\disttwok^3} + \frac{ \mu \yk}{\disttwok^3} \label{eq:Uyk} \, ,\\
-	U_{\xkp} &= \frac{\parenth{1 -\mu} \parenth{\xkp + \mu}}{\distonekp^3} + \frac{ \mu \parenth{\xkp -1 + \mu}}{\disttwokp^3} \label{eq:Uxkp}\, ,\\
-	U_{\ykp} &= \frac{\parenth{1 -\mu} \ykp}{\distonekp^3} + \frac{ \mu \ykp}{\disttwokp^3} \label{eq:Uykp} \, .
-\end{align}	
+        U_{\xk} &= \frac{\parenth{1 -\mu} \parenth{\xk + \mu}}{\distonek^3} + \frac{ \mu \parenth{\xk -1 + \mu}}{\disttwok^3} \label{eq:Uxk} \, ,\\
+        U_{\yk} &= \frac{\parenth{1 -\mu} \yk}{\disttwok^3} + \frac{ \mu \yk}{\disttwok^3} \label{eq:Uyk} \, ,\\
+        U_{\xkp} &= \frac{\parenth{1 -\mu} \parenth{\xkp + \mu}}{\distonekp^3} + \frac{ \mu \parenth{\xkp -1 + \mu}}{\disttwokp^3} \label{eq:Uxkp}\, ,\\
+        U_{\ykp} &= \frac{\parenth{1 -\mu} \ykp}{\distonekp^3} + \frac{ \mu \ykp}{\disttwokp^3} \label{eq:Uykp} \, .
+\end{align}     
 \end{subequations}
 The distances to each primary are defined as
 \begin{subequations}\label{eq:discrete_distance}
 \begin{align}
-	\distonek &= \sqrt{\left( \xk + \mu\right)^2 + \yk^2} \label{eq:distonek}\, ,\\
-	\disttwok &= \sqrt{\left( \xk - 1 + \mu\right)^2 + \yk^2} \label{eq:disttwok}\, ,\\
-	\distonekp &= \sqrt{\left( \xkp + \mu\right)^2 + \ykp^2} \label{eq:distonekp}\, ,\\
-	\disttwokp &= \sqrt{\left( \xkp - 1 + \mu\right)^2 + \ykp^2} \label{eq:disttwokp} \, .
+        \distonek &= \sqrt{\left( \xk + \mu\right)^2 + \yk^2} \label{eq:distonek}\, ,\\
+        \disttwok &= \sqrt{\left( \xk - 1 + \mu\right)^2 + \yk^2} \label{eq:disttwok}\, ,\\
+        \distonekp &= \sqrt{\left( \xkp + \mu\right)^2 + \ykp^2} \label{eq:distonekp}\, ,\\
+        \disttwokp &= \sqrt{\left( \xkp - 1 + \mu\right)^2 + \ykp^2} \label{eq:disttwokp} \, .
 \end{align}
 \end{subequations}
 Care must be taken during the implementation of~\cref{eq:discrete_eoms}.
@@ -388,21 +388,21 @@ Finally, the update steps in~\cref{eq:xdotkp,eq:ydotkp} are evaluated.
 This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k+1} \) given \( \vecbf{u}_k \).
 \subsection{Numerical Example}\label{sec:variational_example}
 \begin{figure} 
-	\centering 
-	\begin{subfigure}[h]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{trajectory} 
-		\caption{Trajectory comparison} \label{fig:compare_trajectory} 
-	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-%	\begin{subfigure}[htbp]{0.3\textwidth} 
-%		\includegraphics[width=\textwidth]{components} 
-%		\caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
-%	\end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{energy} 
-		\caption{Jacobi Integral comparison} \label{fig:compare_energy} 
-	\end{subfigure} 
-	\caption{Integrator Comparison}
-	\label{fig:integrator_compare} 
+        \centering 
+        \begin{subfigure}[h]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{trajectory} 
+                \caption{Trajectory comparison} \label{fig:compare_trajectory} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+%       \begin{subfigure}[htbp]{0.3\textwidth} 
+%               \includegraphics[width=\textwidth]{components} 
+%               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
+%       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{energy} 
+                \caption{Jacobi Integral comparison} \label{fig:compare_energy} 
+        \end{subfigure} 
+        \caption{Integrator Comparison}
+        \label{fig:integrator_compare} 
 \end{figure}
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
 A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
@@ -441,8 +441,8 @@ The process of differential correction and numerical continuation are used to de
 Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vecbf{x}_0) \) originating from \( \vecbf{x}(t_0) = \vecbf{x}_0 \) and we define a periodic orbit as \( \gamma\).
 The invariant manifolds are defined as : 
 \begin{align*}
-	W^s ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to \infty} , \\
-	W^u ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to -\infty} .
+        W^s ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to \infty} , \\
+        W^u ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to -\infty} .
 \end{align*}
 The stable manifold, \( W^s(\vecbf{x}_0) \), is the set of trajectories which asymptotically approach the periodic orbit.
 Similarly, the unstable manifold, \( W^u(\vecbf{x}_0) \), is the set of trajectories which asymptotically depart the periodic orbit.
@@ -454,9 +454,9 @@ Similarly, a perturbation in the direction of the stable eigenvector, with \( \n
 Each periodic orbit has two stable and unstable manifold sets associated with both a positive or negative perturbation along the respective eigenvector.
 This technique of determining the invariant manifolds is graphically presented in~\cref{fig:invariant_manifold}.
 \begin{figure}
-	\centering
-	\includegraphics[width=0.5\textwidth]{invariant_manifold}
-	\caption{Stable and unstable manifold of a periodic orbit\label{fig:invariant_manifold}}
+        \centering
+        \includegraphics[width=0.5\textwidth]{invariant_manifold}
+        \caption{Stable and unstable manifold of a periodic orbit\label{fig:invariant_manifold}}
 \end{figure}
 
 % introduce \Poincare section theory and math
@@ -468,8 +468,8 @@ This allows for greater insight into the stability and dynamics of periodic solu
 For example, \Poincare maps have been used to prove the existence of homoclinic orbits, which are orbits both forward and backward asymptotic to a single unstable periodic orbit, and heteroclinic orbits, which join different periodic orbits~\cite{conley1968,koon2000b}.
 These dynamic features have been shown to play a vital role in the movement of natural bodies as well as critical for spacecraft missions~\cite{gomez2001,lo1997}.
 \begin{figure}
-	\centering
-	\begin{scaletikzpicturetowidth}{0.5\textwidth}
+        \centering
+        \begin{scaletikzpicturetowidth}{0.5\textwidth}
     \begin{tikzpicture}[tdplot_main_coords,
       poincare/.style={opacity=.2,very thick,fill=blue},
       orbit/.style={very thick,black},
@@ -500,9 +500,9 @@ These dynamic features have been shown to play a vital role in the movement of n
     \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{199}{}{};
     \tdplotdrawarc[orbit,<-]{(center)}{3}{-161}{90}{}{};
 
-	\end{tikzpicture}
+        \end{tikzpicture}
     \end{scaletikzpicturetowidth}
-	\caption{Diagram of the \Poincare map\label{fig:poincare_map}}
+        \caption{Diagram of the \Poincare map\label{fig:poincare_map}}
 \end{figure}
 
 \subsection{Control-free Orbital Transfers}\label{sec:control-free_transfers}
@@ -517,7 +517,7 @@ Both periodic orbits have the same Jacobi energy constant and as a result it is 
 Both invariant manifolds are globalized and propogated to the first intersection with the \Poincare surface of section located at the position of the Moon, \( x = 1 - \mu \).
 The \Poincare section in~\cref{fig:manifold_transfer_example} is defined as
 \begin{align*}
-	\Sigma = \braces{ ( y, \dot{y}) \, | \, x = 1- \mu, y > 0} , 
+        \Sigma = \braces{ ( y, \dot{y}) \, | \, x = 1- \mu, y > 0} , 
 \end{align*}
 and located to allow an intersection between both invariant manifolds.
 The configuration space of the invariant manifold is \( \vecbf{x} \in \R^4 \).
@@ -549,7 +549,7 @@ In addition, much recent work has focused on potential return missions to the Mo
                 \label{fig:poincare}
         \end{subfigure}
         \caption{Illustration of process to identify transfer trajectories}
-	\label{fig:manifold_transfer_example}
+        \label{fig:manifold_transfer_example}
 \end{figure}
 
 % drawbacks of this approach on how we seek to improve upon it
@@ -596,10 +596,10 @@ However, the addition of low thrust propulsion allows the spacecraft to depart f
 We use a cost function to define a distance metric on the \Poincare section from the control-free intersection to an intersection under the influence of the control input.
 Maximization of this distance along varying directions enables us to generate the largest reachability set under the bounded control input.
 \begin{figure}
-	\centering
-%	\includegraphics[width=0.5\textwidth]{reachability_set_hand}
-	\begin{scaletikzpicturetowidth}{0.5\textwidth}
-	\begin{tikzpicture}[tdplot_main_coords,
+        \centering
+%       \includegraphics[width=0.5\textwidth]{reachability_set_hand}
+        \begin{scaletikzpicturetowidth}{0.5\textwidth}
+        \begin{tikzpicture}[tdplot_main_coords,
           poincare/.style={opacity=.2,very thick,fill=blue},
           orbit/.style={very thick,black},
           orbit hidden/.style={very thick,dashed},
@@ -643,14 +643,14 @@ Maximization of this distance along varying directions enables us to generate th
         \tdplotdrawarc[tdplot_rotated_coords,reachability]{(x0)}{1.5}{0}{360}{}{};
         % place
     \end{tikzpicture}
-	\end{scaletikzpicturetowidth}
-	\caption{Reachability set on a \Poincare section\label{fig:reachability_set}}
+        \end{scaletikzpicturetowidth}
+        \caption{Reachability set on a \Poincare section\label{fig:reachability_set}}
 \end{figure}
 
 We define the \Poincare section along the horizontal axis, which is equivalent to the surface \( y = 0 \), and given by
 \begin{align}
-	\Sigma = \braces{ ( x, \dot{x}) \, | \, y = 0} . 
-	\label{eqn:poincare_section}
+        \Sigma = \braces{ ( x, \dot{x}) \, | \, y = 0} . 
+        \label{eqn:poincare_section}
 \end{align}
 This is similar to the previous work in determining homoclinic orbits in the three-body problem~\cite{llibre1985,koon2011}.
 Previous analytical results have shown that homoclinic orbits intersect transversally in the \( (x, \dot{x} ) \) space on the plane \( y = 0 \).
@@ -658,17 +658,17 @@ We seek to compliment these results with the addition of low thrust propulsion t
 Placing our section at \( y = 0\) ensures that all trajectories will intersect our section.
 An optimal control problem is defined by a  cost function
 \begin{equation}
-	J = -\frac{1}{2} \left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right)^T 
-	\left[
-	\begin{array}{cccc}
-		1 & 0& 0& 0 \\
-		 0& 0& 0& 0\\
-		 0 & 0 & 1 &0\\
-		 0 & 0& 0& 0
-	\end{array}
-	\right]
-	\left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right) = \phi(\vecbf{x}(N),\vecbf{x}_n(N)) \, .
-	\label{eq:cost}
+        J = -\frac{1}{2} \left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right)^T 
+        \left[
+        \begin{array}{cccc}
+                1 & 0& 0& 0 \\
+                 0& 0& 0& 0\\
+                 0 & 0 & 1 &0\\
+                 0 & 0& 0& 0
+        \end{array}
+        \right]
+        \left( \vecbf{x}(N) - \vecbf{x}_{n}(N)\right) = \phi(\vecbf{x}(N),\vecbf{x}_n(N)) \, .
+        \label{eq:cost}
 \end{equation}
 The term \( \vecbf{x}_n(N) \) is the final state of a control-free trajectory while the term \( \vecbf{x}(N)\) is the final state under the influence of the control input.
 Maximization of the distance between \( \vecbf{x}_n \) and \(\vecbf{x} \), on the \Poincare section defined in~\cref{eqn:poincare_section} at the terminal time \( t_f = N \), is equivalent to the minimization of \( J \) defined in~\cref{eq:cost}.
@@ -677,7 +677,7 @@ The \Poincare section is defined through the use of appropriate terminal constra
 \begin{align}
     v_1( \vecbf{x}(N) ) &= y(N) = 0 \, , \\ 
     v_2 ( \vecbf{x}(N) )&=  \frac{\dot{x}(N) - \dot{x}_n(N) }{x(N) -x_n(N) } - \tan{\theta_d} = 0\, , \\
-	 0 &\geq\vecbf{u}^T \vecbf{u} - u_{max}^2 \, ,
+         0 &\geq\vecbf{u}^T \vecbf{u} - u_{max}^2 \, ,
 \end{align}
     \label{eq:constraints}
 \end{subequations}
@@ -690,15 +690,15 @@ The discrete variational integrator in~\cref{eq:discrete_eoms} is used rather th
 This results in a discrete optimal control problem and the discrete necessary conditions are given as
 \begin{subequations}\label{eq:necc_cond}
 \begin{align}
-	\vecbf{\lambda}_{k+1}^T &= \vecbf{\lambda}_k^T  \parenth{\deriv{\vecbf{f}_k}{\vecbf{x}_k}}^{-1} \, , \\
-	0 &=  \deriv{H_k}{\vecbf{u}_k} \, , \label{eqn:control_necc_cond}\\
-	0 &= \deriv{\phi}{\vecbf{x}_k}^T + \deriv{\vecbf{v}}{\vecbf{x}_k}^T \vecbf{\beta}  - \vecbf{\lambda}^T(N) \, ,  
+        \vecbf{\lambda}_{k+1}^T &= \vecbf{\lambda}_k^T  \parenth{\deriv{\vecbf{f}_k}{\vecbf{x}_k}}^{-1} \, , \\
+        0 &=  \deriv{H_k}{\vecbf{u}_k} \, , \label{eqn:control_necc_cond}\\
+        0 &= \deriv{\phi}{\vecbf{x}_k}^T + \deriv{\vecbf{v}}{\vecbf{x}_k}^T \vecbf{\beta}  - \vecbf{\lambda}^T(N) \, ,  
 \end{align}
 \end{subequations}
 where the Hamiltonian \(H\) is defined as
 \begin{equation}
-	H_k = \vecbf{\lambda}_k^T \vecbf{f}(\vecbf{x}_k, \vecbf{u}_k) \, ,
-	\label{eq:hamiltonian_opt}
+        H_k = \vecbf{\lambda}_k^T \vecbf{f}(\vecbf{x}_k, \vecbf{u}_k) \, ,
+        \label{eq:hamiltonian_opt}
 \end{equation}
 and \( \vecbf{\lambda} \in \R^{4 \times 1} \) is the costate and \(\vecbf{\beta} \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
 The state dynamics are represented by \( \vecbf{f}(\vecbf{x}_k, \vecbf{\lambda}_k ) \) after substituting~\cref{eqn:control_necc_cond} into~\cref{eq:discrete_eoms}.
@@ -707,13 +707,13 @@ By sweeping the angle \( \theta_d \) one can approximate the reachable set on th
 
 The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} and is given by
 \begin{align}\label{eq:costate_eom}
-	\vecbf{\lambda}_{k+1}^T = \vecbf{\lambda}_k^T
-	\begin{bmatrix} 
-		f_{1_x} & f_{1_y} & f_{1_{\dot{x}}} & f_{1_{\dot{y}}} \\
-		f_{2_x} & f_{2_y} & f_{2_{\dot{x}}} & f_{2_{\dot{y}}} \\
-		f_{3_x} & f_{3_y} & f_{3_{\dot{x}}} & f_{3_{\dot{y}}} \\
-		f_{4_x} & f_{4_y} & f_{4_{\dot{x}}} & f_{4_{\dot{y}}}
-	\end{bmatrix} ^ {-1} \, .
+        \vecbf{\lambda}_{k+1}^T = \vecbf{\lambda}_k^T
+        \begin{bmatrix} 
+                f_{1_x} & f_{1_y} & f_{1_{\dot{x}}} & f_{1_{\dot{y}}} \\
+                f_{2_x} & f_{2_y} & f_{2_{\dot{x}}} & f_{2_{\dot{y}}} \\
+                f_{3_x} & f_{3_y} & f_{3_{\dot{x}}} & f_{3_{\dot{y}}} \\
+                f_{4_x} & f_{4_y} & f_{4_{\dot{x}}} & f_{4_{\dot{y}}}
+        \end{bmatrix} ^ {-1} \, .
 \end{align}
 The derivation of~\cref{eq:costate_eom} is given in Appendix A.
 In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
@@ -731,68 +731,68 @@ Rather than numerical integration over the entire time interval, multiple shooti
 The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
 
 \begin{figure}
-	\centering
-	\begin{scaletikzpicturetowidth}{1\textwidth}
-		\begin{tikzpicture}[scale=\tikzscale]
-		    % \draw[help lines] (0,0) grid (20,5) ; %grid
+        \centering
+        \begin{scaletikzpicturetowidth}{1\textwidth}
+                \begin{tikzpicture}[scale=\tikzscale]
+                    % \draw[help lines] (0,0) grid (20,5) ; %grid
 
-		    \node[label=west:\(\vecbf{x}\)] (x0m) at (0,5) {};
-		    \node[] (x1m) at (5,5) {};
-		    \node[] (x2m) at (10,5) {};
-		    \node[] (x3m) at (15,5) {};
-		    \node[] (xnm) at (20,5) {};
+                    \node[label=west:\(\vecbf{x}\)] (x0m) at (0,5) {};
+                    \node[] (x1m) at (5,5) {};
+                    \node[] (x2m) at (10,5) {};
+                    \node[] (x3m) at (15,5) {};
+                    \node[] (xnm) at (20,5) {};
 
-		    \node[label=below:\(k_0\)] (t0) at (0,0) {};
-		    \node[label=below:\(k_1\)] (t1) at (5,0) {};
-		    \node[label=below:\(k_2\)] (t2) at (10,0) {};
-		    \node[label=below:\(k_{n-1}\)] (t3) at (15,0) {};
-		    \node[label=below:\(k_n\)] (tn) at (20,0) {};
+                    \node[label=below:\(k_0\)] (t0) at (0,0) {};
+                    \node[label=below:\(k_1\)] (t1) at (5,0) {};
+                    \node[label=below:\(k_2\)] (t2) at (10,0) {};
+                    \node[label=below:\(k_{n-1}\)] (t3) at (15,0) {};
+                    \node[label=below:\(k_n\)] (tn) at (20,0) {};
 
-		    % nodes for each subsegment
-		    \node[label=left:\(\vecbf{x}_0\)] (x0) at (0,1) {\pgfuseplotmark{*}};
-		    \node[label=below left:\(\vecbf{\lambda}_0\)] at (x0) {};
+                    % nodes for each subsegment
+                    \node[label=left:\(\vecbf{x}_0\)] (x0) at (0,1) {\pgfuseplotmark{*}};
+                    \node[label=below left:\(\vecbf{\lambda}_0\)] at (x0) {};
 
-		    \node[label=right:\(\vecbf{x}_1^{-}\)] (x1minus) at (5,2) {\pgfuseplotmark{*}};
-		    \node[label=below right:\(\vecbf{\lambda}_1^{-}\)] at (x1minus) {};
+                    \node[label=right:\(\vecbf{x}_1^{-}\)] (x1minus) at (5,2) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_1^{-}\)] at (x1minus) {};
 
-		    \node[label=above left:\(\vecbf{x}_1^{+}\)] (x1plus) at (5,3) {\pgfuseplotmark{o}};
-		    \node[label=left:\(\vecbf{\lambda}_1^{+}\)] at (x1plus) {};
+                    \node[label=above left:\(\vecbf{x}_1^{+}\)] (x1plus) at (5,3) {\pgfuseplotmark{o}};
+                    \node[label=left:\(\vecbf{\lambda}_1^{+}\)] at (x1plus) {};
 
-		    \node[label=right:\(\vecbf{x}_2^{-}\)] (x2minus) at (10,2) {\pgfuseplotmark{*}};
-		    \node[label=below right:\(\vecbf{\lambda}_2^{-}\)] at (x2minus) {};
+                    \node[label=right:\(\vecbf{x}_2^{-}\)] (x2minus) at (10,2) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_2^{-}\)] at (x2minus) {};
 
-		    \node[label=above left:\(\vecbf{x}_2^{+}\)] (x2plus) at (10,3) {\pgfuseplotmark{o}};
-		    \node[label=left:\(\vecbf{\lambda}_2^{+}\)] at (x2plus) {};
+                    \node[label=above left:\(\vecbf{x}_2^{+}\)] (x2plus) at (10,3) {\pgfuseplotmark{o}};
+                    \node[label=left:\(\vecbf{\lambda}_2^{+}\)] at (x2plus) {};
 
-		    \node[label=right:\(\vecbf{x}_{n-1}^{-}\)] (x3minus) at (15,2) {\pgfuseplotmark{*}};
-		    \node[label=below right:\(\vecbf{\lambda}_{n-1}^{-}\)] at (x3minus) {};
+                    \node[label=right:\(\vecbf{x}_{n-1}^{-}\)] (x3minus) at (15,2) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_{n-1}^{-}\)] at (x3minus) {};
 
-		    \node[label=above left:\(\vecbf{x}_{n-1}^{+}\)] (x3plus) at (15,3) {\pgfuseplotmark{o}};
-		    \node[label=left:\(\vecbf{\lambda}_{n-1}^{+}\)] at (x3plus) {};
+                    \node[label=above left:\(\vecbf{x}_{n-1}^{+}\)] (x3plus) at (15,3) {\pgfuseplotmark{o}};
+                    \node[label=left:\(\vecbf{\lambda}_{n-1}^{+}\)] at (x3plus) {};
 
-		    \node[label=right:\(\vecbf{x}_n\)] (xnminus) at (20,3) {\pgfuseplotmark{*}};
-		    \node[label=below right:\(\vecbf{\lambda}_n\)] at (xnminus) {};
-		    % draw axes
-		    \draw [<->,thick] (tn.center) -- (t0.center) -- (x0m.center);
+                    \node[label=right:\(\vecbf{x}_n\)] (xnminus) at (20,3) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_n\)] at (xnminus) {};
+                    % draw axes
+                    \draw [<->,thick] (tn.center) -- (t0.center) -- (x0m.center);
 
-		    % draw segement dividers
-		    \draw [dashed,thick] (t1.center) -- (x1m.center);
-		    \draw [dashed,thick] (t2.center) -- (x2m.center);
-		    \draw [dashed,thick] (t3.center) -- (x3m.center);
-		    \draw [dashed,thick] (tn.center) -- (xnm.center);
+                    % draw segement dividers
+                    \draw [dashed,thick] (t1.center) -- (x1m.center);
+                    \draw [dashed,thick] (t2.center) -- (x2m.center);
+                    \draw [dashed,thick] (t3.center) -- (x3m.center);
+                    \draw [dashed,thick] (tn.center) -- (xnm.center);
 
-		    % draw markers at each subsegment
+                    % draw markers at each subsegment
 
-		    % draw the subsegments
-		    \draw [->] (x0.center) to [bend left=30] (x1minus.center);
-		    \draw [->] (x1plus.center) to [bend left=30] (x2minus.center);
-		    % dotted lines here
-		    \draw[decorate sep={1mm}{5mm},fill] (x2plus.east) to [bend left=10] (x3minus.west);
+                    % draw the subsegments
+                    \draw [->] (x0.center) to [bend left=30] (x1minus.center);
+                    \draw [->] (x1plus.center) to [bend left=30] (x2minus.center);
+                    % dotted lines here
+                    \draw[decorate sep={1mm}{5mm},fill] (x2plus.east) to [bend left=10] (x3minus.west);
 
-		    \draw [->] (x3plus.center) to [bend left=30] (xnminus.center);
-		\end{tikzpicture}
-	\end{scaletikzpicturetowidth}
-	\caption{Multiple Shooting method\label{fig:multiple shooting}}
+                    \draw [->] (x3plus.center) to [bend left=30] (xnminus.center);
+                \end{tikzpicture}
+        \end{scaletikzpicturetowidth}
+        \caption{Multiple Shooting method\label{fig:multiple shooting}}
 \end{figure}
 
 In~\cref{fig:multiple shooting}, we show a schematic representation of the multiple shooting procedure.
@@ -801,13 +801,13 @@ Similarly, we divide the state and costate trajectories into \( n \) equal segme
 To ensure continuity, additional interior constraints are incorporated as
 \begin{subequations}
 \begin{align}\label{eq:interior_constraints}
-	\vecbf{x}_1^{-} - \vecbf{x}_1^{+} &= 0 , \\ 
-	\vecbf{\lambda}_1^{-} - \vecbf{\lambda}_1^{+} &= 0 , \\
-	\vecbf{x}_2^{-} - \vecbf{x}_2^{+} &= 0 , \\ 
-	\vecbf{\lambda}_2^{-} - \vecbf{\lambda}_2^{+} &= 0 , \\
-	&\vdots \\
-	\vecbf{x}_{n-1}^{-} - \vecbf{x}_{n-1}^{+} &= 0 , \\ 
-	\vecbf{\lambda}_{n-1}^{-} - \vecbf{\lambda}_{n-1}^{+} &= 0.
+        \vecbf{x}_1^{-} - \vecbf{x}_1^{+} &= 0 , \\ 
+        \vecbf{\lambda}_1^{-} - \vecbf{\lambda}_1^{+} &= 0 , \\
+        \vecbf{x}_2^{-} - \vecbf{x}_2^{+} &= 0 , \\ 
+        \vecbf{\lambda}_2^{-} - \vecbf{\lambda}_2^{+} &= 0 , \\
+        &\vdots \\
+        \vecbf{x}_{n-1}^{-} - \vecbf{x}_{n-1}^{+} &= 0 , \\ 
+        \vecbf{\lambda}_{n-1}^{-} - \vecbf{\lambda}_{n-1}^{+} &= 0.
 \end{align}
 \end{subequations}
 Using the multiple shooting method reduces the sensitivity of the terminal states, \( \vecbf{x}_i^{+}, \vecbf{\lambda}_i^{+}\), to variations of the initial states, \(\vecbf{x}_{i-1}^{-}, \vecbf{\lambda}_{i-1}^{-}\).
@@ -862,17 +862,17 @@ There are no intersections of the invariant manifold with the descending region 
 The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
 The required travel time for a transfer using the unstable invariant manifold is \( t_f \approx 3.1\).
 \begin{figure} 
-	\centering 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{manifold_trajectory} 
-		\caption{Invariant Manifold} \label{fig:manifold_trajectory} 
-	\end{subfigure}~ %
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{manifold_poincare} 
-		\caption{Poincar\`e Section} \label{fig:manifold_poincare} 
-	\end{subfigure} 
-	\caption{Invariant manifold transfer}
-	\label{fig:invariant_manifold_transfer} 
+        \centering 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{manifold_trajectory} 
+                \caption{Invariant Manifold} \label{fig:manifold_trajectory} 
+        \end{subfigure}~ %
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{manifold_poincare} 
+                \caption{Poincar\`e Section} \label{fig:manifold_poincare} 
+        \end{subfigure} 
+        \caption{Invariant manifold transfer}
+        \label{fig:invariant_manifold_transfer} 
 \end{figure}
 
 % reachable set transfer
@@ -904,26 +904,26 @@ We show the control-free intersection, \( \vecbf{x}_n \), of the periodic orbit 
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \) as compared to a fixed point without any control input.
 \begin{figure} 
-	\centering 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{reach_trajectory} 
-		\caption{Reachability set trajectories} \label{fig:reach_trajectory} 
-	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{poincare_compare} 
-		\caption{\Poincare section} \label{fig:poincare_compare} 
-	\end{subfigure} %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-		
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{reach_transfer} 
-		\caption{Final transfer trajectory} \label{fig:reach_transfer} 
-	\end{subfigure}~ 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{control_input_l1} 
-		\caption{Control input} \label{fig:control_l1} 
-	\end{subfigure}~
-	\caption{Reachability set transfer}
-	\label{fig:reachability_set_transfer} 
+        \centering 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{reach_trajectory} 
+                \caption{Reachability set trajectories} \label{fig:reach_trajectory} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{poincare_compare} 
+                \caption{\Poincare section} \label{fig:poincare_compare} 
+        \end{subfigure} %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+                
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{reach_transfer} 
+                \caption{Final transfer trajectory} \label{fig:reach_transfer} 
+        \end{subfigure}~ 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{control_input_l1} 
+                \caption{Control input} \label{fig:control_l1} 
+        \end{subfigure}~
+        \caption{Reachability set transfer}
+        \label{fig:reachability_set_transfer} 
 \end{figure}
 
 % generate the optimal transfer
@@ -1029,7 +1029,7 @@ The reachable set is generated by varying the angle \( \ang{0} \leq \theta < \an
 This allows us to approximate the set of states that are achievable in the \( \parenth{x ,\dot{x}} \) space.
 After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds as the function \( d \)
 \begin{align*}
-	d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
+        d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
 \end{align*}
 From the reachable set, the trajectory which minimizes \( d \) is used to intialize the next iteration.
 Once the reachability set intersects the stable manifold, we can achieve a complete transfer from the initial geostationary orbit to the stable manifold of \( L_1 \).
@@ -1046,26 +1046,26 @@ Once at the stable manifold, no further control input is required and the vehicl
 \Cref{fig:control_input_geo} shows the control input during the powered portion of the transfer. 
 The spacecraft maintains a bounded control magnitude during the transfer to the stable manifold.
 \begin{figure} 
-	\centering 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{geo_transfer_full} 
-		\caption{Completed transfer trajectory} \label{fig:geo_transfer_full} 
-	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{geo_transfer_zoom} 
-		\caption{Detailed view of transfer} \label{fig:geo_transfer_zoom} 
-	\end{subfigure} 
-	
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{poincare} 
-		\caption{\Poincare section} \label{fig:geo_transfer_poincare} 
-	\end{subfigure}~%
-	\begin{subfigure}[htbp]{0.5\textwidth} 
-		\includegraphics[width=\textwidth]{control_input_geo} 
-		\caption{Control input} \label{fig:control_input_geo} 
-	\end{subfigure} 
-	\caption{Transfer from geostationary orbit to the \( L_1 \) stable manifold using multiple iterations of the reachability set}
-	\label{fig:geo_transfer} 
+        \centering 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{geo_transfer_full} 
+                \caption{Completed transfer trajectory} \label{fig:geo_transfer_full} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{geo_transfer_zoom} 
+                \caption{Detailed view of transfer} \label{fig:geo_transfer_zoom} 
+        \end{subfigure} 
+        
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{poincare} 
+                \caption{\Poincare section} \label{fig:geo_transfer_poincare} 
+        \end{subfigure}~%
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{control_input_geo} 
+                \caption{Control input} \label{fig:control_input_geo} 
+        \end{subfigure} 
+        \caption{Transfer from geostationary orbit to the \( L_1 \) stable manifold using multiple iterations of the reachability set}
+        \label{fig:geo_transfer} 
 \end{figure}
 
 This approach demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
@@ -1088,57 +1088,57 @@ The addition of attitude dynamics and realistic pointing constraints would signi
 The development of the costate equations of motions begins with determining the second order partial derivatives of the gravitational potential. 
 Due to the symmetry of partial derivatives only three terms are required and are given by
 \begin{align}\label{eq:second_discrete_potential_grad}
-	U_{x\xk} &= \parenth{1-\mu} \bracket{\frac{1}{\distonek^3} - \frac{3 \parenth{\xk +\mu}^2}{\distonek^5}} + \mu \bracket{\frac{1}{\disttwok^3} - \frac{3 \parenth{\xk -1 + \mu}^2}{\disttwok^5}} \, ,\\
-	U_{y\yk} &= \parenth{1-\mu} \bracket{\frac{1}{\distonek^3} - \frac{3 \yk^2}{\distonek^5}} + \mu \bracket{\frac{1}{\disttwok^3} - \frac{3 \yk^2}{\disttwok^5}} \, ,\\
-	U_{x\yk} &= U_{y\xk} =  \frac{-3 \parenth{1-\mu} \parenth{\xk +\mu} \yk}{\distonek^3} - \frac{3\mu\yk\parenth{\xk-1+\mu}}{\disttwok^5} \, .
+        U_{x\xk} &= \parenth{1-\mu} \bracket{\frac{1}{\distonek^3} - \frac{3 \parenth{\xk +\mu}^2}{\distonek^5}} + \mu \bracket{\frac{1}{\disttwok^3} - \frac{3 \parenth{\xk -1 + \mu}^2}{\disttwok^5}} \, ,\\
+        U_{y\yk} &= \parenth{1-\mu} \bracket{\frac{1}{\distonek^3} - \frac{3 \yk^2}{\distonek^5}} + \mu \bracket{\frac{1}{\disttwok^3} - \frac{3 \yk^2}{\disttwok^5}} \, ,\\
+        U_{x\yk} &= U_{y\xk} =  \frac{-3 \parenth{1-\mu} \parenth{\xk +\mu} \yk}{\distonek^3} - \frac{3\mu\yk\parenth{\xk-1+\mu}}{\disttwok^5} \, .
 \end{align}
 The gradient of~\cref{eq:xkp} is given as
 \begin{subequations}\label{eq:xkp_grad}
 \begin{align}
-	f_{1_x} &= \frac{1}{1+h^2} \bracket{h^2 + 1 + \frac{h^2}{2} -\frac{h^3}{2} U_{y\xk} - \frac{h^2}{2}U_{x\xk}} \, ,\\
-	f_{1_y} &= \frac{1}{1+h^2} \bracket{ \frac{h^3}{2} -\frac{h^3}{2} U_{y\yk} - \frac{h^2}{2}U_{x\yk}} \, ,\\
-	f_{1_{\dot{x}}} &= \frac{h}{1+h^2} \, ,\\
-	f_{1_{\dot{y}}} &= \frac{h^2}{1+h^2} \, .
+        f_{1_x} &= \frac{1}{1+h^2} \bracket{h^2 + 1 + \frac{h^2}{2} -\frac{h^3}{2} U_{y\xk} - \frac{h^2}{2}U_{x\xk}} \, ,\\
+        f_{1_y} &= \frac{1}{1+h^2} \bracket{ \frac{h^3}{2} -\frac{h^3}{2} U_{y\yk} - \frac{h^2}{2}U_{x\yk}} \, ,\\
+        f_{1_{\dot{x}}} &= \frac{h}{1+h^2} \, ,\\
+        f_{1_{\dot{y}}} &= \frac{h^2}{1+h^2} \, .
 \end{align}
 \end{subequations}
 The gradient of~\cref{eq:ykp} is given as
 \begin{subequations}\label{eq:ykp_grad}
 \begin{align}
-	f_{2_x} &= h -h f_{1_x} - \frac{h^2}{2} U_{y\xk} \, , \\
-	f_{2_y} &= -h f_{1_y} + 1 + \frac{h^2}{2} - \frac{h^2}{2} U_{y\yk} \, ,\\
-	f_{2_{\dot{x}}} &= -h f_{1_{\dot{x}}} \, ,\\
-	f_{2_{\dot{y}}} &= h - h f_{1_{\dot{y}}} \, .
+        f_{2_x} &= h -h f_{1_x} - \frac{h^2}{2} U_{y\xk} \, , \\
+        f_{2_y} &= -h f_{1_y} + 1 + \frac{h^2}{2} - \frac{h^2}{2} U_{y\yk} \, ,\\
+        f_{2_{\dot{x}}} &= -h f_{1_{\dot{x}}} \, ,\\
+        f_{2_{\dot{y}}} &= h - h f_{1_{\dot{y}}} \, .
 \end{align}
 \end{subequations}
 The gradients of~\cref{eq:distonekp,eq:disttwokp} are given as
 \begin{subequations}\label{eq:distkp_grad}
 \begin{align}
-	\deriv{\distonekp}{\bar{x}} &= \parenth{\left( \xkp + \mu\right)^2 + \ykp^2}^{-\frac{1}{2}} \bracket{\parenth{\xkp + \mu} f_{1_{\bar{x}}} + \ykp f_{2_{\bar{x}}}} \, ,\\
-	\deriv{\disttwokp}{\bar{x}} &= \parenth{\left( \xkp - 1 + \mu\right)^2 + \ykp^2}^{-\frac{1}{2}} \bracket{\parenth{\xkp -1 + \mu} f_{1_{\bar{x}}} + \ykp f_{2_{\bar{x}}}}  \, .
+        \deriv{\distonekp}{\bar{x}} &= \parenth{\left( \xkp + \mu\right)^2 + \ykp^2}^{-\frac{1}{2}} \bracket{\parenth{\xkp + \mu} f_{1_{\bar{x}}} + \ykp f_{2_{\bar{x}}}} \, ,\\
+        \deriv{\disttwokp}{\bar{x}} &= \parenth{\left( \xkp - 1 + \mu\right)^2 + \ykp^2}^{-\frac{1}{2}} \bracket{\parenth{\xkp -1 + \mu} f_{1_{\bar{x}}} + \ykp f_{2_{\bar{x}}}}  \, .
 \end{align}
 \end{subequations}
 The second order partial derivatives of the gravitational potential at \( k+1\) are given as
 \begin{subequations}
 \begin{align}
-	\deriv{U_{x\xkp}}{\bar{x}} &= \parenth{1-\mu}\bracket{\frac{1}{\distonekp^3} f_{1_{\bar{x}}} - \frac{3 \parenth{\xkp +mu}}{\distonekp^4} \deriv{\distonekp}{\bar{x}}} + \mu \bracket{\frac{1}{\disttwokp^3} f_{1_{\bar{x}}} - \frac{-3 \parenth{\xkp -1 + \mu}}{\disttwokp^4} \deriv{\disttwokp}{\bar{x}}} \, ,\\
-	\deriv{U_{y\xkp}}{\bar{x}} &= \parenth{1-\mu}\bracket{\frac{1}{\distonekp^3} f_{2_{\bar{x}}} - \frac{3 \ykp}{\distonekp^4} \deriv{\distonekp}{\bar{x}}} + \mu \bracket{\frac{1}{\disttwokp^3} f_{2_{\bar{x}}} - \frac{-3 \ykp}{\disttwokp^4} \deriv{\disttwokp}{\bar{x}}} \, .
+        \deriv{U_{x\xkp}}{\bar{x}} &= \parenth{1-\mu}\bracket{\frac{1}{\distonekp^3} f_{1_{\bar{x}}} - \frac{3 \parenth{\xkp +mu}}{\distonekp^4} \deriv{\distonekp}{\bar{x}}} + \mu \bracket{\frac{1}{\disttwokp^3} f_{1_{\bar{x}}} - \frac{-3 \parenth{\xkp -1 + \mu}}{\disttwokp^4} \deriv{\disttwokp}{\bar{x}}} \, ,\\
+        \deriv{U_{y\xkp}}{\bar{x}} &= \parenth{1-\mu}\bracket{\frac{1}{\distonekp^3} f_{2_{\bar{x}}} - \frac{3 \ykp}{\distonekp^4} \deriv{\distonekp}{\bar{x}}} + \mu \bracket{\frac{1}{\disttwokp^3} f_{2_{\bar{x}}} - \frac{-3 \ykp}{\disttwokp^4} \deriv{\disttwokp}{\bar{x}}} \, .
 \end{align}
 \end{subequations}
 The gradient of~\cref{eq:xdotkp,eq:ydotkp} are given as
 \begin{subequations}\label{eq:xdotkp_grad}
 \begin{align}
-	f_{3_x} &= 2 f_{2_x} + \frac{h}{2} \parenth{f_{1_x} + 1} - \frac{h}{2} U_{x\xkp} - \frac{h}{2} U_{x\xk} \, ,\\
-	f_{3_y} &= -2 + 2 f_{2_y} + \frac{h}{2} f_{1_y} - \frac{h}{2} U_{x\ykp} -\frac{h}{2} U_{x\yk} \, ,\\
-	f_{3_{\dot{x}}} &= 1 + 2 f_{2_{\dot{x}}} + \frac{h}{2} f_{1_{\dot{x}}} - \frac{h}{2} U_{x\xdotkp}\, ,\\
-	f_{3_{\dot{y}}} &= 2 f_{2_{\dot{y}}}\, ,
+        f_{3_x} &= 2 f_{2_x} + \frac{h}{2} \parenth{f_{1_x} + 1} - \frac{h}{2} U_{x\xkp} - \frac{h}{2} U_{x\xk} \, ,\\
+        f_{3_y} &= -2 + 2 f_{2_y} + \frac{h}{2} f_{1_y} - \frac{h}{2} U_{x\ykp} -\frac{h}{2} U_{x\yk} \, ,\\
+        f_{3_{\dot{x}}} &= 1 + 2 f_{2_{\dot{x}}} + \frac{h}{2} f_{1_{\dot{x}}} - \frac{h}{2} U_{x\xdotkp}\, ,\\
+        f_{3_{\dot{y}}} &= 2 f_{2_{\dot{y}}}\, ,
 \end{align}
 \end{subequations}
 \begin{subequations}\label{eq:ydotkp_grad}
 \begin{align}
-	f_{4_x} &= 2 - 2 f_{1_x} + \frac{h}{2} f_{2_x}  - \frac{h}{2} U_{y\xkp} - \frac{h}{2} U_{y\xk} \, ,\\
-	f_{4_y} &= -2f_{1_y}  - \frac{h}{2} \parenth{f_{2_y} + 1} - \frac{h}{2} U_{y\ykp} -\frac{h}{2} U_{y\yk} \, ,\\
-	f_{4_{\dot{x}}} &= - 2 f_{1_{\dot{x}}} +  \frac{h}{2} f_{2_{\dot{x}}} - \frac{h}{2} U_{y\xdotkp}\, ,\\
-	f_{4_{\dot{y}}} &= 1 - 2 f_{1_{\dot{y}}} + \frac{h}{2} f_{2_{\dot{y}}} - \frac{h}{2} U_{y\ydotkp}\, .
+        f_{4_x} &= 2 - 2 f_{1_x} + \frac{h}{2} f_{2_x}  - \frac{h}{2} U_{y\xkp} - \frac{h}{2} U_{y\xk} \, ,\\
+        f_{4_y} &= -2f_{1_y}  - \frac{h}{2} \parenth{f_{2_y} + 1} - \frac{h}{2} U_{y\ykp} -\frac{h}{2} U_{y\yk} \, ,\\
+        f_{4_{\dot{x}}} &= - 2 f_{1_{\dot{x}}} +  \frac{h}{2} f_{2_{\dot{x}}} - \frac{h}{2} U_{y\xdotkp}\, ,\\
+        f_{4_{\dot{y}}} &= 1 - 2 f_{1_{\dot{y}}} + \frac{h}{2} f_{2_{\dot{y}}} - \frac{h}{2} U_{y\ydotkp}\, .
 \end{align}
 \end{subequations}
 These gradient equations are in a cascade type structure.
@@ -1148,67 +1148,67 @@ As a result, the accuracy of the Jacobian will tend to decrease as the first ord
 \section*{Appendix B: Gauss Jordan Elimination}\label{sec:costate_gauss_jordan}
 The costate equations of motion are given by~\cref{eq:costate_eom} and repeated here as
 \begin{align}\label{eq:costate_eom_transpose}
-	\begin{bmatrix} 
-		\fonex & \ftwox & \fthreex & \ffourx \\
-		\foney & \ftwoy & \fthreey & \ffoury \\
-		\fonexd & \ftwoxd & \fthreexd & \ffourxd \\
-		\foneyd & \ftwoyd & \fthreeyd & \ffouryd
-	\end{bmatrix}
-	\begin{bmatrix} \lambda_{\xkp} \\ \lambda_{\ykp} \\ \lambda_{\xdotkp} \\ \lambda_{\ydotkp} \end{bmatrix}
-	=
-	\begin{bmatrix} \lambda_{\xk} \\ \lambda_{\yk} \\ \lambda_{\xdotk} \\ \lambda_{\ydotk} \end{bmatrix} \, .
+        \begin{bmatrix} 
+                \fonex & \ftwox & \fthreex & \ffourx \\
+                \foney & \ftwoy & \fthreey & \ffoury \\
+                \fonexd & \ftwoxd & \fthreexd & \ffourxd \\
+                \foneyd & \ftwoyd & \fthreeyd & \ffouryd
+        \end{bmatrix}
+        \begin{bmatrix} \lambda_{\xkp} \\ \lambda_{\ykp} \\ \lambda_{\xdotkp} \\ \lambda_{\ydotkp} \end{bmatrix}
+        =
+        \begin{bmatrix} \lambda_{\xk} \\ \lambda_{\yk} \\ \lambda_{\xdotk} \\ \lambda_{\ydotk} \end{bmatrix} \, .
 \end{align}
 To determine the discrete update map \( \lambda_k \to \lambda_{k+1}\) the inverse of the Jacobian matrix is required.
 In order to avoid the need of an explicit inversion a Gauss Jordan method is implemented.
 To begin, several terms are defined which are required to carry out the row operations and are defined as
 \begin{subequations}\label{eq:ref_scale}
 \begin{align}
-	a &= -\frac{\foney}{\fonex} \, ,\\
-	b &= -\frac{\fonexd}{\fonex} \, , \\
-	c &= -\frac{\foneyd}{\fonex} \, ,\\
-	e &= -\frac{\ftwoxd + b \ftwox}{\ftwoy + a \ftwox} \, ,\\
-	f &= -\frac{\ftwoyd + c \ftwox}{\ftwoy + a \ftwox} \, ,\\
-	g &= -\frac{\fthreeyd + c \fthreex + f \parenth{\fthreey + a \fthreex}}{\fthreexd + b \fthreex + e \parenth{\fthreey + a \fthreex}}\, .
+        a &= -\frac{\foney}{\fonex} \, ,\\
+        b &= -\frac{\fonexd}{\fonex} \, , \\
+        c &= -\frac{\foneyd}{\fonex} \, ,\\
+        e &= -\frac{\ftwoxd + b \ftwox}{\ftwoy + a \ftwox} \, ,\\
+        f &= -\frac{\ftwoyd + c \ftwox}{\ftwoy + a \ftwox} \, ,\\
+        g &= -\frac{\fthreeyd + c \fthreex + f \parenth{\fthreey + a \fthreex}}{\fthreexd + b \fthreex + e \parenth{\fthreey + a \fthreex}}\, .
 \end{align}
 \end{subequations}
 \Cref{eq:costate_eom_transpose} is transformed to row echelon form using elementary row operations and is defined as
 \begin{align}\label{eq:costate_ref}
-	\begin{bmatrix} 
-		\alpha_{11} & \alpha_{12} & \alpha_{13} & \alpha_{14} \\
-		0 & \alpha_{22} & \alpha_{23} & \alpha_{24} \\
-		0 & 0 & \alpha_{33} & \alpha_{34} \\
-		0 & 0 & 0 & \alpha_{44}
-	\end{bmatrix}
-	\begin{bmatrix} \lambda_{\xkp} \\ \lambda_{\ykp} \\ \lambda_{\xdotkp} \\ \lambda_{\ydotkp} \end{bmatrix}
-	=
-	\begin{bmatrix} \beta_1 \\ \beta_2 \\ \beta_3 \\ \beta_4 \end{bmatrix} \, ,
+        \begin{bmatrix} 
+                \alpha_{11} & \alpha_{12} & \alpha_{13} & \alpha_{14} \\
+                0 & \alpha_{22} & \alpha_{23} & \alpha_{24} \\
+                0 & 0 & \alpha_{33} & \alpha_{34} \\
+                0 & 0 & 0 & \alpha_{44}
+        \end{bmatrix}
+        \begin{bmatrix} \lambda_{\xkp} \\ \lambda_{\ykp} \\ \lambda_{\xdotkp} \\ \lambda_{\ydotkp} \end{bmatrix}
+        =
+        \begin{bmatrix} \beta_1 \\ \beta_2 \\ \beta_3 \\ \beta_4 \end{bmatrix} \, ,
 \end{align}
 where the terms \( \alpha_{ij} \) and \( \beta_{i} \) are defined as follows
 \begin{subequations}
 \begin{align}
-	\alpha_{11} &= \fonex \, ,\\
-	\alpha_{12} &= \ftwox \, ,\\
-	\alpha_{13} &= \fthreex \, ,\\
-	\alpha_{14} &= \ffourx \, ,\\
-	\alpha_{22} &= \ftwoy + a \ftwox \, ,\\
-	\alpha_{23} &= \fthreey + a\fthreex \, ,\\
-	\alpha_{24} &= \ffoury + a \ffourx \, ,\\
-	\alpha_{33} &= \fthreexd + b \fthreex + e \parenth{\fthreey + a \fthreex}\, ,\\
-	\alpha_{34} &= \ffourxd + b \ffourx + e \parenth{\ffoury + a \ffourx} \, ,\\
-	\alpha_{44} &= \ffouryd + c \ffourx + f \parenth{\ffoury + a \ffourx} + g \parenth{\ffourxd + b \ffourx + e \parenth{\ffoury + a \ffourx}} \, ,\\
-	\beta_1 &= \lambda_{\xk} \, ,\\
-	\beta_2 &= \lambda_{\yk} + a \lambda_{\xk} \, ,\\
-	\beta_3 &= \lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}} \, ,\\
-	\beta_4 &= \lambda_{\ydotk} + c \lambda_{\xk} + f \parenth{\lambda_{\yk}+a \lambda_{\xk}} + g \parenth{\lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}}} \, .
+        \alpha_{11} &= \fonex \, ,\\
+        \alpha_{12} &= \ftwox \, ,\\
+        \alpha_{13} &= \fthreex \, ,\\
+        \alpha_{14} &= \ffourx \, ,\\
+        \alpha_{22} &= \ftwoy + a \ftwox \, ,\\
+        \alpha_{23} &= \fthreey + a\fthreex \, ,\\
+        \alpha_{24} &= \ffoury + a \ffourx \, ,\\
+        \alpha_{33} &= \fthreexd + b \fthreex + e \parenth{\fthreey + a \fthreex}\, ,\\
+        \alpha_{34} &= \ffourxd + b \ffourx + e \parenth{\ffoury + a \ffourx} \, ,\\
+        \alpha_{44} &= \ffouryd + c \ffourx + f \parenth{\ffoury + a \ffourx} + g \parenth{\ffourxd + b \ffourx + e \parenth{\ffoury + a \ffourx}} \, ,\\
+        \beta_1 &= \lambda_{\xk} \, ,\\
+        \beta_2 &= \lambda_{\yk} + a \lambda_{\xk} \, ,\\
+        \beta_3 &= \lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}} \, ,\\
+        \beta_4 &= \lambda_{\ydotk} + c \lambda_{\xk} + f \parenth{\lambda_{\yk}+a \lambda_{\xk}} + g \parenth{\lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}}} \, .
 \end{align}
 \end{subequations}
 Finally, backsubstituion is used to determine explicit equations for the discrete update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \) which is defined as
 \begin{subequations}\label{eq:costate_update}
 \begin{align}
-	\lambda_{\ydotkp} &= \frac{\beta_4}{\alpha_{44}} \, ,\\
-	\lambda_{\xdotkp} &= \frac{\beta_3}{\alpha_{33}} - \frac{\alpha_{34}}{\alpha_{33}} \lambda_{\ydotkp} \, ,\\
-	\lambda_{\ykp} &= \frac{\beta_2}{\alpha_22} - \frac{\alpha_{33}}{\alpha_{22}}\lambda_{\xdotkp} - \frac{\alpha_{24}}{\alpha_{22}} \lambda_{\ydotkp} \, ,\\
-	\lambda_{\xkp} &= \frac{\beta_1}{\alpha_{11}} - \frac{\alpha_{12}}{\alpha_{11}} \lambda_{\ykp} - \frac{\alpha_{13}}{\alpha_{11}} \lambda_{\xdotkp} - \frac{\alpha_{14}}{\alpha_{11}} \lambda_{\ydotkp} \, .
+        \lambda_{\ydotkp} &= \frac{\beta_4}{\alpha_{44}} \, ,\\
+        \lambda_{\xdotkp} &= \frac{\beta_3}{\alpha_{33}} - \frac{\alpha_{34}}{\alpha_{33}} \lambda_{\ydotkp} \, ,\\
+        \lambda_{\ykp} &= \frac{\beta_2}{\alpha_22} - \frac{\alpha_{33}}{\alpha_{22}}\lambda_{\xdotkp} - \frac{\alpha_{24}}{\alpha_{22}} \lambda_{\ydotkp} \, ,\\
+        \lambda_{\xkp} &= \frac{\beta_1}{\alpha_{11}} - \frac{\alpha_{12}}{\alpha_{11}} \lambda_{\ykp} - \frac{\alpha_{13}}{\alpha_{11}} \lambda_{\xdotkp} - \frac{\alpha_{14}}{\alpha_{11}} \lambda_{\ydotkp} \, .
 \end{align}
 \end{subequations}
 %Once again, these equations exhibit a cascade type relationship. 
