@@ -104,6 +104,17 @@ The addition of low-thrust propulsion offers the potential of reduced transfer t
 % description of our work - our approach
 
 % concise summary of contributions
+
+%-------------------- OBJECTIVES OF THIS WORK-----------------------------%
+% SYSTEMATIC DESIGN TO AVOID DIFFICULTIES IN CHOOSING A GOOD INITIAL GUESS
+% CAPTURE LONG TERM EFFECTS OF LOW THRUST ACCURATELY IN NUMERICAL SIMULATION
+In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem.
+Utilizing the planar assumption greatly simplifies the problem and allows for the use of established methods in determining periodic orbits and \Poincare~sections.
+We utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
+Through the use of a simple distance metric on a \Poincare~section greatly reduces the dimensionality of the reachability analysis and provides an approximation of the reachability set.
+In addition, through the use of geometric integrators we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods which are typical of electric propulsion systems. 
+With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
+
 \section{Planar Circular Restricted Three Body Problem}\label{sec:pcrtbp}
 The system model is based on the planar circular restricted three body problem~(PCRTBP).
 The Earth is assumed to be the more massive primary, \( m_1 \), while the Moon is the second, smaller primary \( m_2\).
