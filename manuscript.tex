@@ -74,12 +74,21 @@ Optimally combining the structure of the dynamic environment with low-thrust pro
 % --------------Issues/Challenges of previous work
 
 % use of direct optimal control
-
 % chaotic systems and initial guesses for optimization
-
 % numerical integration accuracy
-
 % preserving dynamical structure
+
+There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}. 
+Inspite of the long history in astrodynamics, a number of difficulties arise when implenting optimal control techniques.
+First, the optimal control problem is typically solved using direct methods, which approximate the continuous problem as a parameter optimization problem.
+Alternatively, indirect methods apply the calculus of variations to derive the necessary conditions for optimality.
+The indirect approach results in a lower dimensioned problem than the direct approach and provides algebraic conditions that guarantee local optimality in contrast to direct methods which result in sub-optimal solutions.
+Second, in order to implement any optimization method a sufficiently accurate ``initial guess'' is required.
+Frequently, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system.
+Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
+As a result numerical methods are often required to investigate solutions to the three body problem.
+Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
 
 % objectives of this work
 

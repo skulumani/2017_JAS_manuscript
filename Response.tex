@@ -146,13 +146,34 @@ From here on out comments specific to various sections of the paper follow:
             Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional patched-conic approach~\cite{ross2006,gomez2001}.
             Optimally combining the structure of the dynamic environment with low-thrust propulsion systems is vital for future mission success.
         \end{correction}
-\end{enumerate}
-"Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem."  This isn't completely true as there are also approximations to the (uncontrolled) three-body motion, such such as the Richardson-Cary approximation.  Saying numerical methods are required may be a bit strong.  May want to say "often required".
 
+\item 
+    \begin{itshape}
+"Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem."  This isn't completely true as there are also approximations to the (uncontrolled) three-body motion, such such as the Richardson-Cary approximation.  Saying numerical methods are required may be a bit strong.  May want to say "often required".
+\end{itshape}
+
+The sentence has been modified as follows.
+
+\begin{correction}
+
+Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
+As a result numerical methods are often required to investigate solutions to the three body problem.
+\end{correction}
+
+\item 
+    \begin{itshape}
 "These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
 
 "Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system [8]. As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured."  Again, I think situationally I would disagree.  Transfers on the order of 100's of days can maintain accuracies of 1e-10 (nondimensional units) in the Hamiltonian, which is generally considered a "small" amount of energy drift.
+\end{itshape}
 
+These sentences have been modified and combined to enhance clarity and reduce some of the unecessary bloat. 
+In addition, some additional detail has been added to explicitly define the notion of ``long-term'' in the context of numerical integration.
+The modifications are copied below.
+\begin{correction}
+    Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+    As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
+\end{correction}
 - "[15,25] have illustrated the rich structure that exists in the three-body problem." 
 - "[23,6] implement the solutions using conventional Runge-Kutta integration techniques."
 I don't think you can grammatically begin a sentence with reference numbers.  Please fix all instances of this.
@@ -253,6 +274,7 @@ The conclusions of the paper should acknowledge other potentially limiting facto
 -Presented control magnitudes are dimensionally large, and more work is needed to determine feasibility of approach for lower accelerations
 -Thrust and mass are completely decoupled from the analysis, which is limiting in terms of finding suitable hardware that can deliver the controls needed, as currently presented.
 
+\end{enumerate}
 \section*{Reviewer 2}
 
 
