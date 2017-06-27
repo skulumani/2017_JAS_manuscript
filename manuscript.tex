@@ -115,6 +115,14 @@ Through the use of a simple distance metric on a \Poincare~section greatly reduc
 In addition, through the use of geometric integrators we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods which are typical of electric propulsion systems. 
 With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
 
+We defne an optimal control problem to determine the reachability set on a \Poincare~section.
+The reachable set, defined as the set of all attainable states subect to the system constraints, allows for the extension of the previous control-free methods based on invariant manifolds.
+Defining the reachable set on a \Poincare~section reduces the dimensionality of the system dynamics to the study of a related discrete update map.
+While the \Poincare~section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
+Instead of relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on the \Poincare~section.
+Through the use of low-thrust control input, the reachable set on the \Poincare~section is enlarged and enables a larger space of potential transfers.
+By iteratively computing the reachable set, and minimizing the distance to the target on the \Poincare~section allows for the creation of general transfer trajectories.
+
 \section{Planar Circular Restricted Three Body Problem}\label{sec:pcrtbp}
 The system model is based on the planar circular restricted three body problem~(PCRTBP).
 The Earth is assumed to be the more massive primary, \( m_1 \), while the Moon is the second, smaller primary \( m_2\).

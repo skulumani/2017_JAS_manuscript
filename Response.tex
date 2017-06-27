@@ -228,7 +228,17 @@ Some additional detail has been added stating that the increased accuracy is mos
 \begin{correction}
 In addition, through the use of geometric integrators we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods which are typical of electric propulsion systems. 
 \end{correction}
+
+\item 
+    \begin{itshape}
 -"The Poincare section reduces the dimensionality of the system dyanmics to the study of a related discrete update map." It does, but at the expense if a large up-front computational run that must be run well in advance to capture the problem characteristics.  Also, it is more challenging to execute in 3D, which should be noted.
+\end{itshape}
+
+Some additional detail has been included mentioning the difficulties in applying the \Poincare~section approach to the 3D case.
+
+\begin{correction}
+While the \Poincare~section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
+\end{correction}
 
 -"This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long transfer durations with small magnitude control inputs."  Yes, but the order of the variational integrator still matters.  The drift in the state vector accuracy is still important to a mission designer, even if it is guaranteed to lie on an energy surface.  I think you should indicate that this is more for preliminary analysis to characterize the transfers, when this drift in state vector accuracy is tolerable.  I.E., it's useful for the introductory phases of mission design when trying to globally characterize the design space.  Characterizing the scope of the analysis in this way would be helpful to the audience.
 
