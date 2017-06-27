@@ -174,11 +174,34 @@ The modifications are copied below.
     Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
     As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
 \end{correction}
+
+\item 
+\begin{itshape}
 - "[15,25] have illustrated the rich structure that exists in the three-body problem." 
 - "[23,6] implement the solutions using conventional Runge-Kutta integration techniques."
 I don't think you can grammatically begin a sentence with reference numbers.  Please fix all instances of this.
+\end{itshape}
 
-- "It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space."  The "tube" statement is really only true for some libration point orbits at certain Jacobi Constants.  For some orbits these structures are more chaotic and don't resemble tubes.  May want to soften this language or change "tubes" to "structures".
+The sentences have been reworded to avoid starting with a reference number. 
+The corrections are shown below.
+
+\begin{correction}
+    \begin{itemize}
+        \item Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+        \item There exists a rich structure in the three-body problem~\cite{koon2011,ross2006}.
+    \end{itemize}
+\end{correction}
+
+\item 
+    \begin{itshape}
+"It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space."  The "tube" statement is really only true for some libration point orbits at certain Jacobi Constants.  For some orbits these structures are more chaotic and don't resemble tubes.  May want to soften this language or change "tubes" to "structures".
+\end{itshape}
+
+The sentence has been modified as follows.
+
+\begin{correction}
+It has been shown that there exist multi-dimensional structures, termed invariant manifolds, of constant energy trajectories that span the state space. 
+\end{correction}
 
 -"In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem." Why planar?  For simplicity?  Almost all parking orbits departing the Earth are likely going to have some inclination with respect to the rotating reference plane, and will likely require some three-dimensional thrusting to target the manifold.  You may want to indicate that this is a first step in the research to exploit the Poincare sections more easily, which is why I'm assuming it was done.  It doesn't hurt to be straightforward about this, as it is a first-step towards characterizing the design space.
 
