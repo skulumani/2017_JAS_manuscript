@@ -112,28 +112,133 @@ The pros and cons of variational integrators should really be acknowledged rathe
 
 From here on out comments specific to various sections of the paper follow:
 
-In the statement "In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential
-missions at a reduced energy cost [15]" - you may want to reference, for example, the Lunar Ice Cube mission paper which absolutely requires low-thrust propulsion and non-keplerian dynamics to satisfy its mission objectives.
+\begin{enumerate}
+    \item
+        \begin{itshape}
+            In the statement "In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential
+            missions at a reduced energy cost [15]" - you may want to reference, for example, the Lunar Ice Cube mission paper which absolutely requires low-thrust propulsion and non-keplerian dynamics to satisfy its mission objectives.
 
-Folta, D., Dichmann, D., Clark, P., Haapala, A., and Howell, K., "LunarCube Transfer Trajectory Options," AAS/AIAA Space Flight Mechanics Meeting, Williamsburg, Virginia, January 11-15, 2015.
+            Folta, D., Dichmann, D., Clark, P., Haapala, A., and Howell, K., "LunarCube Transfer Trajectory Options," AAS/AIAA Space Flight Mechanics Meeting, Williamsburg, Virginia, January 11-15, 2015.
+        \end{itshape}
 
+        The introductory paragraphs have been reworded and reorganized for clarity. 
+        Specifically, the first paragraph has been divided, which motivates the use of electric propulsion and the advantages of small satellites which use electric propulsion.
+        In addition, the suggested reference has been included in the paper.
+        The modified paragraphs are duplicated below.
+
+        \begin{correction}
+            Designing spacecraft trajectories is a classic and ongoing topic of research.
+            There has been significant research into the design of orbital transfers for space vehicles.
+            Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
+            Electric propulsion systems offer a much greater specific impulse than chemical systems.
+            As a result, the greatly increased effeciency allows for greater payload mass or extended duration missions.
+            However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore orbital manuevers have a much longer time of flight.
+            In spite of this drawback, a wide variety of missions, such as communication and deep space probes, have utilized the unique benefits of low thrust electric propulsion to great effect~\cite{choueiri2009}.
+
+            With reduced development intervals and decreased launch costs, small satellites have gained increased attention as a cost effective means of scientific and technologic development. 
+            Furthermore, these cubesats are easily launched as secondary payloads rather than requiring a dedicated launch.
+            The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
+            Recent developments in miniature electric propulsion offer the potential for new research opportunities for small spacecraft~\cite{haque2013}.
+            The advancements in minature electric propulsion allows for greater flexibility in the deployment of cubesats as secondary payloads.
+            Without the explicit requirement of a dedicated launch trajectory, cubesats are able to exploit a much wider range of possible mission designs~\cite{folta2015}.
+            With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
+            In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{folta2015,koon2011}.
+            Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional patched-conic approach~\cite{ross2006,gomez2001}.
+            Optimally combining the structure of the dynamic environment with low-thrust propulsion systems is vital for future mission success.
+        \end{correction}
+
+\item 
+    \begin{itshape}
 "Since there is an insufficient number of analytical constants, or integral of motion, numerical methods must be used to investigate solutions to the three-body problem."  This isn't completely true as there are also approximations to the (uncontrolled) three-body motion, such such as the Richardson-Cary approximation.  Saying numerical methods are required may be a bit strong.  May want to say "often required".
+\end{itshape}
 
+The sentence has been modified as follows.
+
+\begin{correction}
+
+Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
+As a result numerical methods are often required to investigate solutions to the three body problem.
+\end{correction}
+
+\item 
+    \begin{itshape}
 "These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
 
 "Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system [8]. As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured."  Again, I think situationally I would disagree.  Transfers on the order of 100's of days can maintain accuracies of 1e-10 (nondimensional units) in the Hamiltonian, which is generally considered a "small" amount of energy drift.
+\end{itshape}
 
+These sentences have been modified and combined to enhance clarity and reduce some of the unecessary bloat. 
+In addition, some additional detail has been added to explicitly define the notion of ``long-term'' in the context of numerical integration.
+The modifications are copied below.
+\begin{correction}
+    Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+    As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
+\end{correction}
+
+\item 
+\begin{itshape}
 - "[15,25] have illustrated the rich structure that exists in the three-body problem." 
 - "[23,6] implement the solutions using conventional Runge-Kutta integration techniques."
 I don't think you can grammatically begin a sentence with reference numbers.  Please fix all instances of this.
+\end{itshape}
 
-- "It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space."  The "tube" statement is really only true for some libration point orbits at certain Jacobi Constants.  For some orbits these structures are more chaotic and don't resemble tubes.  May want to soften this language or change "tubes" to "structures".
+The sentences have been reworded to avoid starting with a reference number. 
+The corrections are shown below.
 
+\begin{correction}
+    \begin{itemize}
+        \item Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+        \item There exists a rich structure in the three-body problem~\cite{koon2011,ross2006}.
+    \end{itemize}
+\end{correction}
+
+\item 
+    \begin{itshape}
+"It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space."  The "tube" statement is really only true for some libration point orbits at certain Jacobi Constants.  For some orbits these structures are more chaotic and don't resemble tubes.  May want to soften this language or change "tubes" to "structures".
+\end{itshape}
+
+The sentence has been modified as follows.
+
+\begin{correction}
+It has been shown that there exist multi-dimensional structures, termed invariant manifolds, of constant energy trajectories that span the state space. 
+\end{correction}
+
+\item 
+    \begin{itshape}
 -"In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem." Why planar?  For simplicity?  Almost all parking orbits departing the Earth are likely going to have some inclination with respect to the rotating reference plane, and will likely require some three-dimensional thrusting to target the manifold.  You may want to indicate that this is a first step in the research to exploit the Poincare sections more easily, which is why I'm assuming it was done.  It doesn't hurt to be straightforward about this, as it is a first-step towards characterizing the design space.
+\end{itshape}
 
+The introduction has been modified with an additional sentence indicating our use of the planar three body problem
+
+\begin{correction}
+Utilizing the planar assumption greatly simplifies the problem and allows for the use of established methods in determining periodic orbits and \Poincare sections.
+\end{correction}
+
+\item 
+    \begin{itshape}
 -"In addition, through the use of geometric integrators we accurately capture the effects of low thrust on the system dynamics in the numerical simulation."  A variational integrator will accurately capture the qualitative effects of the transfer (e.g. propellant use), however it will not necessarily accurately capture accuracy in the final state vector - it is guaranteed to be on an energy surface, but it is not guaranteed to be at exactly the right location on the energy surface.  I would soften this claim or reword.
+\end{itshape}
 
+While the geometric integrator will not exactly characterize the terminal energy or state of a dynamic system, it will better preserve the total energy variation as compared to convential integration schemes. 
+In addition, the total energy deviation will remain bounded and less than than of convential schemes which experience unbounded energy deviation. 
+As a result, the terminal state/energy will be more accurately characterized using a variational integrator as compared to conventional schemes. 
+Also this difference becomes more evident over increasing time horizons.
+Some additional detail has been added stating that the increased accuracy is most evident over long time periods. 
+
+\begin{correction}
+In addition, through the use of geometric integrators we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods which are typical of electric propulsion systems. 
+\end{correction}
+
+\item 
+    \begin{itshape}
 -"The Poincare section reduces the dimensionality of the system dyanmics to the study of a related discrete update map." It does, but at the expense if a large up-front computational run that must be run well in advance to capture the problem characteristics.  Also, it is more challenging to execute in 3D, which should be noted.
+\end{itshape}
+
+Some additional detail has been included mentioning the difficulties in applying the \Poincare~section approach to the 3D case.
+
+\begin{correction}
+While the \Poincare~section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
+\end{correction}
 
 -"This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long transfer durations with small magnitude control inputs."  Yes, but the order of the variational integrator still matters.  The drift in the state vector accuracy is still important to a mission designer, even if it is guaranteed to lie on an energy surface.  I think you should indicate that this is more for preliminary analysis to characterize the transfers, when this drift in state vector accuracy is tolerable.  I.E., it's useful for the introductory phases of mission design when trying to globally characterize the design space.  Characterizing the scope of the analysis in this way would be helpful to the audience.
 
@@ -223,6 +328,7 @@ The conclusions of the paper should acknowledge other potentially limiting facto
 -Presented control magnitudes are dimensionally large, and more work is needed to determine feasibility of approach for lower accelerations
 -Thrust and mass are completely decoupled from the analysis, which is limiting in terms of finding suitable hardware that can deliver the controls needed, as currently presented.
 
+\end{enumerate}
 \section*{Reviewer 2}
 
 
@@ -241,9 +347,15 @@ I can sympathize that there was quite a long road to get to the point of underst
 
 
 SPECIFIC FEEDBACK:
-
+\begin{itemize}
+    \begin{itshape}
 *** Bloat
 In the introduction, the exposition of the problem could be considerably condensed, given the venue of publication. Additionally, the somewhat sprawling discussion jumps back and forth, and many key points seem to be repeated more than necessary.  It needs to be organized into titled subsections with specific scope.
+\end{itshape}
+
+The introduction is reduced and many of the paragraphs have been reworded and combined. 
+In addition, the extended discussion of the benefits of variational integrators is removeda.
+In the interest of space/clarity the modified introduction is not copied here.
 
 The development of the CR3BP, invariant manifolds and Poincare maps, all go on a bit too long. These should be refreshers to the audience that expose the specific equations and concepts that you'll be leveraging, not full-on introductions to well-established areas.  Spending several pages on variational principles is way too much.
 
@@ -279,7 +391,7 @@ Perhaps there is also a better way to show what the control is doing, e.g., in s
 In the second example, what do you lose by chaining together multiple reachability-based steps?  Aren't you imposing that the trajectory routinely returns to the energy level of the Poincare section? How feasible would it be to conduct a single reachability analysis covering multiple revolutions? And can you use knowledge about directionality of movement on the Poincare section to limit the scope of your reachability search?
 
 In general, please devote more depth to probing the strengths, weaknesses, and fundamental properties of the method.  Considering extreme cases can help with this.
-
+\end{itemize}
 \bibliography{library}
 \bibliographystyle{spmpsci}
 \end{document}
