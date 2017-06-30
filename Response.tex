@@ -268,7 +268,15 @@ Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition 
 
 "This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods." I disagree that suboptimality is typical of direct methods.  A direct method will typically solve the KKT conditions, which can be directly transcribed into the costates in the optimal control problem.  A direct method fully satisfying the KKT conditions can map to the indirect problem. If you want to strengthen this argument, then you should argue that it applies to direct methods which rely on coarse or suboptimal representations of the control.  For example, a hybrid direct method could use continuous optimal control theory control law, but directly minimize the cost function instead of solving the full TPBVP.  
 
+\item 
+    \begin{itshape}
 "Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame"  Add a reference after this statement for those who want to see the derivation.  One of the given references probably does already does this, so just pick one
+\end{itshape}
+
+An additional comment has been included in the problem formulation section with a reference to a source of the detailed derivation.
+\begin{correction}
+Following a straightforward application of the Euler-Lagrange equations, a more detailed derivation is provided in~\cite{szebehely1967}, results in the following equations of motion defined in the rotating reference frame
+\end{correction}
 
 It appears from equation 5 and your control input definition that you control is unbounded?  Later on in reading the paper I found that you do add bounds on the control.  You may want to indicate earlier on in the paper (closer to eq. 5) that bounds will be added to the control.
 
