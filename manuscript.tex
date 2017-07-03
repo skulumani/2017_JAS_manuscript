@@ -157,6 +157,15 @@ As a result, the system can be characterized by a single mass ratio parameter \(
         \mu = \frac{m_2}{m_1+m_2} \, .
         \label{eq:mass_param}
 \end{equation}
+In the rotating reference frame the Lagrangian is given by
+\begin{equation}\label{eq:lagrangian}
+    L = \frac{1}{2} \parenth{\parenth{\dot{x} - y}^2 + \parenth{\dot{y} + x}^2} + \frac{1 - \mu}{r_1} + \frac{\mu}{r_2},
+\end{equation}
+where the distances \( r_1, r_2 \in \R \) define the distance from the spacecraft to each primary and are defined as
+\begin{align}
+    r_1 &= \sqrt{\parenth{x + \mu}^2 + y^2} , \\
+    r_2 &= \sqrt{\parenth{x -1 + \mu}^2 + y^2} .
+\end{align}
 Following a straightforward application of the Euler-Lagrange equations, a more detailed derivation is provided in~\cite{szebehely1967}, results in the following equations of motion defined in the rotating reference frame
 \begin{equation}\label{eqn:cont_dyn}
         \left[\begin{array}{c} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{array} \right] = 
