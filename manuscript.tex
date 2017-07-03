@@ -279,16 +279,15 @@ In addition, they exhibit improved energy behavior over long integration periods
 A thorough discussion of variational integrators is provided in~\cite{west2004,marsden2001}.
 We use this approach to construct a variational integrator for the PCRTBP with the inclusion of low-thrust propulsion.
 
-The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the Lagrangian in~\cref{eq:lagrangian}. 
-In this work, the trapezoidal approximation is applied.
-The trapezoid rule allows for an explicit second order accurate approximation.
+The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the Lagrangian in~\cref{eq:lagrangian}.
+In this work, we apply the trapezoidal rule, which allows for an explicit second order accurate approximation of the continuous Lagrangian.
 The discrete Lagrangian is given by
 \begin{align}\label{eq:discrete_lagrangian}
         L_d = &\frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
                 & + \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right) \, .
 \end{align}
 Applying a discrete version of the Lagrange-d'Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
-Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation, the equations of motion are given by
+Using~\cref{eq:discrete_lagrangian} and some manipulation, gives the discrete equations of motion as
 \begin{subequations}\label{eq:discrete_eoms}
 \begin{align}
         \xkp &= \frac{1}{1+ h^2} \bracket{h \dot{x}_k + h^2 \dot{y}_k  + \xk \parenth{1+ \frac{3h^2}{2}} + \frac{h^3}{2} \yk - \frac{h^3}{2} U_{y_k} - \frac{h^2}{2} U_{x_k} } \label{eq:xkp} \, ,\\
@@ -297,7 +296,7 @@ Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation, 
         \dot{y}_{k+1} &= \dot{y}_{k} + 2 \xk - 2 \xkp + \frac{h}{2} \parenth{\ykp + \yk} - \frac{h}{2} U_{\ykp} - \frac{h}{2} U_{\yk} + h u_y \label{eq:ydotkp} \, .
 \end{align}
 \end{subequations}
-The discrete equations of motion are given in the Lagrangian form after applying the discrete fiber derivative from~\cref{eq:discrete_legendre} as \( p_{\xk} = \dot{x}_k - \yk \) and \( p_{\yk} = \dot{y}_k + \xk \).
+The discrete equations of motion are given in the Lagrangian form after applying the discrete fiber derivative as \( p_{\xk} = \dot{x}_k - \yk \) and \( p_{\yk} = \dot{y}_k + \xk \).
 The state is defined as \( \vecbf{x}_k = \begin{bmatrix} \xk & \yk & \dot{x}_k & \dot{y}_k \end{bmatrix}^T\) and the control input is \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \).
 This results in a discrete update map \( f_k: \vecbf{x}_k \to \vecbf{x}_{k+1} \) which preserves the same properties of the continuous-time dynamics in~\cref{eqn:cont_dyn} such as invariants, symplecticity, and the configuration manifold.
 The discrete potential gradients are given by
