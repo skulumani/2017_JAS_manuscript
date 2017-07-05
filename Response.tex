@@ -296,11 +296,31 @@ Figure 1 should probably have "axis equal" applied to it.  For that matter, plea
 
 All of the figures showing position states have been modified to use \texttt{axis equal}.
 
+\item 
+    \begin{itshape}
 Section 3.1 has been discussed in many references, the reader may want to direct them to this material.
 (Choose one of Marsden or West's papers for example.)
+\end{itshape}
+
+The discussion on the variational integrators has been reduced. 
+Much of the background material on Lagrangian mechanics is removed and an additional paragraph is included to summarize the key ideas of variational integrators. 
+The additional paragraph is shown below.
+
+\begin{correction}
+Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invaraint properties and symplecticity.
+Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations.
+As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
+In addition, they exhibit improved energy behavior over long integration periods.
+A thorough discussion of variational integrators is provided in~\cite{west2004,marsden2001}.
+We use this approach to construct a variational integrator for the PCRTBP with the inclusion of low-thrust propulsion.
+
+Consider the autonomous mechanical system described by the Lagrangian, \( L(q, \dot{q} ) \), for the generalized coordinates, \( q\) and velocities \( \dot{q} \).
+The integration of the continuous Lagrangian along a path, \( q (t) \), followed by the system must satisfy Hamilton's principle, which results in the well-known Euler-Lagrange equations~\cite{lanczos1970}.
+In the discrete time scenario, the continuous path \( q(t), \dot{q}(t) \), is replaced by a finite difference approximation over a fixed time step, e.g. \( q_0, \frac{q_1 - q_0}{h} \), which converges to the true velocity as \( h \) tends towards zero.
+In this manner, we define a discrete Lagrangian, \( L_d (q_0, q_1, h) \) which approximates the integral of the true Lagrangian over the time interval \( h \) between \( q_0 \) and \( q_1\)~\cite{marsden2001}.
+\end{correction}
 
 The second-order trapezoidal rule will give significantly poorer state vector accuracy with respect to a high-precision RK integrator, even if the state is guaranteed to lie on an energy surface.  Why didn't the authors consider going to a higher-order variational integrator, or even a Taylor Integrator?  It is very likely that the integration accuracy will introduce some errors in the accuracy of the partial derivatives and in the states.
-
 Section 3.2 - please cite a reference as to where the selected quadrature rules presented in Table 1 have been derived.
 
 Figure 2 - x-axis has no label but I think it's nondimensional time, please indicate.  Label all axes even if they are nondimensional units.

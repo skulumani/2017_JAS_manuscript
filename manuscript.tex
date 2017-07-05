@@ -279,9 +279,15 @@ In addition, they exhibit improved energy behavior over long integration periods
 A thorough discussion of variational integrators is provided in~\cite{west2004,marsden2001}.
 We use this approach to construct a variational integrator for the PCRTBP with the inclusion of low-thrust propulsion.
 
-The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the Lagrangian in~\cref{eq:lagrangian}.
-In this work, we apply the trapezoidal rule, which allows for an explicit second order accurate approximation of the continuous Lagrangian.
-The discrete Lagrangian is given by
+Consider the autonomous mechanical system described by the Lagrangian, \( L(q, \dot{q} ) \), for the generalized coordinates, \( q\) and velocities \( \dot{q} \).
+The integration of the continuous Lagrangian along a path, \( q (t) \), followed by the system must satisfy Hamilton's principle, which results in the well-known Euler-Lagrange equations~\cite{lanczos1970}.
+In the discrete time scenario, the continuous path \( q(t), \dot{q}(t) \), is replaced by a finite difference approximation over a fixed time step, e.g. \( q_0, \frac{q_1 - q_0}{h} \), which converges to the true velocity as \( h \) tends towards zero.
+In this manner, we define a discrete Lagrangian, \( L_d (q_0, q_1, h) \) which approximates the integral of the true Lagrangian over the time interval \( h \) between \( q_0 \) and \( q_1\)~\cite{marsden2001}.
+
+The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the continuous Lagrangian in~\cref{eq:lagrangian}~\cite{marsden2001}.
+In this work, we apply the trapezoidal rule to approximate the action integral over a fixed time interval.
+The trapezoidal rule allows for a second order accurate approximation and alleviates the difficulties in applying implicit quadrature schemes.
+The discrete Lagrangian for the PCRTBP is given by
 \begin{align}\label{eq:discrete_lagrangian}
         L_d = &\frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
                 & + \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right) \, .
