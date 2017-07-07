@@ -320,8 +320,21 @@ In the discrete time scenario, the continuous path \( q(t), \dot{q}(t) \), is re
 In this manner, we define a discrete Lagrangian, \( L_d (q_0, q_1, h) \) which approximates the integral of the true Lagrangian over the time interval \( h \) between \( q_0 \) and \( q_1\)~\cite{marsden2001}.
 \end{correction}
 
+\item 
+    \begin{itshape}
 The second-order trapezoidal rule will give significantly poorer state vector accuracy with respect to a high-precision RK integrator, even if the state is guaranteed to lie on an energy surface.  Why didn't the authors consider going to a higher-order variational integrator, or even a Taylor Integrator?  It is very likely that the integration accuracy will introduce some errors in the accuracy of the partial derivatives and in the states.
+\end{itshape}
+
+We chose the trapezoidal rule as it provides a second order quadrature approximation.
+In addition, it provides an explicit rule that eases the complexity in using an implicit solution method.
+
+\item 
+    \begin{itshape}
 Section 3.2 - please cite a reference as to where the selected quadrature rules presented in Table 1 have been derived.
+\end{itshape}
+
+In the interest of conciseness and to avoid repeating material that has already been covered in the literature, the discussion on variational integrators has been substantially reduced.
+As a result, this table has been removed from the manuscript.
 
 Figure 2 - x-axis has no label but I think it's nondimensional time, please indicate.  Label all axes even if they are nondimensional units.
 
@@ -329,6 +342,8 @@ I recommend removing appendix B.  Giving the equations and stating that the Matr
 
 In line 14 (page 12), you define the state transition matrix over one orbital period, and then on line 18 you start referring to it as the monodromy matrix.  I understand what you're doing, but you may want to make the definition more explicit.  Some of this section can be substantially reduced and other source material could be referenced anyway.
 
+\item 
+    \begin{itshape}
 Comparison like that of Figure 3.4 are very common in the well-known literature concerning variational integrators.  Moreover, the proper way to present such a comparison is with different delta-T's in the integration step, showing when the Runge-Kutta methods actually break down in terms of maintaining an accurate portrayal of the Energy/Hamiltonian conservation.
 
 For example -
