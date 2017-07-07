@@ -370,12 +370,23 @@ The comparison plot has been modified to follow the precedent in the literature.
 The plot shows the deviation of the Jacobi constant as the time step is varied. 
 In addition, an additional plot has been added, and some related discussion which shows the decrease in computation cost through the use of the variational integrator.
 
+\item 
+    \begin{itshape}
 It may also be generally worth acknowledging the benefits of Taylor's method within the context of variational integrators:
 Schmitt, J., Shingel, T., Leok, M., "LAGRANGIAN AND HAMILTONIAN TAYLOR VARIATIONAL INTEGRATORS," eprint arXiv:1703.06599, 2017
 
 Online copy: https://arxiv.org/pdf/1703.06599.pdf 
+\end{itshape}
 
+This manuscript is not really focused on variational integrators but rather the design of transfer trajectories using reachability sets.
+Interested readers can find a wide variety of literature on the relative benefits of all manner of variational integrators in papers focused on that topic specifically.
+
+\item 
+    \begin{itshape}
 "Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques".  I think you need to add "in which energy conservation is mandatory for characterizing the solution space."
+\end{itshape}
+
+The additional clarification has been added to the manuscript.
 
 Section 5 - This method, while very useful in its given context is highly dependent on the use of the PCRTB in the framework of the current analysis.  This needs to somehow be conveyed.  3D transfers are significantly more challenging when it comes to exploiting Poincare sections.  It can be done, but more subplots, dimensions, and data storing are necessary to view the subspace - save to say, it is a more challenging endeavor that must be acknowledged for general purpose low-thrust mission design.
 

@@ -359,7 +359,8 @@ However, as time progresses the trajectories begin to diverge due to the differe
 \Cref{fig:compare_energy} shows the evolution of the Jacobi integral.
 The variational integrator exhibits a bounded behavior about the initial energy with a mean variation of \num{4.2522e-20}.
 However, the conventional Runge-Kutta method demonstrates a clear energy drift of \num{4.2814e-8}. 
-Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques.
+Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+
 \section{Optimal Control Formulation for Reachability Set}
 % introduce method
 In this section, an optimal control formulation is presented to determine and design transfers within the three-body problem.
