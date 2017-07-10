@@ -343,22 +343,22 @@ This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k
 %               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
 %       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
         \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{energy} 
-                \caption{Jacobi Integral comparison} \label{fig:compare_energy} 
+                \includegraphics[width=\textwidth]{figures/cputimevsE.pdf} 
+                \caption{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}} \label{fig:compare_energy} 
         \end{subfigure} 
         \caption{Integrator Comparison}
         \label{fig:integrator_compare} 
 \end{figure}
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
 A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
-The variational integrator uses a step size of \SI{47.22}{\second} while the Runge-Kutta method uses a variable step size implemented via ODE45 in Matlab.
+    The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
+    The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference frame for both integration schemes.
 Both integration schemes result in trajectories that are initially nearly identical.
 The discrete equations of motion are an accurate approximation for the continuous dynamics as they closely match the solution of ODE45 over the initial portion of the simulation.
 However, as time progresses the trajectories begin to diverge due to the differences in system energy.
-\Cref{fig:compare_energy} shows the evolution of the Jacobi integral.
-The variational integrator exhibits a bounded behavior about the initial energy with a mean variation of \num{4.2522e-20}.
-However, the conventional Runge-Kutta method demonstrates a clear energy drift of \num{4.2814e-8}. 
+\Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
 Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 
 \section{Optimal Control Formulation for Reachability Set}
