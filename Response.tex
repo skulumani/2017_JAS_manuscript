@@ -76,20 +76,20 @@ In accordance with the comments and suggestions, the manuscript has been revised
 (In the revised manuscript, the citation numbers for equations, assumptions, propositions, and references are changed. This answer is written according to the new item numbers.)
 
 \subsection*{Reviewer 1} 
-\begin{enumerate}
-    \item \textit{Text of comment}
-
-        \begin{correction}
-
-            My correction
-
-        \end{correction}
-\end{enumerate}
+\begin{itshape}
 Reviewer \#1: I have some issues with this paper that, in my opinion necessitate a major revision.
-
 These issues are:
+\end{itshape}
 
+\begin{itemize}
+    \item 
+        \begin{itshape}
 -It extensively re-covers issues that have been covered in many papers, making it difficult to disseminate what the original contributions are.  For example, I don't think the addition of the thrust term into the dynamics necessitates re-doing every piece of analysis that has been done with various resources in the literature about variational integrators (including comparisons with RK methods).  Things that can be found in other research should be cited, and summary comments can be used to point the readers to fill in this knowledge.  The content of this paper easily be reduced considerably to maintain focus on the original contributions.
+    \end{itshape}
+
+    The paper is being reduced. 
+    The introduction has been reduced to avoid excessive repetition. 
+    In addition, much of the background material has been removed
 
 -It does not give a complete picture of the pros and cons of the proposed methodology.  This method is full of both advantages and disadvantages.  I don't think the authors need to be concerned with "selling" the work to the community, but rather showing the full and honest picture given the current state of the research.  In the conclusions, the potential cons to this research can be mitigated by setting a path forward for future research to further improve the methodology.
 
@@ -101,15 +101,33 @@ These pros/cons include:
 That is not to say that useful solutions cannot be extracted from the problem, as the authors have shown.  However, a great many solutions in this approach will be unusable due to the fact that acceleration and thrust magnitude are different, i.e. a=T/m
 Thus - a MAJOR focus of future work should be the introduction of a seventh state (mass).  This gives rise to a more challenging optimal control problem requiring the switching function, but it is the form that is generally needed in computing optimal open-loop trajectories that can actually be flown.
 
+\item 
+    \begin{itshape}
 The pros and cons of the PCRTBP
 -The PCRTB gives rise to exploiting Poincare sections in a systematic manner.  2D solutions might be close enough for qualitative understanding of the solution space for many problems (as long as large plane changes aren't needed).
 -The PCRTB is limiting for many pragmatic departure orbits (e.g. LEO and GTO, the most common departure orbits for low-thrust transfers).
+\end{itshape}
+
+Additional detail has been included in the problem formulation section.
+This includes some discussion on the choice of the PCRTBP and the relative strengths/weaknesses of this approach.
+The additional paragraph has been copied below.
+
+\begin{correction}
+We utilize the planar circular restricted three body problem~(PCRTBP) as the basis of our system definition. 
+It is a popular model in the preliminary analysis of multibody spacecraft trajectories. 
+In the context of Earth based mission, the PCRTBP affords a relatively simple dynamic model while still capturing the major third body perturbation of the Moon.
+In addition, this model allows for a systematic process to define and exploit \Poincare sections.
+Furthermore, the 2D solutions afforded by the PCRTBP are frequently use to gain a qualitative understanding of the trade space of transfers in the Earth-Moon system.
+The PCRTBP approach offers insight into the fundamental dynamical structure while capturing the major dynamic properties of the planar motion.
+As a result, this approach is best suited for trajectories which do not require large plane changes.
+\end{correction}
 
 
 The pros and cons of variational integrators should really be acknowledged rather than completely dismissing the RK methods which are still the current state of the art in mission design (using higher-orders and suitable tolerances)
 -Pros = boundedness in the energy behavior.  Very long term integration will not deviate from the known dynamical structure.
 -Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
 
+\end{itemize}
 From here on out comments specific to various sections of the paper follow:
 
 \begin{enumerate}
@@ -250,25 +268,106 @@ Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition 
 
 "This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods." I disagree that suboptimality is typical of direct methods.  A direct method will typically solve the KKT conditions, which can be directly transcribed into the costates in the optimal control problem.  A direct method fully satisfying the KKT conditions can map to the indirect problem. If you want to strengthen this argument, then you should argue that it applies to direct methods which rely on coarse or suboptimal representations of the control.  For example, a hybrid direct method could use continuous optimal control theory control law, but directly minimize the cost function instead of solving the full TPBVP.  
 
+\item 
+    \begin{itshape}
 "Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame"  Add a reference after this statement for those who want to see the derivation.  One of the given references probably does already does this, so just pick one
+\end{itshape}
 
+An additional comment has been included in the problem formulation section with a reference to a source of the detailed derivation.
+\begin{correction}
+Following a straightforward application of the Euler-Lagrange equations, a more detailed derivation is provided in~\cite{szebehely1967}, results in the following equations of motion defined in the rotating reference frame
+\end{correction}
+
+\item 
+    \begin{itshape}
 It appears from equation 5 and your control input definition that you control is unbounded?  Later on in reading the paper I found that you do add bounds on the control.  You may want to indicate earlier on in the paper (closer to eq. 5) that bounds will be added to the control.
+\end{itshape}
 
+An additional comment has been included mentioning that the control is assumed to be bounded in magnitude.
+
+\begin{correction}
+\ldots and the control inputs is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \) and assumed to be continuously variable but bounded in magnitude, i.e. \( \vecbf{u}^T \vecbf{u} \leq u_{max}^2 \).
+\end{correction}
+
+\item 
+    \begin{itshape}
 Figure 1 should probably have "axis equal" applied to it.  For that matter, please check all trajectory plots (those which plot the position state), and ensure that all plots are using "axis equal".  If not, please regenerate those plots. 
+\end{itshape}
 
+All of the figures showing position states have been modified to use \texttt{axis equal}.
+
+\item 
+    \begin{itshape}
 Section 3.1 has been discussed in many references, the reader may want to direct them to this material.
 (Choose one of Marsden or West's papers for example.)
+\end{itshape}
 
+The discussion on the variational integrators has been reduced. 
+Much of the background material on Lagrangian mechanics is removed and an additional paragraph is included to summarize the key ideas of variational integrators. 
+The additional paragraph is shown below.
+
+\begin{correction}
+Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invaraint properties and symplecticity.
+Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations.
+As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
+In addition, they exhibit improved energy behavior over long integration periods.
+A thorough discussion of variational integrators is provided in~\cite{west2004,marsden2001}.
+We use this approach to construct a variational integrator for the PCRTBP with the inclusion of low-thrust propulsion.
+
+Consider the autonomous mechanical system described by the Lagrangian, \( L(q, \dot{q} ) \), for the generalized coordinates, \( q\) and velocities \( \dot{q} \).
+The integration of the continuous Lagrangian along a path, \( q (t) \), followed by the system must satisfy Hamilton's principle, which results in the well-known Euler-Lagrange equations~\cite{lanczos1970}.
+In the discrete time scenario, the continuous path \( q(t), \dot{q}(t) \), is replaced by a finite difference approximation over a fixed time step, e.g. \( q_0, \frac{q_1 - q_0}{h} \), which converges to the true velocity as \( h \) tends towards zero.
+In this manner, we define a discrete Lagrangian, \( L_d (q_0, q_1, h) \) which approximates the integral of the true Lagrangian over the time interval \( h \) between \( q_0 \) and \( q_1\)~\cite{marsden2001}.
+\end{correction}
+
+\item 
+    \begin{itshape}
 The second-order trapezoidal rule will give significantly poorer state vector accuracy with respect to a high-precision RK integrator, even if the state is guaranteed to lie on an energy surface.  Why didn't the authors consider going to a higher-order variational integrator, or even a Taylor Integrator?  It is very likely that the integration accuracy will introduce some errors in the accuracy of the partial derivatives and in the states.
+\end{itshape}
 
+We chose the trapezoidal rule as it provides a second order quadrature approximation.
+In addition, it provides an explicit rule that eases the complexity in using an implicit solution method.
+
+\item 
+    \begin{itshape}
 Section 3.2 - please cite a reference as to where the selected quadrature rules presented in Table 1 have been derived.
+\end{itshape}
 
+In the interest of conciseness and to avoid repeating material that has already been covered in the literature, the discussion on variational integrators has been substantially reduced.
+As a result, this table has been removed from the manuscript.
+
+\item 
+    \begin{itshape}
 Figure 2 - x-axis has no label but I think it's nondimensional time, please indicate.  Label all axes even if they are nondimensional units.
+\end{itshape}
 
+The plot has been removed and replaced with another comparision between the variational integrator and \texttt{ODE45}.
+
+\item 
+    \begin{itshape}
 I recommend removing appendix B.  Giving the equations and stating that the Matrix inversion is from Gauss-Jordan elimination is probably sufficient, unless there is some compelling algebraic manipulation that is very unique to the problem.
+\end{itshape}
 
+Appendix B has been removed from the revised manuscript.
+The manuscript has been modified to mention that Gauss Jordan elimination is used to avoid the use of the matrix inversion.
+
+\begin{correction}
+The derivation of~\cref{eq:costate_eom} is given in Appendix A.
+In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
+This is a computationally expensive operation that is prone to numerical error and instability.
+We use Gauss-Jordan elimination to avoid this inversion in~\cref{eq:costate_eom} and determine an explicit update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \).
+\end{correction}
+
+\item 
+    \begin{itshape}
 In line 14 (page 12), you define the state transition matrix over one orbital period, and then on line 18 you start referring to it as the monodromy matrix.  I understand what you're doing, but you may want to make the definition more explicit.  Some of this section can be substantially reduced and other source material could be referenced anyway.
+\end{itshape}
 
+The discussion about the invariant manifolds and \Poincare sections has been reduced.
+This discussion has been removed from the revised manuscript and replaced with a general summary and some relevant citations.
+
+\item 
+    \begin{itshape}
 Comparison like that of Figure 3.4 are very common in the well-known literature concerning variational integrators.  Moreover, the proper way to present such a comparison is with different delta-T's in the integration step, showing when the Runge-Kutta methods actually break down in terms of maintaining an accurate portrayal of the Energy/Hamiltonian conservation.
 
 For example -
@@ -278,15 +377,78 @@ Lew, A., Marsden, J., Ortiz, M., West, M., "An Overview of Variational Integrato
 
 Online copy:
 http://lagrange.mechse.illinois.edu/pubs/LeMaOrWe2004/LeMaOrWe2004.pdf
+\end{itshape}
 
+The comparison plot has been modified to follow the precedent in the literature.
+The plot has been modified to show the energy deviation as a function of computational time for both the variational integrator and \texttt{ODE45}.
+The modified content is copied below.
+\begin{correction}
+\begin{figure} 
+        \centering 
+        \begin{subfigure}[h]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{trajectory} 
+                \caption{Earth-Moon three-body trajectory used for integrator comparision} \label{fig:compare_trajectory} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+%       \begin{subfigure}[htbp]{0.3\textwidth} 
+%               \includegraphics[width=\textwidth]{components} 
+%               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
+%       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{figures/cputimevsE.pdf} 
+                \caption{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}} \label{fig:compare_energy} 
+        \end{subfigure} 
+        \caption{Integrator Comparison}
+        \label{fig:integrator_compare} 
+\end{figure}
+A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
+A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
+    The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
+    The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
+\Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
+Both integration schemes result in trajectories that are initially nearly identical.
+\Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+\end{correction}
+\item 
+    \begin{itshape}
 It may also be generally worth acknowledging the benefits of Taylor's method within the context of variational integrators:
 Schmitt, J., Shingel, T., Leok, M., "LAGRANGIAN AND HAMILTONIAN TAYLOR VARIATIONAL INTEGRATORS," eprint arXiv:1703.06599, 2017
 
 Online copy: https://arxiv.org/pdf/1703.06599.pdf 
+\end{itshape}
 
+This manuscript is not really focused on variational integrators but rather the design of transfer trajectories using reachability sets.
+Interested readers can find a wide variety of literature on the relative benefits of all manner of variational integrators in papers focused on that topic specifically.
+
+\item 
+    \begin{itshape}
 "Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques".  I think you need to add "in which energy conservation is mandatory for characterizing the solution space."
+\end{itshape}
 
+The additional clarification has been added to the manuscript and copied below.
+\begin{correction}
+
+Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+\end{correction}
+
+\item 
+    \begin{itshape}
 Section 5 - This method, while very useful in its given context is highly dependent on the use of the PCRTB in the framework of the current analysis.  This needs to somehow be conveyed.  3D transfers are significantly more challenging when it comes to exploiting Poincare sections.  It can be done, but more subplots, dimensions, and data storing are necessary to view the subspace - save to say, it is a more challenging endeavor that must be acknowledged for general purpose low-thrust mission design.
+\end{itshape}
+
+An additional paragraph has been added to the beginning of the section which discusses our reachability based transfer approach.
+This additional content is copied below.
+
+\begin{correction}
+The numerical examples presented in this section are designed in the context of the PCRTBP.
+The dynamic environment has a four dimensional state space and offers a convient integration constant in the form of the Jacobi integral.
+As a result, there are well defined methods to define and exploit \Poincare sections, which result in straightforward two-dimensional subspaces of the system.
+Our approach uses the \Poincare section to approximate the reachability set on this reduced subspace.
+As a result, this approach is more difficult to apply to three-dimensional transfers in the general three body problem.
+\Poincare sections in the case of the general six dimensional state space are significantly more challenging and typically require more complicated visualization techniques. 
+However, this is an area of active research and some of the authors future research is aimed at implementing this approach for non-planar transfer trajectories.
+\end{correction}
 
 Figures 10D and 13D - the authors need to present these plots in dimensional coordinates so that they may be reconciled with what existing technology can produce.  I recommend Newtons or milliNewtons.  For example, the NEXT (NASA evolutionary xenon thruster) can produce 0.25 Newtons of thrust at maximum power (~7 kW).  The XR5 Hall thruster can produce comparable thrust at 4.5 kW of power.  These are currently the highest-power single engines other than the ARM Hall thruster which is not flight ready yet.  For these examples to be reconciled against the capability of existing technology, we need to see the required forces that are being demanded from the optimal control problem.  It may be that the results are beyond the scope of current technology - that's fine - just say that they are examples and that it's ongoing work to formulate example problems that capture existing technology better.
 
@@ -348,6 +510,7 @@ I can sympathize that there was quite a long road to get to the point of underst
 
 SPECIFIC FEEDBACK:
 \begin{itemize}
+    \item
     \begin{itshape}
 *** Bloat
 In the introduction, the exposition of the problem could be considerably condensed, given the venue of publication. Additionally, the somewhat sprawling discussion jumps back and forth, and many key points seem to be repeated more than necessary.  It needs to be organized into titled subsections with specific scope.
