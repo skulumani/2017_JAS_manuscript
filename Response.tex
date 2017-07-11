@@ -367,9 +367,36 @@ http://lagrange.mechse.illinois.edu/pubs/LeMaOrWe2004/LeMaOrWe2004.pdf
 \end{itshape}
 
 The comparison plot has been modified to follow the precedent in the literature.
-The plot shows the deviation of the Jacobi constant as the time step is varied. 
-In addition, an additional plot has been added, and some related discussion which shows the decrease in computation cost through the use of the variational integrator.
-
+The plot has been modified to show the energy deviation as a function of computational time for both the variational integrator and \texttt{ODE45}.
+The modified content is copied below.
+\begin{correction}
+\begin{figure} 
+        \centering 
+        \begin{subfigure}[h]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{trajectory} 
+                \caption{Earth-Moon three-body trajectory used for integrator comparision} \label{fig:compare_trajectory} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+%       \begin{subfigure}[htbp]{0.3\textwidth} 
+%               \includegraphics[width=\textwidth]{components} 
+%               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
+%       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{figures/cputimevsE.pdf} 
+                \caption{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}} \label{fig:compare_energy} 
+        \end{subfigure} 
+        \caption{Integrator Comparison}
+        \label{fig:integrator_compare} 
+\end{figure}
+A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
+A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
+    The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
+    The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
+\Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
+Both integration schemes result in trajectories that are initially nearly identical.
+\Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+\end{correction}
 \item 
     \begin{itshape}
 It may also be generally worth acknowledging the benefits of Taylor's method within the context of variational integrators:
