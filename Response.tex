@@ -413,10 +413,16 @@ Interested readers can find a wide variety of literature on the relative benefit
 "Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques".  I think you need to add "in which energy conservation is mandatory for characterizing the solution space."
 \end{itshape}
 
-The additional clarification has been added to the manuscript.
+The additional clarification has been added to the manuscript and copied below.
+\begin{correction}
 
+Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+\end{correction}
+
+\item 
+    \begin{itshape}
 Section 5 - This method, while very useful in its given context is highly dependent on the use of the PCRTB in the framework of the current analysis.  This needs to somehow be conveyed.  3D transfers are significantly more challenging when it comes to exploiting Poincare sections.  It can be done, but more subplots, dimensions, and data storing are necessary to view the subspace - save to say, it is a more challenging endeavor that must be acknowledged for general purpose low-thrust mission design.
-
+\end{itshape}
 Figures 10D and 13D - the authors need to present these plots in dimensional coordinates so that they may be reconciled with what existing technology can produce.  I recommend Newtons or milliNewtons.  For example, the NEXT (NASA evolutionary xenon thruster) can produce 0.25 Newtons of thrust at maximum power (~7 kW).  The XR5 Hall thruster can produce comparable thrust at 4.5 kW of power.  These are currently the highest-power single engines other than the ARM Hall thruster which is not flight ready yet.  For these examples to be reconciled against the capability of existing technology, we need to see the required forces that are being demanded from the optimal control problem.  It may be that the results are beyond the scope of current technology - that's fine - just say that they are examples and that it's ongoing work to formulate example problems that capture existing technology better.
 
 "The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches."  Did the authors attempt single shooting for their example problems before coming to this conclusion?  With proper scaling, and problem formulation, there are examples in the literature of single shooting yielding robust results.  
