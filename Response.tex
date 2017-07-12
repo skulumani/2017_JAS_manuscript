@@ -500,6 +500,17 @@ The use of the multiple shooting method reduces the sensitivity of changes in th
 "In this work, we use the Matlab nonlinear solver fsolve to solve the system of nonlinear equations defined by the multiple shooting algorithm."  Can authors give some additional details?  Which fsolve algorithm? trust region dogleg,  trust region, or Levenberg-Marquardt?  Which additional options?  E.g. various tolerances.  For users of this method it's also useful to see the iteration history (more comments on this later).
 \end{itshape}
 
+Additional detail has been incorporated which discusses the specific solver used in computing the solutions. 
+The description does not specifically mention all of the possible options in \texttt{fsolve} but rather gives the key components used in our solution.
+This approach seems to be consistent with the literature, e.g.~\cite{ozimek2010a,stuart2010}.
+The modified portion is copied below.
+
+\begin{correction}
+In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
+Within \texttt{fsolve}, we use the trust-region dogleg solver which makes use of the Powell dogleg procedure for computing a step direction and magnitude to minimize successive iterations of the solver.
+All numerical integration is performed using the discrete variational integrator described in~\cref{sec:discrete_var}.
+\end{correction}
+
 \item
     \begin{itshape}
 Did the authors experiment with the number of multiple shooting stages in their example problems?  There must be some sort of "sweet spot" in number of stages for the example problems attempted.  If I missed it, I apologize, but I didn't see it.

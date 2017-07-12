@@ -623,7 +623,8 @@ As a result, the design vector \( \vecbf{\chi} \) is augmented with the addition
 Similarly, the constraint vector is augmented with the additional interior constraints defined in~\cref{eq:interior_constraints}.
 The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
 In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
-
+Within \texttt{fsolve}, we use the trust-region dogleg solver which makes use of the Powell dogleg procedure for computing a step direction and magnitude to minimize successive iterations of the solver.
+All numerical integration is performed using the discrete variational integrator described in~\cref{sec:discrete_var}.
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
 % define a constraint vector G(X) that we need to satisfy
