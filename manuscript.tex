@@ -692,6 +692,9 @@ Next, we determine the reachability set with the addition of a low thrust contro
 We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
+This acceleration limit is approximately \( u_{max} = \SI{2}{\milli\meter\per\second\squared} \) in the Earth-Moon system.
+Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of \SI{1}{\newton}.
+Currently, the NASA NEXT xenon thruster is able to provide approximately \SI{0.25}{\newton} of thrust, and a cluster of such engines could be used to provide the desired thrust used in this work~\cite{schmidt2008}.
 The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
