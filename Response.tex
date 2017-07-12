@@ -479,6 +479,22 @@ Ranieri, C. and Ocampo,C..  "Indirect Optimization of Spiral Trajectories", Jour
 So, justification for its selection may be warranted.  You could always find a reference in which this trade space was really explored thoroughly to show why you made the choice.
 \end{itshape}
 
+Our original attempt at solving the optimal control problem did rely on single shooting.
+However, during our investigation it was found that it was quite difficult for solutions to converge.
+As a result, we decided to implement the multiple shooting approach in hopes of generating more consistent and robust solutions.
+While it is possible to use single shooting, such as the provided reference, it is known that the single shooting approach will have greater sensitivity to initial costate errors as compared to a multiple shooting method.
+This can be alleviated, or entirely mitigated in the case of~\cite{ranieri2006}, it is highly case specific and dependent on a large variety of case specific techniques. 
+For example, the work in~\cite{ozimek2010a} used both a single shooting and multiple shooting approach to solve the optimal control problem.
+The large sensitivity of the single shooting approach was mitigated through the use of the multiple shooting method, at the expense of additional design variables.
+
+In the manuscript, additional detail has been added in this section which describes the difficulties of the single shooting approach and our decision to use the multiple shooting method.
+The modified portion of the manuscript is copied here.
+\begin{correction}
+Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
+This multiple shooting approach incorporates additional interior constraints but reduces the sensitivity of the costates along each sub-arc.
+The use of the multiple shooting method reduces the sensitivity of changes in the initial costate at the expense of additional design variables, but has been shown to provide more stable and robust solutions~\cite{ozimek2010a}.
+\end{correction}
+
 \item
     \begin{itshape}
 "In this work, we use the Matlab nonlinear solver fsolve to solve the system of nonlinear equations defined by the multiple shooting algorithm."  Can authors give some additional details?  Which fsolve algorithm? trust region dogleg,  trust region, or Levenberg-Marquardt?  Which additional options?  E.g. various tolerances.  For users of this method it's also useful to see the iteration history (more comments on this later).

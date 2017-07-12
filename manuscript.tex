@@ -535,7 +535,8 @@ Consider the vector of initial conditions, \( \vecbf{\chi} = \braces{\vecbf{x}_0
 The free variables at the terminal time are computed by propogation of \( \vecbf{\chi} \) over the selected time horizon. 
 At the terminal time, the constraint vector is calculated and if not satisfied \( \vecbf{\chi}\) is varied.
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
-The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
+This multiple shooting approach incorporates additional interior constraints but reduces the sensitivity of the costates along each sub-arc.
+The use of the multiple shooting method reduces the sensitivity of changes in the initial costate at the expense of additional design variables, but has been shown to provide more stable and robust solutions~\cite{ozimek2010a}.
 
 \begin{figure}
         \centering
