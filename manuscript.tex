@@ -650,15 +650,11 @@ The target set is propagated over a period of \( t = \num{20} \) in non-dimensio
    \caption{Target Orbit Region}
    \label{fig:moon_orbit}
 \end{figure}
-\Cref{fig:moon_orbit} shows that the target set remain in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
+\Cref{fig:moon_orbit} shows that the target set remains in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
 This type of orbit would be useful for a variety of mission scenarios.
 For example, a series of communication satellites could be placed in this type of orbit. 
 The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
-The initial set is a planar periodic orbit about \( L_1\).
-We generate the periodic orbit by using a linear approximation to first determine periodic solutions.
-This approximate periodic solution from the linear system is then implemented in the nonlinear dynamics through the method of differential correction, or single shooting~\cite{koon2011}.
-The initial \( \dot{y} \) is varied until the the periodic orbit makes a perpendicular crossing, \( \dot{x} = 0 \), after one half period.
-Due to the symmetry of the three-body problem, this ensures that the trajectory will return to the initial state after a single period. 
+The initial set is a planar periodic orbit about \( L_1\), which is generated using the process of differential correction of a linear approximation~\cite{koon2011}.
 
 % invariant manifold transfer
 As a source for comparison, the method of using invariant manifolds, introduced in~\cite{koon2011}, is implemented.
