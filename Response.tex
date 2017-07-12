@@ -516,6 +516,19 @@ All numerical integration is performed using the discrete variational integrator
 Did the authors experiment with the number of multiple shooting stages in their example problems?  There must be some sort of "sweet spot" in number of stages for the example problems attempted.  If I missed it, I apologize, but I didn't see it.
 \end{itshape}
 
+We did spend considerable time in determining the appropriate number of stages. 
+One key issue was that our implementation in software depended on dividing the total number of integration steps by the number of interior stages.
+For simplicity, this reduced to possible number of stages to an even number. 
+Additionally, we discovered that adding many stages tended to degrade the solution and cause difficulties in covergence. 
+The solver would tend to ensure a continuous trajectory, by satisfying the interior stages, at the expense of the terminal stage. 
+Some additional detail has been provided that mentions our choice of the number of stages and has been copied below.
+
+\begin{correction}
+Based on experimentation, we use four stages in our multiple shooting method.
+This provided the best performance and convergence stability while minimizing the difficulties in additional interior constraints.
+\end{correction}
+
+
 \item 
     \begin{itshape}
 Section 6.1 - I don't think you need to explain how you created the three-body orbits.  This can be found in many references - You can just cite a reference and give the orbit specifications.  (Starting with line 49, page 18, up to line 21 page 19.)
