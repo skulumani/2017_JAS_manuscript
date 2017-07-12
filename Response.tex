@@ -494,6 +494,20 @@ Did the authors experiment with the number of multiple shooting stages in their 
 Section 6.1 - I don't think you need to explain how you created the three-body orbits.  This can be found in many references - You can just cite a reference and give the orbit specifications.  (Starting with line 49, page 18, up to line 21 page 19.)
 \end{itshape}
 
+The discussion of generating periodic orbits in the three body problem has been removed.
+It replaced with a small introduction mentioning the differential correction process and a citation to a relevant resource. 
+The revised paragraph is copied below.
+
+\begin{correction}
+The first objective is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
+The target region is created by choosing an initial condition of \( x_0 = \begin{bmatrix}1.05 & 0 & 0 & 0.35 \end{bmatrix}^T \) with \( \mu = 0.0125 \).
+The target set is propagated over a period of \( t = \num{20} \) in non-dimensional units which corresponds to approximately \num{1.5} years.
+\Cref{fig:moon_orbit} shows that the target set remains in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
+This type of orbit would be useful for a variety of mission scenarios.
+The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
+The initial set is a planar periodic orbit about \( L_1\), which is generated using the process of differential correction of a linear approximation~\cite{koon2011}.
+\end{correction}
+
 \item
     \begin{itshape}
 "We define a maximum magnitude of the thrust as umax = 0.75 and assume we can point the thrust in any direction within the plane." And  "we again assume a upper bound on the thrust magnitude of umax = 0.75."  What was the reason behind this? Isn't this a pretty large value of dimensional acceleration for your problem of interest?  Even if it's chosen for demonstrative purposes, there should be some sort of explanation as to why.  In the context of what electric propulsion systems can deliver, it could be arguable that this value isn't really "low-thrust" but "finite-thrust".
