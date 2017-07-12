@@ -181,7 +181,10 @@ As a result numerical methods are often required to investigate solutions to the
 \item 
     \begin{itshape}
 "These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
+\end{itshape}
 
+\item
+    \begin{itshape}
 "Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system [8]. As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured."  Again, I think situationally I would disagree.  Transfers on the order of 100's of days can maintain accuracies of 1e-10 (nondimensional units) in the Hamiltonian, which is generally considered a "small" amount of energy drift.
 \end{itshape}
 
@@ -258,15 +261,27 @@ Some additional detail has been included mentioning the difficulties in applying
 While the \Poincare~section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
 \end{correction}
 
+\item
+    \begin{itshape}
 -"This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long transfer durations with small magnitude control inputs."  Yes, but the order of the variational integrator still matters.  The drift in the state vector accuracy is still important to a mission designer, even if it is guaranteed to lie on an energy surface.  I think you should indicate that this is more for preliminary analysis to characterize the transfers, when this drift in state vector accuracy is tolerable.  I.E., it's useful for the introductory phases of mission design when trying to globally characterize the design space.  Characterizing the scope of the analysis in this way would be helpful to the audience.
+\end{itshape}
 
+\item 
+    \begin{itshape}
 "Optimal solutions are generally sensitive to small variations in the initial multipliers. As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance."  I don't agree that this implies that variational integrators are better for gradient-based methods.  The primary issue is that gradient-based methods that are solving optimal control problems are using first-order approximations to iterate on the problem.  The first-order approximation is what is poor, not necessarily the gradients.  Even if these gradients are of exact accuracy (and I agree that they should always be as accurate as possible), the first-order methods in the chaotic problem are what give the difficulties.  One could use a variational or standard integrator in a first-order gradient based method and nothing will change the fact that the method will be highly sensitive, save for partitioning the sensitivities as you did with your multiple shooting approach.  At best, you can change the statement to indicate that the accuracy in the gradients may improve, which is always helpful to gradient-based methods, but it's no guarantee that it eliminates major problem sensitivity.
+\end{itshape}
 
+\item
+    \begin{itshape}
 Authors may also want to point out the loss of accuracy in variable step integrators that can also degrade first-order gradient based methods.  I didn't see this anywhere and it's something that should be acknowledged.  Basically, variable step integrators will introduce artificial "noise" into the gradients:
 
 Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition Matrices, Paper AAS-15-785, AAS/AIAA Astrodynamics Specialist Conference, Vail, CO, Aug 2015
+\end{itshape}
 
+\item 
+    \begin{itshape}
 "This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods." I disagree that suboptimality is typical of direct methods.  A direct method will typically solve the KKT conditions, which can be directly transcribed into the costates in the optimal control problem.  A direct method fully satisfying the KKT conditions can map to the indirect problem. If you want to strengthen this argument, then you should argue that it applies to direct methods which rely on coarse or suboptimal representations of the control.  For example, a hybrid direct method could use continuous optimal control theory control law, but directly minimize the cost function instead of solving the full TPBVP.  
+\end{itshape}
 
 \item 
     \begin{itshape}
@@ -450,29 +465,58 @@ As a result, this approach is more difficult to apply to three-dimensional trans
 However, this is an area of active research and some of the authors future research is aimed at implementing this approach for non-planar transfer trajectories.
 \end{correction}
 
+\item
+    \begin{itshape}
 Figures 10D and 13D - the authors need to present these plots in dimensional coordinates so that they may be reconciled with what existing technology can produce.  I recommend Newtons or milliNewtons.  For example, the NEXT (NASA evolutionary xenon thruster) can produce 0.25 Newtons of thrust at maximum power (~7 kW).  The XR5 Hall thruster can produce comparable thrust at 4.5 kW of power.  These are currently the highest-power single engines other than the ARM Hall thruster which is not flight ready yet.  For these examples to be reconciled against the capability of existing technology, we need to see the required forces that are being demanded from the optimal control problem.  It may be that the results are beyond the scope of current technology - that's fine - just say that they are examples and that it's ongoing work to formulate example problems that capture existing technology better.
+\end{itshape}
 
+\item
+    \begin{itshape}
 "The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches."  Did the authors attempt single shooting for their example problems before coming to this conclusion?  With proper scaling, and problem formulation, there are examples in the literature of single shooting yielding robust results.  
 
 Example: 
 Ranieri, C. and Ocampo,C..  "Indirect Optimization of Spiral Trajectories", Journal of Guidance, Control, and Dynamics, Vol. 29, No. 6 (2006), pp. 1360-1366.
 
 So, justification for its selection may be warranted.  You could always find a reference in which this trade space was really explored thoroughly to show why you made the choice.
+\end{itshape}
 
+\item
+    \begin{itshape}
 "In this work, we use the Matlab nonlinear solver fsolve to solve the system of nonlinear equations defined by the multiple shooting algorithm."  Can authors give some additional details?  Which fsolve algorithm? trust region dogleg,  trust region, or Levenberg-Marquardt?  Which additional options?  E.g. various tolerances.  For users of this method it's also useful to see the iteration history (more comments on this later).
+\end{itshape}
 
+\item
+    \begin{itshape}
 Did the authors experiment with the number of multiple shooting stages in their example problems?  There must be some sort of "sweet spot" in number of stages for the example problems attempted.  If I missed it, I apologize, but I didn't see it.
+\end{itshape}
 
+\item 
+    \begin{itshape}
 Section 6.1 - I don't think you need to explain how you created the three-body orbits.  This can be found in many references - You can just cite a reference and give the orbit specifications.  (Starting with line 49, page 18, up to line 21 page 19.)
+\end{itshape}
 
+\item
+    \begin{itshape}
 "We define a maximum magnitude of the thrust as umax = 0.75 and assume we can point the thrust in any direction within the plane." And  "we again assume a upper bound on the thrust magnitude of umax = 0.75."  What was the reason behind this? Isn't this a pretty large value of dimensional acceleration for your problem of interest?  Even if it's chosen for demonstrative purposes, there should be some sort of explanation as to why.  In the context of what electric propulsion systems can deliver, it could be arguable that this value isn't really "low-thrust" but "finite-thrust".
+\end{itshape}
 
+\item 
+    \begin{itshape}
 Is this method exceptionally difficult to adapt to create a numerical example from LEO or GTO?  These would be the most pragmatically interesting departure orbits to the mission design community.  Section 6.2 presents an example from GEO, but it is unlikely that GEO represents a "typical" parking orbit, since there is no reason to insert a spacecraft into GEO before it transfers to the destination orbit.  This should be called out in the conclusions or future work.
+\end{itshape}
 
+\item 
+    \begin{itshape}
 The authors should discuss some statistics of the convergence of their multiple shooting TPBVP - number of iterations, compute time, etc.
+\end{itshape}
 
+\item 
+    \begin{itshape}
 Can any intuition be gained from reporting the optimal converged cost function values in section 6.1 and 6.2?  One could at least compare them to compare the reachability in the two different examples.
+\end{itshape}
 
+\item
+    \begin{itshape}
 "Low energy transfers from the Earth to the Lagrange points are necessary for future missions."  One must be careful not to confuse these with traditional "low-energy transfers" to the moon, which use Sun third-body perturbations to transfer into lunar orbit.  These are what many mission designers define as "low-energy" lunar transfers.  This is actually a four-body problem (Sun, Earth, moon, spacecraft), and represents additional delta-V savings (as was done with NASA's GRAIL mission.)
 
 Example:
@@ -481,14 +525,21 @@ Example:
 Parker, J. and Anderson, R., "Low-Energy Lunar Trajectory Design," DEEP SPACE COMMUNICATIONS AND NAVIGATION SERIES, Jet Propulsion Laboratory Pasadena, California, July 2013.
 
 Online Copy: https://descanso.jpl.nasa.gov/monograph/series12/LunarTraj--Overall.pdf
+\end{itshape}
 
+\item 
+    \begin{itshape}
 For what it's worth, exploiting sun perturbations with low-thrust in the Earth-moon RTBP would be highly beneficial and represent a worthy avenue of future research (more on this below.)
+\end{itshape}
 
+\item 
+    \begin{itshape}
 The conclusions of the paper should acknowledge other potentially limiting factors of the presented analysis
 -Omits advantage of exploiting fourth body perturbation (Sun in Earth/moon RTBP)
 -Transfers are 2D only, method is more challenging to adapt to 3D
 -Presented control magnitudes are dimensionally large, and more work is needed to determine feasibility of approach for lower accelerations
 -Thrust and mass are completely decoupled from the analysis, which is limiting in terms of finding suitable hardware that can deliver the controls needed, as currently presented.
+\end{itshape}
 
 \end{enumerate}
 \section*{Reviewer 2}
