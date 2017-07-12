@@ -633,6 +633,11 @@ In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the sy
 We present two numerical simulations in the Earth-Moon system to demonstrate the transfer procedure.
 These simulations enable the spacecraft to depart from the natural dynamics through the use of low-thrust propulsion.
 The reachability set on the \Poincare section allows for a straightforward method of determining transfer opportunities.
+The first example is a transfer from a periodic orbit of the \( L_1 \) Lagrange point to a fixed orbit of the moon.
+This example uses a single iteration of the reachable set computation in the design of the transfer.
+The second example is a transfer from geostationary orbit of the Earth to a period orbit of \( L_1 \). 
+This examples demonstrates the ability to extend the reachability process to multiple iterations, to allow for a much larger and more general transfer.
+With both examples it is possible to depart from the vicinity of the Earth to a Moon orbit via a series of reachable sets defined on \Poincare~sections.
 
 \subsection{Periodic Orbit transfer}\label{sec:periodic_orbit_transfer}
 % define problem setup (initial and target orbits)
