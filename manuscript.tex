@@ -134,62 +134,57 @@ We avoid the issues inherent in selecting a valid initial condition for optimiza
 Rather, we choose a state on the reachability set which minimizes the distance toward the desired target.
 We demonstrate these capabilities via two numerical examples simulating transfer trajectories in the Earth-Moon system.
 
-\section{Planar Circular Restricted Three Body Problem}\label{sec:pcrtbp}
-The system model is based on the planar circular restricted three body problem~(PCRTBP).
+\section{Problem Formulation and Mathematical Background}\label{sec:background}
+
+% discuss some of the pros/cons of using PCRTBP model
+We utilize the planar circular restricted three body problem~(PCRTBP) as the basis of our system definition. 
+It is a popular model in the preliminary analysis of multibody spacecraft trajectories. 
+In the context of Earth based mission, the PCRTBP affords a relatively simple dynamic model while still capturing the major third body perturbation of the Moon.
+In addition, this model allows for a systematic process to define and exploit \Poincare sections.
+Furthermore, the 2D solutions afforded by the PCRTBP are frequently use to gain a qualitative understanding of the trade space of transfers in the Earth-Moon system.
+The PCRTBP approach offers insight into the fundamental dynamical structure while capturing the major dynamic properties of the planar motion.
+As a result, this approach is best suited for trajectories which do not require large plane changes.
+
+The research in this work utilizes a variety of disparate concepts in dynamics, control theory, and astrodynamics. 
+As a result, we briefly present some key concepts in the system model as well as established tools in the three body problem, such as invariant manifolds and \Poincare sections.
+In addition, we summarize the derivation of a variational integrator for the PCRTBP which is used in the subsequent geometric optimal control formulation.
+\subsection{Planar Circular Restricted Three Body Problem}\label{sec:pcrtbp}
 The Earth is assumed to be the more massive primary, \( m_1 \), while the Moon is the second, smaller primary \( m_2\).
 The equations of motion are developed in a rotating reference frame which allows for much greater insight into the structure of the dynamics.
-The \( \hat{e}_1 \) axis is directed along the vector from the Earth to the Moon.
-The \( \hat{e}_2 \) axis lies in the orbital plane and is orthogonal to \( \hat{e}_1 \).
-The rotating reference frame is centered at the system barycenter.
-It is assumed that the \(\left( \hat{e}_1, \hat{e}_2\right)\) frame rotates with a constant angular velocity equal to the mean motion of the Moon.
 Following convention, the system is also non-dimensionalized by the characteristic units of length, mass, and time~\cite{koon2011}.
 As a result, the system can be characterized by a single mass ratio parameter \( \mu \),
 \begin{equation}
         \mu = \frac{m_2}{m_1+m_2} \, .
         \label{eq:mass_param}
 \end{equation}
-The larger primary, \(m_1\), is located at \( \left(  -\mu , 0 \right)\) and the smaller \( m_2\) is located at \( \left( 1-\mu , 0 \right)\), while the spacecraft is located at \( (x ,y) \).
 In the rotating reference frame the Lagrangian is given by
-\begin{equation}
-        L = \frac{1}{2} \left( \left( \dot{x} -y \right)^2 + \left( \dot{y} + x \right)^2 \right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
-        \label{eq:lagrangian}
+\begin{equation}\label{eq:lagrangian}
+    L = \frac{1}{2} \parenth{\parenth{\dot{x} - y}^2 + \parenth{\dot{y} + x}^2} + \frac{1 - \mu}{r_1} + \frac{\mu}{r_2},
 \end{equation}
-where the distance \( r_1, r_2 \in \R \) of the spacecraft to each primary is as
+where the distances \( r_1, r_2 \in \R \) define the distance from the spacecraft to each primary and are defined as
 \begin{align}
-        r_1 &= \sqrt{\left( x + \mu\right)^2 + y^2}\, , \\
-        r_2 &= \sqrt{\left( x - 1 + \mu\right)^2 + y^2}\, .
-        \label{eq:distances}
+    r_1 &= \sqrt{\parenth{x + \mu}^2 + y^2} , \\
+    r_2 &= \sqrt{\parenth{x -1 + \mu}^2 + y^2} .
 \end{align}
-Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame
-\begin{align}
-        \ddot{x} - 2 \dot{y} + \deriv{U}{x} &= u_x \, ,\nonumber \\
-        \ddot{y} + 2 \dot{y} + \deriv{U}{y} &= u_y \, ,
-        \label{eq:cont_eom}
-\end{align}
-where the effective potential \( U\) is defined as
-\begin{equation}
-        U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}\, ,
-        \label{eq:eff_pot}
-\end{equation}
-and the control inputs is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \).
-The state is defined as \( \vecbf{x} = \begin{bmatrix}\vecbf{r} &\vecbf{v} \end{bmatrix}^T\) with \(\vecbf{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vecbf{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
-The equations of motion may be rewritten in state space form as
+Following a straightforward application of the Euler-Lagrange equations, a more detailed derivation is provided in~\cite{szebehely1967}, results in the following equations of motion defined in the rotating reference frame
 \begin{equation}\label{eqn:cont_dyn}
         \left[\begin{array}{c} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{array} \right] = 
         \left[ \begin{array}{c} \vecbf{v} \\ A \vecbf{v} + \nabla U + \vecbf{u} \end{array} \right] = f\left( t,\vecbf{x}, \vecbf{u}\right) \, ,
 \end{equation}
 where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U\) are
-\begin{equation}\label{eq:A_mat}
-        A = \left[ \begin{array}{ccc} 0 & 2 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right] \, ,
-\end{equation}
-\begin{equation} \label{eq:grav_pot}
-        \nabla U = \left[ \begin{array}{c} x - \frac{ \left(1 - \mu\right) \left(x + \mu\right)}{r_1^3} - \frac{\mu \left( x - 1 + \mu \right)}{r_2^3} \\
+\begin{align}
+    A &= \left[ \begin{array}{ccc} 0 & 2 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right], \label{eq:A_mat} \\
+    \nabla U &= \left[ \begin{array}{c} x - \frac{ \left(1 - \mu\right) \left(x + \mu\right)}{r_1^3} - \frac{\mu \left( x - 1 + \mu \right)}{r_2^3} \\
                                                                                         y - \frac{ \left(1 - \mu\right) y}{r_1^3} - \frac{\mu y}{r_2^3} \\
                                                                                         - \frac{ \left(1 - \mu\right) z}{r_1^3} - \frac{\mu z}{r_2^3}\end{array}\right]
-                                        = \left[\begin{array}{c} U_x \\ U_y \\ U_z\end{array} \right] \, .
-\end{equation}
+                                        = \left[\begin{array}{c} U_x \\ U_y \\ U_z\end{array} \right] , \label{eq:grav_pot}
+\end{align}
+and the control inputs is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \) and assumed to be continuously variable but bounded in magnitude, i.e. \( \vecbf{u}^T \vecbf{u} \leq u_{max}^2 \).
+The state is defined as \( \vecbf{x} = \begin{bmatrix}\vecbf{r} &\vecbf{v} \end{bmatrix}^T\) with \(\vecbf{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vecbf{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
 
-\subsection{Jacobi Integral}\label{sec:jacobi}
+
+
+\subsubsection{Jacobi Integral}\label{sec:jacobi}
 There exists a single integral, or constant of motion for the three-body problem~\cite{szebehely1967,lanczos1970}.
 This energy constant is analogous to the total mechanical energy, however it is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
 Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame and given by
@@ -201,7 +196,7 @@ Also known as the Jacobi constant, it is defined as a function of the position a
 Fixing the Jacobi integral to a constant defines zero velocity curves, which are the locus of points where the kinetic energy, and hence velocity vanishes.
 As seen in Figure~\ref{fig:energy_contour}, the phase space is divided into distinct realms based on the energy level.
 In the vicinity of \( m_1\) or \(m_2\) there exists a potential well. 
-As the energy level increases there are five critical points of the effective potential~\cref{eq:eff_pot} where the slope is zero.
+As the energy level increases there are five critical points of the effective potential where the slope is zero.
 Three collinear saddle points on the \(\hat{e}_1\) axis and two equilateral points.
 These equilibrium, or Lagrange points, are labeled \( L_i, i = 1, \hdots, 5 \) and are shown in Figure~\ref{fig:energy_contour}.
 The Jacobi integral is a valuable invariant property of the three-body system that allows for greater insight into the motion of the spacecraft.
@@ -211,233 +206,17 @@ The Jacobi integral is a valuable invariant property of the three-body system th
         \caption{Contour plot of Jacobi integral}
         \label{fig:energy_contour}
 \end{figure} 
-%\subsection{Periodic Orbits and Invariant Manifolds}
-%Used to generate a Periodic orbit about a lagrange point
-%Periodic orbits about the lagrange points
-%\subsection{\Poincare Section}
-%Intersection of states with a lower dimensional plane
-%Introduce invariant manifolds
 
-\section{Variational Integrator}\label{sec:discrete_var}
-% description of variational integrator development
-Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invaraint properties and symplecticity.
-Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations~\cite{marsden2001}.
-As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
-In addition, they exhibit improved energy behavior over long integration periods.
-We present a short background on the variational principle for mechanical systems. 
-We then develop a discrete approximation of the action integral and construct a variational integrator for the PCRTBP.
-
-\subsection{Variational Principle}
-Consider a continuous mechanical system described by the Lagrangian, \( L( q, \dot{q} ) \), for the generalized position, \( q\), and velocity, \( \dot{q} \).
-In the standard approach of variational mechanics the action integral is formed by integrating the continuous Lagrangian along a path \( q(t) \) that the system follows from time \( t = 0 \) to \( t = T \)~\cite{greenwood1988}.
-In the continuous time the action integral is defined as
-\begin{align}\label{eq:action_integral}
-        S = \int_{0}^T L\left( q, \dot{q}\right) \, dt \, .
-\end{align}
-Hamilton's principle states that the actual path followed by a holonomic system results in a stationary action integral with respect to path variations for fixed endpoints.
-Taking the variation of~\cref{eq:action_integral} gives
-\begin{align}\label{eq:var_principle}
-        \delta S %&= \int_{0}^T \deriv{L}{q} \delta q + \deriv{L}{\dot{q}} \delta \dot{q} \, dt \\
-                %&= \int_{0}^T \deriv{L}{q} \delta q - \frac{d}{dt} \left( \deriv{L}{\dot{q}}\right) \delta q \, dt - \left. \left[ \deriv{L}{\dot{q}} \delta q\right] \right|_0^T \\
-        &= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}     \right) \, dt \, ,
-\end{align}
-where we have used integration by parts and the conditions \( \delta q(0) = 0 \) and \( \delta q(T) = 0\).
-For Hamilton's principle to be valid for all admissible variations \( \delta q \), the integrand of~\cref{eq:var_principle} must be zero for all \( t\), giving the continuous Euler-Lagrange Equations~\cite{lanczos1970}.
-\begin{align}\label{eq:euler-lagrange}
-        0 = \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}} \right) \, .
-\end{align}
-Hamilton's equations are derivable through the use of the Legendre transformation which is a mapping \( \left( q, \dot{q},t\right) \rightarrow \left(q, p, t \right) \) where \( p_i\) is the generalized momenta.
-\begin{align}\label{eq:legendre_transform}
-        p_i = \deriv{L}{\dot{q}_i} \, .
-\end{align}
-In the continuous time case the Hamiltonian is defined as
-\begin{align}\label{eq:hamiltonian}
-        H &= \sum_{i = 1}^n p_i \dot{q}_i - L \left( q,\dot{q}, t \right) \, .
-\end{align}
-Applying~\cref{eq:legendre_transform} and taking the variation of~\cref{eq:hamiltonian} allows us to derive the equations of motion in Hamiltonian form
-\begin{subequations}\label{eq:hamilton_eq}
-\begin{align}
-        \dot{q}_i &= \deriv{H}{p_i} \, ,\\
-        \dot{p}_i &= - \deriv{H}{q_i} \, , \\
-        \deriv{L}{t} &= -\deriv{H}{t} \, .
-\end{align}
-\end{subequations}
-Both~\cref{eq:euler-lagrange,eq:hamilton_eq} result in equations of motion for the mechanical system and are equivalent via the Legendre transform.
-\Cref{eq:euler-lagrange} results in \( n \) second order differential equations while~\cref{eq:hamilton_eq} results in \( 2n \) first order differential equations.
-\subsection{Discrete Variational Mechanics}
-A discrete analogue of Hamilton's principle and the action integral is formed.
-Rather than taking a position, \( q \), and velocity, \( \dot{q} \), consider two positions \( q_0 \) and \( q_1 \) and a fixed time step \( h \in \R \).
-The two positions are points on the curve \( q(t) \) such that \( q_0 \approx q(0) \) and \( q_1 \approx q(h) \).
-A discrete time Lagrangian \( L_d( q_0, q_1) \) is formed which approximates the action integral between \( q_0 \) and \( q_1 \) as 
-\begin{align}\label{eq:discrete_lagrangian_gen}
-        L_d\left( q_0 , q_1 \right) \approx \int_{0}^{h} L \left( q , \dot{q} \right) \, dt \, .
-\end{align}
-Since~\cref{eq:discrete_lagrangian_gen} is calculated as a numerical integral, an appropriate quadrature rule is required.
-There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian_gen}.
-An appropriate approximation rule is determined based on the ease of implementation and accuracy desired.
-\begin{table}[htbp]
-\caption{Selected Quadrature Rules\label{tab:quadrature}}
-\begin{center}
-\begin{tabular}{l|l}Rectangle & \( L_d(q_0,q_1) =L(q_0,\frac{q_1-q_0}{h}) h \)  \\ \hline
-Midpoint & \( L_d(q_0,q_1) = L(\frac{q_0 + q_1}{2},\frac{q_1 - q_0}{h}) h \) \\ \hline
-Trapezoidal & \( L_d(q_0, q_1) = \frac{1}{2} \left[ L(q_0, \frac{q_1 - q_0}{h} ) + L(q_1, \frac{q_1 - q_0 }{h} )\right] h \)
-\end{tabular} 
-\end{center}
-\end{table}
-\Cref{tab:quadrature} shows several possible approximation rules that are typically applied.
-The rectangle rule is a first order accurate method and offers a straightforward implementation.
-The midpoint and trapezoidal rules are both second order accurate methods. 
-However, the midpoint rule results in an implicit form which adds further complexity to the equations of motion.
-%In this work, the trapezoidal approximation is applied to the PCRTBP.
-
-Once an appropriate discrete Lagrangian is formed a discrete action sum is formed as the discrete analogue of~\cref{eq:action_integral}
-\begin{align}\label{eq:action_sum}
-        S_d = \sum_{k=0}^{N-1} L_d(q_k, q_{k+1}) \, .
-\end{align}
-Once again a discrete version of Hamilton's principle is applied to~\cref{eq:action_sum}.
-This yields a discrete time counterpart to~\cref{eq:var_principle} as
-\begin{align}\label{eq:dis_var_principle}
-        \delta S_d %&= \sum_{k=0}^{N-1} \deriv{L_d(q_k, q_{k+1})}{q_k} \delta q_k + \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \delta q_{k+1} \\
-        &= \sum_{k=1}^{N-1} \bracket{ \deriv{L_d(q_k, q_{k+1})}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}}} \delta q_k \, .
-\end{align}
-
-For the discrete action sum to be stationary with respect to all admissible path variations, with fixed endpoints, the discrete Euler-Lagrange equations must be satisfied for \( k = 1, \cdots, N-1 \) resulting in
-\begin{align}\label{eq:discrete_euler-lagrange}
-        0 = \deriv{L_d(q_k, q_{k+1})}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}} \, .
-\end{align}
-A discrete version of the Legendre transformation, referred to as a discrete fiber derivative, results in the equivalent Hamiltonian form expression.
-The discrete fiber derivative is given as 
-\begin{subequations}\label{eq:discrete_legendre}
-\begin{align}
-        p_k &= \deriv{L_d(q_{k-1},q_k)}{q_{k+1}} = - \deriv{L_d(q_k, q_{k+1})}{q_k} \, ,\\
-        p_{k+1} &= \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \, .
-\end{align}
-\end{subequations}
-This yields a discrete Hamiltonian map \( (q_k, p_k) \to (q_{k+1}, p_{k+1}) \).
-A more extensive development of variational integrators can be found in~\cite{marsden2001}.
-
-\subsection{Discrete Equations of Motion}
-The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the Lagrangian in~\cref{eq:lagrangian}. 
-In this work, the trapezoidal approximation is applied.
-The trapezoid rule allows for an explicit second order accurate approximation.
-The discrete Lagrangian is given by
-\begin{align}\label{eq:discrete_lagrangian}
-        L_d = &\frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
-                & + \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right) \, .
-\end{align}
-Applying a discrete version of the Lagrange-d'Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
-Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation, the equations of motion are given by
-\begin{subequations}\label{eq:discrete_eoms}
-\begin{align}
-        \xkp &= \frac{1}{1+ h^2} \bracket{h \dot{x}_k + h^2 \dot{y}_k  + \xk \parenth{1+ \frac{3h^2}{2}} + \frac{h^3}{2} \yk - \frac{h^3}{2} U_{y_k} - \frac{h^2}{2} U_{x_k} } \label{eq:xkp} \, ,\\
-        \ykp &= h \dot{y}_k + h \xk - h \xkp + \yk + \frac{h^2 \yk}{2} - \frac{h^2 }{2} U_{y_k} \label{eq:ykp} \, ,\\
-        \dot{x}_{k+1} &= \dot{x}_k - 2 \yk + 2 \ykp + \frac{h}{2} \parenth{\xkp + \xk} - \frac{h}{2} U_{\xkp} - \frac{h}{2} U_{\xk} + h u_x \label{eq:xdotkp}\, ,\\
-        \dot{y}_{k+1} &= \dot{y}_{k} + 2 \xk - 2 \xkp + \frac{h}{2} \parenth{\ykp + \yk} - \frac{h}{2} U_{\ykp} - \frac{h}{2} U_{\yk} + h u_y \label{eq:ydotkp} \, .
-\end{align}
-\end{subequations}
-The discrete equations of motion are given in the Lagrangian form after applying the discrete fiber derivative from~\cref{eq:discrete_legendre} as \( p_{\xk} = \dot{x}_k - \yk \) and \( p_{\yk} = \dot{y}_k + \xk \).
-The state is defined as \( \vecbf{x}_k = \begin{bmatrix} \xk & \yk & \dot{x}_k & \dot{y}_k \end{bmatrix}^T\) and the control input is \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \).
-This results in a discrete update map \( f_k: \vecbf{x}_k \to \vecbf{x}_{k+1} \) which preserves the same properties of the continuous-time dynamics in~\cref{eqn:cont_dyn} such as invariants, symplecticity, and the configuration manifold.
-The discrete potential gradients are given by
-\begin{subequations}\label{eq:discrete_potential_grad}
-\begin{align}
-        U_{\xk} &= \frac{\parenth{1 -\mu} \parenth{\xk + \mu}}{\distonek^3} + \frac{ \mu \parenth{\xk -1 + \mu}}{\disttwok^3} \label{eq:Uxk} \, ,\\
-        U_{\yk} &= \frac{\parenth{1 -\mu} \yk}{\disttwok^3} + \frac{ \mu \yk}{\disttwok^3} \label{eq:Uyk} \, ,\\
-        U_{\xkp} &= \frac{\parenth{1 -\mu} \parenth{\xkp + \mu}}{\distonekp^3} + \frac{ \mu \parenth{\xkp -1 + \mu}}{\disttwokp^3} \label{eq:Uxkp}\, ,\\
-        U_{\ykp} &= \frac{\parenth{1 -\mu} \ykp}{\distonekp^3} + \frac{ \mu \ykp}{\disttwokp^3} \label{eq:Uykp} \, .
-\end{align}     
-\end{subequations}
-The distances to each primary are defined as
-\begin{subequations}\label{eq:discrete_distance}
-\begin{align}
-        \distonek &= \sqrt{\left( \xk + \mu\right)^2 + \yk^2} \label{eq:distonek}\, ,\\
-        \disttwok &= \sqrt{\left( \xk - 1 + \mu\right)^2 + \yk^2} \label{eq:disttwok}\, ,\\
-        \distonekp &= \sqrt{\left( \xkp + \mu\right)^2 + \ykp^2} \label{eq:distonekp}\, ,\\
-        \disttwokp &= \sqrt{\left( \xkp - 1 + \mu\right)^2 + \ykp^2} \label{eq:disttwokp} \, .
-\end{align}
-\end{subequations}
-Care must be taken during the implementation of~\cref{eq:discrete_eoms}.
-As~\cref{eq:discrete_potential_grad,eq:discrete_distance} are defined at both step \( k \) and \( k+1 \) they must be evaluated at both time instances.
-\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \vecbf{x}_k \) and control \( \vecbf{u}_k \).
-The distances and gravitational potential at step \( k \) are evaluated from~\cref{eq:distonek,eq:disttwok,eq:Uxk,eq:Uyk}.
-The discrete update steps in~\cref{eq:xkp,eq:ykp} are evaluated to generate \( \xkp \) and \( \ykp\).
-Next, the distances and gravitational potential at step \( k+1 \) are evaluated from~\cref{eq:distonekp,eq:disttwokp,eq:Uxkp,eq:Uykp}. 
-Finally, the update steps in~\cref{eq:xdotkp,eq:ydotkp} are evaluated.
-This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k+1} \) given \( \vecbf{u}_k \).
-\subsection{Numerical Example}\label{sec:variational_example}
-\begin{figure} 
-        \centering 
-        \begin{subfigure}[h]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{trajectory} 
-                \caption{Trajectory comparison} \label{fig:compare_trajectory} 
-        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-%       \begin{subfigure}[htbp]{0.3\textwidth} 
-%               \includegraphics[width=\textwidth]{components} 
-%               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
-%       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{energy} 
-                \caption{Jacobi Integral comparison} \label{fig:compare_energy} 
-        \end{subfigure} 
-        \caption{Integrator Comparison}
-        \label{fig:integrator_compare} 
-\end{figure}
-A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
-A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
-The variational integrator uses a step size of \SI{47.22}{\second} while the Runge-Kutta method uses a variable step size implemented via ODE45 in Matlab.
-\Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference frame for both integration schemes.
-Both integration schemes result in trajectories that are initially nearly identical.
-The discrete equations of motion are an accurate approximation for the continuous dynamics as they closely match the solution of ODE45 over the initial portion of the simulation.
-However, as time progresses the trajectories begin to diverge due to the differences in system energy.
-\Cref{fig:compare_energy} shows the evolution of the Jacobi integral.
-The variational integrator exhibits a bounded behavior about the initial energy with a mean variation of \num{4.2522e-20}.
-However, the conventional Runge-Kutta method demonstrates a clear energy drift of \num{4.2814e-8}. 
-Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques.
-
-\section{Invariant Manifolds and \Poincare Map} 
-% discuss usefulness and basic generation of invariant manifolds
-
-%Planar problem has four dimensional phase space
-%associated with periodic solutions about lagrange equilibrium points
-%tubes, invariant manifolds are four dimenionsal surface which serve to separate classes of trajectories
-%Localized linear analysis, Monodromy matrix, is used to study and compute invariant manifold
-
-% intro to invariant manifolds
-Dynamics systems theory has been applied to design control-free maneuvers in the restricted three-body problem~\cite{koon2011}.
+\subsubsection{Invariant Manifolds and \Poincare Map}\label{sec:invariant_manifold}
+Dynamics systems theory has been applied to the design of control-free manuevers in the restricted three-body problem~\cite{koon2011}.
 As previously introduced in~\Cref{sec:jacobi}, there exist five equilibrium points in the equations of motion for the three-body problem.
 It has been shown that the local orbit structure near the Lagrange points gives rise to families of periodic orbits as well as the stable and unstable manifolds of these periodic orbits.
 This rich structure is globally connected and gives rise to a dynamical chain which allows trajectories to pass through the phase space~\cite{koon2011,conley1968}.
 The manifold structure associated with periodic orbits about the \( L_1 \) and \( L_2 \) Lagrange points are critical to the understanding of the motion of spacecraft as well as comets/asteroids.
 In addition, the stable and unstable manifolds serve as the boundaries of the phase space region that allow for the transport between realms in a single three-body system or between multiple three-body systems.
 These invariant manifolds only exist as a result of the dynamic formulation of the three-body problem in a rotating reference frame. 
-
-\subsection{Invariant Manifolds}\label{sec:invariant_manifold}
-% technical definition of manifold and some equations
 Invariant manifolds serve as a higher dimensional generalization of the concept of seperatrices from linear systems as applied to the case of nonlinear systems. 
-To compute these manifolds first one must determine an appropriate periodic orbit. 
-The process of differential correction and numerical continuation are used to determine a periodic orbit with a desired energy level. 
-Let the trajectories of the equations of motion defined in~\cref{eqn:cont_dyn} be defined by the flow map \( \phi(t;\vecbf{x}_0) \) originating from \( \vecbf{x}(t_0) = \vecbf{x}_0 \) and we define a periodic orbit as \( \gamma\).
-The invariant manifolds are defined as : 
-\begin{align*}
-        W^s ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to \infty} , \\
-        W^u ( \vecbf{x}_0 ) &= \braces{ \vecbf{x} : \phi(t;\vecbf{x}_0) \to \gamma \text{ as } t \to -\infty} .
-\end{align*}
-The stable manifold, \( W^s(\vecbf{x}_0) \), is the set of trajectories which asymptotically approach the periodic orbit.
-Similarly, the unstable manifold, \( W^u(\vecbf{x}_0) \), is the set of trajectories which asymptotically depart the periodic orbit.
-For the nonlinear system, defined by~\cref{eqn:cont_dyn} or~\cref{eq:discrete_eoms}, we can determine the state transition matrix \( \Phi \) along the periodic orbit, from \( 0 \to T\), by numerical integration of the variational equations.
-In the neighborhood of the periodic orbit \( \gamma \), the tangent spaces to the stable and unstable manifolds are provided by the generalized eigenspaces \( E^s \) and \( E^u \) of the linearization \( A = \D f(\vecbf{x}_0) \), where \( \vecbf{x}_0 \) is on the periodic orbit.
-The eigenvectors of the monodromy matrix, \( M = \Phi(T) \), serve to locally approximate the directions of the stable and unstable manifolds. 
-A perturbation in the direction of the unstable eigenvector, with \( \norm{\lambda} > 1 \), is used to generate an initial condition on the unstable manifold. 
-Similarly, a perturbation in the direction of the stable eigenvector, with \( \norm{\lambda} < 1 \), is used to generate an initial condition on the stable manifold. 
-Each periodic orbit has two stable and unstable manifold sets associated with both a positive or negative perturbation along the respective eigenvector.
-This technique of determining the invariant manifolds is graphically presented in~\cref{fig:invariant_manifold}.
-\begin{figure}
-        \centering
-        \includegraphics[width=0.5\textwidth]{invariant_manifold}
-        \caption{Stable and unstable manifold of a periodic orbit\label{fig:invariant_manifold}}
-\end{figure}
 
-% introduce \Poincare section theory and math
 \Poincare maps are a useful tool in the analysis of the flow near periodic orbits in the three-body problem.
 We let \( \Sigma \) define a hypersurface of section chosen such that all trajectories in the vicinity of a state \( \vecbf{q} \in \Sigma \) cross \( \Sigma \) transversely and in the same direction.
 A \Poincare map, \( P(\vecbf{q}) = \phi(T;\vecbf{q}) \), maps the state of a trajectory from one intersection to the next.
@@ -483,60 +262,102 @@ These dynamic features have been shown to play a vital role in the movement of n
         \caption{Diagram of the \Poincare map\label{fig:poincare_map}}
 \end{figure}
 
-\subsection{Control-free Orbital Transfers}\label{sec:control-free_transfers}
-% intersect invariant manifolds on poincare section
-% find intersection between stable and unstable manifolds
-% define the sections used in Koon2011 (placed strategically near heteroclinic points) - rotation of manifolds
-Combining invariant manifolds and an appropriate \Poincare section provides a conceptually simple manner to determine trajectories which connect wide regions of the phase space.
-\Cref{fig:manifold_transfer_example} demonstrates how a \Poincare map may be used to determine a connection between periodic orbits.
-The initial orbit is a planar periodic orbit about \( L_2 \) in the Earth-Moon system while the final orbit is a periodic orbit about \( L_1 \).
-Both periodic orbits have the same Jacobi energy constant and as a result it is possible to transfer between the orbits without any energy change.
-\Cref{fig:manifolds} shows the unstable manifold of the initial orbit and the stable manifold of the desired orbit. 
-Both invariant manifolds are globalized and propogated to the first intersection with the \Poincare surface of section located at the position of the Moon, \( x = 1 - \mu \).
-The \Poincare section in~\cref{fig:manifold_transfer_example} is defined as
-\begin{align*}
-        \Sigma = \braces{ ( y, \dot{y}) \, | \, x = 1- \mu, y > 0} , 
-\end{align*}
-and located to allow an intersection between both invariant manifolds.
-The configuration space of the invariant manifold is \( \vecbf{x} \in \R^4 \).
-The surface of section, and the resulting intersection of the four-dimensional space with the hyperplane \( \Sigma \), reduces the resulting intersection to a surface in \( \R^3\).
-Since the two orbits share the same Jacobi constant, the intersection phase space is further reduced to \( \R^2\).
-The intersection of the invariant manifolds on the \Poincare section is central to determining transfer connections between the initial and final orbits.
-
-% describe this specific poincare section and why it's placed and the axes
-The position, \( y \), and velocity, \( \dot{y} \), at the \Poincare section are plotted in~\cref{fig:poincare}.
-The surface of section is placed at a strategic location in order to allow for a cross section of the flow within the three-dimensional energy surface. 
-In a frame aligned with the rotating frame, \( ( \hat{e}_1, \hat{e}_2 ) \), but centered on the equilibrium point \( L_1 \) or \( L_2\), the unstable manifolds are locally moving in forward time in the second and forth quadrant. 
-Similarly, the stable manifold branches are locally moving in backward time in the first and third quadrants as illustrated in~\cref{fig:invariant_manifold}. 
-As a result, the location of the section in~\cref{fig:poincare} is chosen to intersect both the stable manifolds of \( L_1 \) periodic orbits as well as unstable manifolds of \( L_2 \) periodic orbits.
-Additional \Poincare sections are located at other heteroclinic points in the phase space to enable design throughout the phase space~\cite{koon2011}.
-In this way, it is possible to design trajectories that intersect the invariant manifolds and connect widely separated regions of the state space. 
-This technique has been heavily investigated in~\cite{koon2011}, applied to operational missions in~\cite{koon1999}, and applied to potential multi-moon orbiter missions in~\cite{tanaka2011}.
-In addition, much recent work has focused on potential return missions to the Moon~\cite{zanzottera2012,campagnola2012,mingotti2011,ozimek2010a,mingotti2009}.
-\begin{figure}
-     \centering
-        \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\columnwidth]{U2_Manifolds}
-                \caption{Invariant manifolds }
-                \label{fig:manifolds}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\columnwidth]{U2_poincare}
-                \caption{\(U_2\) \Poincare section}
-                \label{fig:poincare}
-        \end{subfigure}
-        \caption{Illustration of process to identify transfer trajectories}
-        \label{fig:manifold_transfer_example}
-\end{figure}
-
 % drawbacks of this approach on how we seek to improve upon it
+Combining invariant manifolds and an appropriate \Poincare section provides a conceptually simple manner to determine trajectories which connect wide regions of the phase space.
 However, the results previously developed are highly case specific and difficult to generalize to arbitrary transfers.
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
 In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
 In this paper, we formulate an optimal control problem to generate the reachable set of the spacecraft.
 We compute the reachable set on an appropriate \Poincare section and use this to design a transfer trajectory.
+
+\subsection{Variational Integrator for PCRTBP}\label{sec:discrete_var}
+Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invaraint properties and symplecticity.
+Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations.
+As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
+In addition, they exhibit improved energy behavior over long integration periods.
+A thorough discussion of variational integrators is provided in~\cite{west2004,marsden2001}.
+We use this approach to construct a variational integrator for the PCRTBP with the inclusion of low-thrust propulsion.
+
+Consider the autonomous mechanical system described by the Lagrangian, \( L(q, \dot{q} ) \), for the generalized coordinates, \( q\) and velocities \( \dot{q} \).
+The integration of the continuous Lagrangian along a path, \( q (t) \), followed by the system must satisfy Hamilton's principle, which results in the well-known Euler-Lagrange equations~\cite{lanczos1970}.
+In the discrete time scenario, the continuous path \( q(t), \dot{q}(t) \), is replaced by a finite difference approximation over a fixed time step, e.g. \( q_0, \frac{q_1 - q_0}{h} \), which converges to the true velocity as \( h \) tends towards zero.
+In this manner, we define a discrete Lagrangian, \( L_d (q_0, q_1, h) \) which approximates the integral of the true Lagrangian over the time interval \( h \) between \( q_0 \) and \( q_1\)~\cite{marsden2001}.
+
+The discrete equations of motion for the PCRTBP are derived by choosing an appropriate quadrature rule to discretize the continuous Lagrangian in~\cref{eq:lagrangian}~\cite{marsden2001}.
+In this work, we apply the trapezoidal rule to approximate the action integral over a fixed time interval.
+The trapezoidal rule allows for a second order accurate approximation and alleviates the difficulties in applying implicit quadrature schemes.
+The discrete Lagrangian for the PCRTBP is given by
+\begin{align}\label{eq:discrete_lagrangian}
+        L_d = &\frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
+                & + \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right) \, .
+\end{align}
+Applying a discrete version of the Lagrange-d'Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
+Using~\cref{eq:discrete_lagrangian} and some manipulation, gives the discrete equations of motion as
+\begin{subequations}\label{eq:discrete_eoms}
+\begin{align}
+        \xkp &= \frac{1}{1+ h^2} \bracket{h \dot{x}_k + h^2 \dot{y}_k  + \xk \parenth{1+ \frac{3h^2}{2}} + \frac{h^3}{2} \yk - \frac{h^3}{2} U_{y_k} - \frac{h^2}{2} U_{x_k} } \label{eq:xkp} \, ,\\
+        \ykp &= h \dot{y}_k + h \xk - h \xkp + \yk + \frac{h^2 \yk}{2} - \frac{h^2 }{2} U_{y_k} \label{eq:ykp} \, ,\\
+        \dot{x}_{k+1} &= \dot{x}_k - 2 \yk + 2 \ykp + \frac{h}{2} \parenth{\xkp + \xk} - \frac{h}{2} U_{\xkp} - \frac{h}{2} U_{\xk} + h u_x \label{eq:xdotkp}\, ,\\
+        \dot{y}_{k+1} &= \dot{y}_{k} + 2 \xk - 2 \xkp + \frac{h}{2} \parenth{\ykp + \yk} - \frac{h}{2} U_{\ykp} - \frac{h}{2} U_{\yk} + h u_y \label{eq:ydotkp} \, .
+\end{align}
+\end{subequations}
+The discrete equations of motion are given in the Lagrangian form after applying the discrete fiber derivative as \( p_{\xk} = \dot{x}_k - \yk \) and \( p_{\yk} = \dot{y}_k + \xk \).
+The state is defined as \( \vecbf{x}_k = \begin{bmatrix} \xk & \yk & \dot{x}_k & \dot{y}_k \end{bmatrix}^T\) and the control input is \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \).
+This results in a discrete update map \( f_k: \vecbf{x}_k \to \vecbf{x}_{k+1} \) which preserves the same properties of the continuous-time dynamics in~\cref{eqn:cont_dyn} such as invariants, symplecticity, and the configuration manifold.
+The discrete potential gradients are given by
+\begin{subequations}\label{eq:discrete_potential_grad}
+\begin{align}
+        U_{\xk} &= \frac{\parenth{1 -\mu} \parenth{\xk + \mu}}{\distonek^3} + \frac{ \mu \parenth{\xk -1 + \mu}}{\disttwok^3} \label{eq:Uxk} \, ,\\
+        U_{\yk} &= \frac{\parenth{1 -\mu} \yk}{\disttwok^3} + \frac{ \mu \yk}{\disttwok^3} \label{eq:Uyk} \, ,\\
+        U_{\xkp} &= \frac{\parenth{1 -\mu} \parenth{\xkp + \mu}}{\distonekp^3} + \frac{ \mu \parenth{\xkp -1 + \mu}}{\disttwokp^3} \label{eq:Uxkp}\, ,\\
+        U_{\ykp} &= \frac{\parenth{1 -\mu} \ykp}{\distonekp^3} + \frac{ \mu \ykp}{\disttwokp^3} \label{eq:Uykp} \, .
+\end{align}     
+\end{subequations}
+The distances to each primary are defined as
+\begin{subequations}\label{eq:discrete_distance}
+\begin{align}
+        \distonek &= \sqrt{\left( \xk + \mu\right)^2 + \yk^2} \label{eq:distonek}\, ,\\
+        \disttwok &= \sqrt{\left( \xk - 1 + \mu\right)^2 + \yk^2} \label{eq:disttwok}\, ,\\
+        \distonekp &= \sqrt{\left( \xkp + \mu\right)^2 + \ykp^2} \label{eq:distonekp}\, ,\\
+        \disttwokp &= \sqrt{\left( \xkp - 1 + \mu\right)^2 + \ykp^2} \label{eq:disttwokp} \, .
+\end{align}
+\end{subequations}
+Care must be taken during the implementation of~\cref{eq:discrete_eoms}.
+As~\cref{eq:discrete_potential_grad,eq:discrete_distance} are defined at both step \( k \) and \( k+1 \) they must be evaluated at both time instances.
+\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \vecbf{x}_k \) and control \( \vecbf{u}_k \).
+The distances and gravitational potential at step \( k \) are evaluated from~\cref{eq:distonek,eq:disttwok,eq:Uxk,eq:Uyk}.
+The discrete update steps in~\cref{eq:xkp,eq:ykp} are evaluated to generate \( \xkp \) and \( \ykp\).
+Next, the distances and gravitational potential at step \( k+1 \) are evaluated from~\cref{eq:distonekp,eq:disttwokp,eq:Uxkp,eq:Uykp}. 
+Finally, the update steps in~\cref{eq:xdotkp,eq:ydotkp} are evaluated.
+This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k+1} \) given \( \vecbf{u}_k \).
+\subsection{Numerical Example}\label{sec:variational_example}
+\begin{figure} 
+        \centering 
+        \begin{subfigure}[h]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{trajectory} 
+                \caption{Earth-Moon three-body trajectory used for integrator comparision} \label{fig:compare_trajectory} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+%       \begin{subfigure}[htbp]{0.3\textwidth} 
+%               \includegraphics[width=\textwidth]{components} 
+%               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
+%       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{figures/cputimevsE.pdf} 
+                \caption{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}} \label{fig:compare_energy} 
+        \end{subfigure} 
+        \caption{Integrator Comparison}
+        \label{fig:integrator_compare} 
+\end{figure}
+A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
+A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
+    The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
+    The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
+\Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
+Both integration schemes result in trajectories that are initially nearly identical.
+\Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 
 \section{Optimal Control Formulation for Reachability Set}
 % introduce method
@@ -545,6 +366,14 @@ The application of variational integrators to optimal control problems is referr
 Our formulation is based on the concept of the reachability set on a \Poincare section.
 This method allows one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
 The addition of continuous low thrust propulsion extends the control free design process developed previously and allows for a greater range of potential transfers with a reduced time of flight.
+
+The numerical examples presented in this section are designed in the context of the PCRTBP.
+The dynamic environment has a four dimensional state space and offers a convient integration constant in the form of the Jacobi integral.
+As a result, there are well defined methods to define and exploit \Poincare sections, which result in straightforward two-dimensional subspaces of the system.
+Our approach uses the \Poincare section to approximate the reachability set on this reduced subspace.
+As a result, this approach is more difficult to apply to three-dimensional transfers in the general three body problem.
+\Poincare sections in the case of the general six dimensional state space are significantly more challenging and typically require more complicated visualization techniques. 
+However, this is an area of active research and some of the authors future research is aimed at implementing this approach for non-planar transfer trajectories.
 
 \subsection{Reachability Set}\label{sec:reachability_set}
 % discuss reachability and application to space system
@@ -696,7 +525,7 @@ The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} 
 The derivation of~\cref{eq:costate_eom} is given in Appendix A.
 In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
 This is a computationally expensive operation that is prone to numerical error and instability.
-A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \).
+We use Gauss-Jordan elimination to avoid this inversion in~\cref{eq:costate_eom} and determine an explicit update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \).
 
 The optimal control formulation presented in this section results in a two point boundary value problem (TPBVP). 
 There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975,kirk2012}.
@@ -706,7 +535,8 @@ Consider the vector of initial conditions, \( \vecbf{\chi} = \braces{\vecbf{x}_0
 The free variables at the terminal time are computed by propogation of \( \vecbf{\chi} \) over the selected time horizon. 
 At the terminal time, the constraint vector is calculated and if not satisfied \( \vecbf{\chi}\) is varied.
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
-The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
+This multiple shooting approach incorporates additional interior constraints but reduces the sensitivity of the costates along each sub-arc.
+The use of the multiple shooting method reduces the sensitivity of changes in the initial costate at the expense of additional design variables, but has been shown to provide more stable and robust solutions~\cite{ozimek2010a}.
 
 \begin{figure}
         \centering
@@ -791,9 +621,12 @@ To ensure continuity, additional interior constraints are incorporated as
 Using the multiple shooting method reduces the sensitivity of the terminal states, \( \vecbf{x}_i^{+}, \vecbf{\lambda}_i^{+}\), to variations of the initial states, \(\vecbf{x}_{i-1}^{-}, \vecbf{\lambda}_{i-1}^{-}\).
 As a result, the design vector \( \vecbf{\chi} \) is augmented with the additional interior initial conditions, \( \vecbf{x}_i^{-}, \vecbf{\lambda}^{-}\).
 Similarly, the constraint vector is augmented with the additional interior constraints defined in~\cref{eq:interior_constraints}.
+Based on experimentation, we use four stages in our multiple shooting method.
+This provided the best performance and convergence stability while minimizing the difficulties in additional interior constraints.
 The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
 In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
-
+Within \texttt{fsolve}, we use the trust-region dogleg solver which makes use of the Powell dogleg procedure for computing a step direction and magnitude to minimize successive iterations of the solver.
+All numerical integration is performed using the discrete variational integrator described in~\cref{sec:discrete_var}.
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
 % define a constraint vector G(X) that we need to satisfy
@@ -804,6 +637,11 @@ In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the sy
 We present two numerical simulations in the Earth-Moon system to demonstrate the transfer procedure.
 These simulations enable the spacecraft to depart from the natural dynamics through the use of low-thrust propulsion.
 The reachability set on the \Poincare section allows for a straightforward method of determining transfer opportunities.
+The first example is a transfer from a periodic orbit of the \( L_1 \) Lagrange point to a fixed orbit of the moon.
+This example uses a single iteration of the reachable set computation in the design of the transfer.
+The second example is a transfer from geostationary orbit of the Earth to a period orbit of \( L_1 \). 
+This examples demonstrates the ability to extend the reachability process to multiple iterations, to allow for a much larger and more general transfer.
+With both examples it is possible to depart from the vicinity of the Earth to a Moon orbit via a series of reachable sets defined on \Poincare~sections.
 
 \subsection{Periodic Orbit transfer}\label{sec:periodic_orbit_transfer}
 % define problem setup (initial and target orbits)
@@ -816,15 +654,11 @@ The target set is propagated over a period of \( t = \num{20} \) in non-dimensio
    \caption{Target Orbit Region}
    \label{fig:moon_orbit}
 \end{figure}
-\Cref{fig:moon_orbit} shows that the target set remain in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
+\Cref{fig:moon_orbit} shows that the target set remains in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
 This type of orbit would be useful for a variety of mission scenarios.
 For example, a series of communication satellites could be placed in this type of orbit. 
 The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
-The initial set is a planar periodic orbit about \( L_1\).
-We generate the periodic orbit by using a linear approximation to first determine periodic solutions.
-This approximate periodic solution from the linear system is then implemented in the nonlinear dynamics through the method of differential correction, or single shooting~\cite{koon2011}.
-The initial \( \dot{y} \) is varied until the the periodic orbit makes a perpendicular crossing, \( \dot{x} = 0 \), after one half period.
-Due to the symmetry of the three-body problem, this ensures that the trajectory will return to the initial state after a single period. 
+The initial set is a planar periodic orbit about \( L_1\), which is generated using the process of differential correction of a linear approximation~\cite{koon2011}.
 
 % invariant manifold transfer
 As a source for comparison, the method of using invariant manifolds, introduced in~\cite{koon2011}, is implemented.
@@ -838,7 +672,7 @@ The green points in~\cref{fig:manifold_poincare} are intersections of the unstab
 Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
 There are no intersections of the invariant manifold with the descending region of the target orbit.
 The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
-The required travel time for a transfer using the unstable invariant manifold is \( t_f \approx 3.1\).
+The required travel time for a transfer using the unstable invariant manifold is  approximately \( t_f \approx 3.1\) non-dimensional time units.
 \begin{figure} 
         \centering 
         \begin{subfigure}[htbp]{0.5\textwidth} 
@@ -858,6 +692,9 @@ Next, we determine the reachability set with the addition of a low thrust contro
 We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
+This acceleration limit is approximately \( u_{max} = \SI{2}{\milli\meter\per\second\squared} \) in the Earth-Moon system.
+Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of \SI{1}{\newton}.
+Currently, the NASA NEXT xenon thruster is able to provide approximately \SI{0.25}{\newton} of thrust, and a cluster of such engines could be used to provide the desired thrust used in this work~\cite{schmidt2008}.
 The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
@@ -865,7 +702,7 @@ From the initial state on the periodic orbit, a series of optimal trajectories a
 The multiple shooting approach is implemented to sovle the optimal control problem. 
 We divide the time horizon into two equal length segments. 
 The state trajectory is intialized using the free trajectory of the periodic orbit. 
-Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propogated using the discrete equations of motion in~\cref{eq:costate_update}.
+Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propogated using the discrete equations of motion in~\cref{eq:costate_eom}.
 This results in the initial guess of the design vector \( \vecbf{\chi} = \begin{bmatrix} \vecbf{\lambda}_0 & \vecbf{x}_1^{-} & \vecbf{\lambda}_1^{-} & \vecbf{\beta} \end{bmatrix}^T\).
 This design vector is then varied to ensure that the necessary conditions of optimality and the interior point constraints are satisfied. 
 
@@ -938,7 +775,7 @@ This type of low energy transfer would be most suitable for unmanned spacecraft 
 The long time of flight would make such a transfer unsuitable for manned missions due to life support constraints.
 %This type of low energy transfer is best suited for autonomous spacecraft missions as the long time of flight is undesirable for manned spacecraft. 
 Future proposals for permanent lunar spacecraft and bases will require frequent supply missions to remain viable. 
-Low energy transfers from the Earth to the Lagrange points are necessary for future missions.
+Transfers from the Earth to the Lagrange points, through the use of low-thrust electric propulsion, offer an additional and potentially shorter time of flight in comparison to the low-energy transfers which utilize solar perturbations.
 
 The previous example demonstrated the capability of determining an orbital transfer after determining the intersection of the reachability set and a target orbit.
 However, it may not be possible to achieve an intersection on the \Poincare section after a single iteration. 
@@ -1057,9 +894,15 @@ In this paper, an optimal transfer process which combines concepts of reachabili
 The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
-This analysis has also assumed perfect attitude control and the ability to orient thrust in any direction.
-The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability.
+Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+
+There is additional research to extend these results to more general transfer scenarios in future work.
+The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems.
+Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
+This will result in a more complicated optimal control problem and is a focus of future research.
+Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
+The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability of this work.
 
 \appendix
 \section*{Appendix A: Costate Equations of Motion}\label{sec:costate_appendix}
@@ -1122,75 +965,6 @@ The gradient of~\cref{eq:xdotkp,eq:ydotkp} are given as
 These gradient equations are in a cascade type structure.
 \Cref{eq:ydotkp_grad,eq:xdotkp_grad} are functions of~\cref{eq:xdotkp,eq:ydotkp}.
 As a result, the accuracy of the Jacobian will tend to decrease as the first order approximation errors accumulate.
-
-\section*{Appendix B: Gauss Jordan Elimination}\label{sec:costate_gauss_jordan}
-The costate equations of motion are given by~\cref{eq:costate_eom} and repeated here as
-\begin{align}\label{eq:costate_eom_transpose}
-        \begin{bmatrix} 
-                \fonex & \ftwox & \fthreex & \ffourx \\
-                \foney & \ftwoy & \fthreey & \ffoury \\
-                \fonexd & \ftwoxd & \fthreexd & \ffourxd \\
-                \foneyd & \ftwoyd & \fthreeyd & \ffouryd
-        \end{bmatrix}
-        \begin{bmatrix} \lambda_{\xkp} \\ \lambda_{\ykp} \\ \lambda_{\xdotkp} \\ \lambda_{\ydotkp} \end{bmatrix}
-        =
-        \begin{bmatrix} \lambda_{\xk} \\ \lambda_{\yk} \\ \lambda_{\xdotk} \\ \lambda_{\ydotk} \end{bmatrix} \, .
-\end{align}
-To determine the discrete update map \( \lambda_k \to \lambda_{k+1}\) the inverse of the Jacobian matrix is required.
-In order to avoid the need of an explicit inversion a Gauss Jordan method is implemented.
-To begin, several terms are defined which are required to carry out the row operations and are defined as
-\begin{subequations}\label{eq:ref_scale}
-\begin{align}
-        a &= -\frac{\foney}{\fonex} \, ,\\
-        b &= -\frac{\fonexd}{\fonex} \, , \\
-        c &= -\frac{\foneyd}{\fonex} \, ,\\
-        e &= -\frac{\ftwoxd + b \ftwox}{\ftwoy + a \ftwox} \, ,\\
-        f &= -\frac{\ftwoyd + c \ftwox}{\ftwoy + a \ftwox} \, ,\\
-        g &= -\frac{\fthreeyd + c \fthreex + f \parenth{\fthreey + a \fthreex}}{\fthreexd + b \fthreex + e \parenth{\fthreey + a \fthreex}}\, .
-\end{align}
-\end{subequations}
-\Cref{eq:costate_eom_transpose} is transformed to row echelon form using elementary row operations and is defined as
-\begin{align}\label{eq:costate_ref}
-        \begin{bmatrix} 
-                \alpha_{11} & \alpha_{12} & \alpha_{13} & \alpha_{14} \\
-                0 & \alpha_{22} & \alpha_{23} & \alpha_{24} \\
-                0 & 0 & \alpha_{33} & \alpha_{34} \\
-                0 & 0 & 0 & \alpha_{44}
-        \end{bmatrix}
-        \begin{bmatrix} \lambda_{\xkp} \\ \lambda_{\ykp} \\ \lambda_{\xdotkp} \\ \lambda_{\ydotkp} \end{bmatrix}
-        =
-        \begin{bmatrix} \beta_1 \\ \beta_2 \\ \beta_3 \\ \beta_4 \end{bmatrix} \, ,
-\end{align}
-where the terms \( \alpha_{ij} \) and \( \beta_{i} \) are defined as follows
-\begin{subequations}
-\begin{align}
-        \alpha_{11} &= \fonex \, ,\\
-        \alpha_{12} &= \ftwox \, ,\\
-        \alpha_{13} &= \fthreex \, ,\\
-        \alpha_{14} &= \ffourx \, ,\\
-        \alpha_{22} &= \ftwoy + a \ftwox \, ,\\
-        \alpha_{23} &= \fthreey + a\fthreex \, ,\\
-        \alpha_{24} &= \ffoury + a \ffourx \, ,\\
-        \alpha_{33} &= \fthreexd + b \fthreex + e \parenth{\fthreey + a \fthreex}\, ,\\
-        \alpha_{34} &= \ffourxd + b \ffourx + e \parenth{\ffoury + a \ffourx} \, ,\\
-        \alpha_{44} &= \ffouryd + c \ffourx + f \parenth{\ffoury + a \ffourx} + g \parenth{\ffourxd + b \ffourx + e \parenth{\ffoury + a \ffourx}} \, ,\\
-        \beta_1 &= \lambda_{\xk} \, ,\\
-        \beta_2 &= \lambda_{\yk} + a \lambda_{\xk} \, ,\\
-        \beta_3 &= \lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}} \, ,\\
-        \beta_4 &= \lambda_{\ydotk} + c \lambda_{\xk} + f \parenth{\lambda_{\yk}+a \lambda_{\xk}} + g \parenth{\lambda_{\xdotk} + b \lambda_{\xk} + e \parenth{\lambda_{\yk} + a \lambda_{\xk}}} \, .
-\end{align}
-\end{subequations}
-Finally, backsubstituion is used to determine explicit equations for the discrete update map \( \vecbf{\lambda}_k \to \vecbf{\lambda}_{k+1} \) which is defined as
-\begin{subequations}\label{eq:costate_update}
-\begin{align}
-        \lambda_{\ydotkp} &= \frac{\beta_4}{\alpha_{44}} \, ,\\
-        \lambda_{\xdotkp} &= \frac{\beta_3}{\alpha_{33}} - \frac{\alpha_{34}}{\alpha_{33}} \lambda_{\ydotkp} \, ,\\
-        \lambda_{\ykp} &= \frac{\beta_2}{\alpha_22} - \frac{\alpha_{33}}{\alpha_{22}}\lambda_{\xdotkp} - \frac{\alpha_{24}}{\alpha_{22}} \lambda_{\ydotkp} \, ,\\
-        \lambda_{\xkp} &= \frac{\beta_1}{\alpha_{11}} - \frac{\alpha_{12}}{\alpha_{11}} \lambda_{\ykp} - \frac{\alpha_{13}}{\alpha_{11}} \lambda_{\xdotkp} - \frac{\alpha_{14}}{\alpha_{11}} \lambda_{\ydotkp} \, .
-\end{align}
-\end{subequations}
-%Once again, these equations exhibit a cascade type relationship. 
-%As as result any errors will compound and tend to accumulate most prevalently in \( \lambda_{\xkp} \).
 
 %\begin{acknowledgements}
 %If you'd like to thank anyone, place your comments here
