@@ -91,20 +91,28 @@ These issues are:
     The introduction has been reduced to avoid excessive repetition. 
     In addition, much of the background material has been removed
 
+\item
+    \begin{itshape}
 -It does not give a complete picture of the pros and cons of the proposed methodology.  This method is full of both advantages and disadvantages.  I don't think the authors need to be concerned with "selling" the work to the community, but rather showing the full and honest picture given the current state of the research.  In the conclusions, the potential cons to this research can be mitigated by setting a path forward for future research to further improve the methodology.
 
 These pros/cons include:
 
 -The formulation of the problem with acceleration magnitude is a major technical challenge for mission design practitioners.  The state of the art to design trajectories that depend on low-thrust engine hardware is either:
+
 -To produce constant thrust magnitude or no thrust magnitude (typical of nuclear electric propulsion, or very simple electric propulsion systems.)
+
 -To produce variable thrust magnitude associated with various throttle points at different power accessibility levels (solar electric propulsion).
 That is not to say that useful solutions cannot be extracted from the problem, as the authors have shown.  However, a great many solutions in this approach will be unusable due to the fact that acceleration and thrust magnitude are different, i.e. a=T/m
+
 Thus - a MAJOR focus of future work should be the introduction of a seventh state (mass).  This gives rise to a more challenging optimal control problem requiring the switching function, but it is the form that is generally needed in computing optimal open-loop trajectories that can actually be flown.
+\end{itshape}
 
 \item 
     \begin{itshape}
 The pros and cons of the PCRTBP
+
 -The PCRTB gives rise to exploiting Poincare sections in a systematic manner.  2D solutions might be close enough for qualitative understanding of the solution space for many problems (as long as large plane changes aren't needed).
+
 -The PCRTB is limiting for many pragmatic departure orbits (e.g. LEO and GTO, the most common departure orbits for low-thrust transfers).
 \end{itshape}
 
@@ -122,11 +130,14 @@ The PCRTBP approach offers insight into the fundamental dynamical structure whil
 As a result, this approach is best suited for trajectories which do not require large plane changes.
 \end{correction}
 
-
+\item 
+    \begin{itshape}
 The pros and cons of variational integrators should really be acknowledged rather than completely dismissing the RK methods which are still the current state of the art in mission design (using higher-orders and suitable tolerances)
--Pros = boundedness in the energy behavior.  Very long term integration will not deviate from the known dynamical structure.
--Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
 
+-Pros = boundedness in the energy behavior.  Very long term integration will not deviate from the known dynamical structure.
+
+-Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
+\end{itshape}
 \end{itemize}
 From here on out comments specific to various sections of the paper follow:
 
@@ -585,10 +596,24 @@ Additional detail has been included in the conclusion discussing this topic.
 The authors should discuss some statistics of the convergence of their multiple shooting TPBVP - number of iterations, compute time, etc.
 \end{itshape}
 
+Most of the literature tends to not spend time discussing the low level details of the computational procedure, e.g.~\cite{grebow2011,stuart2010}.
+In addition, the number of iterations, computation time and even the eventual cost function value are highly dependent on the specific system and more specifically the implementation of the algorithm in software. 
+There are a wide variety of works which are focused more exclusively on the computational implementation of various optimal control techniques which do spend significant time on the computational characteristics.
+However, our manuscript is primarily focused on demonstrating the feasbility of using reachability sets to design transfer trajectories.
+As a result, there is not much benefit to detailed statistics of the implementation of this methodology.
+
 \item 
     \begin{itshape}
 Can any intuition be gained from reporting the optimal converged cost function values in section 6.1 and 6.2?  One could at least compare them to compare the reachability in the two different examples.
 \end{itshape}
+
+The cost function only parameterizes the distance between the controlled and uncontrolled terminal states on the \Poincare section. 
+In addition, each state which lies on the reachable set would typically have a different distance and therefore a different coverged cost function value. 
+Furthermore, it would be difficult to characterize a single parameter which characterizes the reachable set, in the form of the cost function, for all states of the reachable set. 
+Also, the cost function is highly dependent on the transit time of trajectory, i.e. a longer transit time corresponds to a larger reachable set and a larger magnitude of the cost function.
+However, this is an interesting suggestions for future research.
+For example, the cost function gives some indication of area/volume of the reachable set. 
+It may be possible to use this value as another way to characterize the subspace on the \Poincare section and is an intriguing avenue of future research.
 
 \item
     \begin{itshape}
@@ -607,12 +632,18 @@ Online Copy: https://descanso.jpl.nasa.gov/monograph/series12/LunarTraj--Overall
 For what it's worth, exploiting sun perturbations with low-thrust in the Earth-moon RTBP would be highly beneficial and represent a worthy avenue of future research (more on this below.)
 \end{itshape}
 
+This is a very useful and interesting suggestion and something that we will take into consideration for future research.
+
 \item 
     \begin{itshape}
 The conclusions of the paper should acknowledge other potentially limiting factors of the presented analysis
+
 -Omits advantage of exploiting fourth body perturbation (Sun in Earth/moon RTBP)
+
 -Transfers are 2D only, method is more challenging to adapt to 3D
+
 -Presented control magnitudes are dimensionally large, and more work is needed to determine feasibility of approach for lower accelerations
+
 -Thrust and mass are completely decoupled from the analysis, which is limiting in terms of finding suitable hardware that can deliver the controls needed, as currently presented.
 \end{itshape}
 
