@@ -291,6 +291,9 @@ However, for this preliminary analysis the variational integrator provides reduc
 "Optimal solutions are generally sensitive to small variations in the initial multipliers. As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance."  I don't agree that this implies that variational integrators are better for gradient-based methods.  The primary issue is that gradient-based methods that are solving optimal control problems are using first-order approximations to iterate on the problem.  The first-order approximation is what is poor, not necessarily the gradients.  Even if these gradients are of exact accuracy (and I agree that they should always be as accurate as possible), the first-order methods in the chaotic problem are what give the difficulties.  One could use a variational or standard integrator in a first-order gradient based method and nothing will change the fact that the method will be highly sensitive, save for partitioning the sensitivities as you did with your multiple shooting approach.  At best, you can change the statement to indicate that the accuracy in the gradients may improve, which is always helpful to gradient-based methods, but it's no guarantee that it eliminates major problem sensitivity.
 \end{itshape}
 
+This sentence has been removed from the introduction.
+However, this is a valid comment and is noted for the future.
+
 \item
     \begin{itshape}
 Authors may also want to point out the loss of accuracy in variable step integrators that can also degrade first-order gradient based methods.  I didn't see this anywhere and it's something that should be acknowledged.  Basically, variable step integrators will introduce artificial "noise" into the gradients:
