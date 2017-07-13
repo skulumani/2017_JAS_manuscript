@@ -358,6 +358,9 @@ Both integration schemes result in trajectories that are initially nearly identi
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
 For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
+This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
+However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
 
 \section{Optimal Control Formulation for Reachability Set}
 % introduce method
