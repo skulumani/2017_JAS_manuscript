@@ -298,6 +298,11 @@ Authors may also want to point out the loss of accuracy in variable step integra
 Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition Matrices, Paper AAS-15-785, AAS/AIAA Astrodynamics Specialist Conference, Vail, CO, Aug 2015
 \end{itshape}
 
+Additional detail has been included in the manuscript discussing this potential drawback of variable step integrators.
+\begin{correction}
+In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
+The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
+\end{correction}
 \item 
     \begin{itshape}
 "This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods." I disagree that suboptimality is typical of direct methods.  A direct method will typically solve the KKT conditions, which can be directly transcribed into the costates in the optimal control problem.  A direct method fully satisfying the KKT conditions can map to the indirect problem. If you want to strengthen this argument, then you should argue that it applies to direct methods which rely on coarse or suboptimal representations of the control.  For example, a hybrid direct method could use continuous optimal control theory control law, but directly minimize the cost function instead of solving the full TPBVP.  
