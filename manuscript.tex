@@ -535,7 +535,8 @@ Consider the vector of initial conditions, \( \vecbf{\chi} = \braces{\vecbf{x}_0
 The free variables at the terminal time are computed by propogation of \( \vecbf{\chi} \) over the selected time horizon. 
 At the terminal time, the constraint vector is calculated and if not satisfied \( \vecbf{\chi}\) is varied.
 Rather than numerical integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs~\cite{stoer2013}.
-The multiple shooting method is implemented in this paper which alleviates many of the issues associated with single shooting approaches.
+This multiple shooting approach incorporates additional interior constraints but reduces the sensitivity of the costates along each sub-arc.
+The use of the multiple shooting method reduces the sensitivity of changes in the initial costate at the expense of additional design variables, but has been shown to provide more stable and robust solutions~\cite{ozimek2010a}.
 
 \begin{figure}
         \centering
@@ -620,9 +621,12 @@ To ensure continuity, additional interior constraints are incorporated as
 Using the multiple shooting method reduces the sensitivity of the terminal states, \( \vecbf{x}_i^{+}, \vecbf{\lambda}_i^{+}\), to variations of the initial states, \(\vecbf{x}_{i-1}^{-}, \vecbf{\lambda}_{i-1}^{-}\).
 As a result, the design vector \( \vecbf{\chi} \) is augmented with the additional interior initial conditions, \( \vecbf{x}_i^{-}, \vecbf{\lambda}^{-}\).
 Similarly, the constraint vector is augmented with the additional interior constraints defined in~\cref{eq:interior_constraints}.
+Based on experimentation, we use four stages in our multiple shooting method.
+This provided the best performance and convergence stability while minimizing the difficulties in additional interior constraints.
 The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
 In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
-
+Within \texttt{fsolve}, we use the trust-region dogleg solver which makes use of the Powell dogleg procedure for computing a step direction and magnitude to minimize successive iterations of the solver.
+All numerical integration is performed using the discrete variational integrator described in~\cref{sec:discrete_var}.
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
 % define a constraint vector G(X) that we need to satisfy
@@ -633,6 +637,11 @@ In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the sy
 We present two numerical simulations in the Earth-Moon system to demonstrate the transfer procedure.
 These simulations enable the spacecraft to depart from the natural dynamics through the use of low-thrust propulsion.
 The reachability set on the \Poincare section allows for a straightforward method of determining transfer opportunities.
+The first example is a transfer from a periodic orbit of the \( L_1 \) Lagrange point to a fixed orbit of the moon.
+This example uses a single iteration of the reachable set computation in the design of the transfer.
+The second example is a transfer from geostationary orbit of the Earth to a period orbit of \( L_1 \). 
+This examples demonstrates the ability to extend the reachability process to multiple iterations, to allow for a much larger and more general transfer.
+With both examples it is possible to depart from the vicinity of the Earth to a Moon orbit via a series of reachable sets defined on \Poincare~sections.
 
 \subsection{Periodic Orbit transfer}\label{sec:periodic_orbit_transfer}
 % define problem setup (initial and target orbits)
@@ -645,15 +654,11 @@ The target set is propagated over a period of \( t = \num{20} \) in non-dimensio
    \caption{Target Orbit Region}
    \label{fig:moon_orbit}
 \end{figure}
-\Cref{fig:moon_orbit} shows that the target set remain in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
+\Cref{fig:moon_orbit} shows that the target set remains in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
 This type of orbit would be useful for a variety of mission scenarios.
 For example, a series of communication satellites could be placed in this type of orbit. 
 The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
-The initial set is a planar periodic orbit about \( L_1\).
-We generate the periodic orbit by using a linear approximation to first determine periodic solutions.
-This approximate periodic solution from the linear system is then implemented in the nonlinear dynamics through the method of differential correction, or single shooting~\cite{koon2011}.
-The initial \( \dot{y} \) is varied until the the periodic orbit makes a perpendicular crossing, \( \dot{x} = 0 \), after one half period.
-Due to the symmetry of the three-body problem, this ensures that the trajectory will return to the initial state after a single period. 
+The initial set is a planar periodic orbit about \( L_1\), which is generated using the process of differential correction of a linear approximation~\cite{koon2011}.
 
 % invariant manifold transfer
 As a source for comparison, the method of using invariant manifolds, introduced in~\cite{koon2011}, is implemented.
@@ -667,7 +672,7 @@ The green points in~\cref{fig:manifold_poincare} are intersections of the unstab
 Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
 There are no intersections of the invariant manifold with the descending region of the target orbit.
 The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
-The required travel time for a transfer using the unstable invariant manifold is \( t_f \approx 3.1\).
+The required travel time for a transfer using the unstable invariant manifold is  approximately \( t_f \approx 3.1\) non-dimensional time units.
 \begin{figure} 
         \centering 
         \begin{subfigure}[htbp]{0.5\textwidth} 
@@ -687,6 +692,9 @@ Next, we determine the reachability set with the addition of a low thrust contro
 We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
+This acceleration limit is approximately \( u_{max} = \SI{2}{\milli\meter\per\second\squared} \) in the Earth-Moon system.
+Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of \SI{1}{\newton}.
+Currently, the NASA NEXT xenon thruster is able to provide approximately \SI{0.25}{\newton} of thrust, and a cluster of such engines could be used to provide the desired thrust used in this work~\cite{schmidt2008}.
 The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
 
@@ -694,7 +702,7 @@ From the initial state on the periodic orbit, a series of optimal trajectories a
 The multiple shooting approach is implemented to sovle the optimal control problem. 
 We divide the time horizon into two equal length segments. 
 The state trajectory is intialized using the free trajectory of the periodic orbit. 
-Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propogated using the discrete equations of motion in~\cref{eq:costate_update}.
+Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propogated using the discrete equations of motion in~\cref{eq:costate_eom}.
 This results in the initial guess of the design vector \( \vecbf{\chi} = \begin{bmatrix} \vecbf{\lambda}_0 & \vecbf{x}_1^{-} & \vecbf{\lambda}_1^{-} & \vecbf{\beta} \end{bmatrix}^T\).
 This design vector is then varied to ensure that the necessary conditions of optimality and the interior point constraints are satisfied. 
 
@@ -767,7 +775,7 @@ This type of low energy transfer would be most suitable for unmanned spacecraft 
 The long time of flight would make such a transfer unsuitable for manned missions due to life support constraints.
 %This type of low energy transfer is best suited for autonomous spacecraft missions as the long time of flight is undesirable for manned spacecraft. 
 Future proposals for permanent lunar spacecraft and bases will require frequent supply missions to remain viable. 
-Low energy transfers from the Earth to the Lagrange points are necessary for future missions.
+Transfers from the Earth to the Lagrange points, through the use of low-thrust electric propulsion, offer an additional and potentially shorter time of flight in comparison to the low-energy transfers which utilize solar perturbations.
 
 The previous example demonstrated the capability of determining an orbital transfer after determining the intersection of the reachability set and a target orbit.
 However, it may not be possible to achieve an intersection on the \Poincare section after a single iteration. 
@@ -886,9 +894,15 @@ In this paper, an optimal transfer process which combines concepts of reachabili
 The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
-This analysis has also assumed perfect attitude control and the ability to orient thrust in any direction.
-The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability.
+Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+
+There is additional research to extend these results to more general transfer scenarios in future work.
+The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems.
+Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
+This will result in a more complicated optimal control problem and is a focus of future research.
+Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
+The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability of this work.
 
 \appendix
 \section*{Appendix A: Costate Equations of Motion}\label{sec:costate_appendix}
