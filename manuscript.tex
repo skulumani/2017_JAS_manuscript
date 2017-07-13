@@ -894,9 +894,15 @@ In this paper, an optimal transfer process which combines concepts of reachabili
 The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
-This analysis has also assumed perfect attitude control and the ability to orient thrust in any direction.
-The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability.
+Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+
+There is additional research to extend these results to more general transfer scenarios in future work.
+The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems.
+Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
+This will result in a more complicated optimal control problem and is a focus of future research.
+Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
+The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability of this work.
 
 \appendix
 \section*{Appendix A: Costate Equations of Motion}\label{sec:costate_appendix}
