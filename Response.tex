@@ -718,22 +718,32 @@ PAPER SUMMARY:
 The contribution of the authors is the synthesis of reachability theory with traditional low-energy mission design approaches to ease the study of the low-thrust mission design space in the CR3BP.  A crucial point is that reachability analysis in non-integrable systems is typically limited by the dimensionality of the control parameterization, which can be extremely large for continuous-thrust problems, depending on the time discretization used.  The authors numerically probe the boundaries of the reachable space by optimizing a distance metric on the Poincare section, avoiding the extreme cost of unmotivated exploration.  Numerical experiments show how the method could be applied in two CR3BP orbit transfer scenarios.  For a multi-rev solution, the method is applied once per rev and the reachable end state with minimal distance to the target manifold is used as the basis for the next rev.
 
 ASSESSMENT:
-\begin{itemize}
-    \item
+
 The central premise of the paper - using optimization of Poincare distance as a guiding motivation to make low-thrust reachability analysis more tractable - is interesting, useful, and to my knowledge reasonably novel.  Furthermore, the quality of the writing is good (at local scales) and there is an appropriate degree of literature review.  However, there are two major problems with this paper.
+\end{itshape}
+\begin{itemize}
 
 \item 
-First, in terms of composition, large portions of the paper are spent on lengthy development of foundational work that is well-known within the astrodynamics community and available in textbooks. Secondly, the contributions and findings of the authors feel highly preliminary and do not seem to evaluate their method at significant depth.
+    \begin{itshape}
+First, in terms of composition, large portions of the paper are spent on lengthy development of foundational work that is well-known within the astrodynamics community and available in textbooks. 
+\end{itshape}
+\item 
+    \begin{itshape}
+        Secondly, the contributions and findings of the authors feel highly preliminary and do not seem to evaluate their method at significant depth.
+    \end{itshape}
 
 \item
+    \begin{itshape}
 While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples.
-
-I can sympathize that there was quite a long road to get to the point of understanding this topic and generating results in it. I hope that the authors will not find this verdict too discouraging, as I believe that stronger results are well within their reach.
-\end{itemize}
 \end{itshape}
+\item 
+    \begin{itshape}
+I can sympathize that there was quite a long road to get to the point of understanding this topic and generating results in it. I hope that the authors will not find this verdict too discouraging, as I believe that stronger results are well within their reach.
+\end{itshape}
+\end{itemize}
 
 SPECIFIC FEEDBACK:
-\begin{itemize}
+\begin{enumerate}
     \item
     \begin{itshape}
 *** Bloat
@@ -741,44 +751,94 @@ In the introduction, the exposition of the problem could be considerably condens
 \end{itshape}
 
 The introduction is reduced and many of the paragraphs have been reworded and combined. 
-In addition, the extended discussion of the benefits of variational integrators is removeda.
-In the interest of space/clarity the modified introduction is not copied here.
+The mathematical background has been condensed into a single section with seperate subsections which discuss some of the mathematical details.
+In addition, the extended discussion of the benefits of variational integrators is removed from the introduction.
 
+\item
+    \begin{itshape}
 The development of the CR3BP, invariant manifolds and Poincare maps, all go on a bit too long. These should be refreshers to the audience that expose the specific equations and concepts that you'll be leveraging, not full-on introductions to well-established areas.  Spending several pages on variational principles is way too much.
+\end{itshape}
 
+\item
+    \begin{itshape}
 Section 4 ends on page 14 with essentially a thesis statement ("In this paper, we...").  Strive to push the boundary between background and new developments to a much earlier point in the paper; it shouldn't happen so late that you need to remind the audience what the paper is for.
+\end{itshape}
 
+\item 
+    \begin{itshape}
 A missing relevant reference: "On target for Venus — set oriented computation of energy efficient low thrust trajectories" (Dellnitz, Junge, Post, and Thiere, 2006)
+\end{itshape}
 
+\item
+    \begin{itshape}
 *** Variational Integrators
 Many of the specific claims regarding the use of a variational integrator are unsubstantiated and, I believe, incorrect. Why is energy drift "even more detrimental" with regards to "the long term effects of low-thrust"?  I would need to be convinced that a non-geometric integrator's energy drift relative to a constant energy baseline is significantly different from its drift relative to a gradually shifting baseline corresponding to low thrust. The specific claims about the numerical stability of derivatives also don't seem related to energy preservation.  
 
-Apart from these claims, I question the need for a variational integrator in the first place. The example in section 3.4 is not convincing because there is no apples-to-apples basis for the comparison; a variable-step integrator with unspecified tolerance is compared to a fixed-step integrator with an arbitrary step size.  Integrator comparisons should consider error in proportion to compute cost, which can be tuned by step size or tolerance.  Also, fixed step seems inappropriate for a path through diverse dynamic regimes, and it's not clear that the problem scope calls specifically for energy preservation (especially since the idea is to use low thrust to mitigate some time cost of exploiting the problem structure).  
+\end{itshape}
 
+\item
+    \begin{itshape}
+Apart from these claims, I question the need for a variational integrator in the first place. The example in section 3.4 is not convincing because there is no apples-to-apples basis for the comparison; a variable-step integrator with unspecified tolerance is compared to a fixed-step integrator with an arbitrary step size.  Integrator comparisons should consider error in proportion to compute cost, which can be tuned by step size or tolerance.  Also, fixed step seems inappropriate for a path through diverse dynamic regimes, and it's not clear that the problem scope calls specifically for energy preservation (especially since the idea is to use low thrust to mitigate some time cost of exploiting the problem structure).  
+\end{itshape}
+
+\item
+    \begin{itshape}
 *** Figures
 Altogether, the figures need more descriptive captions.  
 
+\end{itshape}
+
+\item
+    \begin{itshape}
 Figure 4 does not show what I think you intend it to show; it looks like two periodic circular orbits.
+\end{itshape}
 
+\item
+    \begin{itshape}
 Figure 6 is also very unclear.  Is phi supposed to be \texttt{theta\_d}?  Is the bounding curve specifically circular, or should it be a more general shape?
+\end{itshape}
 
+\item
+    \begin{itshape}
 Consider plotting the intersections of manifolds with the Poincare section as continuous curves.  
+\end{itshape}
 
+\item
+    \begin{itshape}
 Also consider zooming/scaling as necessary to show the details you discuss.
+\end{itshape}
 
+\item
+    \begin{itshape}
 *** Method/Examples
 I urge a revisiting of the claims with regards to optimality.  The optimization method is being initialized with *something*, and stationary points are *local* extrema.  More precise claims and assurances about solution quality (and therefore the validity of the computed reachable set boundary) are needed.  
+\end{itshape}
 
+\item
+    \begin{itshape}
 How damaging is the assumption of a fixed travel time?  And how about the specification of a specific departure point on the initial orbit?
+\end{itshape}
 
+\item
+    \begin{itshape}
 In Fig 10b, it is hard to see, but appears that the low-thrust-reachable set is actually *centered* on part of the target set.  Is this related to the existence of the uncontrolled transfer opportunity?  There must be some more clear way to show how the low thrust set expands upon the zero thrust set.  Perhaps beginning with the time horizon of the zero-thrust opportunity, and successively lowering it, would help.  
+\end{itshape}
 
+\item
+    \begin{itshape}
 Perhaps there is also a better way to show what the control is doing, e.g., in some alternative parametrization?  This could help provide assurances that the solution is doing something meaningful and is not just stuck in a weird local minimum.  
+\end{itshape}
 
+\item
+    \begin{itshape}
 In the second example, what do you lose by chaining together multiple reachability-based steps?  Aren't you imposing that the trajectory routinely returns to the energy level of the Poincare section? How feasible would it be to conduct a single reachability analysis covering multiple revolutions? And can you use knowledge about directionality of movement on the Poincare section to limit the scope of your reachability search?
+\end{itshape}
 
+\item
+    \begin{itshape}
 In general, please devote more depth to probing the strengths, weaknesses, and fundamental properties of the method.  Considering extreme cases can help with this.
-\end{itemize}
+\end{itshape}
+\end{enumerate}
 \bibliography{library}
 \bibliographystyle{spmpsci}
 \end{document}
