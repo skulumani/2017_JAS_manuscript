@@ -2,6 +2,7 @@
 \usepackage{jas_packages}
 \usepackage{fix-cm}
 \usepackage{jas_tikz_packages}
+\tdplotsetmaincoords{60}{125} % view angle in spherical coordinates
 \input{macros}
 \usepackage[letterpaper,margin=1in,centering]{geometry}
 \usepackage{graphicx}
@@ -801,9 +802,67 @@ Apart from these claims, I question the need for a variational integrator in the
     \begin{itshape}
 *** Figures
 Altogether, the figures need more descriptive captions.  
-
 \end{itshape}
 
+Thank you for the comment, and we agree that the figures will benefit from more descriptive captions.
+We've added additional descriptions for all of the figures.
+The figure captions are shown below.
+
+\begin{correction}
+\begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.5\textwidth]{energy_contours}
+        \caption{Contour plot of Jacobi integral: Zero velocity curves of constant Jacobi integral. A particle with fixed energy level cannot cross the contour lines and is therefore limited to specific regions of the phase space. }
+\end{figure} 
+
+
+\begin{figure}
+        \centering
+        \begin{scaletikzpicturetowidth}{0.5\textwidth}
+    \begin{tikzpicture}[tdplot_main_coords,
+      poincare/.style={opacity=.2,very thick,fill=blue},
+      orbit/.style={very thick,black},
+      orbit hidden/.style={very thick,dashed},
+      grid/.style={very thin,gray!50},
+      axis/.style={->,blue,thick}, scale=\tikzscale]
+
+    % nodes for the poincare section
+    \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+    \node[] (upper_left) at (0,1,5) {};
+    \node[] (lower_left) at (0,1,0) {};
+    \node[] (lower_right) at (0,5,0) {};
+
+    % draw poincare section
+    \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
+    
+    % draw a periodic orbit
+    \coordinate (center) at (0,0,2);
+    \node[below right] (x0) at (0,2,2) {\(\vecbf{q}_0\)};
+    \filldraw (0,2,2) circle (3pt);
+
+    \node[below right] (x1) at (0,3,2) {\(\vecbf{q}_1\)};
+    \filldraw (0,3,2) circle (3pt);
+
+    \tdplotdrawarc[orbit hidden]{(center)}{2}{90}{190}{}{};
+    \tdplotdrawarc[orbit,<-]{(center)}{2}{-170}{90}{}{};
+
+    \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{199}{}{};
+    \tdplotdrawarc[orbit,<-]{(center)}{3}{-161}{90}{}{};
+
+        \end{tikzpicture}
+    \end{scaletikzpicturetowidth}
+    \caption{Diagram of the \Poincare map: Periodic orbits will appear as fixed points on the \Poincare section \( \Sigma \). Stabiilty of periodic orbits is clearly visible on the section as successive intersections approach or depart a fixed point.}
+\end{figure}
+
+\begin{figure} 
+        \centering 
+        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparision: A stable trajectory is used to test the variational and conventional integrators. 
+        The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.}
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
+        \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}}
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{figures/cputimevsE.pdf}}~
+\end{figure}
+\end{correction}
 \item
     \begin{itshape}
 Figure 4 does not show what I think you intend it to show; it looks like two periodic circular orbits.

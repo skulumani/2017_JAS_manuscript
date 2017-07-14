@@ -204,7 +204,7 @@ The Jacobi integral is a valuable invariant property of the three-body system th
 \begin{figure}[htbp]
         \centering
         \includegraphics[width=0.5\textwidth]{energy_contours}
-        \caption{Contour plot of Jacobi integral}
+        \caption{Contour plot of Jacobi integral: Zero velocity curves of constant Jacobi integral. A particle with fixed energy level cannot cross the contour lines and is therefore limited to specific regions of the phase space. }
         \label{fig:energy_contour}
 \end{figure} 
 
@@ -260,7 +260,7 @@ These dynamic features have been shown to play a vital role in the movement of n
 
         \end{tikzpicture}
     \end{scaletikzpicturetowidth}
-        \caption{Diagram of the \Poincare map\label{fig:poincare_map}}
+    \caption{Diagram of the \Poincare map: Periodic orbits will appear as fixed points on the \Poincare section \( \Sigma \). Stabiilty of periodic orbits is clearly visible on the section as successive intersections approach or depart a fixed point.\label{fig:poincare_map}}
 \end{figure}
 
 % drawbacks of this approach on how we seek to improve upon it
@@ -335,21 +335,14 @@ This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k
 \subsection{Numerical Example}\label{sec:variational_example}
 \begin{figure} 
         \centering 
-        \begin{subfigure}[h]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{trajectory} 
-                \caption{Earth-Moon three-body trajectory used for integrator comparision} \label{fig:compare_trajectory} 
-        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-%       \begin{subfigure}[htbp]{0.3\textwidth} 
-%               \includegraphics[width=\textwidth]{components} 
-%               \caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
-%       \end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{figures/cputimevsE.pdf} 
-                \caption{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}} \label{fig:compare_energy} 
-        \end{subfigure} 
-        \caption{Integrator Comparison}
-        \label{fig:integrator_compare} 
+        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparision: A stable trajectory is used to test the variational and conventional integrators. 
+        The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.\label{fig:compare_trajectory}}
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
+        \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}\label{fig:compare_energy}}
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{figures/cputimevsE.pdf}}~
+    \label{fig:integrator_compare} 
 \end{figure}
+
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
 A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
     The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
