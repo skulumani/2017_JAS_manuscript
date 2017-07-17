@@ -890,6 +890,73 @@ This allows for greater insight into the stability and dynamics of periodic solu
 Figure 6 is also very unclear.  Is phi supposed to be \texttt{theta\_d}?  Is the bounding curve specifically circular, or should it be a more general shape?
 \end{itshape}
 
+Thank you for the comment.
+The angle in the figure is meant to match the terminal constraint \( \theta_d\).
+In addition, the reachable set is only circular for ease of design in the figure.
+In reality the figure will be a general shape, rather than specifically circular.
+
+The manuscript has been modified to correct the figure and also incorporate some more discussion of the figure. 
+The additions are included below as well as the updated figure.
+\begin{correction}
+\Cref{fig:reachability_set} illustrates how, without any control input, trajectories will intersect with the \Poincare section at \( \vecbf{x}_n \). 
+However, the addition of low thrust propulsion allows the spacecraft to depart from the natural dynamics and intersect the \Poincare section at a different location.
+We use a cost function to define a distance metric on the \Poincare section from the control-free intersection to an intersection under the influence of the control input.
+Maximization of this distance along varying directions enables us to generate the largest reachability set under the bounded control input.
+In~\cref{fig:reachability_set} the reachable set is shown as a circular region on the \Poincare section.
+In practice, the reachable set will be of a general shape and also higher dimensional in the nonplanar case.
+\begin{figure}
+        \centering
+%       \includegraphics[width=0.5\textwidth]{reachability_set_hand}
+        \begin{scaletikzpicturetowidth}{0.5\textwidth}
+        \begin{tikzpicture}[tdplot_main_coords,
+          poincare/.style={opacity=.2,very thick,fill=blue},
+          orbit/.style={very thick,black},
+          orbit hidden/.style={very thick,dashed},
+          grid/.style={very thin,black},
+          axis/.style={->,blue,thick},
+          reachability/.style={thick,blue},scale=\tikzscale]
+
+        % nodes for the poincare section
+        \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+        \node[] (upper_left) at (0,1,5) {};
+        \node[] (lower_left) at (0,1,0) {};
+        \node[] (lower_right) at (0,5,0) {};
+
+        % draw poincare section
+        \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
+        
+        % draw a periodic orbit
+        \coordinate (center) at (0,0,2);
+        \node[label=below:\(\vecbf{x}_n\)] (x0) at (0,3,2) {};
+        % \node[label=below:\(\vecbf{x}_n\)] at (x0) {};
+        \filldraw (x0) circle (3pt);
+
+        % \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{200}{}{};
+        \tdplotdrawarc[orbit,<-]{(center)}{3}{-160}{90}{}{};
+
+        % draw reachability set on the poincare section
+        \coordinate (reach) at (0,4.5,2);
+        \tdplotsetthetaplanecoords{90}
+
+        \draw[tdplot_rotated_coords,grid] (x0) -- (reach);
+        \draw[tdplot_rotated_coords,grid] (x0) -- ++(-45:1.5);
+
+        \tdplotdrawarc[tdplot_rotated_coords,grid]{(x0)}{0.5}{-45}{90}{above}{\(\theta_d\)};
+
+        % draw terminal state on reachability set
+        \node[tdplot_rotated_coords,label=above:\(\vecbf{x}_f\)] (xf) at ($ (x0)+(-45:1.5) $) {};
+        \filldraw (xf) circle (3pt);
+
+        \node[tdplot_rotated_coords,label=below:\(J\)] at (xf) {};
+
+        \tdplotdrawarc[tdplot_rotated_coords,reachability]{(x0)}{1.5}{0}{360}{}{};
+        % place
+    \end{tikzpicture}
+        \end{scaletikzpicturetowidth}
+        \caption{Reachability set on a \Poincare section: Pictoral representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
+        }
+\end{figure}
+\end{correction}
 \item
     \begin{itshape}
 Consider plotting the intersections of manifolds with the Poincare section as continuous curves.  
