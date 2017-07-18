@@ -988,6 +988,19 @@ I urge a revisiting of the claims with regards to optimality.  The optimization 
 How damaging is the assumption of a fixed travel time?  And how about the specification of a specific departure point on the initial orbit?
 \end{itshape}
 
+The fixed travel time is primarily used at this stage to reduce the complexity of the optimal control formulation. 
+Furthermore, the reachability set is defined in terms of a fixed terminal time.
+A variable terminal travel time would add an additional dimension, time, to the reachable space and add additional complexity to the reachability set visualization.
+The fixed travel time does not adversely affect the optimality of the computed trajectories on the reachable set, as the reachable set is defined in terms of a fixed travel time. 
+
+The choice of starting from a fixed point on the initial periodic orbit is again mostly used for convience. 
+In this case of the periodic orbit the departing trajectories are all along the unstable invariant manifold associated with the periodic orbit. 
+The uncontrolled trajecotries associated with the invariant manifolds serve as the ``center'' of each reachability set computation.
+The low-thrust propulsion system is then used to enlarge the distance between the uncontrolled and controlled states. 
+Starting from a different location on the periodic orbit will not create a qualitatively different situation as the entire invariant manifold also intersects the \Poincare section.
+However, different locations along the periodic orbit may have vastly different travel times before intersecting the \Poincare section.
+This will require modification of the optimal control problem, with a larger terminal time, but will result in a similar behavior regardless of the location on the intial periodic orbit.
+
 \item
     \begin{itshape}
 In Fig 10b, it is hard to see, but appears that the low-thrust-reachable set is actually *centered* on part of the target set.  Is this related to the existence of the uncontrolled transfer opportunity?  There must be some more clear way to show how the low thrust set expands upon the zero thrust set.  Perhaps beginning with the time horizon of the zero-thrust opportunity, and successively lowering it, would help.  
