@@ -1019,6 +1019,14 @@ This is also explained in the manuscript with a similar description of the figur
 Perhaps there is also a better way to show what the control is doing, e.g., in some alternative parametrization?  This could help provide assurances that the solution is doing something meaningful and is not just stuck in a weird local minimum.  
 \end{itshape}
 
+Thank you for the comment.
+The control plots show the planar components of the control thrust. 
+Furthermore, the scale has been modified to show the thrust in terms of Newtons for an assumed \SI{500}{\kilo\gram} satellite.
+The control plots are meant to demonstrate the control input required by the trajectories which lie on the maximum reachability set. 
+As a result, the control input is determined through optimization to maximize the reachability set in a particular direction on the \Poincare section.
+This is in contrast to typical optimal control applications where the control input is used directly in the trajectory design process.
+Our method seeks to approximate the reachability set, and from this set trajectories are chosen in a systematic method which drives the spacecraft towards a target.
+
 \item
     \begin{itshape}
 In the second example, what do you lose by chaining together multiple reachability-based steps?  Aren't you imposing that the trajectory routinely returns to the energy level of the Poincare section? How feasible would it be to conduct a single reachability analysis covering multiple revolutions? And can you use knowledge about directionality of movement on the Poincare section to limit the scope of your reachability search?
