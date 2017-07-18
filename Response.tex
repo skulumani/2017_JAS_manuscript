@@ -1006,6 +1006,14 @@ This will require modification of the optimal control problem, with a larger ter
 In Fig 10b, it is hard to see, but appears that the low-thrust-reachable set is actually *centered* on part of the target set.  Is this related to the existence of the uncontrolled transfer opportunity?  There must be some more clear way to show how the low thrust set expands upon the zero thrust set.  Perhaps beginning with the time horizon of the zero-thrust opportunity, and successively lowering it, would help.  
 \end{itshape}
 
+The reachability set is closely spaced in terms of both the position space as well as on the \Poincare section.
+This is due to the fact that there is a very low-thrust control input on the spacecraft.
+As a result, the trajectories associated with the reachability set are all closely spaced, but more widely seperated from the terminal state without any control input.
+In the figure, there is a fixed point labeled \( x_n \) which is the terminal state without any control input, which will also lie on the periodic orbit.
+The reachable set, in red, is widely separated from the uncontrolled state due the effect of the low thrust proplusion, however the subsequent spread of the entire reachability set is much more constrained.
+The low thrust expands the reachability set from a fixed point to the red elliptical region. 
+This is also explained in the manuscript with a similar description of the figure.
+
 \item
     \begin{itshape}
 Perhaps there is also a better way to show what the control is doing, e.g., in some alternative parametrization?  This could help provide assurances that the solution is doing something meaningful and is not just stuck in a weird local minimum.  
