@@ -1032,6 +1032,13 @@ Our method seeks to approximate the reachability set, and from this set trajecto
 In the second example, what do you lose by chaining together multiple reachability-based steps?  Aren't you imposing that the trajectory routinely returns to the energy level of the Poincare section? How feasible would it be to conduct a single reachability analysis covering multiple revolutions? And can you use knowledge about directionality of movement on the Poincare section to limit the scope of your reachability search?
 \end{itshape}
 
+While the trajectories do return to the energy level of the \Poincare section, there is a transfer of ``energy'' between the states of the vehicle.
+It is in this manner that the reachability set is enlarged to eventually include the target state.
+
+Conducting a single reachability analysis becomes more complicated as the larger time of flight increases the sensitivity of the terminal states to variations in the initial costates. 
+Furthermore, the larger time of flight creates a much larger and more chaotic reachable set for the analysis.
+Through this work it was found that shorter trajectories tended to have more stable and consistent solutions.
+
 \item
     \begin{itshape}
 In general, please devote more depth to probing the strengths, weaknesses, and fundamental properties of the method.  Considering extreme cases can help with this.
