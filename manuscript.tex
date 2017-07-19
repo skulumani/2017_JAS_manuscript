@@ -455,7 +455,10 @@ In practice, the reachable set will be of a general shape and also higher dimens
     \end{tikzpicture}
         \end{scaletikzpicturetowidth}
         \caption{Reachability set on a \Poincare section: Pictoral representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
-        \label{fig:reachability_set}}
+            The terminal state, \( x_n\), is the intersection without any control input. 
+            Adding a control input allows for the terminal state, \( x_f \), to be displaced by some distance/cost \( J \) as measured on the section.
+            We parameterize a specific direction on the section with the angles \( \theta_d\) and seek to maximize the distance between \( x_f \) and \( x_n \).
+            Computation of the maximum distance, or reacahbility, for a variety angles gives a discrete approximation of the reachability set.\label{fig:reachability_set}}
 \end{figure}
 
 We define the \Poincare section along the horizontal axis, which is equivalent to the surface \( y = 0 \), and given by
@@ -604,7 +607,9 @@ The use of the multiple shooting method reduces the sensitivity of changes in th
                     \draw [->] (x3plus.center) to [bend left=30] (xnminus.center);
                 \end{tikzpicture}
         \end{scaletikzpicturetowidth}
-        \caption{Multiple Shooting method\label{fig:multiple shooting}}
+        \caption{Schematic diagram of the multiple shooting method:
+        The complete trajectory is split into a nubmer of sub-segments, and additional interior constraints are included to ensure state and costate continunity.
+    Splitting the optimal trajectory into short segments reduces the sensitivity of terminal states to variations of the initial states.\label{fig:multiple shooting}}
 \end{figure}
 
 In~\cref{fig:multiple shooting}, we show a schematic representation of the multiple shooting procedure.
@@ -655,7 +660,9 @@ The target set is propagated over a period of \( t = \num{20} \) in non-dimensio
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{moon_orbit} % requires the graphicx package
-   \caption{Target Orbit Region}
+   \caption{\(L_1\) periodic orbit transfer to orbit of the Moon: Example scenario demonstraiting the initial and target orbit.
+   Without the low-thrust proplusion, the spacecraft is constrained to the initial periodic orbit. 
+   We determine the reachability set to find a transfer trajectory to the target orbit about the moon.}
    \label{fig:moon_orbit}
 \end{figure}
 \Cref{fig:moon_orbit} shows that the target set remains in the vicinity of the Moon, or \( m_2\), in the rotating reference frame. 
@@ -681,13 +688,15 @@ The required travel time for a transfer using the unstable invariant manifold is
         \centering 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{manifold_trajectory} 
-                \caption{Invariant Manifold} \label{fig:manifold_trajectory} 
+                \caption{Position space view of invariant manifold} \label{fig:manifold_trajectory} 
         \end{subfigure}~ %
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{manifold_poincare} 
-                \caption{Poincar\`e Section} \label{fig:manifold_poincare} 
+                \caption{\Poincare intersection of invariant manifold (green), target orbit (blue) and the initial orbit (black)} \label{fig:manifold_poincare} 
         \end{subfigure} 
-        \caption{Invariant manifold transfer}
+        \caption{Invariant manifold transfer: An example transfer using the invariant manifolds is shown in both the position and \Poincare spaces.
+        The control free transfer from the initial periodic orbit to the target orbit result in a long time of flight. 
+    In addition, the manifold only intersects the target orbit on the descending or far side of the moon.}
         \label{fig:invariant_manifold_transfer} 
 \end{figure}
 
@@ -726,22 +735,25 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
         \centering 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{reach_trajectory} 
-                \caption{Reachability set trajectories} \label{fig:reach_trajectory} 
+                \caption{Position space view of reachability set} \label{fig:reach_trajectory} 
         \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{poincare_compare} 
-                \caption{\Poincare section} \label{fig:poincare_compare} 
+                \caption{\Poincare section view of reachability set} \label{fig:poincare_compare} 
         \end{subfigure} %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
                 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{reach_transfer} 
-                \caption{Final transfer trajectory} \label{fig:reach_transfer} 
+                \caption{Transfer trajectory selected from reachabiltiy set viewed in the position space} \label{fig:reach_transfer} 
         \end{subfigure}~ 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{control_input_l1} 
-                \caption{Control input} \label{fig:control_l1} 
+                \caption{Control input for the selected transfer trajectory} \label{fig:control_l1} 
         \end{subfigure}~
-        \caption{Reachability set transfer}
+        \caption{\( L_1 \) Reachability set transfer: The low thrust propulsion is used to approximate the reachability set starting from the initial periodic orbit over a fixed time horizon.
+        The reachability set is shown in the upper two figures in both the position and \Poincare space.
+    From this reachabiilty set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
+The optimal control to achieve this transfer is shown in the lower right figure.}
         \label{fig:reachability_set_transfer} 
 \end{figure}
 

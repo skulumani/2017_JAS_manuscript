@@ -809,14 +809,14 @@ We've added additional descriptions for all of the figures.
 The figure captions are shown below.
 
 \begin{correction}
-\begin{figure}[htbp]
+\begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{energy_contours}
         \caption{Contour plot of Jacobi integral: Zero velocity curves of constant Jacobi integral. A particle with fixed energy level cannot cross the contour lines and is therefore limited to specific regions of the phase space. }
 \end{figure} 
 
 
-\begin{figure}
+\begin{figure}[H]
         \centering
         \begin{scaletikzpicturetowidth}{0.5\textwidth}
     \begin{tikzpicture}[tdplot_main_coords,
@@ -854,13 +854,184 @@ The figure captions are shown below.
     \caption{Diagram of the \Poincare map: Periodic orbits will appear as fixed points on the \Poincare section \( \Sigma \). Stabiilty of periodic orbits is clearly visible on the section as successive intersections approach or depart a fixed point.}
 \end{figure}
 
-\begin{figure} 
+\begin{figure}[H]
         \centering 
         \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparision: A stable trajectory is used to test the variational and conventional integrators. 
         The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.}
         [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
         \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}}
         [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{figures/cputimevsE.pdf}}~
+\end{figure}
+
+
+\begin{figure}[H]
+        \centering
+%       \includegraphics[width=0.5\textwidth]{reachability_set_hand}
+        \begin{scaletikzpicturetowidth}{0.5\textwidth}
+        \begin{tikzpicture}[tdplot_main_coords,
+          poincare/.style={opacity=.2,very thick,fill=blue},
+          orbit/.style={very thick,black},
+          orbit hidden/.style={very thick,dashed},
+          grid/.style={very thin,black},
+          axis/.style={->,blue,thick},
+          reachability/.style={thick,blue},scale=\tikzscale]
+
+        % nodes for the poincare section
+        \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+        \node[] (upper_left) at (0,1,5) {};
+        \node[] (lower_left) at (0,1,0) {};
+        \node[] (lower_right) at (0,5,0) {};
+
+        % draw poincare section
+        \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
+        
+        % draw a periodic orbit
+        \coordinate (center) at (0,0,2);
+        \node[label=below:\(\vecbf{x}_n\)] (x0) at (0,3,2) {};
+        % \node[label=below:\(\vecbf{x}_n\)] at (x0) {};
+        \filldraw (x0) circle (3pt);
+
+        % \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{200}{}{};
+        \tdplotdrawarc[orbit,<-]{(center)}{3}{-160}{90}{}{};
+
+        % draw reachability set on the poincare section
+        \coordinate (reach) at (0,4.5,2);
+        \tdplotsetthetaplanecoords{90}
+
+        \draw[tdplot_rotated_coords,grid] (x0) -- (reach);
+        \draw[tdplot_rotated_coords,grid] (x0) -- ++(-45:1.5);
+
+        \tdplotdrawarc[tdplot_rotated_coords,grid]{(x0)}{0.5}{-45}{90}{above}{\(\theta_d\)};
+
+        % draw terminal state on reachability set
+        \node[tdplot_rotated_coords,label=above:\(\vecbf{x}_f\)] (xf) at ($ (x0)+(-45:1.5) $) {};
+        \filldraw (xf) circle (3pt);
+
+        \node[tdplot_rotated_coords,label=below:\(J\)] at (xf) {};
+
+        \tdplotdrawarc[tdplot_rotated_coords,reachability]{(x0)}{1.5}{0}{360}{}{};
+        % place
+    \end{tikzpicture}
+        \end{scaletikzpicturetowidth}
+        \caption{Reachability set on a \Poincare section: Pictoral representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
+            The terminal state, \( x_n\), is the intersection without any control input. 
+            Adding a control input allows for the terminal state, \( x_f \), to be displaced by some distance/cost \( J \) as measured on the section.
+            We parameterize a specific direction on the section with the angles \( \theta_d\) and seek to maximize the distance between \( x_f \) and \( x_n \).
+            Computation of the maximum distance, or reacahbility, for a variety angles gives a discrete approximation of the reachability set.}
+\end{figure}
+
+\begin{figure}[H]
+        \centering
+        \begin{scaletikzpicturetowidth}{1\textwidth}
+                \begin{tikzpicture}[scale=\tikzscale]
+                    % \draw[help lines] (0,0) grid (20,5) ; %grid
+
+                    \node[label=west:\(\vecbf{x}\)] (x0m) at (0,5) {};
+                    \node[] (x1m) at (5,5) {};
+                    \node[] (x2m) at (10,5) {};
+                    \node[] (x3m) at (15,5) {};
+                    \node[] (xnm) at (20,5) {};
+
+                    \node[label=below:\(k_0\)] (t0) at (0,0) {};
+                    \node[label=below:\(k_1\)] (t1) at (5,0) {};
+                    \node[label=below:\(k_2\)] (t2) at (10,0) {};
+                    \node[label=below:\(k_{n-1}\)] (t3) at (15,0) {};
+                    \node[label=below:\(k_n\)] (tn) at (20,0) {};
+
+                    % nodes for each subsegment
+                    \node[label=left:\(\vecbf{x}_0\)] (x0) at (0,1) {\pgfuseplotmark{*}};
+                    \node[label=below left:\(\vecbf{\lambda}_0\)] at (x0) {};
+
+                    \node[label=right:\(\vecbf{x}_1^{-}\)] (x1minus) at (5,2) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_1^{-}\)] at (x1minus) {};
+
+                    \node[label=above left:\(\vecbf{x}_1^{+}\)] (x1plus) at (5,3) {\pgfuseplotmark{o}};
+                    \node[label=left:\(\vecbf{\lambda}_1^{+}\)] at (x1plus) {};
+
+                    \node[label=right:\(\vecbf{x}_2^{-}\)] (x2minus) at (10,2) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_2^{-}\)] at (x2minus) {};
+
+                    \node[label=above left:\(\vecbf{x}_2^{+}\)] (x2plus) at (10,3) {\pgfuseplotmark{o}};
+                    \node[label=left:\(\vecbf{\lambda}_2^{+}\)] at (x2plus) {};
+
+                    \node[label=right:\(\vecbf{x}_{n-1}^{-}\)] (x3minus) at (15,2) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_{n-1}^{-}\)] at (x3minus) {};
+
+                    \node[label=above left:\(\vecbf{x}_{n-1}^{+}\)] (x3plus) at (15,3) {\pgfuseplotmark{o}};
+                    \node[label=left:\(\vecbf{\lambda}_{n-1}^{+}\)] at (x3plus) {};
+
+                    \node[label=right:\(\vecbf{x}_n\)] (xnminus) at (20,3) {\pgfuseplotmark{*}};
+                    \node[label=below right:\(\vecbf{\lambda}_n\)] at (xnminus) {};
+                    % draw axes
+                    \draw [<->,thick] (tn.center) -- (t0.center) -- (x0m.center);
+
+                    % draw segement dividers
+                    \draw [dashed,thick] (t1.center) -- (x1m.center);
+                    \draw [dashed,thick] (t2.center) -- (x2m.center);
+                    \draw [dashed,thick] (t3.center) -- (x3m.center);
+                    \draw [dashed,thick] (tn.center) -- (xnm.center);
+
+                    % draw markers at each subsegment
+
+                    % draw the subsegments
+                    \draw [->] (x0.center) to [bend left=30] (x1minus.center);
+                    \draw [->] (x1plus.center) to [bend left=30] (x2minus.center);
+                    % dotted lines here
+                    \draw[decorate sep={1mm}{5mm},fill] (x2plus.east) to [bend left=10] (x3minus.west);
+
+                    \draw [->] (x3plus.center) to [bend left=30] (xnminus.center);
+                \end{tikzpicture}
+        \end{scaletikzpicturetowidth}
+        \caption{Schematic diagram of the multiple shooting method:
+        The complete trajectory is split into a nubmer of sub-segments, and additional interior constraints are included to ensure state and costate continunity.
+    Splitting the optimal trajectory into short segments reduces the sensitivity of terminal states to variations of the initial states.}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{moon_orbit} % requires the graphicx package
+   \caption{\(L_1\) periodic orbit transfer to orbit of the Moon: Example scenario demonstraiting the initial and target orbit.
+   Without the low-thrust proplusion, the spacecraft is constrained to the initial periodic orbit. 
+   We determine the reachability set to find a transfer trajectory to the target orbit about the moon.}
+\end{figure}
+
+\begin{figure}[H]
+        \centering 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{manifold_trajectory} 
+                \caption{Position space view of invariant manifold} \label{fig:manifold_trajectory} 
+        \end{subfigure}~ %
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{manifold_poincare} 
+                \caption{\Poincare intersection of invariant manifold (green), target orbit (blue) and the initial orbit (black)} \label{fig:manifold_poincare} 
+        \end{subfigure} 
+        \caption{Invariant manifold transfer: An example transfer using the invariant manifolds is shown in both the position and \Poincare spaces.
+        The control free transfer from the initial periodic orbit to the target orbit result in a long time of flight. 
+    In addition, the manifold only intersects the target orbit on the descending or far side of the moon.}
+\end{figure}
+\begin{figure}[H]
+        \centering 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{reach_trajectory} 
+                \caption{Position space view of reachability set}  
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{poincare_compare} 
+                \caption{\Poincare section view of reachability set}  
+        \end{subfigure} %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+                
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{reach_transfer} 
+                \caption{Transfer trajectory selected from reachabiltiy set viewed in the position space}  
+        \end{subfigure}~ 
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+                \includegraphics[width=\textwidth]{control_input_l1} 
+                \caption{Control input for the selected transfer trajectory}  
+        \end{subfigure}~
+        \caption{\( L_1 \) Reachability set transfer: The low thrust propulsion is used to approximate the reachability set starting from the initial periodic orbit over a fixed time horizon.
+        The reachability set is shown in the upper two figures in both the position and \Poincare space.
+    From this reachabiilty set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
+The optimal control to achieve this transfer is shown in the lower right figure.} 
 \end{figure}
 \end{correction}
 \item
