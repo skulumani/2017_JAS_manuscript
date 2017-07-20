@@ -836,11 +836,13 @@ The initial and target orbits are illustrated in~\cref{fig:geo_transfer_target}.
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{initial_final} % requires the graphicx package
-   \caption{Transfer target}
+   \caption{Geostationary to \( L_1 \) transfer: Representation of the initial and target orbits for the reachability transfer. 
+   Vehicle is assumed to begin on the geostationary orbit about \( m_1\) and will transfer to the periodic orbit about \( L_1\)}
    \label{fig:geo_transfer_target}
 \end{figure}
-In order to effectively utilize the dynamics of the three-body system the stable manifold of the periodic orbit is targeted.
-We seek to generate a transfer from the geostationary orbit onto the stable invariant manfiold.
+In~\cref{fig:geo_transfer_target}, the initial orbit is located in the center of the figure and centered about \( m_1 \) while the target periodic orbit is determined about the \( L_1 \) lagrange point.
+Instead of determining a transfer directly between the geostationary orbit and the periodic orbit, we seek to instead transfer to the stable manifold of the periodic orbit.
+This stable manifold will then asymptotically approach the target orbit without any further control input.
 Once on the manifold, the spacecraft will coast in an uncontrolled fashion and asymptotically arrive at the desired periodic orbit.
 
 \begin{figure}[htbp]
