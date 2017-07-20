@@ -786,19 +786,20 @@ This avoids having to compute and accomplish a secondary impulsive manuever to t
 
 % motivation - may need to compute several reachability sets
 There are many situations where a more complicated and extensive orbital transfer is desired. 
-For example, we present a simulation of transferring from a geostationary orbit to the a periodic orbit about the Moon.
+In this section, we present a simulation of transferring from a geostationary orbit to a periodic orbit about the \( L_1 \) Lagrange point.
+From this location, it is possible to transition to the Moon, as shown in~\cref{sec:periodic_orbit_transfer}, or beyond the Earth-Moon system through the use of invariant manifolds~\cite{koon2011}.
 This type of low energy transfer would be most suitable for unmanned spacecraft transitioning from the Earth to the Moon.
 The long time of flight would make such a transfer unsuitable for manned missions due to life support constraints.
-%This type of low energy transfer is best suited for autonomous spacecraft missions as the long time of flight is undesirable for manned spacecraft. 
 Future proposals for permanent lunar spacecraft and bases will require frequent supply missions to remain viable. 
 Transfers from the Earth to the Lagrange points, through the use of low-thrust electric propulsion, offer an additional and potentially shorter time of flight in comparison to the low-energy transfers which utilize solar perturbations.
 
-The previous example demonstrated the capability of determining an orbital transfer after determining the intersection of the reachability set and a target orbit.
+\Cref{sec:periodic_orbit_transfer} demonstrated the capability of determining an orbital transfer after locating the intersection of the reachability set and a target orbit.
 However, it may not be possible to achieve an intersection on the \Poincare section after a single iteration. 
 Since the spacecraft has an upper bounded control input and time of flight the reachability set is finite in size. 
 As a result, we present a method of performing several iterations of the reachability set computation. 
 A straightforward method is presented which allows for a series of reachability sets to be computed which progressively move the trajectory towards the target.
 In this manner, it is possible to determine more complicated transfers by a simple selection of states from the reachability set.
+This affords a systematic method of determining general transfer trajectories in the three body problem.
 
 % discuss difficulties in applying direct optimization or the invariant manifold method
 It is possible to design arbitrary transfers using either a direct optimization or invariant manifold based approach.
