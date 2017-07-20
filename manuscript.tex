@@ -818,16 +818,17 @@ In this case, an appropriate periodic orbit must first be determined prior to ge
 Furthermore, there is no guarantee that the invariant manifold will pass through a desired region of space. 
 For example, in the Earth-Moon system the unstable manifolds of periodic orbits about \( L_1 \) do not pass close to the Earth, but rather are beyond the geostationary orbit altitude. 
 In addition, determining the intersections between various invariant manifolds is not trivial. 
-It requires an appropriate \Poincare section and the generation of several invariant manifolds.
+It requires an appropriate \Poincare~section and the generation of several invariant manifolds.
 There is no clear method of selecting the periodic orbits required based on a the type of transfer desired. 
 Determining an intersection between these invariant manifolds generally requires extended flight times, involving several orbits of the primaries, before an appropriate intersection is found.
 As a result, it is difficult to generalize this method to arbitrary transfers in the three-body problem.
 
 % describe initial and target states for this example
-This numerical simulation demonstrates the ability of the proposed approach. 
+This numerical simulation demonstrates the ability of the our approach to determine more general transfer trajectories in the PCRTBP. 
 We use multiple iterations of the reachability set to achieve a more complicated transfer.
 In this manner, it is possible to design arbitrary transfers which are not possible using a single reachability computation.
 Initially, it is assumed that the spacecraft lies on a circular geostationary orbit in the non-dimensional Earth-Moon three-body system. 
+While the geostationary orbit is not a typical ``parking orbit'' for most spacecraft missions it serves as a convienent altitude to demonstrate our approach.
 The geostationary orbit about the Earth is transformed into the rotating reference frame of the Earth-Moon three body problem.
 In addition, we nondimensionalize the initial state to find \( \vecbf{x}_0 = \begin{bmatrix} 0.0972 & 0 & 0 & 3.0010\end{bmatrix}^T\) as the initial condition of the spacecraft on the geostationary orbit.
 It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
