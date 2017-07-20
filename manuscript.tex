@@ -846,6 +846,90 @@ This stable manifold will then asymptotically approach the target orbit without 
 Once on the manifold, the spacecraft will coast in an uncontrolled fashion and asymptotically arrive at the desired periodic orbit.
 
 \begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage1_trajectory_zoom.pdf} 
+        \caption{Stage 1 Trajectory~\label{fig:stage1_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage1_poincare.pdf} 
+        \caption{Stage 1 \Poincare~section \label{fig:stage1_poincare}} 
+    \end{subfigure}
+
+
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage2_trajectory_zoom.pdf} 
+        \caption{Stage 2 Trajectory~\label{fig:stage2_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage2_poincare.pdf} 
+        \caption{Stage 2 \Poincare~section \label{fig:stage2_poincare}} 
+    \end{subfigure}
+
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage3_trajectory_zoom.pdf} 
+        \caption{Stage 3 Trajectory~\label{fig:stage3_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage3_poincare.pdf} 
+        \caption{Stage 3 \Poincare~section \label{fig:stage3_poincare}} 
+    \end{subfigure}
+ 
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage5_trajectory_zoom.pdf} 
+        \caption{Stage 4 Trajectory~\label{fig:stage4_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage4_poincare.pdf} 
+        \caption{Stage 4 \Poincare~section \label{fig:stage4_poincare}} 
+    \end{subfigure}   
+    \caption{Stage 1-4 reachability sets: The first four reachability sets visualized in both the position (left) and \Poincare space (right).
+        The minimum trajectories from the preceeding stages are shown in red, while the next stage is shown in blue.
+    The transfer goal is to generate a complete trajectory from the initial geostationary orbit to the \( L_1 \) stable manifold, with an eventual arrival at the \( L_1 \) periodic orbit~\label{fig:stage1to4_reachability}}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage5_trajectory_zoom.pdf} 
+        \caption{Stage 5 Trajectory~\label{fig:stage5_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage5_poincare.pdf} 
+        \caption{Stage 5 \Poincare~section \label{fig:stage5_poincare}} 
+    \end{subfigure}
+
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage6_trajectory_zoom.pdf} 
+        \caption{Stage 6 Trajectory~\label{fig:stage6_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage6_poincare.pdf} 
+        \caption{Stage 6 \Poincare~section \label{fig:stage6_poincare}} 
+    \end{subfigure}
+
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage7_trajectory_zoom.pdf} 
+        \caption{Stage 7 Trajectory~\label{fig:stage7_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage7_poincare.pdf} 
+        \caption{Stage 7 \Poincare~section \label{fig:stage7_poincare}} 
+    \end{subfigure}
+ 
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage8_trajectory_zoom.pdf} 
+        \caption{Stage 8 Trajectory~\label{fig:stage8_trajecotry_zoom}} 
+    \end{subfigure}~
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage8_poincare.pdf} 
+        \caption{Stage 8 \Poincare~section \label{fig:stage8_poincare}} 
+    \end{subfigure}   
+    \caption{Stage 5-8 reachability sets: The last four reachability sets visualized in both the position (left) and \Poincare space (right).
+        The minimum trajectories from the preceeding stages are shown in red, while the next stage is shown in blue.
+    The transfer goal is to generate a complete trajectory from the initial geostationary orbit to the \( L_1 \) stable manifold, with an eventual arrival at the \( L_1 \) periodic orbit~\label{fig:stage1to4_reachability}}
+\end{figure}
+\begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{third_reachability_set} % requires the graphicx package
    \caption{Reachable set after three iterations}
