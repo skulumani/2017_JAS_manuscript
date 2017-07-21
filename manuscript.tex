@@ -982,14 +982,14 @@ We utilize the same spacecraft assumption of \SI{500}{\kilo\gram} from~\cref{sec
 The spacecraft maintains a bounded control magnitude during the transfer to the stable manifold.
 \begin{figure} 
         \centering 
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{geo_transfer_full} 
-                \caption{Completed transfer trajectory} \label{fig:geo_transfer_full} 
-        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{geo_transfer_zoom} 
-                \caption{Detailed view of transfer} \label{fig:geo_transfer_zoom} 
-        \end{subfigure} 
+        \subcaptionbox{Transfer trajectory: Complete trajectory consisting of eight iterations (1-7 black and final in red) of the reachability sets with a final control-free coast (blue)  on the stable manifold (green).\label{fig:geo_transfer_full}}{\includegraphics[width=0.45\textwidth]{geo_transfer_full}}\hfill
+        \subcaptionbox{Detailed view of transfer: Centered at \(m_1\) the eight
+            iterations from the reachability analysis are shown in black.  The
+            final segment to the stable manifold is shown in red.  Each
+            iteration progressively approaches the stable manifold.  Once on
+        the stable manifold the vehicle can coast without thrust towards the
+    periodic orbit.\label{fig:geo_transfer_zoom}
+}{\includegraphics[width=0.45\textwidth]{geo_transfer_zoom}}
         
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{poincare} 
