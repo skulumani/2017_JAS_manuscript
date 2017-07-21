@@ -910,16 +910,18 @@ Over the relatively short time horizon of the geostationary orbital period, the 
 However, the addition of the control input has increased the velocity component of the trajectory.
 It is this velocity change that is subsequently exploited to generate the transfer trajectory.
 
+The minimum trajectory from the first iteration of the reachabiilty set is used to initial the following stage.
+From the terminal state of the first iteration, the second reachability set is computed and displayed in~\cref{fig:stage2_trajecotry_zoom,fig:stage2_poincare}.
+The second reachability set is shown on the \Poincare section in~\cref{fig:stage2_poincare}.
+This iteration greatly decreases the distance in the \( x \) component between the trajectory and the target, at the expense of a small deviation in the \( \dot{x} \) component.
+In~\cref{fig:stage2_trajecotry_zoom}, the first stage trajectory is shown in red while the additional stage is shown in blue, which demonstrates the decrease in the \( x \) component.
+
 After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds as the function \( d \)
 \begin{align*}
         d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
 \end{align*}
 From the reachable set, the trajectory which minimizes \( d \) is used to intialize the next iteration.
 Once the reachability set intersects the stable manifold, we can achieve a complete transfer from the initial geostationary orbit to the stable manifold of \( L_1 \).
-%A state is chosen from the reachable set which minimizes the distance on the \Poincare section to the stable manifold, illustrated in green in~\cref{fig:geo_transfer_poincare}, and is used as the initial condition for the next reachable set computation.
-For example,~\cref{fig:third_reachability_set} shows the reachable set after three iterations in red and the minimum distance to the stable manifold in green.
-The state and costate trajectories associated with this point on the rechable set is used to initialize the following iteration. 
-In this manner, the multiple shooting algorithm solves the optimal control problem and generates reachable sets which move away from the intial orbit and towards the desired target.
 
 \begin{figure}[htbp]
     \centering
@@ -962,19 +964,21 @@ In this manner, the multiple shooting algorithm solves the optimal control probl
         The minimum trajectories from the preceeding stages are shown in red, while the next stage is shown in blue.
     The transfer goal is to generate a complete trajectory from the initial geostationary orbit to the \( L_1 \) stable manifold, with an eventual arrival at the \( L_1 \) periodic orbit~\label{fig:stage5to8_reachability}}
 \end{figure}
-\begin{figure}[htbp]
-   \centering
-   \includegraphics[width=0.5\textwidth]{third_reachability_set} % requires the graphicx package
-   \caption{Reachable set after three iterations}
-   \label{fig:third_reachability_set}
-\end{figure}
 
 With each reachable set we move the controlled trajectory closer to the target stable manifold.
-\Cref{fig:geo_transfer_poincare} shows that after eight iterations the resulting trajectory intersects the stable manifold. 
+\Cref{fig:stage1to4_reachability,fig:stage5to8_reachability} shows all of the intermediate reachabiilty iterations to transfer between the initial orbit and the stable invariant manifold.
+The complete transfer trajectory, after eight iterations, is shown in~\Cref{fig:geo_transfer}. 
 Combining these trajectories results in the powered portion of the transfer from the geostationary orbit to the stable manifold. 
+Each iteration systematically moves the reachable set towards the stable manifold. 
+Furthermore, the optimal control formulation is simplified as each iteration is initialized using a simple distance metric on the \Poincare section.
 \Cref{fig:geo_transfer_full,fig:geo_transfer_zoom} shows the resulting trajectory, with the final trajectory shown in red which ensures the intersection with the stable invariant manifold.
+\Cref{fig:geo_transfer_poincare} shows the \Poincare section with the minimum reachable state from each iteration.
+Each iteration seeks to decrease the distance to the stable manifold on the \Poincare section.
+Furthermore, these minimum states serve to initialize each subsequent stage of the transfer. 
+In this manner, there is a systematic and simple methodology to determine transfer trajectories.
 Once at the stable manifold, no further control input is required and the vehicle will coast towards the target periodic orbit.
 \Cref{fig:control_input_geo} shows the control input during the powered portion of the transfer. 
+We utilize the same spacecraft assumption of \SI{500}{\kilo\gram} from~\cref{sec:periodic_orbit_transfer} which gives a maximum thrust of approximately \SI{1}{\newton}.
 The spacecraft maintains a bounded control magnitude during the transfer to the stable manifold.
 \begin{figure} 
         \centering 
@@ -995,7 +999,7 @@ The spacecraft maintains a bounded control magnitude during the transfer to the 
                 \includegraphics[width=\textwidth]{control_input_geo} 
                 \caption{Control input} \label{fig:control_input_geo} 
         \end{subfigure} 
-        \caption{Transfer from geostationary orbit to the \( L_1 \) stable manifold using multiple iterations of the reachability set}
+        \caption{Geostationary to \( L_1 \) periodic orbit transfer: }
         \label{fig:geo_transfer} 
 \end{figure}
 
