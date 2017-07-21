@@ -1006,9 +1006,12 @@ We are able to achieve a transfer that is not possible via the standard invarian
 In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
 
 \section{Conclusions}\label{sec:conclusion}
-In this paper, an optimal transfer process which combines concepts of reachability and \Poincare section is used to generate transfer between planar periodic orbits in the three-body problem.
-The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
+In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~section is used to generate transfer between planar periodic orbits in the three-body problem.
+The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
+Direct optimal control techniques must rely entirely on the ability of the numerical optimzation routine to determine a feasible solution.
+Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
+Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
 Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
 
