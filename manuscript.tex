@@ -990,17 +990,12 @@ The spacecraft maintains a bounded control magnitude during the transfer to the 
         the stable manifold the vehicle can coast without thrust towards the
     periodic orbit.\label{fig:geo_transfer_zoom}
 }{\includegraphics[width=0.45\textwidth]{geo_transfer_zoom}}
-        
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{poincare} 
-                \caption{\Poincare section} \label{fig:geo_transfer_poincare} 
-        \end{subfigure}~%
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-                \includegraphics[width=\textwidth]{control_input_geo} 
-                \caption{Control input} \label{fig:control_input_geo} 
-        \end{subfigure} 
-        \caption{Geostationary to \( L_1 \) periodic orbit transfer: }
-        \label{fig:geo_transfer} 
+       
+\subcaptionbox{\Poincare section: Minimum distance states from each iteration of the reachability set analysis (red) with respect to the stable invariant manifold (green)\label{fig:geo_transfer_poincare}}{\includegraphics[width=0.45\textwidth]{poincare}}
+    \hfill
+    \subcaptionbox{Control Input: Combined control history for each stage of the reacability analysis. 
+    The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.45\textwidth]{figures/control_input_geo.pdf}}
+        \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
 \end{figure}
 
 This approach demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
