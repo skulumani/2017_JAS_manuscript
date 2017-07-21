@@ -975,7 +975,8 @@ Furthermore, the optimal control formulation is simplified as each iteration is 
 \Cref{fig:geo_transfer_poincare} shows the \Poincare section with the minimum reachable state from each iteration.
 Each iteration seeks to decrease the distance to the stable manifold on the \Poincare section.
 Furthermore, these minimum states serve to initialize each subsequent stage of the transfer. 
-In this manner, there is a systematic and simple methodology to determine transfer trajectories.
+This method provides a systematic and simple methodology to determine transfer trajectories.
+Instead of relying purely on numerical optimization to find an appropriate trajectory, our method instead utilizes the reachability set to determine suitable trajectories.
 Once at the stable manifold, no further control input is required and the vehicle will coast towards the target periodic orbit.
 \Cref{fig:control_input_geo} shows the control input during the powered portion of the transfer. 
 We utilize the same spacecraft assumption of \SI{500}{\kilo\gram} from~\cref{sec:periodic_orbit_transfer} which gives a maximum thrust of approximately \SI{1}{\newton}.
@@ -998,8 +999,8 @@ The spacecraft maintains a bounded control magnitude during the transfer to the 
         \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
 \end{figure}
 
-This approach demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
-We use eight iterations in order to transfer from the geostationary orbit to the stable manifold.
+This numerical example demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
+We use eight iterations of computing the reachability set in order to transfer from the geostationary orbit to the stable manifold.
 This approach allows for a larger class of potential transfers which leverage the capabilities of low-thrust propulsion systems.
 We are able to achieve a transfer that is not possible via the standard invariant manifold approach. 
 In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
