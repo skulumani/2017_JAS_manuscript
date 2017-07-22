@@ -267,6 +267,9 @@ The modifications are copied below.
 I don't think you can grammatically begin a sentence with reference numbers.  Please fix all instances of this.
 \end{itshape}
 
+Thank you for the comment.
+Evidently in some styles, such as \href{https://www.dlsweb.rmit.edu.au/lsu/content/1_studyskills/study_tuts/apa_ll/position.html}{APA}, it is acceptable to start with a reference.
+We agree that it is not the best with the numeric style citations.
 The sentences have been reworded to avoid starting with a reference number. 
 The corrections are shown below.
 
@@ -282,6 +285,7 @@ The corrections are shown below.
 "It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space."  The "tube" statement is really only true for some libration point orbits at certain Jacobi Constants.  For some orbits these structures are more chaotic and don't resemble tubes.  May want to soften this language or change "tubes" to "structures".
 \end{itshape}
 
+Thank you for the clarification.
 The sentence has been modified as follows.
 
 \begin{correction}
@@ -293,6 +297,8 @@ It has been shown that there exist multi-dimensional structures, termed invarian
 -"In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem." Why planar?  For simplicity?  Almost all parking orbits departing the Earth are likely going to have some inclination with respect to the rotating reference plane, and will likely require some three-dimensional thrusting to target the manifold.  You may want to indicate that this is a first step in the research to exploit the Poincare sections more easily, which is why I'm assuming it was done.  It doesn't hurt to be straightforward about this, as it is a first-step towards characterizing the design space.
 \end{itshape}
 
+Thank you for the comment.
+The PCRTBP was primarily chosen as a simple dynamic system which still captures the primary structure of the three-body problem.
 The introduction has been modified with an additional sentence indicating our use of the planar three body problem
 
 \begin{correction}
@@ -319,6 +325,7 @@ In addition, through the use of geometric integrators we more accurately capture
 -"The Poincare section reduces the dimensionality of the system dyanmics to the study of a related discrete update map." It does, but at the expense if a large up-front computational run that must be run well in advance to capture the problem characteristics.  Also, it is more challenging to execute in 3D, which should be noted.
 \end{itshape}
 
+Thank you for the comment.
 Some additional detail has been included mentioning the difficulties in applying the \Poincare~section approach to the 3D case.
 
 \begin{correction}
@@ -330,8 +337,9 @@ While the \Poincare~section is well defined for the planar case, as a 2D represe
 -"This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long transfer durations with small magnitude control inputs."  Yes, but the order of the variational integrator still matters.  The drift in the state vector accuracy is still important to a mission designer, even if it is guaranteed to lie on an energy surface.  I think you should indicate that this is more for preliminary analysis to characterize the transfers, when this drift in state vector accuracy is tolerable.  I.E., it's useful for the introductory phases of mission design when trying to globally characterize the design space.  Characterizing the scope of the analysis in this way would be helpful to the audience.
 \end{itshape}
 
+Thank you for the comment.
 The section on the variational integrator has been reduced and this specific sentence has been removed. 
-However, additional detail has been provided in a different section of the paper which discusses this drawback of the variational integrator.
+However, additional detail has been provided in a the variational integrator subsection which discusses this drawback.
 
 \begin{correction}
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
@@ -344,8 +352,8 @@ However, for this preliminary analysis the variational integrator provides reduc
 "Optimal solutions are generally sensitive to small variations in the initial multipliers. As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance."  I don't agree that this implies that variational integrators are better for gradient-based methods.  The primary issue is that gradient-based methods that are solving optimal control problems are using first-order approximations to iterate on the problem.  The first-order approximation is what is poor, not necessarily the gradients.  Even if these gradients are of exact accuracy (and I agree that they should always be as accurate as possible), the first-order methods in the chaotic problem are what give the difficulties.  One could use a variational or standard integrator in a first-order gradient based method and nothing will change the fact that the method will be highly sensitive, save for partitioning the sensitivities as you did with your multiple shooting approach.  At best, you can change the statement to indicate that the accuracy in the gradients may improve, which is always helpful to gradient-based methods, but it's no guarantee that it eliminates major problem sensitivity.
 \end{itshape}
 
+Thank you for the comment.
 This sentence has been removed from the introduction.
-However, this is a valid comment and is noted for the future.
 
 \item
     \begin{itshape}
@@ -354,16 +362,21 @@ Authors may also want to point out the loss of accuracy in variable step integra
 Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition Matrices, Paper AAS-15-785, AAS/AIAA Astrodynamics Specialist Conference, Vail, CO, Aug 2015
 \end{itshape}
 
+Thank you for the comment and helpful reference.
 Additional detail has been included in the manuscript discussing this potential drawback of variable step integrators.
+j
 \begin{correction}
 In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
 The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
 \end{correction}
+
 \item 
     \begin{itshape}
 "This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods." I disagree that suboptimality is typical of direct methods.  A direct method will typically solve the KKT conditions, which can be directly transcribed into the costates in the optimal control problem.  A direct method fully satisfying the KKT conditions can map to the indirect problem. If you want to strengthen this argument, then you should argue that it applies to direct methods which rely on coarse or suboptimal representations of the control.  For example, a hybrid direct method could use continuous optimal control theory control law, but directly minimize the cost function instead of solving the full TPBVP.  
 \end{itshape}
 
+Thank you for the comment.
+The suboptimal claims of direct optimization has been reduced and modified.
 Additional detail has been included on the merits of indirect optimal control vs. direct optimal control methods.
 \begin{correction}
 This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods which rely on course or suboptimal control parameterizations.
@@ -375,11 +388,13 @@ In addition, the introduction has been modified to explicitly mention that direc
 \begin{correction}
 The indirect approach results in a lower dimensioned problem than the direct approach and provides algebraic conditions that guarantee local optimality in contrast to direct methods which generally rely on suboptimal representations of the control.
 \end{correction}
+
 \item 
     \begin{itshape}
 "Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame"  Add a reference after this statement for those who want to see the derivation.  One of the given references probably does already does this, so just pick one
 \end{itshape}
 
+Thank you for the comment.
 An additional comment has been included in the problem formulation section with a reference to a source of the detailed derivation.
 \begin{correction}
 Following a straightforward application of the Euler-Lagrange equations, a more detailed derivation is provided in~\cite{szebehely1967}, results in the following equations of motion defined in the rotating reference frame
@@ -390,6 +405,7 @@ Following a straightforward application of the Euler-Lagrange equations, a more 
 It appears from equation 5 and your control input definition that you control is unbounded?  Later on in reading the paper I found that you do add bounds on the control.  You may want to indicate earlier on in the paper (closer to eq. 5) that bounds will be added to the control.
 \end{itshape}
 
+Thank you for the comment.
 An additional comment has been included mentioning that the control is assumed to be bounded in magnitude.
 
 \begin{correction}
@@ -401,6 +417,7 @@ An additional comment has been included mentioning that the control is assumed t
 Figure 1 should probably have "axis equal" applied to it.  For that matter, please check all trajectory plots (those which plot the position state), and ensure that all plots are using "axis equal".  If not, please regenerate those plots. 
 \end{itshape}
 
+Thank you for the comment.
 All of the figures showing position states have been modified to use \texttt{axis equal}.
 
 \item 
@@ -409,8 +426,10 @@ Section 3.1 has been discussed in many references, the reader may want to direct
 (Choose one of Marsden or West's papers for example.)
 \end{itshape}
 
+Thank you for the comment.
 The discussion on the variational integrators has been reduced. 
 Much of the background material on Lagrangian mechanics is removed and an additional paragraph is included to summarize the key ideas of variational integrators. 
+In addition, the variational integrator details are moved into a titled subsection.
 The additional paragraph is shown below.
 
 \begin{correction}
@@ -433,7 +452,10 @@ The second-order trapezoidal rule will give significantly poorer state vector ac
 \end{itshape}
 
 We chose the trapezoidal rule as it provides a second order quadrature approximation.
-In addition, it provides an explicit rule that eases the complexity in using an implicit solution method.
+Furthermore, instead of using Taylor methods or higher order options, the trapezoidal rule provides an explicit second order accurate integration rule.
+This greatly reduces the complexity of the optimization routine.
+In addition, the background material on the variational integrators have been removed from the manuscript. 
+Only the specific details covering the development of the variational integrator for the PCRTBP are discussed.
 
 \item 
     \begin{itshape}
@@ -441,16 +463,28 @@ Section 3.2 - please cite a reference as to where the selected quadrature rules 
 \end{itshape}
 
 In the interest of conciseness and to avoid repeating material that has already been covered in the literature, the discussion on variational integrators has been substantially reduced.
-As a result, this table has been removed from the manuscript.
+The background material on the variational integrators has been removed and this table has also been removed from the manuscript.
 
 \item 
     \begin{itshape}
 Figure 2 - x-axis has no label but I think it's nondimensional time, please indicate.  Label all axes even if they are nondimensional units.
 \end{itshape}
 
-The plot has been removed and replaced with another comparision between the variational integrator and \texttt{ODE45}.
-In addition, all of the plots now have axis labels.
+Thank you for the comment. 
+All of the plots have been updated to include all axes labels.
+Furthermore, the specific plot in questions has been replaced with another plot more explicitly showing the benefits of variational integrators over conventional integration schemes.
+This modified plot is shown below.
 
+\begin{correction}
+    \begin{figure}[H] 
+        \centering 
+        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparision: A stable trajectory is used to test the variational and conventional integrators. 
+        The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.}
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
+        \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}}
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{figures/cputimevsE.pdf}}~
+\end{figure}
+\end{correction}
 \item 
     \begin{itshape}
 I recommend removing appendix B.  Giving the equations and stating that the Matrix inversion is from Gauss-Jordan elimination is probably sufficient, unless there is some compelling algebraic manipulation that is very unique to the problem.
