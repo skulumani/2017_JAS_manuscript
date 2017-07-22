@@ -88,7 +88,12 @@ These issues are:
 -It extensively re-covers issues that have been covered in many papers, making it difficult to disseminate what the original contributions are.  For example, I don't think the addition of the thrust term into the dynamics necessitates re-doing every piece of analysis that has been done with various resources in the literature about variational integrators (including comparisons with RK methods).  Things that can be found in other research should be cited, and summary comments can be used to point the readers to fill in this knowledge.  The content of this paper easily be reduced considerably to maintain focus on the original contributions.
     \end{itshape}
 
-The manuscript has been reduced and much of the mathematical development has been removed. 
+    Thank you for the comment, and we agree that there is significant repetition of material previously covered in other sources.
+    The manuscript has been reduced and reorganized to enhance the clarity and clearly seperate previously material and the contributions of this paper.
+    The introduction has been reduced and the repetition and discuss on the variational integrator has been removed.
+    The second section has been retitiled to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator.
+The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, followed by conclusions.
+The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles.
 
 \item
     \begin{itshape}
@@ -106,7 +111,27 @@ That is not to say that useful solutions cannot be extracted from the problem, a
 Thus - a MAJOR focus of future work should be the introduction of a seventh state (mass).  This gives rise to a more challenging optimal control problem requiring the switching function, but it is the form that is generally needed in computing optimal open-loop trajectories that can actually be flown.
 \end{itshape}
 
-These pros/cons have been addressed in the conclusion.
+Thank you for the comment and more focus has been included on the pros and cons of this proposed method.
+Additional detail has been added to the conclusion which discusses the advantages and the disadvantages, as well as the avenues for future research.
+The conclusion is copied below.
+\begin{correction}
+In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~section is used to generate transfer between planar periodic orbits in the three-body problem.
+The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
+The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
+Direct optimal control techniques must rely entirely on the ability of the numerical optimzation routine to determine a feasible solution.
+Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
+Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
+However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
+Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+
+There is additional research to extend these results to more general transfer scenarios in future work.
+The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems.
+Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
+This will result in a more complicated optimal control problem and is a focus of future research.
+Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
+The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability of this work.
+\end{correction}
 
 \item 
     \begin{itshape}
@@ -117,6 +142,7 @@ The pros and cons of the PCRTBP
 -The PCRTB is limiting for many pragmatic departure orbits (e.g. LEO and GTO, the most common departure orbits for low-thrust transfers).
 \end{itshape}
 
+Thank you for the comment and these characteristics of our choice of the PCRTBP.
 Additional detail has been included in the problem formulation section.
 This includes some discussion on the choice of the PCRTBP and the relative strengths/weaknesses of this approach.
 The additional paragraph has been copied below.
@@ -140,9 +166,22 @@ The pros and cons of variational integrators should really be acknowledged rathe
 -Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
 \end{itshape}
 
-Additional detail has  been included in the manuscript under the section describing the variational integrator.
-These details are discussed further under the more specific comments below.
+Thank you for the comment and the detail on the benefits/drawbacks of variatonal integrators.
+Additional discussion has been included in the paper in the subsection which introduces the variational integrator for the PCRTBP.
+Much of the discussion of variational integrators in the introduction has also been removed.
+The additional content, which discusses the relative benefits of variational integrators is copied below.
 
+\begin{correction}
+Both integration schemes result in trajectories that are initially nearly identical.
+\Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
+In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
+This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
+However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
+In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
+The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
+\end{correction}
 \end{itemize}
 From here on out comments specific to various sections of the paper follow:
 
