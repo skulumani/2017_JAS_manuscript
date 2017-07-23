@@ -490,6 +490,7 @@ This modified plot is shown below.
 I recommend removing appendix B.  Giving the equations and stating that the Matrix inversion is from Gauss-Jordan elimination is probably sufficient, unless there is some compelling algebraic manipulation that is very unique to the problem.
 \end{itshape}
 
+Thank you for the comment.
 Appendix B has been removed from the revised manuscript.
 The manuscript has been modified to mention that Gauss Jordan elimination is used to avoid the use of the matrix inversion.
 
@@ -567,6 +568,7 @@ Interested readers can find a wide variety of literature on the relative benefit
 "Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques".  I think you need to add "in which energy conservation is mandatory for characterizing the solution space."
 \end{itshape}
 
+Thank you for the comment.
 The additional clarification has been added to the manuscript and copied below.
 \begin{correction}
 
@@ -578,7 +580,8 @@ Over long simulation horizons or with the addition of small control inputs the i
 Section 5 - This method, while very useful in its given context is highly dependent on the use of the PCRTB in the framework of the current analysis.  This needs to somehow be conveyed.  3D transfers are significantly more challenging when it comes to exploiting Poincare sections.  It can be done, but more subplots, dimensions, and data storing are necessary to view the subspace - save to say, it is a more challenging endeavor that must be acknowledged for general purpose low-thrust mission design.
 \end{itshape}
 
-An additional paragraph has been added to the beginning of the section which discusses our reachability based transfer approach.
+Thank you for the comment.
+An additional paragraph has been added to the beginning of the mathematical background section which discusses our reachability based transfer approach.
 This additional content is copied below.
 
 \begin{correction}
@@ -596,9 +599,28 @@ However, this is an area of active research and some of the authors future resea
 Figures 10D and 13D - the authors need to present these plots in dimensional coordinates so that they may be reconciled with what existing technology can produce.  I recommend Newtons or milliNewtons.  For example, the NEXT (NASA evolutionary xenon thruster) can produce 0.25 Newtons of thrust at maximum power (~7 kW).  The XR5 Hall thruster can produce comparable thrust at 4.5 kW of power.  These are currently the highest-power single engines other than the ARM Hall thruster which is not flight ready yet.  For these examples to be reconciled against the capability of existing technology, we need to see the required forces that are being demanded from the optimal control problem.  It may be that the results are beyond the scope of current technology - that's fine - just say that they are examples and that it's ongoing work to formulate example problems that capture existing technology better.
 \end{itshape}
 
+Thank you for the comment.
 The mentioned plots of the control input have been modified to show the data in dimensional units (Newtons). 
 Some additional detail has been provided in the manuscript which discusses the choice of \( u = 0.75 \) and it's realtionship to the current state of the art thruster systems.
 The modified plots are not included here but the additional content is copied below in response to a different but related comment.
+
+\begin{correction}
+Next, we determine the reachability set with the addition of a low thrust control input.
+We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
+This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
+We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
+This acceleration limit is approximately \( u_{max} = \SI{2}{\milli\meter\per\second\squared} \) in the Earth-Moon system.
+Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of \SI{1}{\newton}.
+Currently, the NASA NEXT xenon thruster is able to provide approximately \SI{0.25}{\newton} of thrust, and a cluster of such engines could be used to provide the desired thrust used in this work~\cite{schmidt2008}.
+The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
+This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{Control input for the selected transfer trajectory}{\includegraphics[width=0.5\textwidth]{control_input_l1}}~
+    \subcaptionbox{Control Input: Combined control history for each stage of the reacability analysis. 
+    The control always remains within the maximum bound.}{\includegraphics[width=0.5\textwidth]{figures/control_input_geo.pdf}}
+\end{figure}
+\end{correction}
 
 \item
     \begin{itshape}
