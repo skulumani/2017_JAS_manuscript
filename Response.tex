@@ -490,6 +490,7 @@ This modified plot is shown below.
 I recommend removing appendix B.  Giving the equations and stating that the Matrix inversion is from Gauss-Jordan elimination is probably sufficient, unless there is some compelling algebraic manipulation that is very unique to the problem.
 \end{itshape}
 
+Thank you for the comment.
 Appendix B has been removed from the revised manuscript.
 The manuscript has been modified to mention that Gauss Jordan elimination is used to avoid the use of the matrix inversion.
 
@@ -505,8 +506,10 @@ We use Gauss-Jordan elimination to avoid this inversion in~\cref{eq:costate_eom}
 In line 14 (page 12), you define the state transition matrix over one orbital period, and then on line 18 you start referring to it as the monodromy matrix.  I understand what you're doing, but you may want to make the definition more explicit.  Some of this section can be substantially reduced and other source material could be referenced anyway.
 \end{itshape}
 
+Thank you for the comment.
 The discussion about the invariant manifolds and \Poincare sections has been reduced.
 This discussion has been removed from the revised manuscript and replaced with a general summary and some relevant citations.
+This specific discussion no longer exists in the manuscript but rather cites several references with the details on determining the invariant manifolds.
 
 \item 
     \begin{itshape}
@@ -521,6 +524,7 @@ Online copy:
 http://lagrange.mechse.illinois.edu/pubs/LeMaOrWe2004/LeMaOrWe2004.pdf
 \end{itshape}
 
+Thank you for the comment.
 The comparison plot has been modified to follow the precedent in the literature.
 The plot has been modified to show the energy deviation as a function of computational time for both the variational integrator and \texttt{ODE45}.
 The modified content is copied below.
@@ -551,6 +555,7 @@ Both integration schemes result in trajectories that are initially nearly identi
 For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 \end{correction}
+
 \item 
     \begin{itshape}
 It may also be generally worth acknowledging the benefits of Taylor's method within the context of variational integrators:
@@ -559,14 +564,18 @@ Schmitt, J., Shingel, T., Leok, M., "LAGRANGIAN AND HAMILTONIAN TAYLOR VARIATION
 Online copy: https://arxiv.org/pdf/1703.06599.pdf 
 \end{itshape}
 
-This manuscript is not really focused on variational integrators but rather the design of transfer trajectories using reachability sets.
+Thank you for the comment.
+However, this manuscript is not really focused on variational integrators but rather the design of transfer trajectories using reachability sets.
+There is a wide range of topic under the umbrella of varaitional integrators that are not directly applicable to this manuscript and work.
 Interested readers can find a wide variety of literature on the relative benefits of all manner of variational integrators in papers focused on that topic specifically.
+As a result, we do not feel it is applicable to include additional discussion on the merits of taylor integration methods.
 
 \item 
     \begin{itshape}
 "Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques".  I think you need to add "in which energy conservation is mandatory for characterizing the solution space."
 \end{itshape}
 
+Thank you for the comment.
 The additional clarification has been added to the manuscript and copied below.
 \begin{correction}
 
