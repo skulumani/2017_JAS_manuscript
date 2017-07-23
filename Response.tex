@@ -860,15 +860,28 @@ The central premise of the paper - using optimization of Poincare distance as a 
     \begin{itshape}
 First, in terms of composition, large portions of the paper are spent on lengthy development of foundational work that is well-known within the astrodynamics community and available in textbooks. 
 \end{itshape}
+
+    Thank you for the comment, and we agree that there is significant repetition of material previously covered in other sources.
+    The manuscript has been reduced and reorganized to enhance the clarity and clearly seperate previously material and the contributions of this paper.
+    The introduction has been reduced and the repetition and discuss on the variational integrator has been removed.
+    The second section has been retitiled to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator.
+The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, followed by conclusions.
+The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles.
+
 \item 
     \begin{itshape}
         Secondly, the contributions and findings of the authors feel highly preliminary and do not seem to evaluate their method at significant depth.
     \end{itshape}
 
+    Thank you for the comment. 
+    The numerical examples are meant to demonstrate the use of this approach and the feasibility of using the reachability set on a \Poincare section to determine transfer trajecotries.
+    The examples give two demonstrations of finding a transfer trajectory in the PCRTBP and demonstrate combining several iterations of the reachability set for a transfer.
+
 \item
     \begin{itshape}
 While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples.
 \end{itshape}
+
 \item 
     \begin{itshape}
 I can sympathize that there was quite a long road to get to the point of understanding this topic and generating results in it. I hope that the authors will not find this verdict too discouraging, as I believe that stronger results are well within their reach.
@@ -883,15 +896,19 @@ SPECIFIC FEEDBACK:
 In the introduction, the exposition of the problem could be considerably condensed, given the venue of publication. Additionally, the somewhat sprawling discussion jumps back and forth, and many key points seem to be repeated more than necessary.  It needs to be organized into titled subsections with specific scope.
 \end{itshape}
 
+Thank you for the comment.
 The introduction is reduced and many of the paragraphs have been reworded and combined. 
-The mathematical background has been condensed into a single section with seperate subsections which discuss some of the mathematical details.
 In addition, the extended discussion of the benefits of variational integrators is removed from the introduction.
+The mathematical background has been condensed into a single section with seperate subsections which discuss some of the mathematical details.
+The background section is focused on reviewing the relevant material rather than reintroducing topics.
+In the interest of space the reorganized section is omitted in this response.
 
 \item
     \begin{itshape}
 The development of the CR3BP, invariant manifolds and Poincare maps, all go on a bit too long. These should be refreshers to the audience that expose the specific equations and concepts that you'll be leveraging, not full-on introductions to well-established areas.  Spending several pages on variational principles is way too much.
 \end{itshape}
 
+Thank you for the comment.
 The mathematical background has been reduced and condensed into a single section with multiple subsections.
 The discussion of the PCRTBP, invariant manifolds and \Poincare maps are combined into a single subsection.
 Furthermore, the variational integrator discussion has been reduced and the background material on the derivation of variational mechanics has been omitted.
@@ -901,6 +918,10 @@ Instead, only the specific discussion of the development of the variational inte
     \begin{itshape}
 Section 4 ends on page 14 with essentially a thesis statement ("In this paper, we...").  Strive to push the boundary between background and new developments to a much earlier point in the paper; it shouldn't happen so late that you need to remind the audience what the paper is for.
 \end{itshape}
+
+Thank you for the comment. 
+The introductory detail has been reduced and combined into a single section. 
+As a result, the third section begins with the new contributions which describe the optimal control formulation of the reachability set.
 
 \item 
     \begin{itshape}
