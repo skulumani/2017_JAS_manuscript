@@ -36,7 +36,7 @@ The use of low thrust propulsion allows the spacecraft to depart from the natura
 We generate the reachable set of the spacecraft and use this to determine transfer opportunities, analogous to the intersection of control-free invariant manifolds.
 The reachable set is developed on a lower dimensional \Poincare section and used to design transfer trajectories. 
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
-This is solved numerically as a discrete optimal control problem using a variational integrator, which preserve the geometric structure of the motion in the three-body problem.
+This is solved numerically as a discrete optimal control problem using a variational integrator, which preserves the geometric structure of the motion in the three-body problem.
 We demonstrate our approach with two numerical simulations of transfers in the Earth-Moon three-body system.
 \keywords{First keyword \and Second keyword \and More}
 % \PACS{PACS code1 \and PACS code2 \and more}
@@ -86,9 +86,9 @@ The indirect approach results in a lower dimensioned problem than the direct app
 Second, in order to implement any optimization method a sufficiently accurate ``initial guess'' is required.
 Frequently, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system.
 Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
-As a result numerical methods are often required to investigate solutions to the three body problem.
+As a result, numerical methods are often required to investigate solutions to the three body problem.
 Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
-As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
+Therefore, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
 
 % control-free trajectories in teh three-body problem 
 There exists a rich structure in the three-body problem~\cite{koon2011,ross2006}.
@@ -97,7 +97,7 @@ It has been shown that there exist multi-dimensional structures, termed invarian
 These invariant manifolds, which are associated with the periodic solutions of the three-body dynamics, allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
 However, the results presented are highly case specific and difficult to generalize to arbitrary transfers.
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system. 
-The addition of low-thrust propulsion offers the potential of reduced transfer transit times and the ability to depart from teh free motion trajectory to allow for increased transfer opportunities.
+The addition of low-thrust propulsion offers the potential of reduced transfer transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities.
 
 % objectives of this work
 
@@ -116,12 +116,12 @@ In addition, through the use of geometric integrators we more accurately capture
 With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
 
 We defne an optimal control problem to determine the reachability set on a \Poincare~section.
-The reachable set, defined as the set of all attainable states subect to the system constraints, allows for the extension of the previous control-free methods based on invariant manifolds.
+The reachable set, defined as the set of all attainable states subject to the system constraints, allows for the extension of the previous control-free methods based on invariant manifolds.
 Defining the reachable set on a \Poincare~section reduces the dimensionality of the system dynamics to the study of a related discrete update map.
 While the \Poincare~section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
 Instead of relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on the \Poincare~section.
 Through the use of low-thrust control input, the reachable set on the \Poincare~section is enlarged and enables a larger space of potential transfers.
-By iteratively computing the reachable set, and minimizing the distance to the target on the \Poincare~section allows for the creation of general transfer trajectories.
+By iteratively computing the reachable set, and minimizing the distance to the target on the \Poincare~section, we generate general transfer trajectories.
 
 In short, the authors present a systematic method of generating optimal transfer orbits in the three-body problem.
 Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
@@ -142,9 +142,9 @@ We utilize the planar circular restricted three body problem~(PCRTBP) as the bas
 It is a popular model in the preliminary analysis of multibody spacecraft trajectories. 
 In the context of Earth based mission, the PCRTBP affords a relatively simple dynamic model while still capturing the major third body perturbation of the Moon.
 In addition, this model allows for a systematic process to define and exploit \Poincare sections.
-Furthermore, the 2D solutions afforded by the PCRTBP are frequently use to gain a qualitative understanding of the trade space of transfers in the Earth-Moon system.
+Furthermore, the 2D solutions afforded by the PCRTBP are frequently used to gain a qualitative understanding of the trade space of transfers in the Earth-Moon system.
 The PCRTBP approach offers insight into the fundamental dynamical structure while capturing the major dynamic properties of the planar motion.
-As a result, this approach is best suited for trajectories which do not require large plane changes.
+As a result, this approach is best suited for preliminary trajectories which do not require large plane changes.
 
 The research in this work utilizes a variety of disparate concepts in dynamics, control theory, and astrodynamics. 
 As a result, we briefly present some key concepts in the system model as well as established tools in the three body problem, such as invariant manifolds and \Poincare sections.
@@ -345,7 +345,7 @@ This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k
     \label{fig:integrator_compare} 
 \end{figure}
 
-A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
+A simulation comparing the variational integrator to a conventional Runge-Kutta method is presented in this section.
 A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
     The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
     The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
@@ -650,7 +650,7 @@ The first example is a transfer from a periodic orbit of the \( L_1 \) Lagrange 
 This example uses a single iteration of the reachable set computation in the design of the transfer.
 The second example is a transfer from geostationary orbit of the Earth to a period orbit of \( L_1 \). 
 This examples demonstrates the ability to extend the reachability process to multiple iterations, to allow for a much larger and more general transfer.
-With both examples it is possible to depart from the vicinity of the Earth to a Moon orbit via a series of reachable sets defined on \Poincare~sections.
+With both examples it is possible to depart from the vicinity of the Earth to a Moon orbit via a series of reachable sets defined on \Poincare sections.
 
 \subsection{Periodic Orbit transfer}\label{sec:periodic_orbit_transfer}
 % define problem setup (initial and target orbits)
@@ -706,7 +706,7 @@ We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume w
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
 We assume a fully actuated spacecraft model which decouples the translational and rotational dynamics.
 This acceleration limit is approximately \( u_{max} = \SI{2}{\milli\meter\per\second\squared} \) in the Earth-Moon system.
-Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of \SI{1}{\newton}.
+Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of approximately \SI{1}{\newton}.
 Currently, the NASA NEXT xenon thruster is able to provide approximately \SI{0.25}{\newton} of thrust, and a cluster of such engines could be used to provide the desired thrust used in this work~\cite{schmidt2008}.
 The trajectories are generated from a fixed initial state of \( \vecbf{x}_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix}^T \) over a fixed time span of \( t_f = 1.4 \).
 This initial state lies on the initial periodic orbit and the time of flight is equivalent to one half period of the initial periodic orbit. 
@@ -848,7 +848,7 @@ Once on the manifold, the spacecraft will coast in an uncontrolled fashion and a
 
 We first generate the stable invariant manifold associated with the periodic orbit in order to determine our target set.
 The stable manifold is propagated to the \Poincare section at \( y = 0 \), which is denoted by the horizontal black line in the position space visualizations given in~\cref{fig:stage1to4_reachability,fig:stage5to8_reachability,fig:geo_transfer_full}.
-The stable manifold is denoted by the green trajecotries which span the majority of the phase space. 
+The stable manifold is denoted by the green trajectories which span the majority of the phase space. 
 In addition, we plot the intersection of the stable manifold with the \Poincare section with green markers.
 The initial orbit and the stable invariant manifold do not intersect and the transfer objective is to enlarge the reachability set to include the stable manifold.
 
@@ -905,6 +905,11 @@ This allows us to approximate the set of states that are achievable in the \( \p
 The intersection of the first reachable set with the \Poincare section is shown in~\cref{fig:stage1_poincare} in red.
 While the reachable set does not intersect the stable manifold, it does reduce some of the distance in the \(\dot{x}\) dimension.
 From this reachable set, we chose a trajectory which minimizes the distance towards the stable manifold, which is shown in~\cref{fig:stage1_poincare} by the black marker.
+The distance on the \Poincare section between the reachable set and the stable manifolds is defined as the function \( d \),
+\begin{align*}
+        d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
+\end{align*}
+From the reachable set, the trajectory which minimizes \( d \) is used to intialize the next iteration.
 The minimum trajectory is also shown in~\cref{fig:stage1_trajecotry_zoom} and is used to initilize the following stage.
 Over the relatively short time horizon of the geostationary orbital period, the reachability set remains quite close to the initial orbit. 
 However, the addition of the control input has increased the velocity component of the trajectory.
@@ -916,12 +921,6 @@ The second reachability set is shown on the \Poincare section in~\cref{fig:stage
 This iteration greatly decreases the distance in the \( x \) component between the trajectory and the target, at the expense of a small deviation in the \( \dot{x} \) component.
 In~\cref{fig:stage2_trajecotry_zoom}, the first stage trajectory is shown in red while the additional stage is shown in blue, which demonstrates the decrease in the \( x \) component.
 
-After each computation of the reachability set we pick a state which minimizes the distance on the \Poincare section towards the stable manifolds as the function \( d \)
-\begin{align*}
-        d(\vecbf{x}(N)) = \sqrt{\parenth{x - x_t}^2 + \parenth{\dot{x} - \dot{x}_t}^2}.
-\end{align*}
-From the reachable set, the trajectory which minimizes \( d \) is used to intialize the next iteration.
-Once the reachability set intersects the stable manifold, we can achieve a complete transfer from the initial geostationary orbit to the stable manifold of \( L_1 \).
 
 \begin{figure}[htbp]
     \centering
@@ -1017,11 +1016,11 @@ Furthermore, our approach relies heaviliy on the relative simplicity of the PCRT
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
-In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems and future research is aimed at investigating smaller magnitude control inputs.
 Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
 This will result in a more complicated optimal control problem and is a focus of future research.
 Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
-The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability of this work.
+The addition of attitude dynamics and realistic pointing constraints would also significantly improve the applicability of this work.
 
 \appendix
 \section*{Appendix A: Costate Equations of Motion}\label{sec:costate_appendix}
