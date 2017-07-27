@@ -65,6 +65,10 @@
 
 \newenvironment{correction}{\begin{list}{}{\setlength{\leftmargin}{1cm}\setlength{\rightmargin}{1cm}}\vspace{\parsep}\item[]``}{''\end{list}}
 
+\newcommand{\EditTL}[1]{{\color{red}\protect #1}}
+%\renewcommand{\EditTL}[1]{{\protect #1}}
+
+
 \begin{document}
 
 %\pagestyle{empty}
@@ -88,12 +92,14 @@ These issues are:
 -It extensively re-covers issues that have been covered in many papers, making it difficult to disseminate what the original contributions are.  For example, I don't think the addition of the thrust term into the dynamics necessitates re-doing every piece of analysis that has been done with various resources in the literature about variational integrators (including comparisons with RK methods).  Things that can be found in other research should be cited, and summary comments can be used to point the readers to fill in this knowledge.  The content of this paper easily be reduced considerably to maintain focus on the original contributions.
     \end{itshape}
 
-    Thank you for the comment, and we agree that there is significant repetition of material previously covered in other sources.
-    The manuscript has been reduced and reorganized to enhance the clarity and clearly seperate previously material and the contributions of this paper.
+    Thank you for the comment, and we agree that there is repetition of material previously covered in other publications.
+    The challenge is that the proposed approach utilizes several tools and concepts integrated together to design low-thrust orbital maneuvers in a systematic way, and in order to describe the key idea in a self-contained manner, each of prior approach should be described properly. 
+
+    To address this, the manuscript has been reduced and reorganized to enhance the clarity and clearly separate previously material and the contributions of this paper.
     The introduction has been reduced and the repetition and discuss on the variational integrator has been removed.
-    The second section has been retitiled to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator.
-The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, followed by conclusions.
-The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles.
+    The second section has been reorganized to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator. The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles. The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, which are the main contributions of this paper. 
+    
+    In short, the manuscript has been completely reorganized such that all of the background materials are summarized in Section 2. The remaining sections dealing with the proposed approach are expanded with more detailed descriptions and numerical results. 
 
 \item
     \begin{itshape}
@@ -142,10 +148,9 @@ The pros and cons of the PCRTBP
 -The PCRTB is limiting for many pragmatic departure orbits (e.g. LEO and GTO, the most common departure orbits for low-thrust transfers).
 \end{itshape}
 
-Thank you for the comment and these characteristics of our choice of the PCRTBP.
-Additional detail has been included in the problem formulation section.
-This includes some discussion on the choice of the PCRTBP and the relative strengths/weaknesses of this approach.
-The additional paragraph has been copied below.
+Thank you for the comment and these characteristics of our choice of the PCRTBP. The authors would like to point out that the key idea of designing low-thrust orbits through the reachability analysis on the Poincar\'{e} section may be applied to other dynamic system. This manuscript illustrates such idea through PCRTB. 
+
+However, according to the reviewer's suggestion, additional details have been stated in the problem formulation section, including discussions on the choice of the PCRTBP and the relative strengths/weaknesses of this approach as copied below.
 
 \begin{correction}
 We utilize the planar circular restricted three body problem~(PCRTBP) as the basis of our system definition. 
@@ -166,24 +171,29 @@ The pros and cons of variational integrators should really be acknowledged rathe
 -Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
 \end{itshape}
 
-Thank you for the comment and the detail on the benefits/drawbacks of variatonal integrators.
-Additional discussion has been included in the paper in the subsection which introduces the variational integrator for the PCRTBP.
+Thank you for the comment and the detail on the benefits/drawbacks of variational integrators. The authors agree that the general-purpose numerical integrators such as higher-order RK methods are suitable in many cases. The proposed approach utilizes the variational integrator, particularly due to its numerical structural stability of capturing long-term behaviors of small effects accurately and efficiently, which is critical in low-thrust orbital maneuvers.
+
+While the structural stability of geometric numerical integrators is often illustrated by the conserved quantities such as energy or momentum, it has been shown that variational integrators are also effective in computing the rate of energy change for non-conservative systems~[20]. 
+
+
+To clarify these, additional discussion has been included in the paper in the subsection which introduces the variational integrator for the PCRTBP.
 Much of the discussion of variational integrators in the introduction has also been removed.
 The additional content, which discusses the relative benefits of variational integrators is copied below.
 
 \begin{correction}
 Both integration schemes result in trajectories that are initially nearly identical.
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
-For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the \EditTL{conventional} integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
 This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
 However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
 In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
-The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
+The fixed step size of the presented variational integrator mitigates the \EditTL{artificial} ``noise'' of variable step integration schemes in gradient computation.
+\EditTL{In summary, this paper utilizes the variational integrator to capture the long-term effects of low-thrust devices accurately and efficiently, and these numerical structural stability is critical for numerical optimization in the subsequent development.}
 \end{correction}
 \end{itemize}
-From here on out comments specific to various sections of the paper follow:
+From here on out \EditTL{our?} comments specific to various sections of the paper follow:
 
 \begin{enumerate}
     \item
@@ -230,7 +240,6 @@ Thank you for the comment.
 The sentence has been modified as follows.
 
 \begin{correction}
-
 Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
 As a result numerical methods are often required to investigate solutions to the three body problem.
 \end{correction}
@@ -240,12 +249,13 @@ As a result numerical methods are often required to investigate solutions to the
 "These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
 \end{itshape}
 
-Thank you for the comment. 
-The claims about the variational integrator have been qualified with some additional detail.
+Thank you for the comment. Those numerical dissipations would depend on several parameters. But, for the particular numerical comparison illustrated by \Cref{fig:compare_energy}, such difference in conservation properties becomes noticeable in the simulation for 15 years. As suggested, the claims about the variational integrator have been qualified with some additional detail.
 The correction is copied below.
 \begin{correction}
 As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
 \end{correction}
+
+\EditTL{Perhaps, the order of decades to centuries is too much. What is the typical orbital maneuver time for the numerical examples in Section 4?}
 
 \item
     \begin{itshape}
@@ -253,8 +263,7 @@ As a result, these methods suffer from numerical instability and energy drift be
 \end{itshape}
 
 These sentences have been modified and combined to enhance clarity and reduce some of the unecessary bloat. 
-In addition, some additional detail has been added to explicitly define the notion of ``long-term'' in the context of numerical integration.
-The modifications are copied below.
+In addition, some additional detail has been added to explicitly define the notion of ``long-term'' in the context of numerical integration. \EditTL{As shown by \Cref{fig:compare_energy}, the variational integrator exhibit smaller conservation errors than ODE45 at the similar computational efforts, for the particular numerical case considered. } The modifications are copied below.
 \begin{correction}
     Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
     As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
@@ -345,15 +354,20 @@ However, additional detail has been provided in a the variational integrator sub
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
 This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
-However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
+However, for this preliminary analysis the variational integrator provides reduced computational demands, \EditTL{compared with general-purpose numerical integrators for the similar level of numerical errors}, and is useful to characterize and explore the trade space in preliminary mission design scenarios.
 \end{correction}
 \item 
     \begin{itshape}
 "Optimal solutions are generally sensitive to small variations in the initial multipliers. As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance."  I don't agree that this implies that variational integrators are better for gradient-based methods.  The primary issue is that gradient-based methods that are solving optimal control problems are using first-order approximations to iterate on the problem.  The first-order approximation is what is poor, not necessarily the gradients.  Even if these gradients are of exact accuracy (and I agree that they should always be as accurate as possible), the first-order methods in the chaotic problem are what give the difficulties.  One could use a variational or standard integrator in a first-order gradient based method and nothing will change the fact that the method will be highly sensitive, save for partitioning the sensitivities as you did with your multiple shooting approach.  At best, you can change the statement to indicate that the accuracy in the gradients may improve, which is always helpful to gradient-based methods, but it's no guarantee that it eliminates major problem sensitivity.
 \end{itshape}
 
-Thank you for the comment.
-This sentence has been removed from the introduction.
+It has been shown that the structure-preserving properties of geometric numerical integrators are also useful to numerical optimizations for improved computational efficiency and stability. For example, see the following reference. 
+
+\begin{itemize}
+\item[-] Ober-Blöbaum, Sina, Oliver Junge, and Jerrold E. Marsden. "Discrete mechanics and optimal control: an analysis." ESAIM: Control, Optimisation and Calculus of Variations 17.2 (2011): 322-352.
+\end{itemize}
+
+The proposed approach utilizes desirable numerical properties of the variational integrator. However, the main contribution is systematic design of low-thrust orbital maneuvers through reachability set analysis on the Poincar\'{e} section. The above sentences may be confusing, and the authors decided to remove them from the introduction of the revised manuscript. 
 
 \item
     \begin{itshape}
@@ -363,11 +377,19 @@ Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition 
 \end{itshape}
 
 Thank you for the comment and helpful reference.
+
+It is well known that variable step size may break conservational properties of a geometric numerical integrator. Variational integrators are no exception, and there has been a multisymplectic framework to address it. See
+
+\begin{itemize}
+\item[-] Lew, Adrian, et al. "Asynchronous variational integrators." Archive for Rational Mechanics and Analysis 167.2 (2003): 85-146.
+\end{itemize}
+
+However, the above formulation for structure-preserving, adaptive time-step variational integrators is beyond the scope of this paper, and we use a fixed time step throughout the presented numerical results. 
+
 Additional detail has been included in the manuscript discussing this potential drawback of variable step integrators.
-j
+
 \begin{correction}
-In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
-The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
+In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}. \EditTL{The presented results are based on the variational integrator with a fixed time step for numerical simulation and gradient computation. }
 \end{correction}
 
 \item 
@@ -379,7 +401,7 @@ Thank you for the comment.
 The suboptimal claims of direct optimization has been reduced and modified.
 Additional detail has been included on the merits of indirect optimal control vs. direct optimal control methods.
 \begin{correction}
-This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods which rely on course or suboptimal control parameterizations.
+This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods which rely on \EditTL{coarse} or suboptimal control parameterizations.
 For example, a hybrid direct method may use a continuous control law developed from indirect optimal control theory while directly minimizing a cost function instead of solving the full two-point boundary value problem~\cite{ozimek2010a}.
 \end{correction}
 
@@ -578,7 +600,6 @@ As a result, we do not feel it is applicable to include additional discussion on
 Thank you for the comment.
 The additional clarification has been added to the manuscript and copied below.
 \begin{correction}
-
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 \end{correction}
 
@@ -600,6 +621,8 @@ As a result, this approach is more difficult to apply to three-dimensional trans
 \Poincare sections in the case of the general six dimensional state space are significantly more challenging and typically require more complicated visualization techniques. 
 However, this is an area of active research and some of the authors future research is aimed at implementing this approach for non-planar transfer trajectories.
 \end{correction}
+
+\EditTL{Can we cite your recent AAS conference paper for orbital transfer around asteroids as a higher-order example?}
 
 \item
     \begin{itshape}
@@ -767,12 +790,15 @@ The addition of attitude dynamics and realistic pointing constraints would signi
 The authors should discuss some statistics of the convergence of their multiple shooting TPBVP - number of iterations, compute time, etc.
 \end{itshape}
 
-Thank you for the comment, howver it seems to be rare for the research community to give detailed description of the numerical optimization method.
+Thank you for the comment, however it seems to be rare for the research community to give detailed description of the numerical optimization method.
 Most of the literature tends to not spend time discussing the low level details of the computational procedure, e.g.~\cite{grebow2011,stuart2010}.
 In addition, the number of iterations, computation time and even the eventual cost function value are highly dependent on the specific system and more specifically the implementation of the algorithm in software. 
 There are a wide variety of works which are focused more exclusively on the computational implementation of various optimal control techniques which do spend significant time on the computational characteristics.
 However, our manuscript is primarily focused on demonstrating the feasbility of using reachability sets to design transfer trajectories.
 As a result, there is not much benefit to detailed statistics of the implementation of this methodology, and we have omitted it from the manuscript.
+
+
+\EditTL{Let's consider putting a rough computation time. We may not need time for each iteration, but you may have some idea how much it did take for the whole optimization. We may add a simple statement like ``it took ?? hours under ??? CPU'' We just need to show that we didn't use any monster cluster over several weeks. }
 
 \item 
     \begin{itshape}
@@ -886,7 +912,7 @@ The section on variational integrators has been reduced and now only discusses t
 
 \item
     \begin{itshape}
-While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples.
+While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples. \EditTL{The authors believe that the given two nontrivial numerical examples illustrate the efficacy of the proposed approach in designing low-thrust maneuvers through reachability set analysis on the Poincar\'{e} section. Furthermore, the manuscript has been completely reorganized to emphasize the contributions. In particular, Section 4 includes additional paragraphs and figures for (fill the blank)}
 \end{itshape}
 
 \item 
@@ -908,7 +934,7 @@ The introduction is reduced and many of the paragraphs have been reworded and co
 In addition, the extended discussion of the benefits of variational integrators is removed from the introduction.
 The mathematical background has been condensed into a single section with seperate subsections which discuss some of the mathematical details.
 The background section is focused on reviewing the relevant material rather than reintroducing topics.
-In the interest of space the reorganized section is omitted in this response.
+In the interest of space the reorganized section is omitted in this response. \EditTL{In short, the manuscript is completely reorganized and all of the background materials are summarized in Section 2}.
 
 \item
     \begin{itshape}
@@ -942,13 +968,22 @@ More recently, reachability theory has recently been applied to space systems~\c
 \end{correction}
 
 \item
-    {\color{red}
     \begin{itshape}
 *** Variational Integrators
 Many of the specific claims regarding the use of a variational integrator are unsubstantiated and, I believe, incorrect. Why is energy drift "even more detrimental" with regards to "the long term effects of low-thrust"?  I would need to be convinced that a non-geometric integrator's energy drift relative to a constant energy baseline is significantly different from its drift relative to a gradually shifting baseline corresponding to low thrust. The specific claims about the numerical stability of derivatives also don't seem related to energy preservation.  
 
 \end{itshape}
-}
+
+The main contribution is systematic design of low-thrust orbital maneuvers through reachability set analysis on the Poincar\'{e} section. The authors decided to utilize the variational integrator as it is more computationally efficient in simulating a complex dynamic system accurately. 
+
+More explicitly, while the structural stability of geometric numerical integrators is often illustrated by the conserved quantities such as energy or momentum, it has been shown that variational integrators are also effective in computing the rate of energy change for non-conservative systems accurately~[20]. This is particularly useful for low-thrust orbital maneuvers where the energy dissipate or accumulates slowly. Furthermore, it has been shown that the structure-preserving properties of geometric numerical integrators are also useful to numerical optimizations for improved computational efficiency and stability. For example, see the following reference. 
+
+\begin{itemize}
+\item[-] Ober-Blöbaum, Sina, Oliver Junge, and Jerrold E. Marsden. "Discrete mechanics and optimal control: an analysis." ESAIM: Control, Optimisation and Calculus of Variations 17.2 (2011): 322-352.
+\end{itemize}
+
+In the revised manuscript, all of the comments for the variational integrator are re-examined and reorganized to Section 2.2, as also discussed in the response to the first reviewer. 
+
 
 \item
     {\color{red}
@@ -956,6 +991,20 @@ Many of the specific claims regarding the use of a variational integrator are un
 Apart from these claims, I question the need for a variational integrator in the first place. The example in section 3.4 is not convincing because there is no apples-to-apples basis for the comparison; a variable-step integrator with unspecified tolerance is compared to a fixed-step integrator with an arbitrary step size.  Integrator comparisons should consider error in proportion to compute cost, which can be tuned by step size or tolerance.  Also, fixed step seems inappropriate for a path through diverse dynamic regimes, and it's not clear that the problem scope calls specifically for energy preservation (especially since the idea is to use low thrust to mitigate some time cost of exploiting the problem structure).  
 \end{itshape}
 }
+
+In the revised manuscript, the computational properties of the variational integrator is explicitly compared with a general purpose integrator in~\Cref{fig:compare_energy}. According to the reviewer's suggestion, the error in energy conservation is illustrated for several computational costs. It is shown that the variational integrator exhibits lower conservation error  against a Runge-Kutta method for the similar level of CPU time. 
+
+With regards to the comments on the adaptive step size, the variational integrator can be generalized according to the multisymplectic framework, as in the following reference. 
+\begin{itemize}
+\item[-] Lew, Adrian, et al. "Asynchronous variational integrators." Archive for Rational Mechanics and Analysis 167.2 (2003): 85-146.
+\end{itemize}
+However, the above formulation for structure-preserving, adaptive time-step variational integrators is beyond the scope of this paper, and we use a fixed time step throughout the presented numerical results. 
+
+More importantly, it has been shown variational integrators are also effective in computing the rate of energy change for non-conservative systems accurately~[20], even for the fixed-step sizes. 
+
+
+
+
 
 \item
     \begin{itshape}
@@ -1396,7 +1445,7 @@ As a result, we show that the intersection is a discrete approximation of the tr
 Also consider zooming/scaling as necessary to show the details you discuss.
 \end{itshape}
 
-Thank you for the comment, however we feel that the figures adequately show the desired information.
+Thank you for the comment. The figure have been revised to adequately show the desired information in the revised manuscript. 
 The figures are centered around the various intersections of the reachable set and the \Poincare section.
 Furthermore, in the case of the much larger geostationary transfer requires it becomes more difficult to zoom in on the fine details.
 However, a detailed view is presented which shows the various iterations of the reachability set computations.
@@ -1408,6 +1457,15 @@ However, a detailed view is presented which shows the various iterations of the 
 I urge a revisiting of the claims with regards to optimality.  The optimization method is being initialized with *something*, and stationary points are *local* extrema.  More precise claims and assurances about solution quality (and therefore the validity of the computed reachable set boundary) are needed.  
 \end{itshape}
 }
+
+\EditTL{The presented numerical results satisfy the necessary conditions for optimality. As common in gradient-based numerical optimizations for non-convex systems, it guarantees local optimality. Applying various techniques to obtain the globally optimal solution is beyond the scope of this paper that is focused on systematic design of low-thrust orbital maneuvers thorough reachability set analysis on the Poincar\'{e} section.
+
+To clarify these, the following comment is added at the first paragraph of Section 4.
+
+\begin{correction}
+The numerical examples presented in this section satisfy necessary conditions for local optimality, and obtaining a globally optimal solution is considered beyond the scope of this paper.
+\end{correction}}
+
 
 
 \item
@@ -1472,6 +1530,9 @@ Through this work it was found that shorter trajectories tended to have more sta
 In general, please devote more depth to probing the strengths, weaknesses, and fundamental properties of the method.  Considering extreme cases can help with this.
 \end{itshape}
 }
+
+\EditTL{Would you try to respond this. For the strengths, we can emphasize a systematic design of low-thrust orbital maneuvers, agains harecore optimizations. For the weakness, we can use several things that the first reviewer itemized, and also our previous response to that. }
+
 \end{enumerate}
 \bibliography{library}
 \bibliographystyle{spmpsci}
