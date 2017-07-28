@@ -801,9 +801,14 @@ In addition, the number of iterations, computation time and even the eventual co
 There are a wide variety of works which are focused more exclusively on the computational implementation of various optimal control techniques which do spend significant time on the computational characteristics.
 However, our manuscript is primarily focused on demonstrating the feasbility of using reachability sets to design transfer trajectories.
 As a result, there is not much benefit to detailed statistics of the implementation of this methodology, and we have omitted it from the manuscript.
+However, we have added some rough detail on the computation time and computer hardware used in the numerical optimization.
+This additional detail is copied below.
 
+\begin{correction}
+Each optimal control solution, corresponding to a discrete value of \( \theta_d \), is solved using \texttt{fsolve} as described earlier. 
+Each solution on the reachability set is computed in approximately \SI{30}{\second} on a desktop computer using an \SI{3.4}{\giga\hertz} Intel i7-3700.
+\end{correction}
 
-\EditTL{Let's consider putting a rough computation time. We may not need time for each iteration, but you may have some idea how much it did take for the whole optimization. We may add a simple statement like ``it took ?? hours under ??? CPU'' We just need to show that we didn't use any monster cluster over several weeks. }
 
 \item 
     \begin{itshape}
