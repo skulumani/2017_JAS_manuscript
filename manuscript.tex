@@ -38,7 +38,7 @@ The reachable set is developed on a lower dimensional \Poincare section and used
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
 This is solved numerically as a discrete optimal control problem using a variational integrator, which preserves the geometric structure of the motion in the three-body problem.
 We demonstrate our approach with two numerical simulations of transfers in the Earth-Moon three-body system.
-\keywords{First keyword \and Second keyword \and More}
+\keywords{three body problem \and reachability \and optimal control}
 % \PACS{PACS code1 \and PACS code2 \and more}
 % \subclass{MSC code1 \and MSC code2 \and more}
 \end{abstract}
@@ -113,16 +113,16 @@ In this paper, we propose a systematic design method which enables low-thrust tr
 Utilizing the planar assumption greatly simplifies the problem and allows for the use of established methods in determining periodic orbits and \Poincare~sections.
 We utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
 The use of a simple distance metric on a \Poincare~section greatly reduces the dimensionality of the reachability analysis and provides an approximation of the reachability set.
-In addition, through the use of geometric integrators we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods which are typical of electric propulsion systems. 
+In addition, through the use of geometric integrators, we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods, which are typical of electric propulsion systems. 
 With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
 
 We define an optimal control problem to determine the reachability set on a \Poincare~section.
 The reachable set, defined as the set of all attainable states subject to the system constraints, allows for the extension of the previous control-free methods based on invariant manifolds.
-Defining the reachable set on a \Poincare~section reduces the dimensionality of the system dynamics to the study of a related discrete update map.
-While the \Poincare~section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
-Instead of relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on the \Poincare~section.
-Through the use of low-thrust control input, the reachable set on the \Poincare~section is enlarged and enables a larger space of potential transfers.
-By iteratively computing the reachable set, and minimizing the distance to the target on the \Poincare~section, we generate general transfer trajectories.
+Defining the reachable set on a \Poincare section reduces the dimensionality of the system dynamics to the study of a related discrete update map.
+While the \Poincare section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
+Instead of relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on the \Poincare section.
+Through the use of low-thrust control input, the reachable set on the \Poincare section is enlarged and enables a larger space of potential transfers.
+By iteratively computing the reachable set, and minimizing the distance to the target on the \Poincare section, we generate general transfer trajectories.
 
 In short, the authors present a systematic method of generating optimal transfer orbits in the three-body problem.
 Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
@@ -181,7 +181,7 @@ where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U
                                                                                         - \frac{ \left(1 - \mu\right) z}{r_1^3} - \frac{\mu z}{r_2^3}\end{array}\right]
                                         = \left[\begin{array}{c} U_x \\ U_y \\ U_z\end{array} \right] , \label{eq:grav_pot}
 \end{align}
-and the control inputs is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \) and assumed to be continuously variable but bounded in magnitude, i.e. \( \vecbf{u}^T \vecbf{u} \leq u_{max}^2 \).
+and the control input is defined as \( \vecbf{u} = \begin{bmatrix} u_x & u_y \end{bmatrix}^T \in \R^{2\times1} \) and assumed to be continuously variable but bounded in magnitude, i.e. \( \vecbf{u}^T \vecbf{u} \leq u_{max}^2 \).
 The state is defined as \( \vecbf{x} = \begin{bmatrix}\vecbf{r} &\vecbf{v} \end{bmatrix}^T\) with \(\vecbf{r} = \begin{bmatrix} x & y \end{bmatrix}^T \in \R^{2\times1}\) and \(\vecbf{v}= \begin{bmatrix} \dot{x} & \dot{y} \end{bmatrix}^T \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
 
 
@@ -349,7 +349,7 @@ This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is presented in this section.
 A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0.2 & 0\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
     The variational integrator uses a range of step sizes between \SIrange{47.2}{4720}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
-    The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
+    The step size of the variational integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
 Both integration schemes result in trajectories that are initially nearly identical.
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
@@ -625,7 +625,7 @@ To ensure continuity, additional interior constraints are incorporated as
         \vecbf{\lambda}_1^{-} - \vecbf{\lambda}_1^{+} &= 0 , \\
         \vecbf{x}_2^{-} - \vecbf{x}_2^{+} &= 0 , \\ 
         \vecbf{\lambda}_2^{-} - \vecbf{\lambda}_2^{+} &= 0 , \\
-        &\vdots \\
+        &\vdots \nonumber \\
         \vecbf{x}_{n-1}^{-} - \vecbf{x}_{n-1}^{+} &= 0 , \\ 
         \vecbf{\lambda}_{n-1}^{-} - \vecbf{\lambda}_{n-1}^{+} &= 0.
 \end{align}
@@ -700,7 +700,7 @@ The required travel time for a transfer using the unstable invariant manifold is
         \end{subfigure} 
         \caption{Invariant manifold transfer: An example transfer using the invariant manifolds is shown in both the position and \Poincare spaces.
         The control free transfer from the initial periodic orbit to the target orbit result in a long time of flight. 
-    In addition, the manifold only intersects the target orbit on the descending or far side of the moon.}
+    In addition, the manifold only intersects the target orbit on the ascending or far side of the moon.}
         \label{fig:invariant_manifold_transfer} 
 \end{figure}
 
@@ -921,7 +921,7 @@ Over the relatively short time horizon of the geostationary orbital period, the 
 However, the addition of the control input has increased the velocity component of the trajectory.
 It is this velocity change that is subsequently exploited to generate the transfer trajectory.
 
-The minimum trajectory from the first iteration of the reachability set is used to initial the following stage.
+The minimum trajectory from the first iteration of the reachability set is used to initialize the following stage.
 From the terminal state of the first iteration, the second reachability set is computed and displayed in~\cref{fig:stage2_trajecotry_zoom,fig:stage2_poincare}.
 The second reachability set is shown on the \Poincare section in~\cref{fig:stage2_poincare}.
 This iteration greatly decreases the distance in the \( x \) component between the trajectory and the target, at the expense of a small deviation in the \( \dot{x} \) component.

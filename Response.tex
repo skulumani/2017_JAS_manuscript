@@ -15,8 +15,6 @@
 \usepackage{color}
 \usepackage{bm}
 \usepackage{xr-hyper}
-\usepackage{xcite}
-\externalcitedocument{manuscript}
 % \usepackage{nameref,zref-xr}
 \usepackage{hyperref}
 \usepackage[]{cleveref} % get fancy referencing
@@ -24,6 +22,8 @@
 % \zexternaldocument{manuscript}
 \externaldocument[]{manuscript}[manuscript.pdf]
 
+% \usepackage{xcite}
+% \externalcitedocument{manuscript}
 % edit cref citations for IEEE format
 \crefformat{equation}{(#2#1#3)} % no abbreviation for equation numbers
 \Crefformat{equation}{Equation~(#2#1#3)} % no abbreviation for equation numbers
@@ -99,7 +99,7 @@ These issues are:
 
     To address this, the manuscript has been reduced and reorganized to enhance the clarity and clearly separate previously material and the contributions of this paper.
     The introduction has been reduced and the repetition and discuss on the variational integrator has been removed.
-    The second section has been reorganized to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator. The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles. The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, which are the main contributions of this paper. 
+    The second section has been reorganized to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the and variational integrator. The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles. The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, which are the main contributions of this paper. 
     
     In short, the manuscript has been completely reorganized such that all of the background materials are summarized in Section 2. The remaining sections dealing with the proposed approach are expanded with more detailed descriptions and numerical results. 
 
@@ -320,7 +320,7 @@ Utilizing the planar assumption greatly simplifies the problem and allows for th
 \end{itshape}
 
 While the geometric integrator will not exactly characterize the terminal energy or state of a dynamic system, it will better preserve the total energy variation as compared to conventional integration schemes. 
-In addition, the total energy deviation will remain bounded and less than than of conventional schemes which experience unbounded energy deviation. 
+In addition, the total energy deviation will remain bounded and less than that of conventional schemes which experience unbounded energy deviation. 
 As a result, the terminal state/energy will be more accurately characterized using a variational integrator as compared to conventional schemes. 
 Also this difference becomes more evident over increasing time horizons.
 Some additional detail has been added stating that the increased accuracy is most evident over long time periods. 
