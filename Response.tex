@@ -22,6 +22,8 @@
 % \zexternaldocument{manuscript}
 \externaldocument[]{manuscript}[manuscript.pdf]
 
+% \usepackage{xcite}
+% \externalcitedocument{manuscript}
 % edit cref citations for IEEE format
 \crefformat{equation}{(#2#1#3)} % no abbreviation for equation numbers
 \Crefformat{equation}{Equation~(#2#1#3)} % no abbreviation for equation numbers
@@ -65,6 +67,10 @@
 
 \newenvironment{correction}{\begin{list}{}{\setlength{\leftmargin}{1cm}\setlength{\rightmargin}{1cm}}\vspace{\parsep}\item[]``}{''\end{list}}
 
+\newcommand{\EditTL}[1]{{\color{red}\protect #1}}
+%\renewcommand{\EditTL}[1]{{\protect #1}}
+
+
 \begin{document}
 
 %\pagestyle{empty}
@@ -88,12 +94,14 @@ These issues are:
 -It extensively re-covers issues that have been covered in many papers, making it difficult to disseminate what the original contributions are.  For example, I don't think the addition of the thrust term into the dynamics necessitates re-doing every piece of analysis that has been done with various resources in the literature about variational integrators (including comparisons with RK methods).  Things that can be found in other research should be cited, and summary comments can be used to point the readers to fill in this knowledge.  The content of this paper easily be reduced considerably to maintain focus on the original contributions.
     \end{itshape}
 
-    Thank you for the comment, and we agree that there is significant repetition of material previously covered in other sources.
-    The manuscript has been reduced and reorganized to enhance the clarity and clearly seperate previously material and the contributions of this paper.
+    Thank you for the comment, and we agree that there is repetition of material previously covered in other publications.
+    The challenge is that the proposed approach utilizes several tools and concepts integrated together to design low-thrust orbital maneuvers in a systematic way, and in order to describe the key idea in a self-contained manner, each of prior approach should be described properly. 
+
+    To address this, the manuscript has been reduced and reorganized to enhance the clarity and clearly separate previously material and the contributions of this paper.
     The introduction has been reduced and the repetition and discuss on the variational integrator has been removed.
-    The second section has been retitiled to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator.
-The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, followed by conclusions.
-The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles.
+    The second section has been reorganized to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the and variational integrator. The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles. The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, which are the main contributions of this paper. 
+    
+    In short, the manuscript has been completely reorganized such that all of the background materials are summarized in Section 2. The remaining sections dealing with the proposed approach are expanded with more detailed descriptions and numerical results. 
 
 \item
     \begin{itshape}
@@ -118,11 +126,11 @@ The conclusion is copied below.
 In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~section is used to generate transfer between planar periodic orbits in the three-body problem.
 The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
-Direct optimal control techniques must rely entirely on the ability of the numerical optimzation routine to determine a feasible solution.
+Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution.
 Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
 Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+Furthermore, our approach relies heavily on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
@@ -142,10 +150,9 @@ The pros and cons of the PCRTBP
 -The PCRTB is limiting for many pragmatic departure orbits (e.g. LEO and GTO, the most common departure orbits for low-thrust transfers).
 \end{itshape}
 
-Thank you for the comment and these characteristics of our choice of the PCRTBP.
-Additional detail has been included in the problem formulation section.
-This includes some discussion on the choice of the PCRTBP and the relative strengths/weaknesses of this approach.
-The additional paragraph has been copied below.
+Thank you for the comment and these characteristics of our choice of the PCRTBP. The authors would like to point out that the key idea of designing low-thrust orbits through the reachability analysis on the \Poincare section may be applied to other dynamic system. This manuscript illustrates such idea through PCRTB. 
+
+However, according to the reviewers suggestion, additional details have been stated in the problem formulation section, including discussions on the choice of the PCRTBP and the relative strengths/weaknesses of this approach as copied below.
 
 \begin{correction}
 We utilize the planar circular restricted three body problem~(PCRTBP) as the basis of our system definition. 
@@ -166,24 +173,28 @@ The pros and cons of variational integrators should really be acknowledged rathe
 -Cons = you don't know where you are on the energy surface, just that you are on it somewhere.  This is still a problem in actual trajectory design.  Knowing the error is on an energy surface does not mean that you don't have error.
 \end{itshape}
 
-Thank you for the comment and the detail on the benefits/drawbacks of variatonal integrators.
-Additional discussion has been included in the paper in the subsection which introduces the variational integrator for the PCRTBP.
+Thank you for the comment and the detail on the benefits/drawbacks of variational integrators. The authors agree that the general-purpose numerical integrators such as higher-order RK methods are suitable in many cases. The proposed approach utilizes the variational integrator, particularly due to its numerical structural stability of capturing long-term behaviors of small effects accurately and efficiently, which is critical in low-thrust orbital maneuvers.
+
+While the structural stability of geometric numerical integrators is often illustrated by the conserved quantities such as energy or momentum, it has been shown that variational integrators are also effective in computing the rate of energy change for non-conservative systems~\cite{marsden2001}. 
+
+To clarify these, additional discussion has been included in the paper in the subsection which introduces the variational integrator for the PCRTBP.
 Much of the discussion of variational integrators in the introduction has also been removed.
 The additional content, which discusses the relative benefits of variational integrators is copied below.
 
 \begin{correction}
 Both integration schemes result in trajectories that are initially nearly identical.
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
-For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the conventional integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
 This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
 However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
 In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
-The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
+In summary, this paper utilizes the variational integrator to capture the long-term effects of low-thrust devices accurately and efficiently.
+The structural stability during numerical integration is critical for numerical optimization in the subsequent developments.
 \end{correction}
 \end{itemize}
-From here on out comments specific to various sections of the paper follow:
+From here on out, comments specific to various sections of the paper follow:
 
 \begin{enumerate}
     \item
@@ -205,15 +216,15 @@ From here on out comments specific to various sections of the paper follow:
             There has been significant research into the design of orbital transfers for space vehicles.
             Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
             Electric propulsion systems offer a much greater specific impulse than chemical systems.
-            As a result, the greatly increased effeciency allows for greater payload mass or extended duration missions.
-            However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore orbital manuevers have a much longer time of flight.
+            As a result, the greatly increased efficiency allows for greater payload mass or extended duration missions.
+            However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore orbital maneuvers have a much longer time of flight.
             In spite of this drawback, a wide variety of missions, such as communication and deep space probes, have utilized the unique benefits of low thrust electric propulsion to great effect~\cite{choueiri2009}.
 
             With reduced development intervals and decreased launch costs, small satellites have gained increased attention as a cost effective means of scientific and technologic development. 
             Furthermore, these cubesats are easily launched as secondary payloads rather than requiring a dedicated launch.
             The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
             Recent developments in miniature electric propulsion offer the potential for new research opportunities for small spacecraft~\cite{haque2013}.
-            The advancements in minature electric propulsion allows for greater flexibility in the deployment of cubesats as secondary payloads.
+            The advancements in miniature electric propulsion allows for greater flexibility in the deployment of cubesats as secondary payloads.
             Without the explicit requirement of a dedicated launch trajectory, cubesats are able to exploit a much wider range of possible mission designs~\cite{folta2015}.
             With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
             In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{folta2015,koon2011}.
@@ -230,7 +241,6 @@ Thank you for the comment.
 The sentence has been modified as follows.
 
 \begin{correction}
-
 Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
 As a result numerical methods are often required to investigate solutions to the three body problem.
 \end{correction}
@@ -240,21 +250,20 @@ As a result numerical methods are often required to investigate solutions to the
 "These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation. These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion."  It really depends on what you mean by "long term".  If transfers are on the order of hundreds of days, then high precision runge-kutte integrator, for example a Runge-Kutte Verner 8(9), can maintain suitable accuracy such that the energy drift in the Hamiltonian is very small, as can be seen in some of the references that the authors have cited.  If, on the other hand you mean 10-100's of years or more, i.e., when you create your Poincare maps, then this drift is more apparent.  I think that this statement needs to be quantified better because it gives a dishonest portrayal of high-precision Runge-Kutte integrators without numbers attached to it.
 \end{itshape}
 
-Thank you for the comment. 
-The claims about the variational integrator have been qualified with some additional detail.
+Thank you for the comment. Those numerical dissipations would depend on several parameters. But, for the particular numerical comparison illustrated by \Cref{fig:compare_energy}, such difference in conservation properties becomes noticeable in the simulation for 15 years. As suggested, the claims about the variational integrator have been qualified with some additional detail.
 The correction is copied below.
 \begin{correction}
 As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
 \end{correction}
 
+
 \item
     \begin{itshape}
-"Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system [8]. As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured."  Again, I think situationally I would disagree.  Transfers on the order of 100's of days can maintain accuracies of 1e-10 (nondimensional units) in the Hamiltonian, which is generally considered a "small" amount of energy drift.
+"Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system [8]. As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured."  Again, I think situationally I would disagree.  Transfers on the order of 100's of days can maintain accuracies of 1e-10 (non-dimensional units) in the Hamiltonian, which is generally considered a "small" amount of energy drift.
 \end{itshape}
 
-These sentences have been modified and combined to enhance clarity and reduce some of the unecessary bloat. 
-In addition, some additional detail has been added to explicitly define the notion of ``long-term'' in the context of numerical integration.
-The modifications are copied below.
+These sentences have been modified and combined to enhance clarity and reduce some of the unnecessary bloat. 
+In addition, some additional detail has been added to explicitly define the notion of ``long-term'' in the context of numerical integration. As shown by \Cref{fig:compare_energy}, the variational integrator exhibit smaller conservation errors than ODE45 at the similar computational efforts, for the particular numerical case considered. The modifications are copied below.
 \begin{correction}
     Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
     As a result, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
@@ -310,8 +319,8 @@ Utilizing the planar assumption greatly simplifies the problem and allows for th
 -"In addition, through the use of geometric integrators we accurately capture the effects of low thrust on the system dynamics in the numerical simulation."  A variational integrator will accurately capture the qualitative effects of the transfer (e.g. propellant use), however it will not necessarily accurately capture accuracy in the final state vector - it is guaranteed to be on an energy surface, but it is not guaranteed to be at exactly the right location on the energy surface.  I would soften this claim or reword.
 \end{itshape}
 
-While the geometric integrator will not exactly characterize the terminal energy or state of a dynamic system, it will better preserve the total energy variation as compared to convential integration schemes. 
-In addition, the total energy deviation will remain bounded and less than than of convential schemes which experience unbounded energy deviation. 
+While the geometric integrator will not exactly characterize the terminal energy or state of a dynamic system, it will better preserve the total energy variation as compared to conventional integration schemes. 
+In addition, the total energy deviation will remain bounded and less than that of conventional schemes which experience unbounded energy deviation. 
 As a result, the terminal state/energy will be more accurately characterized using a variational integrator as compared to conventional schemes. 
 Also this difference becomes more evident over increasing time horizons.
 Some additional detail has been added stating that the increased accuracy is most evident over long time periods. 
@@ -322,7 +331,7 @@ In addition, through the use of geometric integrators we more accurately capture
 
 \item 
     \begin{itshape}
--"The Poincare section reduces the dimensionality of the system dyanmics to the study of a related discrete update map." It does, but at the expense if a large up-front computational run that must be run well in advance to capture the problem characteristics.  Also, it is more challenging to execute in 3D, which should be noted.
+-"The Poincare section reduces the dimensionality of the system dynamics to the study of a related discrete update map." It does, but at the expense if a large up-front computational run that must be run well in advance to capture the problem characteristics.  Also, it is more challenging to execute in 3D, which should be noted.
 \end{itshape}
 
 Thank you for the comment.
@@ -339,21 +348,28 @@ While the \Poincare~section is well defined for the planar case, as a 2D represe
 
 Thank you for the comment.
 The section on the variational integrator has been reduced and this specific sentence has been removed. 
-However, additional detail has been provided in a the variational integrator subsection which discusses this drawback.
+However, additional detail has been provided in the variational integrator subsection which discusses this drawback.
 
 \begin{correction}
+
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
 This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
-However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
+However, for this preliminary analysis the variational integrator provides reduced computational demands, as compared with general-purpose numerical integrators with a similar level of numerical error, and is useful to characterize and explore the trade space in preliminary mission design scenarios.
+
 \end{correction}
 \item 
     \begin{itshape}
 "Optimal solutions are generally sensitive to small variations in the initial multipliers. As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance."  I don't agree that this implies that variational integrators are better for gradient-based methods.  The primary issue is that gradient-based methods that are solving optimal control problems are using first-order approximations to iterate on the problem.  The first-order approximation is what is poor, not necessarily the gradients.  Even if these gradients are of exact accuracy (and I agree that they should always be as accurate as possible), the first-order methods in the chaotic problem are what give the difficulties.  One could use a variational or standard integrator in a first-order gradient based method and nothing will change the fact that the method will be highly sensitive, save for partitioning the sensitivities as you did with your multiple shooting approach.  At best, you can change the statement to indicate that the accuracy in the gradients may improve, which is always helpful to gradient-based methods, but it's no guarantee that it eliminates major problem sensitivity.
 \end{itshape}
 
-Thank you for the comment.
-This sentence has been removed from the introduction.
+It has been shown that the structure-preserving properties of geometric numerical integrators are also useful to numerical optimizations for improved computational efficiency and stability. For example, see the following reference. 
+
+\begin{itemize}
+\item[-] Ober-Blöbaum, Sina, Oliver Junge, and Jerrold E. Marsden. "Discrete mechanics and optimal control: an analysis." ESAIM: Control, Optimisation and Calculus of Variations 17.2 (2011): 322-352.
+\end{itemize}
+
+The proposed approach utilizes desirable numerical properties of the variational integrator. However, the main contribution is systematic design of low-thrust orbital maneuvers through reachability set analysis on the \Poincare section. The above sentences may be confusing, and the authors decided to remove them from the introduction of the revised manuscript. 
 
 \item
     \begin{itshape}
@@ -363,11 +379,22 @@ Pellegrini, E.P., Russell, R.P., On the Accuracy of Trajectory State Transition 
 \end{itshape}
 
 Thank you for the comment and helpful reference.
+
+It is well known that variable step size may break conservational properties of a geometric numerical integrator. Variational integrators are no exception, and there has been a multisymplectic framework to address it. See
+
+\begin{itemize}
+\item[-] Lew, Adrian, et al. "Asynchronous variational integrators." Archive for Rational Mechanics and Analysis 167.2 (2003): 85-146.
+\end{itemize}
+
+However, the above formulation for structure-preserving, adaptive time-step variational integrators is beyond the scope of this paper, and we use a fixed time step throughout the presented numerical results. 
+
 Additional detail has been included in the manuscript discussing this potential drawback of variable step integrators.
-j
+
 \begin{correction}
+
 In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
-The fixed step size of the presented variational integrator mitigates the artifical ``noise'' of variable step integration schemes in gradient computation.
+The presented results are based on the variational integrator with a fixed time step for numerical simulation and gradient computation.
+
 \end{correction}
 
 \item 
@@ -379,7 +406,7 @@ Thank you for the comment.
 The suboptimal claims of direct optimization has been reduced and modified.
 Additional detail has been included on the merits of indirect optimal control vs. direct optimal control methods.
 \begin{correction}
-This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods which rely on course or suboptimal control parameterizations.
+This results in an optimal solution rather than the suboptimal solution typical of direct optimal control methods which rely on coarse or suboptimal control parameterizations.
 For example, a hybrid direct method may use a continuous control law developed from indirect optimal control theory while directly minimizing a cost function instead of solving the full two-point boundary value problem~\cite{ozimek2010a}.
 \end{correction}
 
@@ -433,7 +460,7 @@ In addition, the variational integrator details are moved into a titled subsecti
 The additional paragraph is shown below.
 
 \begin{correction}
-Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invaraint properties and symplecticity.
+Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invariant properties and symplecticity.
 Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations.
 As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
 In addition, they exhibit improved energy behavior over long integration periods.
@@ -467,7 +494,7 @@ The background material on the variational integrators has been removed and this
 
 \item 
     \begin{itshape}
-Figure 2 - x-axis has no label but I think it's nondimensional time, please indicate.  Label all axes even if they are nondimensional units.
+Figure 2 - x-axis has no label but I think it's non-dimensional time, please indicate.  Label all axes even if they are non-dimensional units.
 \end{itshape}
 
 Thank you for the comment. 
@@ -478,7 +505,7 @@ This modified plot is shown below.
 \begin{correction}
     \begin{figure}[H] 
         \centering 
-        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparision: A stable trajectory is used to test the variational and conventional integrators. 
+        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparison: A stable trajectory is used to test the variational and conventional integrators. 
         The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.}
         [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
         \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}}
@@ -533,7 +560,7 @@ The modified content is copied below.
         \centering 
         \begin{subfigure}[h]{0.5\textwidth} 
                 \includegraphics[width=\textwidth]{trajectory} 
-                \caption{Earth-Moon three-body trajectory used for integrator comparision}
+                \caption{Earth-Moon three-body trajectory used for integrator comparison}
         \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 %       \begin{subfigure}[htbp]{0.3\textwidth} 
 %               \includegraphics[width=\textwidth]{components} 
@@ -546,13 +573,13 @@ The modified content is copied below.
         \caption{Integrator Comparison}
 \end{figure}
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
-A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
-    The variational integrator uses a range of step sizes between \SIrange{4.72}{472}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
+A particle is simulated from an initial condition of \( \vecbf{x}_0 = \begin{bmatrix} 0.75 & 0 & 0.2 & 0\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
+    The variational integrator uses a range of step sizes between \SIrange{47.2}{4720}{\second} while the Runge-Kutta method uses a variable step size implemented via \texttt{ODE45} in Matlab.
     The step size of the variable integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
 Both integration schemes result in trajectories that are initially nearly identical.
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
-For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the convential integration scheme.
+For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the conventional integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 \end{correction}
 
@@ -566,7 +593,7 @@ Online copy: https://arxiv.org/pdf/1703.06599.pdf
 
 Thank you for the comment.
 However, this manuscript is not really focused on variational integrators but rather the design of transfer trajectories using reachability sets.
-There is a wide range of topic under the umbrella of varaitional integrators that are not directly applicable to this manuscript and work.
+There is a wide range of topic under the umbrella of variational integrators that are not directly applicable to this manuscript and work.
 Interested readers can find a wide variety of literature on the relative benefits of all manner of variational integrators in papers focused on that topic specifically.
 As a result, we do not feel it is applicable to include additional discussion on the merits of taylor integration methods.
 
@@ -578,7 +605,6 @@ As a result, we do not feel it is applicable to include additional discussion on
 Thank you for the comment.
 The additional clarification has been added to the manuscript and copied below.
 \begin{correction}
-
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 \end{correction}
 
@@ -593,13 +619,14 @@ This additional content is copied below.
 
 \begin{correction}
 The numerical examples presented in this section are designed in the context of the PCRTBP.
-The dynamic environment has a four dimensional state space and offers a convient integration constant in the form of the Jacobi integral.
+The dynamic environment has a four dimensional state space and offers a convenient integration constant in the form of the Jacobi integral.
 As a result, there are well defined methods to define and exploit \Poincare sections, which result in straightforward two-dimensional subspaces of the system.
 Our approach uses the \Poincare section to approximate the reachability set on this reduced subspace.
 As a result, this approach is more difficult to apply to three-dimensional transfers in the general three body problem.
 \Poincare sections in the case of the general six dimensional state space are significantly more challenging and typically require more complicated visualization techniques. 
-However, this is an area of active research and some of the authors future research is aimed at implementing this approach for non-planar transfer trajectories.
+However, this is an area of active research and some of the authors future research is aimed at implementing this approach for non-planar transfer trajectories~\cite{kulumani2016d}.
 \end{correction}
+
 
 \item
     \begin{itshape}
@@ -608,7 +635,7 @@ Figures 10D and 13D - the authors need to present these plots in dimensional coo
 
 Thank you for the comment.
 The mentioned plots of the control input have been modified to show the data in dimensional units (Newtons). 
-Some additional detail has been provided in the manuscript which discusses the choice of \( u = 0.75 \) and it's realtionship to the current state of the art thruster systems.
+Some additional detail has been provided in the manuscript which discusses the choice of \( u = 0.75 \) and it's relationship to the current state of the art thruster systems.
 The modified plots are not included here but the additional content is copied below in response to a different but related comment.
 
 \begin{correction}
@@ -624,7 +651,7 @@ This initial state lies on the initial periodic orbit and the time of flight is 
 \begin{figure}[H]
     \centering
     \subcaptionbox{Control input for the selected transfer trajectory}{\includegraphics[width=0.5\textwidth]{control_input_l1}}~
-    \subcaptionbox{Control Input: Combined control history for each stage of the reacability analysis. 
+    \subcaptionbox{Control Input: Combined control history for each stage of the reachability analysis. 
     The control always remains within the maximum bound.}{\includegraphics[width=0.5\textwidth]{figures/control_input_geo.pdf}}
 \end{figure}
 \end{correction}
@@ -680,7 +707,7 @@ Did the authors experiment with the number of multiple shooting stages in their 
 We did spend considerable time in determining the appropriate number of stages. 
 One key issue was that our implementation in software depended on dividing the total number of integration steps by the number of interior stages.
 For simplicity, this reduced the possible number of stages to an even number. 
-Additionally, we discovered that adding many stages tended to degrade the solution and cause difficulties in covergence. 
+Additionally, we discovered that adding many stages tended to degrade the solution and cause difficulties in convergence. 
 The solver would tend to ensure a continuous trajectory, by satisfying the interior stages, at the expense of the terminal stage. 
 Some additional detail has been provided that mentions our choice of the number of stages and has been copied below.
 
@@ -747,11 +774,11 @@ The modified conclusion is copied below.
 In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~section is used to generate transfer between planar periodic orbits in the three-body problem.
 The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
-Direct optimal control techniques must rely entirely on the ability of the numerical optimzation routine to determine a feasible solution.
+Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution.
 Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
 Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+Furthermore, our approach relies heavily on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
@@ -767,12 +794,20 @@ The addition of attitude dynamics and realistic pointing constraints would signi
 The authors should discuss some statistics of the convergence of their multiple shooting TPBVP - number of iterations, compute time, etc.
 \end{itshape}
 
-Thank you for the comment, howver it seems to be rare for the research community to give detailed description of the numerical optimization method.
+Thank you for the comment, however it seems to be rare for the research community to give detailed description of the numerical optimization method.
 Most of the literature tends to not spend time discussing the low level details of the computational procedure, e.g.~\cite{grebow2011,stuart2010}.
 In addition, the number of iterations, computation time and even the eventual cost function value are highly dependent on the specific system and more specifically the implementation of the algorithm in software. 
 There are a wide variety of works which are focused more exclusively on the computational implementation of various optimal control techniques which do spend significant time on the computational characteristics.
-However, our manuscript is primarily focused on demonstrating the feasbility of using reachability sets to design transfer trajectories.
+However, our manuscript is primarily focused on demonstrating the feasibility of using reachability sets to design transfer trajectories.
 As a result, there is not much benefit to detailed statistics of the implementation of this methodology, and we have omitted it from the manuscript.
+However, we have added some rough detail on the computation time and computer hardware used in the numerical optimization.
+This additional detail is copied below.
+
+\begin{correction}
+Each optimal control solution, corresponding to a discrete value of \( \theta_d \), is solved using \texttt{fsolve} as described earlier. 
+Each solution on the reachability set is computed in approximately \SI{2}{\minute} on a desktop computer using an \SI{3.4}{\giga\hertz} Intel i7-3700.
+\end{correction}
+
 
 \item 
     \begin{itshape}
@@ -780,7 +815,7 @@ Can any intuition be gained from reporting the optimal converged cost function v
 \end{itshape}
 
 The cost function only parameterizes the distance between the controlled and uncontrolled terminal states on the \Poincare section. 
-In addition, each state which lies on the reachable set would typically have a different distance and therefore a different coverged cost function value. 
+In addition, each state which lies on the reachable set would typically have a different distance and therefore a different converged cost function value. 
 Furthermore, it would be difficult to characterize a single parameter which characterizes the reachable set, in the form of the cost function, for all states of the reachable set. 
 Also, the cost function is highly dependent on the transit time of trajectory, i.e. a longer transit time corresponds to a larger reachable set and a larger magnitude of the cost function.
 However, this is an interesting suggestions for future research.
@@ -837,7 +872,7 @@ In this paper, an optimal transfer process which combines concepts of reachabili
 The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-Furthermore, our approach relies heaviliy on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+Furthermore, our approach relies heavily on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
@@ -869,9 +904,9 @@ First, in terms of composition, large portions of the paper are spent on lengthy
 \end{itshape}
 
     Thank you for the comment, and we agree that there is significant repetition of material previously covered in other sources.
-    The manuscript has been reduced and reorganized to enhance the clarity and clearly seperate previously material and the contributions of this paper.
+    The manuscript has been reduced and reorganized to enhance the clarity and clearly separate previously material and the contributions of this paper.
     The introduction has been reduced and the repetition and discuss on the variational integrator has been removed.
-    The second section has been retitiled to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator.
+    The second section has been retitled to ``Problem Formulation and Mathematical Background'' and has subsections which cover all of the background material, namely the planar circular restricted three body problem, Jacobi integral, invariant manifolds and \Poincare maps, the variational integrator.
 The next sections introduce the optimal control formulation for the reachability analysis and the numerical examples, followed by conclusions.
 The section on variational integrators has been reduced and now only discusses the main developments of the integrator for the PCRTBP and omits the review of variational principles.
 
@@ -881,13 +916,19 @@ The section on variational integrators has been reduced and now only discusses t
     \end{itshape}
 
     Thank you for the comment. 
-    The numerical examples are meant to demonstrate the use of this approach and the feasibility of using the reachability set on a \Poincare section to determine transfer trajecotries.
+    The numerical examples are meant to demonstrate the use of this approach and the feasibility of using the reachability set on a \Poincare section to determine transfer trajectories.
     The examples give two demonstrations of finding a transfer trajectory in the PCRTBP and demonstrate combining several iterations of the reachability set for a transfer.
 
 \item
     \begin{itshape}
-While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples.
+While there are the beginnings of a good article within this manuscript, it is not sufficiently close to publishable form to be accepted.  I recommend that the paper be rejected and that the authors push their investigation a bit further.  The eventual publication should focus less on background and should provide more insight into the fundamental properties of their method, using more rigorously constructed and analyzed examples. 
 \end{itshape}
+
+The authors believe that the given two nontrivial numerical examples illustrate the efficacy of the proposed approach in designing low-thrust maneuvers through reachability set analysis on the \Poincare section. 
+Furthermore, the manuscript has been completely reorganized to emphasize the contributions and clearly separate the background material. 
+In particular,~\cref{sec:simulation} includes additional paragraphs and figures for the geostationary to periodic orbit transfer.
+These additional figures demonstrate the ability to chain together multiple iterations of the reachability set computation to generate a nontrivial transfer trajectory.
+Combined together, the numerical examples demonstrate the ability to depart from the vicinity of the Earth to the vicinity of the Moon using our proposed method of coupling low-thrust maneuvers with reachability set analysis.
 
 \item 
     \begin{itshape}
@@ -906,9 +947,10 @@ In the introduction, the exposition of the problem could be considerably condens
 Thank you for the comment.
 The introduction is reduced and many of the paragraphs have been reworded and combined. 
 In addition, the extended discussion of the benefits of variational integrators is removed from the introduction.
-The mathematical background has been condensed into a single section with seperate subsections which discuss some of the mathematical details.
+The mathematical background has been condensed into a single section with separate subsections which discuss some of the mathematical details.
 The background section is focused on reviewing the relevant material rather than reintroducing topics.
-In the interest of space the reorganized section is omitted in this response.
+In the interest of space the reorganized section is omitted in this response. 
+In short, the manuscript is completely reorganized and all of the background materials are summarized in~\cref{sec:background}.
 
 \item
     \begin{itshape}
@@ -932,7 +974,7 @@ As a result, the third section begins with the new contributions which describe 
 
 \item 
     \begin{itshape}
-A missing relevant reference: "On target for Venus â€” set oriented computation of energy efficient low thrust trajectories" (Dellnitz, Junge, Post, and Thiere, 2006)
+A missing relevant reference: "On target for Venus a set oriented computation of energy efficient low thrust trajectories" (Dellnitz, Junge, Post, and Thiere, 2006)
 \end{itshape}
 
 Thank you for the comment.
@@ -942,20 +984,38 @@ More recently, reachability theory has recently been applied to space systems~\c
 \end{correction}
 
 \item
-    {\color{red}
     \begin{itshape}
 *** Variational Integrators
 Many of the specific claims regarding the use of a variational integrator are unsubstantiated and, I believe, incorrect. Why is energy drift "even more detrimental" with regards to "the long term effects of low-thrust"?  I would need to be convinced that a non-geometric integrator's energy drift relative to a constant energy baseline is significantly different from its drift relative to a gradually shifting baseline corresponding to low thrust. The specific claims about the numerical stability of derivatives also don't seem related to energy preservation.  
 
 \end{itshape}
-}
+
+The main contribution is systematic design of low-thrust orbital maneuvers through reachability set analysis on the \Poincare section. The authors decided to utilize the variational integrator as it is more computationally efficient in simulating a complex dynamic system accurately. 
+
+More explicitly, while the structural stability of geometric numerical integrators is often illustrated by the conserved quantities such as energy or momentum, it has been shown that variational integrators are also effective in computing the rate of energy change for non-conservative systems accurately~\cite{marsden2001}. This is particularly useful for low-thrust orbital maneuvers where the energy dissipate or accumulates slowly. Furthermore, it has been shown that the structure-preserving properties of geometric numerical integrators are also useful to numerical optimizations for improved computational efficiency and stability. For example, see the following reference. 
+
+\begin{itemize}
+\item[-] Ober-Blöbaum, Sina, Oliver Junge, and Jerrold E. Marsden. "Discrete mechanics and optimal control: an analysis." ESAIM: Control, Optimisation and Calculus of Variations 17.2 (2011): 322-352.
+\end{itemize}
+
+In the revised manuscript, all of the comments for the variational integrator are re-examined and reorganized to Section 2.2, as also discussed in the response to the first reviewer. 
+
 
 \item
-    {\color{red}
     \begin{itshape}
 Apart from these claims, I question the need for a variational integrator in the first place. The example in section 3.4 is not convincing because there is no apples-to-apples basis for the comparison; a variable-step integrator with unspecified tolerance is compared to a fixed-step integrator with an arbitrary step size.  Integrator comparisons should consider error in proportion to compute cost, which can be tuned by step size or tolerance.  Also, fixed step seems inappropriate for a path through diverse dynamic regimes, and it's not clear that the problem scope calls specifically for energy preservation (especially since the idea is to use low thrust to mitigate some time cost of exploiting the problem structure).  
 \end{itshape}
-}
+
+In the revised manuscript, the computational properties of the variational integrator is explicitly compared with a general purpose integrator in~\Cref{fig:compare_energy}. According to the reviewers suggestion, the error in energy conservation is illustrated for several computational costs. It is shown that the variational integrator exhibits lower conservation error  against a Runge-Kutta method for the similar level of CPU time. 
+
+With regards to the comments on the adaptive step size, the variational integrator can be generalized according to the multisymplectic framework, as in the following reference. 
+\begin{itemize}
+\item[-] Lew, Adrian, et al. "Asynchronous variational integrators." Archive for Rational Mechanics and Analysis 167.2 (2003): 85-146.
+\end{itemize}
+However, the above formulation for structure-preserving, adaptive time-step variational integrators is beyond the scope of this paper, and we use a fixed time step throughout the presented numerical results. 
+
+More importantly, it has been shown variational integrators are also effective in computing the rate of energy change for non-conservative systems accurately~\cite{marsden2001}, even for the fixed-step sizes. 
+
 
 \item
     \begin{itshape}
@@ -1010,12 +1070,12 @@ The figure captions are shown below, with the figures reduced in size to save so
 
         \end{tikzpicture}
     \end{scaletikzpicturetowidth}
-    \caption{Diagram of the \Poincare map: Periodic orbits will appear as fixed points on the \Poincare section \( \Sigma \). Stabiilty of periodic orbits is clearly visible on the section as successive intersections approach or depart a fixed point.}
+    \caption{Diagram of the \Poincare map: Periodic orbits will appear as fixed points on the \Poincare section \( \Sigma \). Stability of periodic orbits is clearly visible on the section as successive intersections approach or depart a fixed point.}
 \end{figure}
 
 \begin{figure}[H]
         \centering 
-        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparision: A stable trajectory is used to test the variational and conventional integrators. 
+        \subcaptionbox{Earth-Moon three-body trajectory used for integrator comparison: A stable trajectory is used to test the variational and conventional integrators. 
         The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.}
         [0.5\textwidth]{\includegraphics[width=0.2\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
         \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}}
@@ -1072,11 +1132,11 @@ The figure captions are shown below, with the figures reduced in size to save so
         % place
     \end{tikzpicture}
         \end{scaletikzpicturetowidth}
-        \caption{Reachability set on a \Poincare section: Pictoral representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
+        \caption{Reachability set on a \Poincare section: Pictorial representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
             The terminal state, \( x_n\), is the intersection without any control input. 
             Adding a control input allows for the terminal state, \( x_f \), to be displaced by some distance/cost \( J \) as measured on the section.
             We parameterize a specific direction on the section with the angles \( \theta_d\) and seek to maximize the distance between \( x_f \) and \( x_n \).
-            Computation of the maximum distance, or reacahbility, for a variety angles gives a discrete approximation of the reachability set.}
+            Computation of the maximum distance, or reachability, for a variety angles gives a discrete approximation of the reachability set.}
 \end{figure}
 
 \begin{figure}[H]
@@ -1142,15 +1202,15 @@ The figure captions are shown below, with the figures reduced in size to save so
                 \end{tikzpicture}
         \end{scaletikzpicturetowidth}
         \caption{Schematic diagram of the multiple shooting method:
-        The complete trajectory is split into a nubmer of sub-segments, and additional interior constraints are included to ensure state and costate continunity.
+        The complete trajectory is split into a number of sub-segments, and additional interior constraints are included to ensure state and costate continuity.
     Splitting the optimal trajectory into short segments reduces the sensitivity of terminal states to variations of the initial states.}
 \end{figure}
 
 \begin{figure}[H]
    \centering
    \includegraphics[width=0.2\textwidth]{moon_orbit} % requires the graphicx package
-   \caption{\(L_1\) periodic orbit transfer to orbit of the Moon: Example scenario demonstraiting the initial and target orbit.
-   Without the low-thrust proplusion, the spacecraft is constrained to the initial periodic orbit. 
+   \caption{\(L_1\) periodic orbit transfer to orbit of the Moon: Example scenario demonstrating the initial and target orbit.
+   Without the low-thrust propulsion, the spacecraft is constrained to the initial periodic orbit. 
    We determine the reachability set to find a transfer trajectory to the target orbit about the moon.}
 \end{figure}
 
@@ -1158,11 +1218,11 @@ The figure captions are shown below, with the figures reduced in size to save so
         \centering 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=0.5\textwidth]{manifold_trajectory} 
-                \caption{Position space view of invariant manifold} \label{fig:manifold_trajectory} 
+                \caption{Position space view of invariant manifold} 
         \end{subfigure}~ %
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=0.5\textwidth]{manifold_poincare} 
-                \caption{\Poincare intersection of invariant manifold (green), target orbit (blue) and the initial orbit (black)} \label{fig:manifold_poincare} 
+                \caption{\Poincare intersection of invariant manifold (green), target orbit (blue) and the initial orbit (black)} 
         \end{subfigure} 
         \caption{Invariant manifold transfer: An example transfer using the invariant manifolds is shown in both the position and \Poincare spaces.
         The control free transfer from the initial periodic orbit to the target orbit result in a long time of flight. 
@@ -1181,7 +1241,7 @@ The figure captions are shown below, with the figures reduced in size to save so
                 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=0.5\textwidth]{reach_transfer} 
-                \caption{Transfer trajectory selected from reachabiltiy set viewed in the position space}  
+                \caption{Transfer trajectory selected from reachability set viewed in the position space}  
         \end{subfigure}~ 
         \begin{subfigure}[htbp]{0.5\textwidth} 
                 \includegraphics[width=0.5\textwidth]{control_input_l1} 
@@ -1189,7 +1249,7 @@ The figure captions are shown below, with the figures reduced in size to save so
         \end{subfigure}~
         \caption{\( L_1 \) Reachability set transfer: The low thrust propulsion is used to approximate the reachability set starting from the initial periodic orbit over a fixed time horizon.
         The reachability set is shown in the upper two figures in both the position and \Poincare space.
-    From this reachabiilty set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
+    From this reachability set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
 The optimal control to achieve this transfer is shown in the lower right figure.} 
 \end{figure}
 
@@ -1239,7 +1299,7 @@ The optimal control to achieve this transfer is shown in the lower right figure.
         \caption{Stage 4 \Poincare~section } 
     \end{subfigure}   
     \caption{Stage 1-4 reachability sets: The first four reachability sets visualized in both the position (left) and \Poincare space (right).
-        The minimum trajectories from the preceeding stages are shown in red, while the next stage is shown in blue.
+        The minimum trajectories from the preceding stages are shown in red, while the next stage is shown in blue.
     The transfer goal is to generate a complete trajectory from the initial geostationary orbit to the \( L_1 \) stable manifold, with an eventual arrival at the \( L_1 \) periodic orbit}
 \end{figure}
 
@@ -1281,7 +1341,7 @@ The optimal control to achieve this transfer is shown in the lower right figure.
         \caption{Stage 8 \Poincare~section } 
     \end{subfigure}   
     \caption{Stage 5-8 reachability sets: The last four reachability sets visualized in both the position (left) and \Poincare space (right).
-        The minimum trajectories from the preceeding stages are shown in red, while the next stage is shown in blue.
+        The minimum trajectories from the preceding stages are shown in red, while the next stage is shown in blue.
     The transfer goal is to generate a complete trajectory from the initial geostationary orbit to the \( L_1 \) stable manifold, with an eventual arrival at the \( L_1 \) periodic orbit}
 \end{figure}
 \end{correction}
@@ -1291,7 +1351,7 @@ The optimal control to achieve this transfer is shown in the lower right figure.
 Figure 4 does not show what I think you intend it to show; it looks like two periodic circular orbits.
 \end{itshape}
 
-Thank you for the comment, however the figure is drawn to show a pictoral representation of a \Poincare section.
+Thank you for the comment, however the figure is drawn to show a pictorial representation of a \Poincare section.
 The periodic orbits intersect the section at fixed points, as a result it becomes simple to visualize and determine these fixed solutions by searching for fixed points on the section
 Conversely, stable/unstable trajectories will also appear on the section with a distinctive signature, and by tracking successive intersections of the trajectory with the \Poincare section.
 
@@ -1376,7 +1436,7 @@ In practice, the reachable set will be of a general shape and also higher dimens
         % place
     \end{tikzpicture}
         \end{scaletikzpicturetowidth}
-        \caption{Reachability set on a \Poincare section: Pictoral representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
+        \caption{Reachability set on a \Poincare section: Pictorial representation of the reachability set (blue circle) on the \Poincare section, \(\Sigma\). 
         }
 \end{figure}
 \end{correction}
@@ -1396,18 +1456,25 @@ As a result, we show that the intersection is a discrete approximation of the tr
 Also consider zooming/scaling as necessary to show the details you discuss.
 \end{itshape}
 
-Thank you for the comment, however we feel that the figures adequately show the desired information.
+Thank you for the comment. The figure have been revised to adequately show the desired information in the revised manuscript. 
 The figures are centered around the various intersections of the reachable set and the \Poincare section.
 Furthermore, in the case of the much larger geostationary transfer requires it becomes more difficult to zoom in on the fine details.
 However, a detailed view is presented which shows the various iterations of the reachability set computations.
 
 \item
-    {\color{red}
     \begin{itshape}
 *** Method/Examples
 I urge a revisiting of the claims with regards to optimality.  The optimization method is being initialized with *something*, and stationary points are *local* extrema.  More precise claims and assurances about solution quality (and therefore the validity of the computed reachable set boundary) are needed.  
 \end{itshape}
-}
+
+The presented numerical results satisfy the necessary conditions for optimality. As common in gradient-based numerical optimizations for non-convex systems, it guarantees local optimality. Applying various techniques to obtain the globally optimal solution is beyond the scope of this paper that is focused on systematic design of low-thrust orbital maneuvers thorough reachability set analysis on the \Poincare section.
+
+To clarify these, the following comment is added at the first paragraph of~\cref{sec:simulation}.
+
+\begin{correction}
+The numerical examples presented in this section satisfy necessary conditions for local optimality, and obtaining a globally optimal solution is considered beyond the scope of this paper.
+\end{correction}
+
 
 
 \item
@@ -1420,13 +1487,13 @@ Furthermore, the reachability set is defined in terms of a fixed terminal time.
 A variable terminal travel time would add an additional dimension, time, to the reachable space and add additional complexity to the reachability set visualization.
 The fixed travel time does not adversely affect the optimality of the computed trajectories on the reachable set, as the reachable set is defined in terms of a fixed travel time. 
 
-The choice of starting from a fixed point on the initial periodic orbit is again mostly used for convience. 
+The choice of starting from a fixed point on the initial periodic orbit is again mostly used for convenience. 
 In this case of the periodic orbit the departing trajectories are all along the unstable invariant manifold associated with the periodic orbit. 
-The uncontrolled trajecotries associated with the invariant manifolds serve as the ``center'' of each reachability set computation.
+The uncontrolled trajectories associated with the invariant manifolds serve as the ``center'' of each reachability set computation.
 The low-thrust propulsion system is then used to enlarge the distance between the uncontrolled and controlled states. 
 Starting from a different location on the periodic orbit will not create a qualitatively different situation as the entire invariant manifold also intersects the \Poincare section.
 However, different locations along the periodic orbit may have vastly different travel times before intersecting the \Poincare section.
-This will require modification of the optimal control problem, with a larger terminal time, but will result in a similar behavior regardless of the location on the intial periodic orbit.
+This will require modification of the optimal control problem, with a larger terminal time, but will result in a similar behavior regardless of the location on the initial periodic orbit.
 
 \item
     \begin{itshape}
@@ -1435,9 +1502,9 @@ In Fig 10b, it is hard to see, but appears that the low-thrust-reachable set is 
 
 The reachability set is closely spaced in terms of both the position space as well as on the \Poincare section.
 This is due to the fact that there is a very low-thrust control input on the spacecraft.
-As a result, the trajectories associated with the reachability set are all closely spaced, but more widely seperated from the terminal state without any control input.
+As a result, the trajectories associated with the reachability set are all closely spaced, but more widely separated from the terminal state without any control input.
 In the figure, there is a fixed point labeled \( x_n \) which is the terminal state without any control input, which will also lie on the periodic orbit.
-The reachable set, in red, is widely separated from the uncontrolled state due the effect of the low thrust proplusion, however the subsequent spread of the entire reachability set is much more constrained.
+The reachable set, in red, is widely separated from the uncontrolled state due the effect of the low thrust propulsion, however the subsequent spread of the entire reachability set is much more constrained.
 The low thrust expands the reachability set from a fixed point to the red elliptical region. 
 This is also explained in the manuscript with a similar description of the figure.
 
@@ -1467,13 +1534,56 @@ Furthermore, the larger time of flight creates a much larger and more chaotic re
 Through this work it was found that shorter trajectories tended to have more stable and consistent solutions.
 
 \item
-    {\color{red}
     \begin{itshape}
 In general, please devote more depth to probing the strengths, weaknesses, and fundamental properties of the method.  Considering extreme cases can help with this.
 \end{itshape}
-}
+
+
+The authors believe that the given two nontrivial numerical examples illustrate the efficacy of the proposed approach in designing low-thrust maneuvers through reachability set analysis on the \Poincare section. 
+The examples demonstrate the ability to generate transfer trajectories in the PCRTBP and can be easily extended to non-planar transfers~\cite{kulumani2016d}.
+The proposed approach provides for a systematic design process for low-thrust orbital transfers, in contrast to other methods which must rely entirely on numerical optimization to determine trajectories.
+This design process leverages the reachability set on a \Poincare section to greatly reduce the computational complexity of an unmotivated search of the reachable set.
+Through the use of the reachability set, our proposed approach provides a methodical process to determine transfers, using single or multiple iterations. 
+
+There are several drawbacks of this approach.
+First, it relies heavily on the PCRTBP, which limits the applicability to planar trajectories.
+Furthermore, this reduces it's benefit to operational missions which are often non-planar, e.g. LEO to GTO missions.
+Second, the method does not consider the effect of variable mass on the system dynamics. 
+This is a focus of future work to incorporate the effect of variable mass on the optimal control problem.
+Finally, the variational integrator provides for a bounded energy behavior but does not ensure exact energy over the simulation. 
+As a result, there is still error in the variational integrator with respect to energy deviation.
+
+The manuscript has been completely reorganized to emphasize the contributions and clearly separate the background material. 
+In particular,~\cref{sec:simulation} includes additional paragraphs and figures for the geostationary to periodic orbit transfer.
+These additional figures demonstrate the ability to chain together multiple iterations of the reachability set computation to generate a nontrivial transfer trajectory.
+Combined together, the numerical examples demonstrate the ability to depart from the vicinity of the Earth to the vicinity of the Moon using our proposed method of coupling low-thrust maneuvers with reachability set analysis.
+
+In addition, the conclusion has been modified to better demonstrate the strengths and weaknesses of our approach as well as avenues for future research.
+The conclusion is copied below.
+
+\begin{correction}
+
+In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~section is used to generate transfer between planar periodic orbits in the three-body problem.
+The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
+The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
+Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution.
+Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
+Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
+However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
+Furthermore, our approach relies heavily on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+
+There is additional research to extend these results to more general transfer scenarios in future work.
+The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems and future research is aimed at investigating smaller magnitude control inputs.
+Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
+This will result in a more complicated optimal control problem and is a focus of future research.
+Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
+The addition of attitude dynamics and realistic pointing constraints would also significantly improve the applicability of this work.
+\end{correction}
+
+
 \end{enumerate}
-\bibliography{library}
-\bibliographystyle{spmpsci}
+% \bibliography{library}
+% \bibliographystyle{spmpsci}
 \end{document}
 
