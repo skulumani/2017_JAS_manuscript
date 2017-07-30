@@ -190,7 +190,6 @@ In spite of this improved energy behavior, the order and design of the variation
 This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods. 
 However, for this preliminary analysis the variational integrator provides reduced computational demands and is useful to characterize and explore the trade space in preliminary mission design scenarios.
 In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
-The fixed step size of the presented variational integrator mitigates the artificial ``noise'' of variable step integration schemes in gradient computation.
 In summary, this paper utilizes the variational integrator to capture the long-term effects of low-thrust devices accurately and efficiently.
 The structural stability during numerical integration is critical for numerical optimization in the subsequent developments.
 \end{correction}
@@ -806,7 +805,7 @@ This additional detail is copied below.
 
 \begin{correction}
 Each optimal control solution, corresponding to a discrete value of \( \theta_d \), is solved using \texttt{fsolve} as described earlier. 
-Each solution on the reachability set is computed in approximately \SI{30}{\second} on a desktop computer using an \SI{3.4}{\giga\hertz} Intel i7-3700.
+Each solution on the reachability set is computed in approximately \SI{2}{\minute} on a desktop computer using an \SI{3.4}{\giga\hertz} Intel i7-3700.
 \end{correction}
 
 
