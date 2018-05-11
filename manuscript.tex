@@ -1015,8 +1015,8 @@ In addition, this example illustrates a straightforward method to depart from th
 \section{Conclusions}\label{sec:conclusion}
 In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~sections is used to generate a transfer between planar periodic orbits in the three-body problem.
 The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
-The indirect optimal control formulation direclty solves for the state and costate vectors.
-Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution.
+The indirect optimal control formulation direclty solves for the state and costate vectors in the form of a two point boundary value problem which results in a lower number of design variables.
+Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution and typically results in a much larger parameter set.
 Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
 Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
