@@ -59,24 +59,9 @@ However, these electric propulsion systems typically have much less thrust than 
 In spite of this drawback, a wide variety of missions, such as communication and deep space probes, have utilized the unique benefits of low thrust electric propulsion to great effect~\cite{choueiri2009}.
 
 % utilizing the combo of small satellite and low thrust propulsion offers new mission scenarios 
-With reduced development intervals and decreased launch costs, small satellites have gained increased attention as a cost effective means of scientific and technologic development. 
-Furthermore, these cubesats are easily launched as secondary payloads rather than requiring a dedicated launch.
-The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
-Recent developments in miniature electric propulsion offer the potential for new research opportunities for small spacecraft~\cite{haque2013}.
-The advancements in miniature electric propulsion allows for greater flexibility in the deployment of cubesats as secondary payloads.
-Without the explicit requirement of a dedicated launch trajectory, cubesats are able to exploit a much wider range of possible mission designs~\cite{folta2015}.
-With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
-In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{folta2015,koon2011}.
-Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional patched-conic approach~\cite{ross2006,gomez2001}.
+Recent developments in miniature electric propulsion and small satellites now offer the potential of new research oppportunities~\cite{folta2015,haque2013}.
+The potential for more demanding missions places an even greater importance on the mission design to ensure that optimal trajectories satisfy mission requirements~\cite{folta2015,koon2011,ross2006,gomez2001}. 
 Optimally combining the structure of the dynamic environment with low-thrust propulsion systems is vital for future mission success.
-
-
-% --------------Issues/Challenges of previous work
-
-% use of direct optimal control
-% chaotic systems and initial guesses for optimization
-% numerical integration accuracy
-% preserving dynamical structure
 
 There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}. 
 In spite of the long history in astrodynamics, a number of difficulties arise when implementing optimal control techniques.
@@ -90,6 +75,14 @@ As a result, numerical methods are often required to investigate solutions to th
 Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
 Therefore, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
 Furthermore, the variational integrator can allow for reduced computational effort without any loss of numerical stability or energy drift. 
+
+
+% --------------Issues/Challenges of previous work
+
+% use of direct optimal control
+% chaotic systems and initial guesses for optimization
+% numerical integration accuracy
+% preserving dynamical structure
 
 % control-free trajectories in the three-body problem 
 There exists a rich structure in the three-body problem~\cite{koon2011,ross2006}.
