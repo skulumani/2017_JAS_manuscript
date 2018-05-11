@@ -94,7 +94,6 @@ This is a vastly improved iteration of the paper and I thank the authors for tak
             "Potentially lower state accuracy" is still overselling.  Just because your second order method is bounded on an energy surface does not guarantee that the state is accurate.  It is likely that a 2nd order integrator in the PCRTBP contains more state error than a high-order RK which is the standard for modern trajectory planning in flight operations.  I think it's best to focus on the primary advantage that the variational integrator provides reduced computational demands.
         \end{itshape}
     
-    This is a very good point. 
     The manuscript has been modified to remove the about the benefits of state accuracy.
     The section has been modified to highlight the reduced computational load of the varaitional integrator.
     In addition, an additional sentence has been added specifically highlighting the fact that high order Runge-Kutta methods will probably provide better state accuracy at the expense of additional computations and poorer energy behavior.
@@ -126,7 +125,11 @@ Conclusions:
 
 I don't agree with the statement. Often, indirect methods are exceptionally difficult to append path constraints onto.  In contrast, direct methods such as collocation approaches, are very amenable to the formulation of path constraints.
     \end{itshape}
-
+    
+    This sentence has been modified.
+    \begin{correction}
+The indirect optimal control formulation direclty solves for the state and costate vectors.
+    \end{correction}
 \end{itemize}
 \subsection*{Reviewer 2}
 
