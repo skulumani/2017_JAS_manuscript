@@ -638,9 +638,10 @@ Similarly, the constraint vector is augmented with the additional interior const
 Based on experimentation, we use four stages in our multiple shooting method.
 This provided the best performance and convergence stability while minimizing the difficulties in additional interior constraints.
 The multiple shooting algorithm now varies the design vector \( \vecbf{\chi}\) to ensure that the constraints in \( \vecbf{G}(\vecbf{\chi}) \) are satisfied.
-In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm.
+In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm with a convergence tolerance of \num{1e-5}.
 Within \texttt{fsolve}, we use the trust-region dogleg solver which makes use of the Powell dogleg procedure for computing a step direction and magnitude to minimize successive iterations of the solver.
 All numerical integration is performed using the discrete variational integrator described in~\cref{sec:discrete_var}.
+The numerical results are specific to the choice of nonlinear solver, and different tolerances or software tools may result in slight changes.
 % tpbvp is solved using a shooting method (fsolve in matlab)
 % determine a design vector X of variables we need to determine
 % define a constraint vector G(X) that we need to satisfy
@@ -775,6 +776,23 @@ A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
 The optimal control input is shown in~\cref{fig:control_l1}. 
 The spacecraft achieves the desired target while satisfying the bounded control input.
+Convergence statistics associated for this transfer are shown in~\cref{tab:l1_transfer_stats}.
+\begin{table}
+    \centering
+    \begin{tabular}{llr}  
+        \toprule
+        Metric    & Value \\
+        \midrule
+        \texttt{fsolve} objective      & \num{6.03e-15}      \\
+        \texttt{fsolve} major iterations       & \num{9}      \\
+        \texttt{fsolve} first order optimality & \num{1.88e-13} \\
+        Optimal cost       & \num{2.09e-31}      \\
+        Executation time & \SI{1.49}{\second}       \\
+        \bottomrule
+
+    \end{tabular}
+    \caption{Convergence statistics for the periodic orbit transfer\label{tab:l1_transfer_stats}}
+\end{table}
 
 % compare the invariant manifold method and reachability set
 A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) for a transfer using low thrust propulsion and the reachable set.
@@ -840,7 +858,7 @@ While the geostationary orbit is not a typical ``parking orbit'' for most spacec
 The geostationary orbit about the Earth is transformed into the rotating reference frame of the Earth-Moon three body problem.
 In addition, we non-dimensionalize the initial state to find \( \vecbf{x}_0 = \begin{bmatrix} 0.0972 & 0 & 0 & 3.0010\end{bmatrix}^T\) as the initial condition of the spacecraft on the geostationary orbit.
 It is desired to transfer to a periodic orbit about the \( L_1 \) Lagrange point. 
-The periodic orbit is defined by the initial condition \(\begin{bmatrix} 0.8057 & 0 & 0 & 0.2982 \end{bmatrix} \).
+The periodic orbit is defined by the initial condition \(\begin{bmatrix} 0.8057 & 0 & 0 & 0.2982 \end{bmatrix}^T \).
 The initial and target orbits are illustrated in~\cref{fig:geo_transfer_target}.
 \begin{figure}[htbp]
    \centering
@@ -974,6 +992,24 @@ In~\cref{fig:stage2_trajecotry_zoom}, the first stage trajectory is shown in red
 
 With each reachable set we move the controlled trajectory closer to the target stable manifold.
 \Cref{fig:stage1to4_reachability,fig:stage5to8_reachability} shows all of the intermediate reachability iterations to transfer between the initial orbit and the stable invariant manifold.
+The final reachable set intersects the stable manifold of the periodic orbit. 
+A final fixed terminal time and terminal state optimal transfer is finally used to arrive at the stable manifold.
+The optimization statistics for the final transfer are shown in~\cref{tab:geo_transfer}.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{llr}  
+        \toprule
+        Metric    & Value \\
+        \midrule
+        \texttt{fsolve} objective      & \num{1.42e-11}      \\
+        \texttt{fsolve} major iterations       & \num{18}      \\
+        \texttt{fsolve} first order optimality & \num{7.2e-11} \\
+        Optimal cost       & \num{4.30e-25}      \\
+        Executation time & \SI{2.62}{\second}       \\
+        \bottomrule
+    \end{tabular}
+    \caption{Convergence statistics for the geostationary orbit transfer\label{tab:geo_transfer}}
+\end{table}
 The complete transfer trajectory, after eight iterations, is shown in~\Cref{fig:geo_transfer}. 
 Combining these trajectories results in the powered portion of the transfer from the geostationary orbit to the stable manifold. 
 Each iteration systematically moves the reachable set towards the stable manifold. 

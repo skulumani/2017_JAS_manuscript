@@ -118,6 +118,58 @@ This is a vastly improved iteration of the paper and I thank the authors for tak
             There are many other paper examples that I could cite that do this, but this is just one.
         \end{itshape}
 
+        Some additional statistics have been included in the manuscript for both examples.
+        \begin{correction}
+            Convergence statistics associated for this transfer are shown in~\cref{tab:l1_transfer_stats}.
+            \begin{table}
+                \centering
+                \begin{tabular}{llr}  
+                    \toprule
+                    Metric    & Value \\
+                    \midrule
+                    \texttt{fsolve} objective      & \num{6.03e-15}      \\
+                    \texttt{fsolve} major iterations       & \num{9}      \\
+                    \texttt{fsolve} first order optimality & \num{1.88e-13} \\
+                    Optimal cost       & \num{2.09e-31}      \\
+                    Executation time & \SI{1.49}{\second}       \\
+                    \bottomrule
+
+                \end{tabular}
+                \caption{Convergence statistics for the periodic orbit transfer\label{tab:l1_transfer_stats}}
+            \end{table}
+
+        \end{correction}
+
+        And also additional statistics are provided for the geo-stationary transfer.
+        \begin{correction}
+            The optimization statistics for the final transfer are shown in~\cref{tab:geo_transfer}.
+            \begin{table}[h]
+                \centering
+                \begin{tabular}{llr}  
+                    \toprule
+                    Metric    & Value \\
+                    \midrule
+                    \texttt{fsolve} objective      & \num{1.42e-11}      \\
+                    \texttt{fsolve} major iterations       & \num{18}      \\
+                    \texttt{fsolve} first order optimality & \num{7.2e-11} \\
+                    Optimal cost       & \num{4.30e-25}      \\
+                    Executation time & \SI{2.62}{\second}       \\
+                    \bottomrule
+                \end{tabular}
+                \caption{Convergence statistics for the geostationary orbit transfer\label{tab:geo_transfer}}
+            \end{table}
+        
+        
+        \end{correction}
+
+        In addition, some additional detail was included to highlight the fact that exact results will vary based on the choice of nonlinear solver.
+        
+        \begin{correction}
+            In this work, we use the Matlab nonlinear solver \texttt{fsolve} to solve the system of nonlinear equations defined by the multiple shooting algorithm with a convergence tolerance of \num{1e-5}.
+            Within \texttt{fsolve}, we use the trust-region dogleg solver which makes use of the Powell dogleg procedure for computing a step direction and magnitude to minimize successive iterations of the solver.
+            All numerical integration is performed using the discrete variational integrator described in~\cref{sec:discrete_var}.
+            The numerical results are specific to the choice of nonlinear solver, and different tolerances or software tools may result in slight changes.
+        \end{correction}
     \item \begin{itshape}
 Conclusions:
 
