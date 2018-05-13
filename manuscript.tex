@@ -61,11 +61,12 @@ In spite of this drawback, a wide variety of missions, such as communication and
 % utilizing the combo of small satellite and low thrust propulsion offers new mission scenarios 
 Recent developments in miniature electric propulsion and small satellites now offer the potential for new research oppportunities~\cite{folta2015,haque2013}.
 The potential for more demanding missions places an even greater importance on the mission design to ensure that optimal trajectories satisfy mission requirements~\cite{folta2015,koon2011,ross2006,gomez2001}. 
-There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}. 
-Frequently, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system~\cite{szebehely1967}.
+There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011,koon2011,ross2006}. 
+Within the three-body problem, a spacecrafts feasible region of motion is constrained by its energy, or Jacobi integral.
+The addition of low-thrust propulsion offers the potential of reduced transfer transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities.
+Frequently, insight into the problem or intuition on the part of the designer is required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system~\cite{szebehely1967}.
 Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
 Variational integrators can allow for reduced computational effort without any loss of numerical stability or energy drift which exist in conventional integration schemes. 
-
 
 % --------------Issues/Challenges of previous work
 
@@ -75,14 +76,6 @@ Variational integrators can allow for reduced computational effort without any l
 % preserving dynamical structure
 
 % control-free trajectories in the three-body problem 
-There exists a rich structure in the three-body problem~\cite{koon2011,ross2006}.
-Within the three-body problem, a spacecrafts feasible region of motion is constrained by its energy, or Jacobi integral.
-It has been shown that there exist multi-dimensional structures, termed invariant manifolds, of constant energy trajectories that span the state space. 
-These invariant manifolds, which are associated with the periodic solutions of the three-body dynamics, allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
-However, the results presented are highly case specific and difficult to generalize to arbitrary transfers.
-Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system. 
-The addition of low-thrust propulsion offers the potential of reduced transfer transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities.
-
 % objectives of this work
 
 % description of our work - our approach
@@ -93,19 +86,12 @@ The addition of low-thrust propulsion offers the potential of reduced transfer t
 % SYSTEMATIC DESIGN TO AVOID DIFFICULTIES IN CHOOSING A GOOD INITIAL GUESS
 % CAPTURE LONG TERM EFFECTS OF LOW THRUST ACCURATELY IN NUMERICAL SIMULATION
 In this paper, we propose a systematic design method which enables low-thrust transfers in the planar circular restricted three-body problem.
-Utilizing the planar assumption greatly simplifies the problem and allows for the use of established methods in determining periodic orbits and \Poincare~sections.
 We utilize the concept of the reachability set to enable a simple methodology of selecting initial conditions to achieve general orbital transfers. 
-The use of a simple distance metric on a \Poincare~section greatly reduces the dimensionality of the reachability analysis and provides an approximation of the reachability set.
-In addition, through the use of geometric integrators, we more accurately capture the effects of low thrust on the system dynamics in the numerical simulation over extended periods, which are typical of electric propulsion systems. 
-With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
-
-We define an optimal control problem to determine the reachability set on a \Poincare~section.
 The reachable set, defined as the set of all attainable states subject to the system constraints, allows for the extension of the previous control-free methods based on invariant manifolds.
 Defining the reachable set on a \Poincare section reduces the dimensionality of the system dynamics to the study of a related discrete update map.
-While the \Poincare section is well defined for the planar case, as a 2D representation, it is more challenging to implement and visualize for the general 3D three-body problem.
-Instead of relying on intuition or insight into the problem, states are chosen which minimize the distance towards the target on the \Poincare section.
 Through the use of low-thrust control input, the reachable set on the \Poincare section is enlarged and enables a larger space of potential transfers.
 By iteratively computing the reachable set, and minimizing the distance to the target on the \Poincare section, we generate general transfer trajectories.
+With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low thrust propulsion systems.
 
 In short, the authors present a systematic method of generating optimal transfer orbits in the three-body problem.
 Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
