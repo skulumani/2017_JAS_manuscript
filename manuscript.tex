@@ -61,20 +61,10 @@ In spite of this drawback, a wide variety of missions, such as communication and
 % utilizing the combo of small satellite and low thrust propulsion offers new mission scenarios 
 Recent developments in miniature electric propulsion and small satellites now offer the potential for new research oppportunities~\cite{folta2015,haque2013}.
 The potential for more demanding missions places an even greater importance on the mission design to ensure that optimal trajectories satisfy mission requirements~\cite{folta2015,koon2011,ross2006,gomez2001}. 
-Optimally combining the structure of the dynamic environment with low-thrust propulsion systems is vital for future mission success.
-
 There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}. 
-In spite of the long history in astrodynamics, a number of difficulties arise when implementing optimal control techniques.
-First, the optimal control problem is typically solved using direct methods, which approximate the continuous problem as a parameter optimization problem.
-Alternatively, indirect methods apply the calculus of variations to derive the necessary conditions for optimality.
-The indirect approach results in a lower dimensioned problem than the direct approach and provides algebraic conditions that guarantee local optimality in contrast to direct methods which generally rely on suboptimal representations of the control.
-Second, in order to implement any optimization method a sufficiently accurate ``initial guess'' is required.
-Frequently, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system.
-Finally, there is no closed form analytical solution for the three-body problem and there are an insufficient number of analytical constants~\cite{szebehely1967}.
-As a result, numerical methods are often required to investigate solutions to the three body problem.
+Frequently, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system~\cite{szebehely1967}.
 Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
-Therefore, these methods suffer from numerical instability and energy drift behaviors which make them ill-suited for the long-term propagation, e.g. on the order of decades to centuries, which is typical of the three-body problem. 
-Furthermore, the variational integrator can allow for reduced computational effort without any loss of numerical stability or energy drift. 
+Variational integrators can allow for reduced computational effort without any loss of numerical stability or energy drift which exist in conventional integration schemes. 
 
 
 % --------------Issues/Challenges of previous work
