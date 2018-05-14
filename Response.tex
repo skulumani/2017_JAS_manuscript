@@ -338,12 +338,91 @@ While my request for improvements was itself not very specific, I had hoped that
         \begin{itshape}
             I previously mentioned my dissatisfaction with the interpretability of the control solution (which is plotted in planar components).  On further consideration, I think a time series plot of the Jacobi energy would be beneficial to help vet whether the method is working reasonably.  From intuition, one might expect an efficient solution to exhibit a span of monotonic energy increase, a relatively constant coasting span, and then a monotonic decrease back to the Poincare section value.  As is, the two roughly constant thrusting phases visible in the plot suggest that this might be happening, but it's hard to be sure.  Less consistent behavior might indicate, for example, that a longer-than-necessary transfer time was used.  
         \end{itshape}
+        
+        Additional plots have been included in the manuscript which shows the evolution of the Jacobi energy integral over the transfer horizon.
+        
+        The additional plot and some additional discussion for the first periodic orbit transfer is presented below.
+        \begin{correction}
+            \begin{figure} 
+                \centering 
+                \begin{subfigure}[htbp]{0.4\textwidth} 
+                    \includegraphics[width=\textwidth]{reach_trajectory} 
+                    \caption{Position space view of reachability set} \label{fig:reach_trajectory} 
+                \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+                \begin{subfigure}[htbp]{0.4\textwidth} 
+                    \includegraphics[width=\textwidth]{poincare_compare} 
+                    \caption{\Poincare section view of reachability set} \label{fig:poincare_compare} 
+                \end{subfigure} %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 
+                \begin{subfigure}[htbp]{0.4\textwidth} 
+                    \includegraphics[width=\textwidth]{reach_transfer} 
+                    \caption{Transfer trajectory selected from reachability set viewed in the position space} \label{fig:reach_transfer} 
+                \end{subfigure}~ 
+                \begin{subfigure}[htbp]{0.4\textwidth} 
+                    \includegraphics[width=\textwidth]{control_input_l1} 
+                    \caption{Control input for the selected transfer trajectory} \label{fig:control_l1} 
+                \end{subfigure}~
+
+                \begin{subfigure}[htbp]{0.4\textwidth} 
+                    \includegraphics[width=\textwidth, keepaspectratio]{figures/l1_transfer/jacobi.pdf} 
+                    \caption{Jacobi Energy over transfer \label{fig:jacobi_l1}} 
+                \end{subfigure} 
+
+                \caption{\( L_1 \) Reachability set transfer: The low thrust propulsion is used to approximate the reachability set starting from the initial periodic orbit over a fixed time horizon.
+                    The reachability set is shown in the upper two figures in both the position and \Poincare space.
+                    From this reachability set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
+                The optimal control to achieve this transfer is shown in the lower right figure.}
+                \label{fig:reachability_set_transfer} 
+            \end{figure}
+
+            The Jacobi energy integral, computed using~\cref{eq:jacobi}, is shown in~\cref{fig:jacobi_l1}.
+            \Cref{fig:jacobi_l1} shows that the vehicle begins with an energy level equal to the periodic orbit and arrives at the target orbit with the appropriate energy.
+            The first half of the transfer is associated with and increase in energy as the control is used to transition towards the target orbit which is followed by a energy decrease to the target orbit.
+            This roughly corresponds with the expected optimal solution of a bang-coast-bang type orbital transfer~\cite{kirk2012}.
+
+        \end{correction}
+        The additional plot for the geostationary orbit transfer is presented below.
+        \begin{correction}
+
+Each stage of the transfer serves to raise the energy level of the vehicle.
+After eight stages the reachability set intersects the stable manifold and a demonstrates that a transfer is achievable.
+The final optimal control drives the vehicle towards the target manifold with the appropriate energy level.
+\begin{figure} 
+        \centering 
+        \subcaptionbox{Transfer trajectory: Complete trajectory consisting of eight iterations (1-7 black and final in red) of the reachability sets with a final control-free coast (blue)  on the stable manifold (green).\label{fig:geo_transfer_full}}{\includegraphics[width=0.4\textwidth]{geo_transfer_full}}\hfill
+        \subcaptionbox{Detailed view of transfer: Centered at \(m_1\) the eight
+            iterations from the reachability analysis are shown in black.  The
+            final segment to the stable manifold is shown in red.  Each
+            iteration progressively approaches the stable manifold.  Once on
+        the stable manifold the vehicle can coast without thrust towards the
+    periodic orbit.\label{fig:geo_transfer_zoom}
+}{\includegraphics[width=0.4\textwidth]{geo_transfer_zoom}}
+       
+\subcaptionbox{\Poincare section: Minimum distance states from each iteration of the reachability set analysis (red) with respect to the stable invariant manifold (green)\label{fig:geo_transfer_poincare}}{\includegraphics[width=0.4\textwidth]{poincare}}
+    \hfill
+    \subcaptionbox{Control Input: Combined control history for each stage of the reachability analysis. 
+    The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.4\textwidth]{figures/control_input_geo.pdf}}
+
+    \subcaptionbox{Jacobi Energy: Energy history throughout the transfer.
+    Each stage of the transfer serves to increase the energy towards the stable manifold. 
+The final reachability set intersects the stable manifold and enables a large final manuever to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.4\textwidth]{figures/geo_transfer/jacobi_energy.pdf}}
+
+        \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
+\end{figure}
+        \end{correction}
     \item 
         \begin{itshape}
             Following that thought, I have serious concerns about chaining this Poincare-based approach, as done in the second problem and as I previously asked about.  The authors' responded: "While the trajectories do return to the energy level of the Poincare section, there is a transfer of "energy" between the states of the vehicle." Frankly, this statement doesn't make sense to me.  I think that you are actually getting a very inefficient solution by forcing these repeated (and at fixed intervals) returns to the same energy level (again, plot the Jacobi time series and see if you can square it with your intuition).  Furthermore posing the problem as a transfer to the stable manifold kind of hamstrings the motivation of reducing transfer times.  Honestly, I think this second example should simply be axed.  If the first one is expanded enough to illustrate the problem fundamentals, it will be sufficient.  Conducting the same kind of analysis at a couple different rev counts would
             reveal the dimension that this second example added, and help reveal the limits of the approach under certain scenarios and thrust capabilities.
         \end{itshape}
+
+        The combination of several reachability sets does not force the system to return to a prescribed energy level.
+        Each reachability set computation serves to maximize a distance metric, defined in a reduced phase space corresponding to the \Poincare section.
+        The cost function is computed as the distance between the terminal states of the controlled and uncontrolled trajectories.
+        The additional plots shown in both examples highlight the fact that the Jacobi energy is continuously changing as the control input is used to maneuver the vehicle towards the desired target states.
+
+        The transfer to the stable manifold is presented as an example of the combination of existing control free  transfer methodologies with low thrust control inputs.
+        This example demonstrates one possible use of low-thrust control to enable a larger region of feasibility for the use of invariant manifold transfers in the three body problem. 
 
     \item 
         \begin{itshape}

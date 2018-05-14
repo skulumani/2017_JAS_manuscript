@@ -1002,6 +1002,10 @@ Once at the stable manifold, no further control input is required and the vehicl
 \Cref{fig:control_input_geo} shows the control input during the powered portion of the transfer. 
 We utilize the same spacecraft assumption of \SI{500}{\kilo\gram} from~\cref{sec:periodic_orbit_transfer} which gives a maximum thrust of approximately \SI{1}{\newton}.
 The spacecraft maintains a bounded control magnitude during the transfer to the stable manifold.
+\Cref{fig:jacobi_geo} shows the evolution of the Jacobi energy over the transfer.
+Each stage of the transfer serves to raise the energy level of the vehicle.
+After eight stages the reachability set intersects the stable manifold and a demonstrates that a transfer is achievable.
+The final optimal control drives the vehicle towards the target manifold with the appropriate energy level.
 \begin{figure} 
         \centering 
         \subcaptionbox{Transfer trajectory: Complete trajectory consisting of eight iterations (1-7 black and final in red) of the reachability sets with a final control-free coast (blue)  on the stable manifold (green).\label{fig:geo_transfer_full}}{\includegraphics[width=0.45\textwidth]{geo_transfer_full}}\hfill
@@ -1017,6 +1021,11 @@ The spacecraft maintains a bounded control magnitude during the transfer to the 
     \hfill
     \subcaptionbox{Control Input: Combined control history for each stage of the reachability analysis. 
     The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.45\textwidth]{figures/control_input_geo.pdf}}
+
+    \subcaptionbox{Jacobi Energy: Energy history throughout the transfer.
+    Each stage of the transfer serves to increase the energy towards the stable manifold. 
+The final reachability set intersects the stable manifold and enables a large final manuever to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.5\textwidth]{figures/geo_transfer/jacobi_energy.pdf}}
+
         \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
 \end{figure}
 
