@@ -727,6 +727,12 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
                 \includegraphics[width=\textwidth]{control_input_l1} 
                 \caption{Control input for the selected transfer trajectory} \label{fig:control_l1} 
         \end{subfigure}~
+
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+            \includegraphics[width=\textwidth, keepaspectratio]{figures/l1_transfer/jacobi.pdf} 
+            \caption{Jacobi Energy over transfer \label{fig:jacobi_l1}} 
+        \end{subfigure} 
+
         \caption{\( L_1 \) Reachability set transfer: The low thrust propulsion is used to approximate the reachability set starting from the initial periodic orbit over a fixed time horizon.
         The reachability set is shown in the upper two figures in both the position and \Poincare space.
     From this reachability set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
@@ -744,6 +750,10 @@ A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
 The optimal control input is shown in~\cref{fig:control_l1}. 
 The spacecraft achieves the desired target while satisfying the bounded control input.
+The Jacobi energy integral, computed using~\cref{eq:jacobi}, is shown in~\cref{fig:jacobi_l1}.
+\Cref{fig:jacobi_l1} shows that the vehicle begins with an energy level equal to the periodic orbit and arrives at the target orbit with the appropriate energy.
+The first half of the transfer is associated with and increase in energy as the control is used to transition towards the target orbit which is followed by a energy decrease to the target orbit.
+This roughly corresponds with the expected optimal solution of a bang-coast-bang type orbital transfer~\cite{kirk2012}.
 Convergence statistics associated for this transfer are shown in~\cref{tab:l1_transfer_stats}.
 \begin{table}
     \centering
