@@ -410,6 +410,23 @@ In addition, we add some additional examples demonstrating the effect of variati
         \begin{itshape}
             Actually, the influence of the starting point selection *is* somewhat illustrated by the green unstable manifold of Fig7b/8b.  The way a mission designer might think about applying this tool could be to start with this information as a baseline and then use principles revealed by the preceding two types of illustration to make some informed way of selecting a combination of [departure point, travel time, max thrust] to get the sets to intersect without oversizing their system.  That said, it's a little confusing how the red and green curves of Fig8b don't line up with this description to fit the comment of P18L47; additional consideration/analysis may be needed with regards to the number of revs/crossings used to define a section for comparison.
         \end{itshape}
+        
+        Thank you for the comment.
+        As stated in the previous comments we have included additional discussion on the effect of variations of terminal time and control bound.
+
+        \begin{itshape}
+That said, it's a little confusing how the red and green curves of Fig8b don't line up with this description to fit the comment of P18L47; additional consideration/analysis may be needed with regards to the number of revs/crossings used to define a section for comparison.
+        \end{itshape}
+        
+        Thank you for the question. 
+        The green points are the intersection of the unstable manifold with the \Poincare section while the red points are the reachability set.
+        Without any control input the spacecraft would remain on the periodic orbit and intersect the \Poincare seciton at \( x_n\). 
+        The addition of the control input allows for an expansion of the reachable set from a single point to the larger red region.
+        An additional clarification has been added to the manuscript to aid in the description of the figure.
+
+        \begin{correction}
+            In contrast, the low thrust control input we are able to enlarge the reachability set from a single point, \( x_n\) associated with the periodic orbit, to a larger ellipsoidal region shown in red in~\cref{fig:poincare_compare}.
+        \end{correction}
 
     \item
         \begin{itshape}
@@ -506,11 +523,24 @@ The final reachability set intersects the stable manifold and enables a large fi
             To summarize my thoughts on ISSUE 2:
             As they exist, the examples illustrate that solutions can be found but they do not enlighten the reader as to the characteristics of the problem formulation/tool that should be understood and kept in mind when applying it or when planning related research efforts.  Furthermore, I am very suspicious that Example 2 is not actually a good solution or a compelling use case for the approach.  I do not necessarily ask or expect the authors to follow my above outline precisely, but I insist that some changes occur to make the analysis/illustrations better convey the general nature of the tool, not just that it gives you an answer.  
         \end{itshape}
+    
+        Thank you for the comments.
+        The manuscript has been editied, as described previously, to incorporate several changes to illustrate the specific characteristics of this approach.
+        An additional section is presented which highlights the effect of terminal time and control magnitude on the reachability set. 
+
+        The second example presents a larger and more involved example of combining several iterations of the reachable set to achieve a larger and more complex transfer. 
+        This aspect of the proposed method, more specifically of combining several reachability sets to approach a target, is not demonstrated in the first example.
+        As a result, we feel that the second example does add some additional insight into the use of this method for a more complicated transfer.
 
     \item
         \begin{itshape}
             A more collected and focused discussion about how the parameter choices, assumptions, and limitations of the tool should inform its use is also warranted; currently remarks to this effect feel like scattered afterthoughts.  One organized way to think about this is to distinguish all the dimensions of the problem and identify what is being solved rigorously, what is being set manually, what is being numerically explored, etc.
         \end{itshape}
+
+        Thank you for the helpful comments to improve the manuscript.
+        The manuscript has been edited to reduce the length and repetition of the introduction.
+        In addition, an additional section is presented highlighting the effect of the variations of terminal time and control magnitude on the reachable set. 
+        Furthermore, the presented examples also incldue additional plots showing the change of the Jacobi energy during the transfer. 
 \end{itemize}
 % \bibliography{library}
 % \bibliographystyle{spmpsci}
