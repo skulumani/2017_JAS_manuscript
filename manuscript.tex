@@ -675,6 +675,62 @@ The required travel time for a transfer using the unstable invariant manifold is
         \label{fig:invariant_manifold_transfer} 
 \end{figure}
 
+Next, we determine the reachability set with addition of a low-thrust control input over a fixed time horizon.
+In~\cref{sssec:periodic_orbit_varying_tf}, we demonstrate the effect of variations in the choice of variations of maximum control bound and terminal time.
+In~\cref{sssec:periodic_orbit_transfer} a transfer is demonstrated using the intersection of the reachability set on the \Poincare section.
+A notional thrust bound is selected to match emulate currect spacecraft electric propulsion technology.
+
+\subsubsection{Reachability Set on the \Poincare section}~\label{sssec:periodic_orbit_varying_tf}
+From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
+The multiple shooting approach is implemented to solve the optimal control problem. 
+We divide the time horizon into two equal length segments. 
+The state trajectory is initialized using the free trajectory of the periodic orbit. 
+Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propagated using the discrete equations of motion in~\cref{eq:costate_eom}.
+This results in the initial guess of the design vector \( \vecbf{\chi} = \begin{bmatrix} \vecbf{\lambda}_0 & \vecbf{x}_1^{-} & \vecbf{\lambda}_1^{-} & \vecbf{\beta} \end{bmatrix}^T\).
+This design vector is then varied to ensure that the necessary conditions of optimality and the interior point constraints are satisfied. 
+\Cref{tab:varying_tf} shows the range of terminal times, \( t_f \), and maximum control bound, \( u_m \), are used to investigate their effect on the subsequent reachable set on the \Poincare section.
+\begin{table}
+    \centering
+    \begin{tabular}{ll}  
+        \toprule
+        \(t_f\) & \( u_m \) \\
+        \midrule
+        1.24 & 0.05 \\
+        1.30 & 0.25 \\
+        1.37 & 0.5 \\
+        1.44 & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Combinations for \( t_f \) and \( u_m\) used to generate the reachability set~\label{tab:varying_tf}}
+\end{table}
+
+The angle \( \theta_d\) in~\cref{eq:constraints} is varied to select a different direction along the \Poincare section to maximize.
+We discretely vary the angle over the range \( \ang{0} \leq \theta_d < \ang{360} \) to approximate the reachability set of the spacecraft.
+Choosing a new angle \( \theta_d \) corresponds to a different direction as well as a new optimal control problem which is again solved using the multiple shooting approach laid out previously.
+Each optimal control solution, corresponding to a discrete value of \( \theta_d \), is solved using \texttt{fsolve} as described earlier. 
+Each solution on the reachability set is computed in approximately \SI{2}{\minute} on a desktop computer using an \SI{3.4}{\giga\hertz} Intel i7-3700.
+The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:varying_tf_reachability_sets}.
+
+\begin{figure}
+    \subcaptionbox{Position space view of reachability sets\label{fig:varying_tf_trajectory}}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/trajectory_varying_um.pdf}}~
+    \subcaptionbox{\Poincare section view of reachability sets\label{fig:varying_tf_poincare}}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/poincare_section_varying_um.pdf}}
+    \caption{Variation of \( t_f \) and \( u_m\) on the reachability set. 
+    Colors, \braces{red, blue, green, yellow}, are used note increasing \( t_f\) while markers, \braces{circle, square, cross}, are used to denote increasing \(u_m\).
+    Increasing the maximum control bound has a large effect and enables the reachability set to intersect the target manifold. 
+    Increases in \(t_f\) are less critical and have minimal impact on the distribution of the reachability set on the \Poincare section.~\label{fig:varying_tf_reachability_sets}}
+\end{figure}
+
+\Cref{fig:varying_tf_reachability_sets} shows the reachabilty set for each combination of \(t_f\) and \( u_m\) listed in~\cref{tab:varying_tf}.
+Assuming a small control bound of \( u_m = \num{0.05} \) is shown in ~\cref{fig:varying_tf_reachability_sets} using square markers with the various terminal times shown using different colors.
+With a small maximum control bound, \( u_m = \num{0.05} \), the reachable set is not dramatically changed from that of the no control solution.
+The reachable set is shown using square markers on the left most portion of \cref{fig:varying_tf_poincare}.
+Variations of \( t_f\) are indicated using different colors and also demonstrate that this parameters has a smaller impact than changes in \( u_m \).
+Increasing the control bound to \( u_m = \num{0.25} \) and \( u_m = \num{0.5} \) shows that the reachable set is progressively approaching the target set and there are several intersections.
+
+The reachable sets presented in~\cref{fig:varying_tf_reachability_sets} are highly dependent on the initial condition, terminal time, and maximum control bound. 
+This example demonstrates that increasing the \( u_m \) results in a larger displacement between the controlled and uncontrolled trajectories.
+The reachable set is 
+\subsubsection{Transfer to Periodic Orbit}~\label{sssec:periodic_orbit_transfer}
 % reachable set transfer
 Next, we determine the reachability set with the addition of a low thrust control input.
 We define a maximum magnitude of the thrust as \( u_{max} = 0.75 \) and assume we can point the thrust in any direction within the plane. 
