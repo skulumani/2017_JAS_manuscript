@@ -328,10 +328,83 @@ In addition, we add some additional examples demonstrating the effect of variati
             The assumption of fixed travel time.  The authors respond that this choice is made to simplify the optimization problem.  Of course this is the case, and is conventional, but this choice is made in a rather arbitrary fashion rather than properly analyzed (especially considering that a central purpose of the problem setup is to enable faster travel times).  Imagine plotting low-thrust reachability curves as in Fig8b for each of a sequence of travel time choices.  This would reveal the influence of the arbitrarily handled parameter, and show that there's some critical point at which the reachablility curve intersects the targeted manifold.  Maybe exhaustive exploration of this dimension is not appropriate in every application, but the relationship is worth illustrating.
         \end{itshape}
 
+        Thank you for the comment. 
+        We agree that some further discussion of the effect of these ``tunable'' parameters would help to improve the manuscript. 
+        An additional section has been included which highlights some of the effects of variations in terminal time, and control magnitude (next comment).
+        The results presented are not an exhaustive description of the search space (in terms of travel time and/or control magnitude) but do highlight some of the important characteristics of these parameters on the resulting reachability set.
+        The additional discussion and plots are shown below.
+        
+        \begin{correction}
+            Next, we determine the reachability set with addition of a low-thrust control input over a fixed time horizon.
+            In~\cref{sssec:periodic_orbit_varying_tf}, we demonstrate the effect of variations in the choice of variations of maximum control bound and terminal time.
+            While~\cref{sssec:periodic_orbit_transfer} show a specific example of a transfer design process using the intersection of the reachability set on the \Poincare section.
+            The analysis presented in the following sections define a maximum magnitude of the thrust as \( u_{m} \) and assume that the trust can be directed arbitrarily within the plane. 
+            This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
+            Assuming a fully actuated spacecraft model allows us to decouple the translation and rotational dynamics of the spacecraft.
+
+            \subsubsection{Reachability Set on the \Poincare section}
+            From the initial state on the periodic orbit, a series of optimal trajectories are generated to determine the reachable set.
+            The multiple shooting approach is implemented to solve the optimal control problem. 
+            We divide the time horizon into two equal length segments. 
+            The state trajectory is initialized using the free trajectory of the periodic orbit. 
+            Similarly, the costate trajectory is initialized from an initial guess of \( \vecbf{\lambda}_0 = \begin{bmatrix} -1 & -1 & -1 & -1\end{bmatrix}^T\) and propagated using the discrete equations of motion in~\cref{eq:costate_eom}.
+            This results in the initial guess of the design vector \( \vecbf{\chi} = \begin{bmatrix} \vecbf{\lambda}_0 & \vecbf{x}_1^{-} & \vecbf{\lambda}_1^{-} & \vecbf{\beta} \end{bmatrix}^T\).
+            This design vector is then varied to ensure that the necessary conditions of optimality and the interior point constraints are satisfied. 
+            \Cref{tab:varying_tf} shows the range of terminal times, \( t_f \), and maximum control bound, \( u_m \), which are used to investigate their effect on the subsequent reachable set on the \Poincare section.
+            \begin{table}
+                \centering
+                \begin{tabular}{ll}  
+                    \toprule
+                    \(t_f\) & \( u_m \) \\
+                    \midrule
+                    1.24 & 0.05 \\
+                    1.30 & 0.25 \\
+                    1.37 & 0.5 \\
+                    1.44 & \\
+                    \bottomrule
+                \end{tabular}
+                \caption{Combinations for \( t_f \) and \( u_m\) used to generate the reachability sets in~\cref{fig:varying_tf_reachability_sets}}
+            \end{table}
+
+            The angle \( \theta_d\) in~\cref{eq:constraints} is varied to select a different direction along the \Poincare section to maximize.
+            We discretely vary the angle over the range \( \ang{0} \leq \theta_d < \ang{360} \) to approximate the reachability set of the spacecraft.
+            Choosing a new angle \( \theta_d \) corresponds to a different direction as well as a new optimal control problem which is again solved using the multiple shooting approach laid out previously.
+            Each optimal control solution, corresponding to a discrete value of \( \theta_d \), is solved using \texttt{fsolve} as described earlier. 
+            Each solution on the reachability set is computed in approximately \SI{2}{\minute} on a desktop computer using an \SI{3.4}{\giga\hertz} Intel i7-3700.
+            The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:varying_tf_reachability_sets}.
+
+            \begin{figure}
+                \subcaptionbox{Position space view of reachability sets}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/trajectory_varying_um.pdf}}~
+                \subcaptionbox{\Poincare section view of reachability sets}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/poincare_section_varying_um.pdf}}
+                \caption{Variation of \( t_f \) and \( u_m\) on the reachability set. 
+                    Colors, \braces{red, blue, green, yellow}, are used note increasing \( t_f\) while markers, \braces{circle, square, cross}, are used to denote increasing \(u_m\).
+                    Increasing the maximum control bound has a large effect and enables the reachability set to intersect the target manifold. 
+                Increases in \(t_f\) are less critical and have minimal impact on the distribution of the reachability set on the \Poincare section.}
+            \end{figure}
+
+            \Cref{fig:varying_tf_reachability_sets} shows the reachabilty set for each combination of \(t_f\) and \( u_m\) listed in~\cref{tab:varying_tf}.
+            Assuming a small control bound of \( u_m = \num{0.05} \) is shown in ~\cref{fig:varying_tf_reachability_sets} using square markers with the various terminal times shown using different colors.
+            With a small maximum control bound, \( u_m = \num{0.05} \), the reachable set is not dramatically changed from that of the no control solution.
+            The reachable set is shown using square markers on the left most portion of \cref{fig:varying_tf_poincare}.
+            Variations of \( t_f\) are indicated using different colors and also demonstrate that this parameters has a smaller impact than changes in \( u_m \).
+            Increasing the control bound to \( u_m = \num{0.25} \) and \( u_m = \num{0.5} \) shows that the reachable set is progressively approaching the target set and there are several intersections.
+
+            The reachable sets presented in~\cref{fig:varying_tf_reachability_sets} are highly dependent on the initial condition, terminal time, and maximum control bound. 
+            This example demonstrates that increasing the \( u_m \) results in a larger displacement between the controlled and uncontrolled trajectories.
+            The reachable set is enlarged from a single point, as shown in~\cref{fig:manifold_poincare} by the black point, to a larger region as shown in~\cref{fig:varying_tf_poincare}.
+            The choice of \( u_m\), \( t_f \) and initial condition all combine to change the resulting reachability set. 
+
+        \end{correction}
     \item 
         \begin{itshape}
             The specification of a departure point from the periodic orbit.  In response to this question, the authors describe how the use of low-thrust propulsion enlarges the reachable set about some "center" defined by one branch of the uncontrolled manifold.  This is a key way to think about the approach you've posed but it is not illustrated in the paper.  Why not generate some curves under different thrust bounds for a specific departure point/manifold branch?  Again you'd be using a sidelined parameter to illustrate something fundamental about the approach.  And just maybe there would be a point at which, with high thrust, you start to see "bang-bang" type control and establish more connection to intuition.  
         \end{itshape}
+    
+        Thank you for the comment.
+        We have included an additional section describing the effect of varaitions in \( u_m \) and terminal time on the reachable set.
+        As discussed above, the results are not an exhaustive exploration of the parameter space but illustrate the key effect of the control bound and terminal time.
+        In the example presented, increasing the magnitude of the control has the effect of enlarging and moving the reachable set. 
+        At a sufficiently large value of \( u_m \) the reachable set is able to intersect the target orbit.
 
     \item 
         \begin{itshape}
