@@ -1078,15 +1078,14 @@ We are able to achieve a transfer that is not possible via the standard invarian
 In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
 
 \section{Conclusions}\label{sec:conclusion}
-In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~sections is used to generate a transfer between planar periodic orbits in the three-body problem.
-The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
-The indirect optimal control formulation directly solves for the state and costate vectors in the form of a two point boundary value problem which results in a lower number of design variables.
-Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution and typically results in a much larger parameter set.
-Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
-Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
-However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
-
-Furthermore, our approach relies heavily on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
+In this paper, we construct a systematic approach which combines the concepts of reachability sets and \Poincare~sections to generate orbital transfers between planar periodic orbits in the three-body problem using low-thrust propulsion systems.
+The \Poincare~section allows for trajectory design on a lower dimensional phase space thereby reducing the complexity and search space.
+The approximation of the reachability set enables a simple methodology for the selection of \textit{good} initial parameters which will allow for convergence of the optimal control formulation.
+The combination of these two concepts allows the engineer to capture the characteristics inherent in the three-body problem.
+Additionally, we utilize geometric integrators to efficiently capture the long-term effects of low-thrust on the system dynamics.
+Our approach enables the computation of orbital transfers within the three-body problem but does not guarantee optimality of the resulting transfer.
+Instead, the resulting transfers will require no excessive control inputs as it is formulated as a deviation from the control-free trajectory.
+The presented approach allows for a systematic method to determine and generate orbital transfers in the three-body problem using low-thrust proplusion.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.

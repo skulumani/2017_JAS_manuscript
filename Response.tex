@@ -334,9 +334,25 @@ In short,
 	\item[Cons] While the proposed scheme generates orbital trajectories to the target with prescribed constraints, it does not guarantee any optimality. 
 \end{itemize}
 The conclusions section has been revised to summarize the above pros and cons of the proposed approach. 
-\begin{itshape}
-	Put the revised conclusions here.
-\end{itshape}
+\begin{correction}
+In this paper, we construct a systematic approach which combines the concepts of reachability sets and \Poincare~sections to generate orbital transfers between planar periodic orbits in the three-body problem using low-thrust propulsion systems.
+The \Poincare~section allows for trajectory design on a lower dimensional phase space thereby reducing the complexity and search space.
+The approximation of the reachability set enables a simple methodology for the selection of \textit{good} initial parameters which will allow for convergence of the optimal control formulation.
+The combination of these two concepts allows the engineer to capture the characteristics inherent in the three-body problem.
+Additionally, we utilize geometric integrators to efficiently capture the long-term effects of low-thrust on the system dynamics.
+Our approach enables the computation of orbital transfers within the three-body problem but does not guarantee optimality of the resulting transfer.
+Instead, the resulting transfers will require no excessive control inputs as it is formulated as a deviation from the control-free trajectory.
+The presented approach allows for a systematic method to determine and generate orbital transfers in the three-body problem using low-thrust proplusion.
+
+There is additional research to extend these results to more general transfer scenarios in future work.
+The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
+In addition, the assumed acceleration magnitude is currently beyond the capabilities of current electric propulsion systems and future research is aimed at investigating smaller magnitude control inputs.
+Furthermore, this analysis did not consider the effect of variable mass on the optimal control solution.
+This will result in a more complicated optimal control problem and is a focus of future research.
+Finally, Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
+The addition of attitude dynamics and realistic pointing constraints would also significantly improve the applicability of this work.
+
+\end{correction}
 
 Also, the revised manuscript incorporates many of the suggested changes and additions.
 We include several new figures to further illustrate the change in Jacobi energy.
