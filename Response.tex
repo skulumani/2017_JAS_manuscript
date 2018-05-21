@@ -101,7 +101,7 @@ This is a vastly improved iteration of the paper and I thank the authors for tak
     
     \begin{correction}
         This work uses a second order integrator which has improved energy behavior in comparison to first order integration techniques without a significant increase in computational demand.
-        The variational integrator is constructed according to discrete Hamilton's principle, specifically for the given dynamic system, and it provides a long-term structural stability in capturing the effects of low-thrust propulsion systems. 
+        The variational integrator is constructed according to a discrete version of Hamilton's principle, specifically for the given dynamic system, and it provides long-term structural stability in capturing the effects of low-thrust propulsion systems.
         General purpose numerical integrators, such as adaptive stepsize Runge-Kutta methods may yield a more accurate state trajectory depending on the choice of integration parameters, but at the expense of additional computational demand and total energy deviations.
 
     \end{correction}
@@ -320,7 +320,7 @@ While my request for improvements was itself not very specific, I had hoped that
 \newline\newline
 Thank you for the comments and the additional suggestions to improve the manuscript. 
 The main objective of the submitted manuscript is to construct a systematic approach to design low-thrust orbital maneuvers. 
-It is motivated by the specific challenges that electric propulsion systems generate minuscule level of thrust, and low-thrust orbital maneuvers rely on those effects accumulated over a long time period. 
+It is motivated by the specific challenges that electric propulsion systems generate a minuscule level of thrust, and low-thrust orbital maneuvers rely on those effects accumulated over a long time period. 
 It is quite cumbersome and challenging to apply numerical optimization tools or boundary value problem solvers successfully to low-thrust orbital design problems. 
 We aim to provide more organized tools to mitigate such difficulties by explicitly considering the characteristics of the natural dynamics and utilizing geometric integrators exhibiting long-term numerical stability. 
 The former is achieved by incorporating the control-free maneuvers obtained by the Poincare section in the invariant manifolds, and the latter is achieved by variational integrators. 
@@ -328,9 +328,9 @@ However, the proposed scheme does not guarantee any optimality in the constructe
 It is heuristically implied that the constructed orbital maneuver would require no-excessive control input, as it is essentially constructed by adjusting the control-free trajectory. 
 In short,
 \begin{itemize}
-	\item[Pros] The proposed scheme utilizes the characteristics of the inherent three-body problem, in constructing low-thrust orbital maneuvers in a systematic way. 
-		This reduces the cumbersome process of guessing a \textit{good} set of initial parameters to make the direct application of optimization become successful. 
-	\item[Pros] The use of geometric integrators is particularly useful in capturing the long-term effects of low thrust computationally effectively. 
+	\item[Pros] The proposed scheme utilizes the characteristics inherent in the three-body problem in constructing low-thrust orbital maneuvers in a systematic way. 
+		This reduces the cumbersome process of guessing a \textit{good} set of initial parameters to make the direct application of optimization successful. 
+	\item[Pros] The use of geometric integrators is particularly useful in capturing the long-term effects of low thrust in a computationaly efficient manner. 
 	\item[Cons] While the proposed scheme generates orbital trajectories to the target with prescribed constraints, it does not guarantee any optimality. 
 \end{itemize}
 The conclusions section has been revised to summarize the above pros and cons of the proposed approach. 

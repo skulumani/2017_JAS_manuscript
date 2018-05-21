@@ -59,13 +59,13 @@ However, these electric propulsion systems typically have much less thrust than 
 In spite of this drawback, a wide variety of missions, such as communication and deep space probes, have utilized the unique benefits of low thrust electric propulsion to great effect~\cite{choueiri2009}.
 
 % utilizing the combo of small satellite and low thrust propulsion offers new mission scenarios 
-Recent developments in miniature electric propulsion and small satellites now offer the potential for new research oppportunities~\cite{folta2015,haque2013}.
+Recent developments in miniature electric propulsion and small satellites now offer the potential for new research opportunities~\cite{folta2015,haque2013}.
 The potential for more demanding missions places an even greater importance on the mission design to ensure that optimal trajectories satisfy mission requirements~\cite{folta2015,koon2011,ross2006,gomez2001}. 
 There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011,koon2011,ross2006}. 
 Within the three-body problem, a spacecrafts feasible region of motion is constrained by its energy, or Jacobi integral.
 The addition of low-thrust propulsion offers the potential of reduced transfer transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities.
 Frequently, insight into the problem or intuition on the part of the designer is required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system~\cite{szebehely1967}.
-Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+Conventional general-purpose Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, may fail to preserve geometric properties of the dynamic system numerically. 
 Variational integrators can allow for reduced computational effort without any loss of numerical stability or energy drift which exist in conventional integration schemes. 
 
 % --------------Issues/Challenges of previous work
@@ -324,9 +324,9 @@ Both integration schemes result in trajectories that are initially nearly identi
 For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the conventional integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
-This work uses a second order integrator which has improved energy behavior in comparision to first order integration techniques without a significant increase in computational demand.
-The variational integrator provides improved energy behavior over long integration times but does not guarantee state accuracy.
-High order Runge-Kutta methods will likely provide a more accurate state trajectory, but at the expense of additional computational demand and total energy deviations.
+This work uses a second order integrator which has improved energy behavior in comparison to first order integration techniques without a significant increase in computational demand.
+The variational integrator is constructed according to a discrete version of Hamilton's principle, specifically for the given dynamic system, and it provides long-term structural stability in capturing the effects of low-thrust propulsion systems.
+General purpose numerical integrators, such as adaptive stepsize Runge-Kutta methods may yield a more accurate state trajectory depending on the choice of integration parameters, but at the expense of additional computational demand and total energy deviations.
 However, for this preliminary analysis the variational integrator provides reduced computational demands, as compared with general-purpose numerical integrators with a similar level of numerical error, and is useful to characterize and explore the trade space in preliminary mission design scenarios.
 In addition, it has been shown that variable step integrators, such as \texttt{ODE45} in Matlab, tend to degrade first-order gradient based methods, such as those used in~\cref{sec:optimal_control}~\cite{pellegrini2016}.
 The presented results are based on the variational integrator with a fixed time step for numerical simulation and gradient computation.
@@ -1080,11 +1080,12 @@ In addition, this example illustrates a straightforward method to depart from th
 \section{Conclusions}\label{sec:conclusion}
 In this paper, an optimal transfer process which combines concepts of reachability and \Poincare~sections is used to generate a transfer between planar periodic orbits in the three-body problem.
 The \Poincare~section allows for trajectory design on a lower dimensional phase space and simplifies the process.
-The indirect optimal control formulation direclty solves for the state and costate vectors in the form of a two point boundary value problem which results in a lower number of design variables.
+The indirect optimal control formulation directly solves for the state and costate vectors in the form of a two point boundary value problem which results in a lower number of design variables.
 Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution and typically results in a much larger parameter set.
 Our approach leverages the benefits of the reachability set, which encompass the maximum set of states achievable by the spacecraft over a fixed time horizon.
 Using the reachability set on a \Poincare section reduces the dimensionality of the system and simplifies the analysis by avoiding the cost of a completely unmotivated exploration of the space.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
+
 Furthermore, our approach relies heavily on the relative simplicity of the PCRTBP and this method is much more challenging for the non-planar case.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
