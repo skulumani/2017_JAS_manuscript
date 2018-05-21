@@ -77,7 +77,8 @@
 
 \section*{Second round of responses to the reviewers' comments for JASS-D-17-00005}
 
-We thank the reviewers for their comments and aid in imporoving the quality of our manuscript.
+We thank the reviewers for their comments and aid in improving the quality of our manuscript. 
+In accordance with the comments and suggestions, the manuscript has been revised, and the answers to all comments are addressed as follow.
 
 \subsection*{Reviewer 1}
 \begin{itshape}
@@ -89,19 +90,19 @@ This is a vastly improved iteration of the paper and I thank the authors for tak
         \begin{itshape}
             Section 2.3
 
-            "This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods."
+            "This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge-Kutta methods."
 
             "Potentially lower state accuracy" is still overselling.  Just because your second order method is bounded on an energy surface does not guarantee that the state is accurate.  It is likely that a 2nd order integrator in the PCRTBP contains more state error than a high-order RK which is the standard for modern trajectory planning in flight operations.  I think it's best to focus on the primary advantage that the variational integrator provides reduced computational demands.
         \end{itshape}
     
     The manuscript has been modified to remove the about the benefits of state accuracy.
-    The section has been modified to highlight the reduced computational load of the varaitional integrator.
+    The section has been modified to highlight the reduced computational load of the variational integrator.
     In addition, an additional sentence has been added specifically highlighting the fact that high order Runge-Kutta methods will probably provide better state accuracy at the expense of additional computations and poorer energy behavior.
     
     \begin{correction}
-        This work uses a second order integrator which has improved energy behavior in comparision to first order integration techniques without a significant increase in computational demand.
-        The variational integrator provides improved energy behavior over long integration times but does not guarantee state accuracy.
-        High order Runge-Kutta methods will likely provide a more accurate state trajectory, but at the expense of additional computational demand and total energy deviations.
+        This work uses a second order integrator which has improved energy behavior in comparison to first order integration techniques without a significant increase in computational demand.
+        The variational integrator is constructed according to discrete Hamilton's principle, specifically for the given dynamic system, and it provides a long-term structural stability in capturing the effects of low-thrust propulsion systems. 
+        General purpose numerical integrators, such as adaptive stepsize Runge-Kutta methods may yield a more accurate state trajectory depending on the choice of integration parameters, but at the expense of additional computational demand and total energy deviations.
 
     \end{correction}
     \item \begin{itshape}
@@ -178,9 +179,9 @@ Conclusions:
 I don't agree with the statement. Often, indirect methods are exceptionally difficult to append path constraints onto.  In contrast, direct methods such as collocation approaches, are very amenable to the formulation of path constraints.
     \end{itshape}
     
-    This sentence has been modified.
+    Thank you for the comments. This sentence has been modified.
     \begin{correction}
-        The indirect optimal control formulation direclty solves for the state and costate vectors in the form of a two point boundary value problem which results in a lower number of design variables.
+        The indirect optimal control formulation directly solves for the state and costate vectors in the form of a two point boundary value problem which results in a lower number of design variables.
         Direct optimal control techniques must rely entirely on the ability of the numerical optimization routine to determine a feasible solution and typically results in a much larger parameter set.
     \end{correction}
 \end{itemize}
@@ -203,7 +204,7 @@ The updated introduction is included below and specific comments for each commen
 
     \item
         \begin{itshape}
-            It's superfluous to explain at such length that spacecraft trajectory design is a problem of interest, that cubesats are a thing, etc. Broad points like these could potentially be condensed into single, citation-heavy sentences. 
+            It's superfluous to explain at such length that spacecraft trajectory design is a problem of interest, that CubeSats are a thing, etc. Broad points like these could potentially be condensed into single, citation-heavy sentences. 
         \end{itshape}
 
         Several introductory paragraphs have been combined to reduce the extraneous detail.
@@ -262,13 +263,13 @@ The updated introduction is included below and specific comments for each commen
             In spite of this drawback, a wide variety of missions, such as communication and deep space probes, have utilized the unique benefits of low thrust electric propulsion to great effect~\cite{choueiri2009}.
 
             % utilizing the combo of small satellite and low thrust propulsion offers new mission scenarios 
-            Recent developments in miniature electric propulsion and small satellites now offer the potential for new research oppportunities~\cite{folta2015,haque2013}.
+            Recent developments in miniature electric propulsion and small satellites now offer the potential for new research opportunities~\cite{folta2015,haque2013}.
             The potential for more demanding missions places an even greater importance on the mission design to ensure that optimal trajectories satisfy mission requirements~\cite{folta2015,koon2011,ross2006,gomez2001}. 
             There has been extensive research focused on the optimal control of spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011,koon2011,ross2006}. 
             Within the three-body problem, a spacecrafts feasible region of motion is constrained by its energy, or Jacobi integral.
             The addition of low-thrust propulsion offers the potential of reduced transfer transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities.
             Frequently, insight into the problem or intuition on the part of the designer is required to determine initial conditions that will converge to the desired solution due to the inherent nonlinear and chaotic behavior of the three-body system~\cite{szebehely1967}.
-            Conventional Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, fail to capture the physical laws and geometric properties of the dynamic system.
+            Conventional general-purpose Runge-Kutta integration techniques, such as those implemented in~\cite{mingotti2011,grebow2011}, may fail to preserve geometric properties of the dynamic system numerically. 
             Variational integrators can allow for reduced computational effort without any loss of numerical stability or energy drift which exist in conventional integration schemes. 
 
             % --------------Issues/Challenges of previous work
@@ -317,8 +318,27 @@ My other highlighted area of concern with the original manuscript was the degree
 While my request for improvements was itself not very specific, I had hoped that some of my other questions would reveal some areas of consideration for the authors.  Addressal/discussion of those questions furthermore needs to appear adequately in the paper, not just the rebuttal. Below I will try to sketch how these points of inquiry can lead to a more demonstrative analysis.
 \end{itshape}
 \newline\newline
-Thank you for the comments and the additional suggestions to improve the manuscript.
-The revised manuscript incorporates many of the suggested changes and additions.
+Thank you for the comments and the additional suggestions to improve the manuscript. 
+The main objective of the submitted manuscript is to construct a systematic approach to design low-thrust orbital maneuvers. 
+It is motivated by the specific challenges that electric propulsion systems generate minuscule level of thrust, and low-thrust orbital maneuvers rely on those effects accumulated over a long time period. 
+It is quite cumbersome and challenging to apply numerical optimization tools or boundary value problem solvers successfully to low-thrust orbital design problems. 
+We aim to provide more organized tools to mitigate such difficulties by explicitly considering the characteristics of the natural dynamics and utilizing geometric integrators exhibiting long-term numerical stability. 
+The former is achieved by incorporating the control-free maneuvers obtained by the Poincare section in the invariant manifolds, and the latter is achieved by variational integrators. 
+However, the proposed scheme does not guarantee any optimality in the constructed maneuvers. 
+It is heuristically implied that the constructed orbital maneuver would require no-excessive control input, as it is essentially constructed by adjusting the control-free trajectory. 
+In short,
+\begin{itemize}
+	\item[Pros] The proposed scheme utilizes the characteristics of the inherent three-body problem, in constructing low-thrust orbital maneuvers in a systematic way. 
+		This reduces the cumbersome process of guessing a \textit{good} set of initial parameters to make the direct application of optimization become successful. 
+	\item[Pros] The use of geometric integrators is particularly useful in capturing the long-term effects of low thrust computationally effectively. 
+	\item[Cons] While the proposed scheme generates orbital trajectories to the target with prescribed constraints, it does not guarantee any optimality. 
+\end{itemize}
+The conclusions section has been revised to summarize the above pros and cons of the proposed approach. 
+\begin{itshape}
+	Put the revised conclusions here.
+\end{itshape}
+
+Also, the revised manuscript incorporates many of the suggested changes and additions.
 We include several new figures to further illustrate the change in Jacobi energy.
 In addition, we add some additional examples demonstrating the effect of variations in the control bound and terminal time on the reachability set.
 
@@ -330,6 +350,7 @@ In addition, we add some additional examples demonstrating the effect of variati
 
         Thank you for the comment. 
         We agree that some further discussion of the effect of these ``tunable'' parameters would help to improve the manuscript. 
+		According to the comments, we considered twelve additional cases for every combination of varying terminal time $t_f$ and the maximum control $u_m$ listed at Table \ref{fig:varying_tf_reachability_sets}. 
         An additional section has been included which highlights some of the effects of variations in terminal time, and control magnitude (next comment).
         The results presented are not an exhaustive description of the search space (in terms of travel time and/or control magnitude) but do highlight some of the important characteristics of these parameters on the resulting reachability set.
         The additional discussion and plots are shown below.
@@ -510,7 +531,8 @@ The final reachability set intersects the stable manifold and enables a large fi
             reveal the dimension that this second example added, and help reveal the limits of the approach under certain scenarios and thrust capabilities.
         \end{itshape}
 
-        The combination of several reachability sets does not force the system to return to a prescribed energy level.
+		As pointed out by the reviewer, our respond stating `..the trajectories do return to the energy level of the Poincare section..' is not correct. 
+        Instead, the combination of several reachability sets does not force the system to return to a prescribed energy level.
         Each reachability set computation serves to maximize a distance metric, defined in a reduced phase space corresponding to the \Poincare section.
         The cost function is computed as the distance between the terminal states of the controlled and uncontrolled trajectories.
         The additional plots shown in both examples highlight the fact that the Jacobi energy is continuously changing as the control input is used to maneuver the vehicle towards the desired target states.
@@ -518,6 +540,8 @@ The final reachability set intersects the stable manifold and enables a large fi
         The transfer to the stable manifold is presented as an example of the combination of existing control free  transfer methodologies with low thrust control inputs.
         This example demonstrates one possible use of low-thrust control to enable a larger region of feasibility for the use of invariant manifold transfers in the three body problem. 
 
+		With regards to the comments on the second example, the authors decided to keep them in the manuscript, as it illustrates the idea of multiple stages to construct orbital maneuvers with more challenging scenarios. 
+		Nonetheless, the revised manuscript includes extended numerical results and discussions for the first example, for example to illustrate the effects of varying $t_f$ and $u_m$ and the evolution of the Jacobi constant. 
     \item 
         \begin{itshape}
             To summarize my thoughts on ISSUE 2:
@@ -531,6 +555,7 @@ The final reachability set intersects the stable manifold and enables a large fi
         The second example presents a larger and more involved example of combining several iterations of the reachable set to achieve a larger and more complex transfer. 
         This aspect of the proposed method, more specifically of combining several reachability sets to approach a target, is not demonstrated in the first example.
         As a result, we feel that the second example does add some additional insight into the use of this method for a more complicated transfer.
+		Furthermore, the revised conclusions section summarizes the objective of the submitted manuscript, and the pros and the cons of the proposed approach. 
 
     \item
         \begin{itshape}
@@ -540,7 +565,7 @@ The final reachability set intersects the stable manifold and enables a large fi
         Thank you for the helpful comments to improve the manuscript.
         The manuscript has been edited to reduce the length and repetition of the introduction.
         In addition, an additional section is presented highlighting the effect of the variations of terminal time and control magnitude on the reachable set. 
-        Furthermore, the presented examples also incldue additional plots showing the change of the Jacobi energy during the transfer. 
+        Furthermore, the presented examples also include additional plots showing the change of the Jacobi energy during the transfer. 
 \end{itemize}
 % \bibliography{library}
 % \bibliographystyle{spmpsci}
