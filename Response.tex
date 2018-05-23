@@ -321,19 +321,27 @@ While my request for improvements was itself not very specific, I had hoped that
 Thank you for the comments and the additional suggestions to improve the manuscript. 
 The main objective of the submitted manuscript is to construct a systematic approach to design low-thrust orbital maneuvers. 
 It is motivated by the specific challenges that electric propulsion systems generate a minuscule level of thrust, and low-thrust orbital maneuvers rely on those effects accumulated over a long time period. 
-It is quite cumbersome and challenging to apply numerical optimization tools or boundary value problem solvers successfully to low-thrust orbital design problems. 
-We aim to provide more organized tools to mitigate such difficulties by explicitly considering the characteristics of the natural dynamics and utilizing geometric integrators exhibiting long-term numerical stability. 
-The former is achieved by incorporating the control-free maneuvers obtained by the Poincare section in the invariant manifolds, and the latter is achieved by variational integrators. 
-However, the proposed scheme does not guarantee any optimality in the constructed maneuvers. 
+Consequently, it is quite cumbersome and challenging to apply numerical optimization tools or boundary value problem solvers successfully to low-thrust orbital design problems. 
+For example, it is difficult to initialize the optimization parameters such that the resulting numerical iteration converges successfully. 
+Conventional numerical integration schemes have shown to be possibly erroneous particularly in computing long-term energy behaviors correctly. 
+
+In the submitted manuscript, we aim to provide more organized tools to mitigate such difficulties by explicitly considering the characteristics of the natural dynamics and utilizing geometric integrators exhibiting long-term numerical stability. 
+The consideration of the natural, control-free dynamics is reasonable as low-thrust trajectories won't be drastically different from those over a limited time period. 
+Here, the former is achieved by incorporating the control-free maneuvers characterized by the Poincare section in the invariant manifolds, and the latter is achieved by variational integrators. 
+
+However, the proposed scheme is focused on constructing low-thrust trajectories satisfying the prescribed boundary conditions, and it does not guarantee any optimality in the constructed maneuvers. 
 It is heuristically implied that the constructed orbital maneuver would require no-excessive control input, as it is essentially constructed by adjusting the control-free trajectory. 
+As such, it is rather focused on constructing a reasonable low-thrust trajectory that satisfies the given constraints on the maximum thrust bound and the boundary conditions. 
+
 In short,
 \begin{itemize}
 	\item[Pros] The proposed scheme utilizes the characteristics inherent in the three-body problem in constructing low-thrust orbital maneuvers in a systematic way. 
 		This reduces the cumbersome process of guessing a \textit{good} set of initial parameters to make the direct application of optimization successful. 
-	\item[Pros] The use of geometric integrators is particularly useful in capturing the long-term effects of low thrust in a computationaly efficient manner. 
+	\item[Pros] The use of geometric integrators is particularly useful in capturing the long-term effects of low thrust in a computationally efficient manner. 
 	\item[Cons] While the proposed scheme generates orbital trajectories to the target with prescribed constraints, it does not guarantee any optimality. 
 \end{itemize}
-The conclusions section has been revised to summarize the above pros and cons of the proposed approach. 
+
+In the revised manuscript, the conclusions section has been rewritten to summarize the above pros and cons of the proposed approach. 
 \begin{correction}
 In this paper, we construct a systematic approach which combines the concepts of reachability sets and \Poincare~sections to generate orbital transfers between planar periodic orbits in the three-body problem using low-thrust propulsion systems.
 The \Poincare~section allows for trajectory design on a lower dimensional phase space thereby reducing the complexity and search space.
@@ -342,7 +350,7 @@ The combination of these two concepts allows the engineer to capture the charact
 Additionally, we utilize geometric integrators to efficiently capture the long-term effects of low-thrust on the system dynamics.
 Our approach enables the computation of orbital transfers within the three-body problem but does not guarantee optimality of the resulting transfer.
 Instead, the resulting transfers will require no excessive control inputs as it is formulated as a deviation from the control-free trajectory.
-The presented approach allows for a systematic method to determine and generate orbital transfers in the three-body problem using low-thrust proplusion.
+The presented approach allows for a systematic method to determine and generate orbital transfers in the three-body problem using low-thrust propulsion.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
@@ -354,9 +362,10 @@ The addition of attitude dynamics and realistic pointing constraints would also 
 
 \end{correction}
 
-Also, the revised manuscript incorporates many of the suggested changes and additions.
+Also, the revised manuscript incorporates the suggested changes and additions.
 We include several new figures to further illustrate the change in Jacobi energy.
 In addition, we add some additional examples demonstrating the effect of variations in the control bound and terminal time on the reachability set.
+These are itemized below. 
 
 \begin{itemize}
     \item 
@@ -369,7 +378,7 @@ In addition, we add some additional examples demonstrating the effect of variati
 		According to the comments, we considered twelve additional cases for every combination of varying terminal time $t_f$ and the maximum control $u_m$ listed at Table \ref{fig:varying_tf_reachability_sets}. 
         An additional section has been included which highlights some of the effects of variations in terminal time, and control magnitude (next comment).
         The results presented are not an exhaustive description of the search space (in terms of travel time and/or control magnitude) but do highlight some of the important characteristics of these parameters on the resulting reachability set.
-        The additional discussion and plots are shown below.
+		According to the new numerical results, the manuscript has been revised to discuss the effects of varying $t_f$ and $u_m$ as copied below. 
         
         \begin{correction}
             Next, we determine the reachability set with addition of a low-thrust control input over a fixed time horizon.
@@ -438,7 +447,7 @@ In addition, we add some additional examples demonstrating the effect of variati
         \end{itshape}
     
         Thank you for the comment.
-        We have included an additional section describing the effect of varaitions in \( u_m \) and terminal time on the reachable set.
+        We have included an additional section describing the effect of variations in \( u_m \) and terminal time on the reachable set.
         As discussed above, the results are not an exhaustive exploration of the parameter space but illustrate the key effect of the control bound and terminal time.
         In the example presented, increasing the magnitude of the control has the effect of enlarging and moving the reachable set. 
         At a sufficiently large value of \( u_m \) the reachable set is able to intersect the target orbit.
@@ -457,7 +466,7 @@ That said, it's a little confusing how the red and green curves of Fig8b don't l
         
         Thank you for the question. 
         The green points are the intersection of the unstable manifold with the \Poincare section while the red points are the reachability set.
-        Without any control input the spacecraft would remain on the periodic orbit and intersect the \Poincare seciton at \( x_n\). 
+        Without any control input the spacecraft would remain on the periodic orbit and intersect the \Poincare section at \( x_n\). 
         The addition of the control input allows for an expansion of the reachable set from a single point to the larger red region.
         An additional clarification has been added to the manuscript to aid in the description of the figure.
 
@@ -547,7 +556,7 @@ The final reachability set intersects the stable manifold and enables a large fi
             reveal the dimension that this second example added, and help reveal the limits of the approach under certain scenarios and thrust capabilities.
         \end{itshape}
 
-		As pointed out by the reviewer, our response stating `..the trajectories do return to the energy level of the Poincare section..' is not correct. 
+		As pointed out by the reviewer, our prior response stating `..the trajectories do return to the energy level of the Poincare section..' is erroneous and misleading. 
         Instead, the combination of several reachability sets does not force the system to return to a prescribed energy level.
         Each reachability set computation serves to maximize a distance metric, defined in a reduced phase space corresponding to the \Poincare section.
         The cost function is computed as the distance between the terminal states of the controlled and uncontrolled trajectories.
@@ -565,8 +574,8 @@ The final reachability set intersects the stable manifold and enables a large fi
         \end{itshape}
     
         Thank you for the comments.
-        The manuscript has been editied, as described previously, to incorporate several changes to illustrate the specific characteristics of this approach.
-        An additional section is presented which highlights the effect of terminal time and control magnitude on the reachability set. 
+        The manuscript has been edited, as described previously, to incorporate several changes to illustrate the specific characteristics of this approach.
+        Also, an additional section is presented which highlights the effect of terminal time and control magnitude on the reachability set. 
 
         The second example presents a larger and more involved example of combining several iterations of the reachable set to achieve a larger and more complex transfer. 
         This aspect of the proposed method, more specifically of combining several reachability sets to approach a target, is not demonstrated in the first example.
