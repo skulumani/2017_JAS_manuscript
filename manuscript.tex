@@ -141,7 +141,7 @@ Following a straightforward application of the Euler-Lagrange equations, a more 
         \left[\begin{array}{c} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{array} \right] = 
         \left[ \begin{array}{c} \vecbf{v} \\ A \vecbf{v} + \nabla U + \vecbf{u} \end{array} \right] = f\left( t,\vecbf{x}, \vecbf{u}\right) \, ,
 \end{equation}
-where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U\) are
+where the matrix \( A \) and pseudo gravitational potential gradient \( \nabla U\) are
 \begin{align}
     A &= \left[ \begin{array}{ccc} 0 & 2 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right], \label{eq:A_mat} \\
     \nabla U &= \left[ \begin{array}{c} x - \frac{ \left(1 - \mu\right) \left(x + \mu\right)}{r_1^3} - \frac{\mu \left( x - 1 + \mu \right)}{r_2^3} \\
@@ -736,7 +736,7 @@ The choice of \( u_m\), \( t_f \) and initial condition all combine to change th
 
 \subsubsection{Transfer to Periodic Orbit}~\label{sssec:periodic_orbit_transfer}
 % reachable set transfer
-Here we use the results of the preceeding section to demonstrate one specific example of a transfer designed using the reachability set.
+Here we use the results of the preceding section to demonstrate one specific example of a transfer designed using the reachability set.
 The acceleration limit is chosen as  \( u_{max} = 0.75 \approx \SI{2}{\milli\meter\per\second\squared} \) in the Earth-Moon system.
 Assuming a fixed spacecraft mass of \SI{500}{\kilo\gram}, this model defines a maximum thrust of approximately \SI{1}{\newton}.
 Currently, the NASA NEXT xenon thruster is able to provide approximately \SI{0.25}{\newton} of thrust, and a cluster of such engines could be used to provide the desired thrust used in this work~\cite{schmidt2008}.
@@ -807,7 +807,7 @@ Convergence statistics associated for this transfer are shown in~\cref{tab:l1_tr
         \texttt{fsolve} major iterations       & \num{9}      \\
         \texttt{fsolve} first order optimality & \num{1.88e-13} \\
         Optimal cost       & \num{2.09e-31}      \\
-        Executation time & \SI{1.49}{\second}       \\
+        Execution time & \SI{1.49}{\second}       \\
         \bottomrule
 
     \end{tabular}
@@ -1025,7 +1025,7 @@ The optimization statistics for the final transfer are shown in~\cref{tab:geo_tr
         \texttt{fsolve} major iterations       & \num{18}      \\
         \texttt{fsolve} first order optimality & \num{7.2e-11} \\
         Optimal cost       & \num{4.30e-25}      \\
-        Executation time & \SI{2.62}{\second}       \\
+        Execution time & \SI{2.62}{\second}       \\
         \bottomrule
     \end{tabular}
     \caption{Convergence statistics for the geostationary orbit transfer\label{tab:geo_transfer}}
@@ -1066,7 +1066,7 @@ The final optimal control drives the vehicle towards the target manifold with th
 
     \subcaptionbox{Jacobi Energy: Energy history throughout the transfer.
     Each stage of the transfer serves to increase the energy towards the stable manifold. 
-The final reachability set intersects the stable manifold and enables a large final manuever to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.5\textwidth]{figures/geo_transfer/jacobi_energy.pdf}}
+The final reachability set intersects the stable manifold and enables a large final maneuver to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.5\textwidth]{figures/geo_transfer/jacobi_energy.pdf}}
 
         \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
 \end{figure}
@@ -1085,7 +1085,7 @@ The combination of these two concepts allows the engineer to capture the charact
 Additionally, we utilize geometric integrators to efficiently capture the long-term effects of low-thrust on the system dynamics.
 Our approach enables the computation of orbital transfers within the three-body problem but does not guarantee optimality of the resulting transfer.
 Instead, the resulting transfers will require no excessive control inputs as it is formulated as a deviation from the control-free trajectory.
-The presented approach allows for a systematic method to determine and generate orbital transfers in the three-body problem using low-thrust proplusion.
+The presented approach allows for a systematic method to determine and generate orbital transfers in the three-body problem using low-thrust propulsion.
 
 There is additional research to extend these results to more general transfer scenarios in future work.
 The incorporation of fourth body perturbations, such as the Sun in the Earth-Moon system, offers an additional method of increasing the reachable set with the combined use of the solar perturbation and low-thrust propulsion.
