@@ -775,9 +775,9 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
         \end{subfigure} 
 
         \caption{\( L_1 \) Reachability set transfer: The low thrust propulsion is used to approximate the reachability set starting from the initial periodic orbit over a fixed time horizon.
-        The reachability set is shown in the upper two figures in both the position and \Poincare space.
-    From this reachability set we chose a trajectory which intersects the target orbit and it is shown in the lower left figure.
-The optimal control to achieve this transfer is shown in the lower right figure.}
+            The reachability set is shown in~\cref{fig:reach_trajectory,fig:poincare_compare} in both the position and \Poincare space respectively.
+            From this reachability set we chose a trajectory which intersects the target orbit and it is shown in~\cref{fig:reach_transfer}.
+        The optimal control to achieve this transfer is shown in~\cref{fig:control_l1}.}
         \label{fig:reachability_set_transfer} 
 \end{figure}
 
@@ -785,7 +785,7 @@ The optimal control to achieve this transfer is shown in the lower right figure.
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
 This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
-Using the energy level of the target region, defined by~\cref{eq:jacobi}, and the intersection state we can calculate the final component \( \dot{y} \) is calculated. 
+Using the energy level of the target region, defined by~\cref{eq:jacobi}, and the intersection state we can calculate the final component \( \dot{y} \). 
 This results in a complete target state \( \vecbf{x}_t \) which lies on the reachable set and on the target orbit. 
 A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x}_t \).
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
