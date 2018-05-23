@@ -676,7 +676,7 @@ The required travel time for a transfer using the unstable invariant manifold is
 \end{figure}
 
 Next, we determine the reachability set with addition of a low-thrust control input over a fixed time horizon.
-In~\cref{sssec:periodic_orbit_varying_tf}, we demonstrate the effect of variations in the choice of variations of maximum control bound and terminal time.
+In~\cref{sssec:periodic_orbit_varying_tf}, we demonstrate the effect of variations in the choice of maximum control bound and terminal time.
 While~\cref{sssec:periodic_orbit_transfer} show a specific example of a transfer design process using the intersection of the reachability set on the \Poincare section.
 The analysis presented in the following sections define a maximum magnitude of the thrust as \( u_{m} \) and assume that the trust can be directed arbitrarily within the plane. 
 This model is representative of many spacecraft which have a body fixed thruster and attitude control system.
@@ -722,10 +722,9 @@ The intersection of the optimal trajectories as well as those of the target Moon
     Increases in \(t_f\) are less critical and have minimal impact on the distribution of the reachability set on the \Poincare section.~\label{fig:varying_tf_reachability_sets}}
 \end{figure}
 
-\Cref{fig:varying_tf_reachability_sets} shows the reachabilty set for each combination of \(t_f\) and \( u_m\) listed in~\cref{tab:varying_tf}.
-Assuming a small control bound of \( u_m = \num{0.05} \) is shown in ~\cref{fig:varying_tf_reachability_sets} using square markers with the various terminal times shown using different colors.
-With a small maximum control bound, \( u_m = \num{0.05} \), the reachable set is not dramatically changed from that of the no control solution.
-The reachable set is shown using square markers on the left most portion of \cref{fig:varying_tf_poincare}.
+\Cref{fig:varying_tf_reachability_sets} shows the reachabilty set for twelve combinations of \(t_f\) and \( u_m\) listed in~\cref{tab:varying_tf}.
+With a small maximum control bound, \( u_m = \num{0.05} \) shown using square markers, the reachable set is not dramatically changed from that of the no control solution.
+The reachable set is denoted using square markers on the left most portion of \cref{fig:varying_tf_poincare}.
 Variations of \( t_f\) are indicated using different colors and also demonstrate that this parameters has a smaller impact than changes in \( u_m \).
 Increasing the control bound to \( u_m = \num{0.25} \) and \( u_m = \num{0.5} \) shows that the reachable set is progressively approaching the target set and there are several intersections.
 
