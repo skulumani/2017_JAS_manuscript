@@ -1,0 +1,86 @@
+Dear Mr. Kulumani,
+
+We have received the reports from our advisors on your manuscript, "Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem", which you submitted to The Journal of the Astronautical Sciences.
+
+Based on the advice received, the editors have decided that your manuscript could be reconsidered for publication should you be prepared to incorporate major revisions. When preparing your revised manuscript, you are asked to carefully consider the reviewer comments which can be found below, and submit a list of responses to the comments. You are kindly requested to also check the website for possible reviewer attachment(s).
+
+In order to submit your revised manuscript, please access the following web site:
+
+https://jass.editorialmanager.com/
+
+Your username is: ********
+If you forgot your password, you can click the 'Send Login Details' link on the EM Login page.
+
+Please make sure to submit your editable source files (i. e. Word, TeX). We look forward to receiving your revised manuscript before 25 May 2018.
+
+With kind regards,
+Kathleen Howell, PhD
+Editor in Chief
+
+
+COMMENTS FOR THE AUTHOR:
+
+Reviewer #1: This is a vastly improved iteration of the paper and I thank the authors for taking the time to improve it. I commend the authors for responding to all of the feedback, especially modifying figures such as Figure 2, which I know takes a lot of time. I was also happy to see the intentional reductions in the paper to make it more focused, and the fact that the authors reconciled their low-thrust transfers with existing technology. I still have a few issues that persist based on the current submission, but the paper is far closer to being acceptable for publication.
+
+Section 2.3
+
+"This work uses a second order integrator which has improved energy behavior but potentially lower state accuracy as compared to high order Runge Kutta methods."
+
+"Potentially lower state accuracy" is still overselling. Just because your second order method is bounded on an energy surface does not guarantee that the state is accurate. It is likely that a 2nd order integrator in the PCRTBP contains more state error than a high-order RK which is the standard for modern trajectory planning in flight operations. I think it's best to focus on the primary advantage that the variational integrator provides reduced computational demands.
+
+Response to feedback item #34:
+
+I disagree that it is abnormal to cite convergence statistics, especially for a new optimization approach or methodology. Yes, there are some dependencies to the specific example and use-case, but this is a paper in which researchers may wish to reproduce your results as a learning exercise to build on this research. Some expectation as to what they can expect for the results is therefore of pragmatic interest.
+
+See for example, Table 2 in 
+
+Ellison, D., et al., M., "Application and Analysis of Bounded-Impulse Trajectory Models with Analytic Gradients," Journal of Guidance, Control, and Dynamics, 2018.
+
+https://arc.aiaa.org/doi/pdf/10.2514/1.G003078
+
+There are many other paper examples that I could cite that do this, but this is just one.
+
+
+Conclusions:
+
+"The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints." 
+
+I don't agree with the statement. Often, indirect methods are exceptionally difficult to append path constraints onto. In contrast, direct methods such as collocation approaches, are very amenable to the formulation of path constraints.
+
+
+
+Reviewer #2: I thank the authors for their thorough and organized rebuttal. The revised manuscript itself feels greatly improved in terms of its structure and coverage of background material. Nonetheless I have some remaining qualms about the introduction (ISSUE 1), and some more serious concerns regarding the analysis/illustration of the developed method (ISSUE 2). 
+
+ISSUE 1: introduction (requires minor revisions): 
+Despite some reduction, the intro is still long-winded. For example,
+--- It's superfluous to explain at such length that spacecraft trajectory design is a problem of interest, that cubesats are a thing, etc. Broad points like these could potentially be condensed into single, citation-heavy sentences. 
+--- There is also still significant repetition. For instance, all the paragraph-to-paragraph transitions on page 3 feel very similar.
+--- Some paragraphs are far too long
+--> I would like to reiterate my previous suggestion to organize the intro into subsections. This will help you weed out repetition and will make the paper more reader-friendly instead of a wall of text.
+--- The instability of RK for decades-to-centuries propagations seems irrelevant or misleading given the time scales used in this paper.
+--- The point brought up about "suboptimal direct optimization" versus the authors' approach isn't really translated into anything meaningful in the body of the paper. Along with the RK vs variational point, I feel like the route you've chosen has some nice properties but shouldn't necessarily be sold as a crucial enabler; the key of the paper lies elsewhere.
+
+ISSUE 2: analysis/illustration (requires major revisions): 
+My other highlighted area of concern with the original manuscript was the degree of (in)completeness in illustrating the method and its pros and cons. I do not feel that the authors have done very much to improve this aspect of the paper beyond adding some caveats that feel a little half-hearted rather than properly contextualized discussions. This aspect of the research remains a major shortcoming that must be addressed before publication. 
+
+While my request for improvements was itself not very specific, I had hoped that some of my other questions would reveal some areas of consideration for the authors. Addressal/discussion of those questions furthermore needs to appear adequately in the paper, not just the rebuttal. Below I will try to sketch how these points of inquiry can lead to a more demonstrative analysis.
+
+--- The assumption of fixed travel time. The authors respond that this choice is made to simplify the optimization problem. Of course this is the case, and is conventional, but this choice is made in a rather arbitrary fashion rather than properly analyzed (especially considering that a central purpose of the problem setup is to enable faster travel times). Imagine plotting low-thrust reachability curves as in Fig8b for each of a sequence of travel time choices. This would reveal the influence of the arbitrarily handled parameter, and show that there's some critical point at which the reachablility curve intersects the targeted manifold. Maybe exhaustive exploration of this dimension is not appropriate in every application, but the relationship is worth illustrating.
+
+--- The specification of a departure point from the periodic orbit. In response to this question, the authors describe how the use of low-thrust propulsion enlarges the reachable set about some "center" defined by one branch of the uncontrolled manifold. This is a key way to think about the approach you've posed but it is not illustrated in the paper. Why not generate some curves under different thrust bounds for a specific departure point/manifold branch? Again you'd be using a sidelined parameter to illustrate something fundamental about the approach. And just maybe there would be a point at which, with high thrust, you start to see "bang-bang" type control and establish more connection to intuition. 
+
+--- Actually, the influence of the starting point selection *is* somewhat illustrated by the green unstable manifold of Fig7b/8b. The way a mission designer might think about applying this tool could be to start with this information as a baseline and then use principles revealed by the preceding two types of illustration to make some informed way of selecting a combination of [departure point, travel time, max thrust] to get the sets to intersect without oversizing their system. That said, it's a little confusing how the red and green curves of Fig8b don't line up with this description to fit the comment of P18L47; additional consideration/analysis may be needed with regards to the number of revs/crossings used to define a section for comparison.
+
+--- I previously mentioned my dissatisfaction with the interpretability of the control solution (which is plotted in planar components). On further consideration, I think a time series plot of the Jacobi energy would be beneficial to help vet whether the method is working reasonably. From intuition, one might expect an efficient solution to exhibit a span of monotonic energy increase, a relatively constant coasting span, and then a monotonic decrease back to the Poincare section value. As is, the two roughly constant thrusting phases visible in the plot suggest that this might be happening, but it's hard to be sure. Less consistent behavior might indicate, for example, that a longer-than-necessary transfer time was used. 
+
+--- Following that thought, I have serious concerns about chaining this Poincare-based approach, as done in the second problem and as I previously asked about. The authors' responded: "While the trajectories do return to the energy level of the Poincare section, there is a transfer of "energy" between the states of the vehicle." Frankly, this statement doesn't make sense to me. I think that you are actually getting a very inefficient solution by forcing these repeated (and at fixed intervals) returns to the same energy level (again, plot the Jacobi time series and see if you can square it with your intuition). Furthermore posing the problem as a transfer to the stable manifold kind of hamstrings the motivation of reducing transfer times. Honestly, I think this second example should simply be axed. If the first one is expanded enough to illustrate the problem fundamentals, it will be sufficient. Conducting the same kind of analysis at a couple different rev counts would reveal the dimension that this second example added, and help reveal the limits of the approach under certain scenarios and thrust capabilities.
+
+To summarize my thoughts on ISSUE 2:
+As they exist, the examples illustrate that solutions can be found but they do not enlighten the reader as to the characteristics of the problem formulation/tool that should be understood and kept in mind when applying it or when planning related research efforts. Furthermore, I am very suspicious that Example 2 is not actually a good solution or a compelling use case for the approach. I do not necessarily ask or expect the authors to follow my above outline precisely, but I insist that some changes occur to make the analysis/illustrations better convey the general nature of the tool, not just that it gives you an answer. 
+
+A more collected and focused discussion about how the parameter choices, assumptions, and limitations of the tool should inform its use is also warranted; currently remarks to this effect feel like scattered afterthoughts. One organized way to think about this is to distinguish all the dimensions of the problem and identify what is being solved rigorously, what is being set manually, what is being numerically explored, etc.
+
+
+
+
+********
