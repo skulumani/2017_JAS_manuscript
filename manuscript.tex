@@ -310,7 +310,7 @@ This results in the complete discrete update map \( \vecbf{x}_k \to \vecbf{x}_{k
         The energy level is high enough to enter the vicinity of the Moon but not escape the three body system.\label{fig:compare_trajectory}}
         [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{trajectory}}~
         \subcaptionbox{Mean Jacobi integral deviation between variational integrator and Matlab \texttt{ODE45}: A range of fixed step sizes are used for the variational integrator to approximately match the computational time of \texttt{ODE45}\label{fig:compare_energy}}
-        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{figures/cputimevsE.pdf}}~
+        [0.5\textwidth]{\includegraphics[width=\textwidth, height=0.2\textheight, keepaspectratio]{cputimevsE.pdf}}~
     \label{fig:integrator_compare} 
 \end{figure}
 
@@ -714,8 +714,8 @@ Each solution on the reachability set is computed in approximately \SI{2}{\minut
 The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:varying_tf_reachability_sets}.
 
 \begin{figure}
-    \subcaptionbox{Position space view of reachability sets\label{fig:varying_tf_trajectory}}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/trajectory_varying_um.pdf}}~
-    \subcaptionbox{\Poincare section view of reachability sets\label{fig:varying_tf_poincare}}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/poincare_section_varying_um.pdf}}
+    \subcaptionbox{Position space view of reachability sets\label{fig:varying_tf_trajectory}}{\includegraphics[width=0.5\textwidth]{trajectory_varying_um.pdf}}~
+    \subcaptionbox{\Poincare section view of reachability sets\label{fig:varying_tf_poincare}}{\includegraphics[width=0.5\textwidth]{poincare_section_varying_um.pdf}}
     \caption{Variation of \( t_f \) and \( u_m\) on the reachability set. 
         Colors, \braces{\text{red}, \text{blue}, \text{green}, \text{yellow}}, are used note increasing \( t_f\) while markers, \braces{\text{circle}, \text{square}, \text{cross}}, are used to denote increasing \(u_m\).
     Increasing the maximum control bound has a large effect and enables the reachability set to intersect the target manifold. 
@@ -770,7 +770,7 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
         \end{subfigure}~
 
         \begin{subfigure}[htbp]{0.5\textwidth} 
-            \includegraphics[width=\textwidth, keepaspectratio]{figures/l1_transfer/jacobi.pdf} 
+            \includegraphics[width=\textwidth, keepaspectratio]{jacobi.pdf} 
             \caption{Jacobi Energy over transfer \label{fig:jacobi_l1}} 
         \end{subfigure} 
 
@@ -905,39 +905,39 @@ We use the same initial guess of \( \vecbf{\lambda}_0\) as in~\cref{sec:periodic
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage1_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage1_trajectory_zoom.pdf} 
         \caption{Stage 1 Trajectory~\label{fig:stage1_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage1_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage1_poincare.pdf} 
         \caption{Stage 1 \Poincare~section \label{fig:stage1_poincare}} 
     \end{subfigure}
 
 
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage2_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage2_trajectory_zoom.pdf} 
         \caption{Stage 2 Trajectory~\label{fig:stage2_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage2_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage2_poincare.pdf} 
         \caption{Stage 2 \Poincare~section \label{fig:stage2_poincare}} 
     \end{subfigure}
 
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage3_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage3_trajectory_zoom.pdf} 
         \caption{Stage 3 Trajectory~\label{fig:stage3_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage3_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage3_poincare.pdf} 
         \caption{Stage 3 \Poincare~section \label{fig:stage3_poincare}} 
     \end{subfigure}
  
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage5_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage5_trajectory_zoom.pdf} 
         \caption{Stage 4 Trajectory~\label{fig:stage4_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage4_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage4_poincare.pdf} 
         \caption{Stage 4 \Poincare~section \label{fig:stage4_poincare}} 
     \end{subfigure}   
     \caption{Stage 1-4 reachability sets: The first four reachability sets visualized in both the position (left) and \Poincare space (right).
@@ -970,38 +970,38 @@ In~\cref{fig:stage2_trajecotry_zoom}, the first stage trajectory is shown in red
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage5_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage5_trajectory_zoom.pdf} 
         \caption{Stage 5 Trajectory~\label{fig:stage5_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage5_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage5_poincare.pdf} 
         \caption{Stage 5 \Poincare~section \label{fig:stage5_poincare}} 
     \end{subfigure}
 
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage6_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage6_trajectory_zoom.pdf} 
         \caption{Stage 6 Trajectory~\label{fig:stage6_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage6_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage6_poincare.pdf} 
         \caption{Stage 6 \Poincare~section \label{fig:stage6_poincare}} 
     \end{subfigure}
 
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage7_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage7_trajectory_zoom.pdf} 
         \caption{Stage 7 Trajectory~\label{fig:stage7_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage7_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage7_poincare.pdf} 
         \caption{Stage 7 \Poincare~section \label{fig:stage7_poincare}} 
     \end{subfigure}
  
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage8_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage8_trajectory_zoom.pdf} 
         \caption{Stage 8 Trajectory~\label{fig:stage8_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{figures/geo_transfer/stage8_poincare.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage8_poincare.pdf} 
         \caption{Stage 8 \Poincare~section \label{fig:stage8_poincare}} 
     \end{subfigure}   
     \caption{Stage 5-8 reachability sets: The last four reachability sets visualized in both the position (left) and \Poincare space (right).
@@ -1061,11 +1061,11 @@ The final optimal control drives the vehicle towards the target manifold with th
 \subcaptionbox{\Poincare section: Minimum distance states from each iteration of the reachability set analysis (red) with respect to the stable invariant manifold (green)\label{fig:geo_transfer_poincare}}{\includegraphics[width=0.45\textwidth]{poincare}}
     \hfill
     \subcaptionbox{Control Input: Combined control history for each stage of the reachability analysis. 
-    The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.45\textwidth]{figures/control_input_geo.pdf}}
+    The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.45\textwidth]{control_input_geo.pdf}}
 
     \subcaptionbox{Jacobi Energy: Energy history throughout the transfer.
     Each stage of the transfer serves to increase the energy towards the stable manifold. 
-The final reachability set intersects the stable manifold and enables a large final maneuver to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.5\textwidth]{figures/geo_transfer/jacobi_energy.pdf}}
+The final reachability set intersects the stable manifold and enables a large final maneuver to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.5\textwidth]{jacobi_energy.pdf}}
 
         \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
 \end{figure}

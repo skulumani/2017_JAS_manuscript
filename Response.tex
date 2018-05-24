@@ -420,8 +420,8 @@ These are itemized below.
             The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:varying_tf_reachability_sets}.
 
             \begin{figure}
-                \subcaptionbox{Position space view of reachability sets}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/trajectory_varying_um.pdf}}~
-                \subcaptionbox{\Poincare section view of reachability sets}{\includegraphics[width=0.5\textwidth]{figures/l1_transfer/poincare_section_varying_um.pdf}}
+                \subcaptionbox{Position space view of reachability sets}{\includegraphics[width=0.5\textwidth]{trajectory_varying_um.pdf}}~
+                \subcaptionbox{\Poincare section view of reachability sets}{\includegraphics[width=0.5\textwidth]{poincare_section_varying_um.pdf}}
                 \caption{Variation of \( t_f \) and \( u_m\) on the reachability set. 
                     Colors, \braces{red, blue, green, yellow}, are used note increasing \( t_f\) while markers, \braces{circle, square, cross}, are used to denote increasing \(u_m\).
                     Increasing the maximum control bound has a large effect and enables the reachability set to intersect the target manifold. 
@@ -504,7 +504,7 @@ That said, it's a little confusing how the red and green curves of Fig8b don't l
                 \end{subfigure}~
 
                 \begin{subfigure}[htbp]{0.4\textwidth} 
-                    \includegraphics[width=\textwidth, keepaspectratio]{figures/l1_transfer/jacobi.pdf} 
+                    \includegraphics[width=\textwidth, keepaspectratio]{jacobi.pdf} 
                     \caption{Jacobi Energy over transfer \label{fig:jacobi_l1}} 
                 \end{subfigure} 
 
@@ -541,11 +541,11 @@ The final optimal control drives the vehicle towards the target manifold with th
 \subcaptionbox{\Poincare section: Minimum distance states from each iteration of the reachability set analysis (red) with respect to the stable invariant manifold (green)\label{fig:geo_transfer_poincare}}{\includegraphics[width=0.4\textwidth]{poincare}}
     \hfill
     \subcaptionbox{Control Input: Combined control history for each stage of the reachability analysis. 
-    The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.4\textwidth]{figures/control_input_geo.pdf}}
+    The control always remains within the maximum bound.\label{fig:control_input_geo}}{\includegraphics[width=0.4\textwidth]{control_input_geo.pdf}}
 
     \subcaptionbox{Jacobi Energy: Energy history throughout the transfer.
     Each stage of the transfer serves to increase the energy towards the stable manifold. 
-The final reachability set intersects the stable manifold and enables a large final manuever to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.4\textwidth]{figures/geo_transfer/jacobi_energy.pdf}}
+The final reachability set intersects the stable manifold and enables a large final manuever to the target orbit.\label{fig:jacobi_geo}}{\includegraphics[width=0.4\textwidth]{jacobi_energy.pdf}}
 
         \caption{Geostationary to \( L_1 \) periodic orbit transfer: Complete transfer from the geostationary orbit to the stable manifold.\label{fig:geo_transfer}}
 \end{figure}
