@@ -1,0 +1,151 @@
+Dear Mr. Kulumani,
+
+We have received the reports from our advisors on your manuscript, "Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem", which you submitted to The Journal of the Astronautical Sciences.
+
+Based on the advice received, I have decided that your manuscript could be reconsidered for publication should you be prepared to incorporate major revisions. When preparing your revised manuscript, you are asked to carefully consider the reviewer comments which can be found below, and submit a list of responses to the comments. You are kindly requested to also check the website for possible reviewer attachment(s).
+
+In order to submit your revised manuscript, please access the following web site:
+
+https://jass.editorialmanager.com/
+
+Your username is: ********
+If you forgot your password, you can click the 'Send Login Details' link on the EM Login page.
+
+Please make sure to submit your editable source files (i. e. Word, TeX). We look forward to receiving your revised manuscript before 06 Sep 2018.
+
+With kind regards,
+Rodney Anderson, Ph.D.
+Associate Editor
+
+
+COMMENTS FOR THE AUTHOR:
+
+Reviewer #1: I appreciate all of the authors' hard work in organizing two very detailed revisions for this journal submission. I've reviewed the second round of revisions and I believe that all of my concerns have been addressed. My opinion is that this paper is worthy of publication by JAS. Thank you for the interesting read.
+
+
+Reviewer #2: I thank the authors for their significant additional improvements relative
+to the previous version of the manuscript, as well as for the organized
+structure of their response. Many of my previous points have been
+addressed to a satisfactory degree. The expositional sections of the paper
+are in much better shape and there are a number of clarifications and
+better acknowledgment of assumptions, pros/cons etc. The parametric
+analysis in the first example is perhaps a bit more limited than I hoped
+for, but is still a good addition.
+
+---
+
+The primary remaining issue for me stems from my previous remark that
+appears at the end of page 10 of the most recent response document. The
+author response on page 13 of that document has not resolved my concerns,
+but rather it has made the nature of the persisting issue more clear to me
+(e.g. through the clarification that the Jacobi energy is not identical for
+all points on the (x,xdot) plots.)
+
+I'll first discuss this in terms of merely minor issues for Sec 4.1. This
+uses a single stage of reachability analysis, and the initial and final
+orbits have different energy levels. However, the corresponding discussion
+in the middle paragraph of page 15 remarks upon an "intersection" between
+the unstable manifold of the initial orbit (E=-1.58 from Fig 9e) and the
+final orbit (E=-1.62 from Fig 9e). The middle of page 18 then contains a
+correct description that acknowledges the Jacobi differences, which are
+handled by the boundary values of the optimization problem. The following
+paragraph then again describes that "a small portion of the invariant
+manifold intersects with the target Moon orbit" and alludes that a
+"secondary impulsive maneuver" would be necessary to complete the transfer.
+This is the first place where the implications of (x,xdot) intersections at
+different energy levels are actively discussed, and it seems conceptually
+odd to consider targeting impulsive transfers in this way since they do not
+require xdot to be matched as a precondition. So, Sec 4.1 would benefit
+from a more clear treatment of the ydot/Jacobi dimension, but the results
+are still valid, and the Jacobi plot implies a sensible solution (first
+raise energy to travel faster, then lower energy to match the target).
+
+The ydot/Jacobi treatment becomes much more problematic in Sec 4.2. Its
+second paragraph again describes achieving an "intersection" of the
+reachability set and the target orbit, and an intermediate criterion of
+minimizing the (x,xdot) distance toward the target. Page 22 line 15 again
+describes the objective as enlarging the reachability set on the (x,xdot)
+plane to include the intersections of the target manifold, and the
+walk-through of Fig 11 discusses closing the gap in terms of (x,xdot)
+alone. In Sec 4.1, it was presuambly the case that the reachable set
+projected onto (x,xdot) always had the Jacobi value of the target orbit.
+This can't be the case for Figs 11-12. Further, the uncontrolled dynamics
+are in no way represented or accounted for (which, for example, cause a big
+jump between stages 3 and 4 that is not due to the influence of control).
+If I'm interpreting this right, the final maneuver is solely to make up for
+the large remaining distance in Jacobi energy after (x,xdot) are already
+matched.
+
+What is really going on with this method is that we are traversing a
+(x,xdot,E) cube from a point on the E=E0 side to a manifold on the opposite
+side where E=Etgt, and at each crossing of y=0 the reachable set is a 3D
+volume. For Sec 4.1, we only care about the intersection of our reachable
+set with the E=Etgt manifold, and so the 2D (x,xdot) reasoning makes sense.
+But the multi-use approach is only reasoning about the (x,xdot) plane for a
+single horizon with fixed transfer time, presumably with the E dimension
+being reduced to whichever values maximize (x,xdot) distance, in which case
+the red and blue points in Figs 11-12 might all have different energy
+levels. Fig 13c seems to disprove that the (x,xdot) distance is a good
+heuristic for receding-horizon use of this scheme, since the resulting path
+to the manifold is nothing at all like a straight line to the closest part
+of it. Furthermore, the spread of these points is about as much as the
+spread of the reachable set in some individual stages such as stage 6. Fig
+13e is also not indicative of an efficient transfer; to me, the highly
+nonmonotonic behavior suggest that a lot of fuel is being wasted to ensure
+that y=0 is crossed at a rather arbitrary sequence of times.
+
+---
+
+As painful as it is to prolong the review process any more, I cannot
+approve publication of the paper considering the extent of the problems
+with the example of 4.2 (barring that the remaining reviewer and the editor
+identify some way in which I am mistaken or have missed something). The
+authors have been very accommodating in making extensive updates to the
+organization and writing of the paper, but have not adequately addressed
+matters relating to the fundamental contributions. What it would take for
+me to enthusiastically accept this manuscript is either for the mutli-rev
+use of the method to be implemented in a better-reasoned way with a more
+demonstrably good solution (I'm not sure how) or for example 4.2 to be
+dropped and for the single-use case to be analyzed in more depth (some
+steps were taken toward that in this revision). At a very minimum, all the
+aspects I have mentioned need to at least be acknowledged as limitations
+of the method/as being counter to some of the assumptions of the 
+formulation.
+
+Given the significant remaining issues above, I am going to keep further
+feedback a bit more brief:
+
+* As mentioned before, at a high level, transferring onto the stable
+manifold kind of undercuts the premise of using low thrust to reduce the
+transfer time
+
+* The extra analysis behind Fig 8 is a step in the right direction, but in
+practice it is hard to make sense of, and might require additional
+figures/better color choices. Why are all the reachable sets nearly
+straight lines, when we expected some kind of closed path to arise from
+sweeping 0 < theta < 360? Why are some progressions of sets so irregular
+(e.g. red cross --> blue cross --> green cross --> yellow cross signifying
+increase in travel time with fixed large umax, which results in darting
+back and forth in the x dimension)? The 25 lines of discussion do not
+acknowledge these oddities, nor do they seem to completely line up with the
+figure. There seem to remain unexplored/unexplained relationships that
+would in practice need to be used to justify parameter choices by anyone
+applying this method. 
+
+* As mentioned before, the Poincare illustrations of Fig 2 and 3 would be
+more helpful if they were more general. The first could benefit from
+showing nonperiodic dynamics, the second from showing a non-circular
+reachable boundary (I know the text acknowledges this but please update the
+figure). 
+
+* I wonder under what circumstances the reachable set might intersect a
+given theta_d in multiple places. This is something that could be looked
+into to expand the strength of a submission focusing only on the
+single-horizon use of the method.
+
+* There are still some very long single paragraphs in the paper.
+
+
+
+
+********
