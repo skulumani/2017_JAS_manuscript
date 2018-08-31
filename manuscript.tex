@@ -785,10 +785,16 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
 % generate the optimal transfer
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
-This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
+This intersection generates a partial target state of \( x_t, \dot{x}_t \) and \( y = 0 \) from the \Poincare section.
 Using the energy level of the target region, defined by~\cref{eq:jacobi}, and the intersection state we can calculate the final component \( \dot{y} \). 
 This results in a complete target state \( \vecbf{x}_t \) which lies on the reachable set and on the target orbit. 
+Due to the use of low-thrust propulsion, there is a change in Jacobi energy during the transfer as the vehicle transitions between the initial and final periodic orbits. 
+This behavior is demonstrated in~\cref{fig:jacobi_l1} as the vehicles experiences an increase in energy transitioning towards the target followed by a decrease to arrive at the target.
+
 A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x}_t \).
+This transfer serves to satisfy a required boundary condition to ensure a continous trajectory to the target. 
+The reachability set, and the intersection on the \Poincare section, are used to generate a partial target state for the transfer. 
+Due to the difference in Jacobi energy, a final optimal transfer is computed to satisfy the desired target state.
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
 The optimal control input is shown in~\cref{fig:control_l1}. 
 The spacecraft achieves the desired target while satisfying the bounded control input.
@@ -1073,8 +1079,12 @@ The final reachability set intersects the stable manifold and enables a large fi
 
 This numerical example demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
 We use eight iterations of computing the reachability set in order to transfer from the geostationary orbit to the stable manifold.
+The example shows a transfer between an initial geostationary orbit and the stable manifold associated with a periodic orbit. 
 This approach allows for a larger class of potential transfers which leverage the capabilities of low-thrust propulsion systems.
-We are able to achieve a transfer that is not possible via the standard invariant manifold approach. 
+However, the presented approach does not offer a optimal solution in terms of energy/fuel usuage. 
+The reachability sets are computed on the lower dimensional \Poincare section.
+As a result, the repeated intersections of the trajectory with the \Poincare section results in a fuel inefficient transfer.
+However, We are able to achieve a transfer that is not possible via the invariant manifold alone as manfiold does not pass sufficiently close to the Earth.
 In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
 
 \section{Conclusions}\label{sec:conclusion}

@@ -140,9 +140,28 @@ Thank you for the comments.
                 This specifies the complete target state among the desired period orbit.
             \item Finally, an optimal control problem is solved with the target state defined in the previous step.
         \end{itemize}
-        More specifically, the statements pointed out in the review are revised, and the following paragraph is added. 
+        More specifically, the statements pointed out in the review are revised, and the following paragraphs are modified in the manuscript. 
         \begin{correction}
-            TO DO
+            \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
+            As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
+            This intersection generates a partial target state of \( x_t, \dot{x}_t \) and \( y = 0 \) from the \Poincare section.
+            Using the energy level of the target region, defined by~\cref{eq:jacobi}, and the intersection state we can calculate the final component \( \dot{y} \). 
+            This results in a complete target state \( \vecbf{x}_t \) which lies on the reachable set and on the target orbit. 
+            Due to the use of low-thrust propulsion, there is a change in Jacobi energy during the transfer as the vehicle transitions between the initial and final periodic orbits. 
+            This behavior is demonstrated in~\cref{fig:jacobi_l1} as the vehicles experiences an increase in energy transitioning towards the target followed by a decrease to arrive at the target.
+
+            A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x}_t \).
+            This transfer serves to satisfy a required boundary condition to ensure a continous trajectory to the target. 
+            The reachability set, and the intersection on the \Poincare section, are used to generate a partial target state for the transfer. 
+            Due to the difference in Jacobi energy, a final optimal transfer is computed to satisfy the desired target state.
+            This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
+            The optimal control input is shown in~\cref{fig:control_l1}. 
+            The spacecraft achieves the desired target while satisfying the bounded control input.
+            The Jacobi energy integral, computed using~\cref{eq:jacobi}, is shown in~\cref{fig:jacobi_l1}.
+            \Cref{fig:jacobi_l1} shows that the vehicle begins with an energy level equal to the periodic orbit and arrives at the target orbit with the appropriate energy.
+            The first half of the transfer is associated with and increase in energy as the control is used to transition towards the target orbit which is followed by a energy decrease to the target orbit.
+            This roughly corresponds with the expected optimal solution of a bang-coast-bang type orbital transfer~\cite{kirk2012}.
+            Convergence statistics associated for this transfer are shown in~\cref{tab:l1_transfer_stats}.
         \end{correction}
 
     \item
@@ -201,19 +220,30 @@ Thank you for the comments.
 
         The authors agree with most of these comments, and we appreciate the thoughtful insights. 
         As stated in the previous response, the intersection between the reachability set and the stable manifold to the desired periodic orbit is computed in the lower-dimensional space, and as such, the energy error in the last stage should be corrected by an additional optimization scheme. 
+        The stable manifold is utilized a convienent target set for the example scenario. 
+        Furthermore, there is additional benefit for this type of transfer as the stable manifold does not pass sufficiently close to the Earth for a direct injection, i.e. from Low Earth Orbit.
 
         However, the example in Section 4.2 illustrates that the proposed approach can be linked together to compute low-thrust transfers for more challenging maneuvers, with the requirement of correcting energy error at the last stage. 
-        Such issue remains in the single stage example in Section 4.1. 
+        This example demonstrates a possible approach to linking several computations of the reachability set to achieve a larger and more challenging transfer.
+        There is still a difference in Jacobi energy which is corrected in the final stage.
         If needed in the multi stage examples, the Jacobi energy can be corrected in the intermediate steps to reduce the energy gap in the last stage. 
 
         This paper is motivated by the current common practice of computing low thrust orbital transfers, where a large set of initial guess is repeatedly optimized in a computationally intensive manner. 
         The main contribution is presenting an alternative framework of constructing low thrust orbital transfers in a more efficient and systematic fashion. 
-        And, the example in Section 4.2 demonstrates such capability. 
+        The example in Section 4.2 demonstrates the use of several intersections of the reachability set to determine a transfer.
 
         In the revised manuscript, the following paragraph is added in Section 4.2 to explicitly describe the requirement of energy correction at the last stage, its implication and potential difficulties. 
 
         \begin{correction}
-            TODO
+            This numerical example demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
+            We use eight iterations of computing the reachability set in order to transfer from the geostationary orbit to the stable manifold.
+            The example shows a transfer between an initial geostationary orbit and the stable manifold associated with a periodic orbit. 
+            This approach allows for a larger class of potential transfers which leverage the capabilities of low-thrust propulsion systems.
+            However, the presented approach does not offer a optimal solution in terms of energy/fuel usuage. 
+            The reachability sets are computed on the lower dimensional \Poincare section.
+            As a result, the repeated intersections of the trajectory with the \Poincare section results in a fuel inefficient transfer.
+            However, We are able to achieve a transfer that is not possible via the invariant manifold alone as manfiold does not pass sufficiently close to the Earth.
+            In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
         \end{correction}
 
         In the current practice of academic publication, if a new idea is presented in a manuscript and both of the desirable properties and the potential issues are illustrated explicitly, it is considered to be worth of sharing. 
@@ -254,7 +284,11 @@ Thank you for the comments.
             would in practice need to be used to justify parameter choices by anyone
             applying this method.   
         \end{itshape}
-
+        
+        The various reachable sets appear as straight lines due to the discretization used and the level of zoom of the figure.
+        In reality the reachable sets are highly elongated ellipses on the \Poincare section.
+        This is due to a combination of factors, namely that the low thrust propulsion cannot greatly deviate from the natural dynamics and that the nature of the optimization results in approximate numerical solutions subject to the choice of tolerance levels.
+        In addition, as the figure shows theres is a nontrivial relationship between terminal time and control magnitude. 
     \item
         \begin{itshape}
 
