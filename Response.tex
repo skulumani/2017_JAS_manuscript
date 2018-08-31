@@ -288,7 +288,17 @@ Thank you for the comments.
         The various reachable sets appear as straight lines due to the discretization used and the level of zoom of the figure.
         In reality the reachable sets are highly elongated ellipses on the \Poincare section.
         This is due to a combination of factors, namely that the low thrust propulsion cannot greatly deviate from the natural dynamics and that the nature of the optimization results in approximate numerical solutions subject to the choice of tolerance levels.
-        In addition, as the figure shows theres is a nontrivial relationship between terminal time and control magnitude. 
+        In addition, as the figure shows there is a nontrivial relationship between terminal time and control magnitude. 
+        The resulting reachability set is heaviliy dependent on the specific problem, choice of initial conditions, terminal time, and control bound.
+        The figure is meant to illustrate some large scale, general properties of the approach, namely that an incrase in terminal time and/or control magnitude will have the effect of enlarging and moving the resulting reachable set.
+     The intention is not to present an exhaustive search/discussion of this specific situation but rather to illustrate the effect of variations in terminal time and maximum control magnitude.
+        The revised manuscript explicitly states this:
+        \begin{correction}
+            The reachable sets presented in~\cref{fig:varying_tf_reachability_sets} are highly dependent on the initial condition, terminal time, and maximum control bound. 
+            This example demonstrates that increasing the \( u_m \) results in a larger displacement between the controlled and uncontrolled trajectories.
+            The reachable set is enlarged from a single point, as shown in~\cref{fig:manifold_poincare} by the black point, to a larger region as shown in~\cref{fig:varying_tf_poincare}.
+            The choice of \( u_m\), \( t_f \) and initial condition all combine to change the resulting reachability set. 
+        \end{correction}
     \item
         \begin{itshape}
 
@@ -298,6 +308,9 @@ Thank you for the comments.
             reachable boundary (I know the text acknowledges this but please update the
             figure).  
         \end{itshape}
+        The illustrations of the \Poincare section match the typical depication in many other publications~\cite{koon2001}.
+        Furthermore, the illustrations are merely utilized as helpful visualizations of the concepts, specifically periodic solutions, lower dimensional \Poincare sections, and reachable sets, rather than specific depictions of a solution.
+        An additional comment is added to the caption specifically mentioning that the reachable set can be any arbitrary shape, and potentially non-continuous.
 
     \item
         \begin{itshape}
@@ -307,13 +320,18 @@ Thank you for the comments.
             into to expand the strength of a submission focusing only on the
             single-horizon use of the method.
         \end{itshape}
+        
+        Thank you for the comment.
+        This is an interesting question and a possible avenue for future research.
 
     \item 
         \begin{itshape}
 
             * There are still some very long single paragraphs in the paper.
         \end{itshape}
-
+        
+        Thank you for the comment. 
+        The manuscript has been revised and the long single paragraphs have been divided.
 \end{itemize}
 
 \bibliography{library}

@@ -321,10 +321,12 @@ The variational integrator uses a range of step sizes between \SIrange{47.2}{472
 The step size of the variational integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
 Both integration schemes result in trajectories that are initially nearly identical.
+
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
 For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the conventional integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
+
 This work uses a second order integrator which has improved energy behavior in comparison to first order integration techniques without a significant increase in computational demand.
 The variational integrator is constructed according to a discrete version of Hamilton's principle, specifically for the given dynamic system, and it provides long-term structural stability in capturing the effects of low-thrust propulsion systems.
 General purpose numerical integrators, such as adaptive stepsize Runge-Kutta methods may yield a more accurate state trajectory depending on the choice of integration parameters, but at the expense of additional computational demand and total energy deviations.
@@ -432,7 +434,8 @@ In practice, the reachable set will be of a general shape and also higher dimens
             The terminal state, \( x_n\), is the intersection without any control input. 
             Adding a control input allows for the terminal state, \( x_f \), to be displaced by some distance/cost \( J \) as measured on the section.
             We parameterize a specific direction on the section with the angles \( \theta_d\) and seek to maximize the distance between \( x_f \) and \( x_n \).
-            Computation of the maximum distance, or reachability, for a variety angles gives a discrete approximation of the reachability set.\label{fig:reachability_set}}
+            Computation of the maximum distance, or reachability, for a variety angles gives a discrete approximation of the reachability set.
+        In general, the reachable set can be an arbitrary shape on the section rather than the circular set depicted.\label{fig:reachability_set}}
 \end{figure}
 
 We define the \Poincare section along the horizontal axis, which is equivalent to the surface \( y = 0 \), and given by
