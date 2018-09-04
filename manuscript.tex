@@ -1084,11 +1084,13 @@ This numerical example demonstrates the ability to link several computations of 
 We use eight iterations of computing the reachability set in order to transfer from the geostationary orbit to the stable manifold.
 The example shows a transfer between an initial geostationary orbit and the stable manifold associated with a periodic orbit. 
 This approach allows for a larger class of potential transfers which leverage the capabilities of low-thrust propulsion systems.
-However, the presented approach does not offer a optimal solution in terms of energy/fuel usuage. 
+However, the presented approach does not offer a optimal solution in terms of energy/fuel usage. 
 The reachability sets are computed on the lower dimensional \Poincare section.
 As a result, the repeated intersections of the trajectory with the \Poincare section results in a fuel inefficient transfer.
-However, We are able to achieve a transfer that is not possible via the invariant manifold alone as manfiold does not pass sufficiently close to the Earth.
-In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
+Furthermore, the issue of discrepancy in the Jacobi integral may become more serious when multiple reachability sets are interconnected. 
+Nonetheless, we are able to apply the proposed approach for the challenging case where the reachability set is not sufficiently close to the invariant manifold of the target orbit. 
+Consequently, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
+The presented idea of connecting reachability sets can be further studied to address the aforementioned issues of optimality and mismatch of the Jacobi integral.
 
 \section{Conclusions}\label{sec:conclusion}
 In this paper, we construct a systematic approach which combines the concepts of reachability sets and \Poincare~sections to generate orbital transfers between planar periodic orbits in the three-body problem using low-thrust propulsion systems.
