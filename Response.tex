@@ -239,11 +239,13 @@ Thank you for the comments.
             We use eight iterations of computing the reachability set in order to transfer from the geostationary orbit to the stable manifold.
             The example shows a transfer between an initial geostationary orbit and the stable manifold associated with a periodic orbit. 
             This approach allows for a larger class of potential transfers which leverage the capabilities of low-thrust propulsion systems.
-            However, the presented approach does not offer a optimal solution in terms of energy/fuel usuage. 
+            However, the presented approach does not offer a optimal solution in terms of energy/fuel usage. 
             The reachability sets are computed on the lower dimensional \Poincare section.
             As a result, the repeated intersections of the trajectory with the \Poincare section results in a fuel inefficient transfer.
-            However, We are able to achieve a transfer that is not possible via the invariant manifold alone as manfiold does not pass sufficiently close to the Earth.
-            In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
+            Furthermore, the issue of discrepancy in the Jacobi integral may become more serious when multiple reachability sets are interconnected. 
+            Nonetheless, we are able to apply the proposed approach for the challenging case where the reachability set is not sufficiently close to the invariant manifold to the target orbit. 
+            Consequently, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
+            The presented idea of connecting reachability sets can be further studied to address the aforementioned issues of optimality and mismatch of the Jacobi integral.
         \end{correction}
 
         In the current practice of academic publication, if a new idea is presented in a manuscript and both of the desirable properties and the potential issues are illustrated explicitly, it is considered to be worth of sharing. 
@@ -265,7 +267,8 @@ Thank you for the comments.
 
         In this paper, the natural, uncontrolled dynamics represented by stable manifold are considered as a good starting point for low thrust orbital transfers, as orbital maneuvers with low thrust over a short time period would not differ from those substantially. 
         But, as pointed out by the reviewer, the proposed approach does not impose any optimality in the constructed maneuver. 
-        The scope of this paper is constructing low thrust orbital maneuvers without relying on massive computations. 
+        The scope of this paper is constructing low thrust orbital maneuvers without relying on massive computations that appear in the common practice. 
+        We aim to deliver a more systematic method for low thrust orbital design, which is to satisfy the given boundary conditions. 
         To clarify these, the revised manuscripts states that there is no optimality guaranteed.
 
     \item
@@ -308,6 +311,7 @@ Thank you for the comments.
             reachable boundary (I know the text acknowledges this but please update the
             figure).  
         \end{itshape}
+
         The illustrations of the \Poincare section match the typical depication in many other publications~\cite{koon2001}.
         Furthermore, the illustrations are merely utilized as helpful visualizations of the concepts, specifically periodic solutions, lower dimensional \Poincare sections, and reachable sets, rather than specific depictions of a solution.
         An additional comment is added to the caption specifically mentioning that the reachable set can be any arbitrary shape, and potentially non-continuous.
