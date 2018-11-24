@@ -321,10 +321,12 @@ The variational integrator uses a range of step sizes between \SIrange{47.2}{472
 The step size of the variational integrator is varied to approximately match the run time required by the conventional \texttt{ODE45} integrator.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference for this comparison.
 Both integration schemes result in trajectories that are initially nearly identical.
+
 \Cref{fig:compare_energy} shows the mean Jacobi integral deviation over the entire simulation time as a function of computation time.
 For a given computational effort, in the form of simulation run time, the variational integrator will provide a smaller energy deviation as compared to the conventional integration scheme.
 Over long simulation horizons or with the addition of small control inputs the inability of conventional integration schemes to accurately track the system energy limits the applicability of conventional techniques in which energy conservation is mandatory for characterizing the solution space.
 In spite of this improved energy behavior, the order and design of the variational integrator still play an important role in the accuracy of the state vector.
+
 This work uses a second order integrator which has improved energy behavior in comparison to first order integration techniques without a significant increase in computational demand.
 The variational integrator is constructed according to a discrete version of Hamilton's principle, specifically for the given dynamic system, and it provides long-term structural stability in capturing the effects of low-thrust propulsion systems.
 General purpose numerical integrators, such as adaptive stepsize Runge-Kutta methods may yield a more accurate state trajectory depending on the choice of integration parameters, but at the expense of additional computational demand and total energy deviations.
@@ -432,7 +434,8 @@ In practice, the reachable set will be of a general shape and also higher dimens
             The terminal state, \( x_n\), is the intersection without any control input. 
             Adding a control input allows for the terminal state, \( x_f \), to be displaced by some distance/cost \( J \) as measured on the section.
             We parameterize a specific direction on the section with the angles \( \theta_d\) and seek to maximize the distance between \( x_f \) and \( x_n \).
-            Computation of the maximum distance, or reachability, for a variety angles gives a discrete approximation of the reachability set.\label{fig:reachability_set}}
+            Computation of the maximum distance, or reachability, for a variety angles gives a discrete approximation of the reachability set.
+        In general, the reachable set can be an arbitrary shape on the section rather than the circular set depicted.\label{fig:reachability_set}}
 \end{figure}
 
 We define the \Poincare section along the horizontal axis, which is equivalent to the surface \( y = 0 \), and given by
@@ -785,10 +788,16 @@ The reachable set is an ellipsoidal region with a major axis aligned along \( \t
 % generate the optimal transfer
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
-This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
+This intersection generates a partial target state of \( x_t, \dot{x}_t \) and \( y = 0 \) from the \Poincare section.
 Using the energy level of the target region, defined by~\cref{eq:jacobi}, and the intersection state we can calculate the final component \( \dot{y} \). 
 This results in a complete target state \( \vecbf{x}_t \) which lies on the reachable set and on the target orbit. 
+Due to the use of low-thrust propulsion, there is a change in Jacobi energy during the transfer as the vehicle transitions between the initial and final periodic orbits. 
+This behavior is demonstrated in~\cref{fig:jacobi_l1} as the vehicles experiences an increase in energy transitioning towards the target followed by a decrease to arrive at the target.
+
 A final optimal trajectory is generated such that the \( \vecbf{x}(N) = \vecbf{x}_t \).
+This transfer serves to satisfy a required boundary condition to ensure a continous trajectory to the target. 
+The reachability set, and the intersection on the \Poincare section, are used to generate a partial target state for the transfer. 
+Due to the difference in Jacobi energy, a final optimal transfer is computed to satisfy the desired target state.
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_transfer}.
 The optimal control input is shown in~\cref{fig:control_l1}. 
 The spacecraft achieves the desired target while satisfying the bounded control input.
@@ -934,7 +943,7 @@ We use the same initial guess of \( \vecbf{\lambda}_0\) as in~\cref{sec:periodic
     \end{subfigure}
  
     \begin{subfigure}[htbp]{0.5\textwidth} 
-        \includegraphics[width=\textwidth, keepaspectratio]{stage5_trajectory_zoom.pdf} 
+        \includegraphics[width=\textwidth, keepaspectratio]{stage4_trajectory_zoom.pdf} 
         \caption{Stage 4 Trajectory~\label{fig:stage4_trajecotry_zoom}} 
     \end{subfigure}~
     \begin{subfigure}[htbp]{0.5\textwidth} 
@@ -1073,9 +1082,15 @@ The final reachability set intersects the stable manifold and enables a large fi
 
 This numerical example demonstrates the ability to link several computations of the reachability set to enable a more general transfer.
 We use eight iterations of computing the reachability set in order to transfer from the geostationary orbit to the stable manifold.
+The example shows a transfer between an initial geostationary orbit and the stable manifold associated with a periodic orbit. 
 This approach allows for a larger class of potential transfers which leverage the capabilities of low-thrust propulsion systems.
-We are able to achieve a transfer that is not possible via the standard invariant manifold approach. 
-In addition, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
+However, the presented approach does not offer a optimal solution in terms of energy/fuel usage. 
+The reachability sets are computed on the lower dimensional \Poincare section.
+As a result, the repeated intersections of the trajectory with the \Poincare section results in a fuel inefficient transfer.
+Furthermore, the issue of discrepancy in the Jacobi integral may become more serious when multiple reachability sets are interconnected. 
+Nonetheless, we are able to apply the proposed approach for the challenging case where the reachability set is not sufficiently close to the invariant manifold of the target orbit. 
+Consequently, this example illustrates a straightforward method to depart from the natural dynamics and transfer to a large region of the phase space that is not accessible via invariant manifolds alone.
+The presented idea of connecting reachability sets can be further studied to address the aforementioned issues of optimality and mismatch of the Jacobi integral.
 
 \section{Conclusions}\label{sec:conclusion}
 In this paper, we construct a systematic approach which combines the concepts of reachability sets and \Poincare~sections to generate orbital transfers between planar periodic orbits in the three-body problem using low-thrust propulsion systems.
